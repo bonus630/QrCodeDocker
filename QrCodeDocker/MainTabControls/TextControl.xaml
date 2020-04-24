@@ -1,0 +1,18 @@
+﻿<TabItem x:Class="br.corp.bonus630.QrCodeDocker.MainTabControls.TextControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
+             mc:Ignorable="d" 
+             >
+    <Grid>
+        <Label Name="lbaMaxChar" Content="{Binding Path=Lang.LabelMaxChars}"/>
+
+        <TextBox TextWrapping="Wrap" x:Name="txt_content" TextChanged="txt_content_TextChanged" Margin="2,23,2,26" PreviewTextInput="txt_content_PreviewTextInput"/>
+        <StackPanel Margin="2,0,0,0" VerticalAlignment="Bottom" Orientation="Horizontal">
+            <Label Content="{Binding Path=Lang.LabelLeftChars}"    Height="26" />
+            <Label Name="lba_count"   Height="26" />
+        </StackPanel>
+    </Grid>
+</TabItem>

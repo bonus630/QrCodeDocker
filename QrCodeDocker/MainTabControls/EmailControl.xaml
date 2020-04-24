@@ -1,0 +1,15 @@
+﻿<TabItem x:Class="br.corp.bonus630.QrCodeDocker.MainTabControls.EmailControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
+             mc:Ignorable="d" 
+             >
+
+    <Grid>
+        <Label Name="lbaEmailField" Content="{Binding Path=Lang.LabelEmailField}"/>
+        <TextBox TextWrapping="Wrap" x:Name="txt_email"  Margin="2,25,0,0" Text="" TextChanged="txt_email_TextChanged"  VerticalAlignment="Top"/>
+        <Button Content="{Binding Path=Lang.ButtonPaste}"  Margin="2,60,0,0" Name="btn_colar2" Click="btn_colar2_Click" Height="38" VerticalAlignment="Top"/>
+    </Grid>
+</TabItem>

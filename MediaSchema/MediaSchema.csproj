@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{365CFEC8-1932-4762-9104-F42DEA9D2201}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>br.corp.bonus630.plugin.MediaSchema</RootNamespace>
+    <AssemblyName>MediaSchema</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X7 Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <!--<OutputPath>bin\Debug\X7\</OutputPath>
+    <OutDir>bin\Debug\X7\$(SolutionName)</OutDir>-->
+    <DefineConstants>DEBUG;TRACE;X7</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X7 Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\X7\</OutputPath>
+    <OutDir>bin\Release\X7\$(SolutionName)\extras</OutDir>
+    <DefineConstants>TRACE;X7</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X8 Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <!--<OutputPath>bin\Debug\X8\</OutputPath>
+    <OutDir>bin\Debug\X8\$(SolutionName)</OutDir>-->
+    <DefineConstants>DEBUG;TRACE;X8</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X8 Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\X8\</OutputPath>
+    <OutDir>bin\Release\X8\$(SolutionName)\extras</OutDir>
+    <DefineConstants>TRACE;X8</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2017 Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <!--<OutputPath>bin\Debug\2017\</OutputPath>
+    <OutDir>bin\Debug\2017\$(SolutionName)</OutDir>-->
+    <DefineConstants>DEBUG;TRACE;X9</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2017 Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\2017\extras</OutputPath>
+    <OutDir>bin\Release\2017\$(SolutionName)\extras</OutDir>
+    <DefineConstants>TRACE;X9</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2018 Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;X10</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2018 Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\2018\</OutputPath>
+    <OutDir>bin\Release\2018\$(SolutionName)\extras</OutDir>
+    <DefineConstants>TRACE;X10</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2019 Release|AnyCPU'">
+    <OutputPath>bin\Release\2019\</OutputPath>
+    <OutDir>bin\Release\2019\$(SolutionName)\extras</OutDir>
+    <DefineConstants>TRACE;X11</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2019 Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;X11</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2020 Release|AnyCPU'">
+    <OutputPath>bin\Release\2020\</OutputPath>
+    <OutDir>bin\Release\2020\$(SolutionName)\extras</OutDir>
+    <DefineConstants>TRACE;X12</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2020 Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;X12</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MediaSchemaUI.xaml.cs">
+      <DependentUpon>MediaSchemaUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Schemes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PluginLoader\PluginLoader.csproj">
+      <Project>{eaf9534f-74a1-4b07-a61c-0eab13c70fb3}</Project>
+      <Name>PluginLoader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QrCodeDocker\QrCodeDocker.csproj">
+      <Project>{0bc78d26-dbd1-4802-bee7-796d2a980471}</Project>
+      <Name>QrCodeDocker</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MediaSchemaUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\facebook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\instagran.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\snapchat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\tel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\telegran.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\twitter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\youtube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\wifi.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <ItemGroup Label="VGCoreReferences">
+    <Reference Label="X8Reference" Include="c:\program files\corel\coreldraw graphics suite x8\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='X8 Debug'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X10Reference" Include="c:\program files\corel\coreldraw graphics suite 2018\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='2018 Debug'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X11Reference" Include="c:\program files\corel\coreldraw graphics suite 2019\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='2019 Debug'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X8Reference" Include="c:\program files\corel\coreldraw graphics suite x8\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='X8 Release'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X10Reference" Include="c:\program files\corel\coreldraw graphics suite 2018\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='2018 Release'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X11Reference" Include="c:\program files\corel\coreldraw graphics suite 2019\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='2019 Release'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X7Reference" Include="c:\program files\corel\coreldraw graphics suite x7\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='X7 Debug'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X9Reference" Include="c:\program files\corel\coreldraw graphics suite 2017\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='2017 Debug'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X7Reference" Include="c:\program files\corel\coreldraw graphics suite x7\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='X7 Release'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X9Reference" Include="c:\program files\corel\coreldraw graphics suite 2017\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='2017 Release'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X12Reference" Include="c:\program files\corel\coreldraw graphics suite 2020\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='2020 Debug'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Label="X12Reference" Include="c:\program files\corel\coreldraw graphics suite 2020\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='2020 Release'">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='X7 Debug'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite x7\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite x7\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Debug\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite x7\programs64\addons\$(SolutionName)\extras" /y
+      copy "$(ProjectDir)bin\Debug\$(TargetName).pdb" "c:\program files\corel\coreldraw graphics suite x7\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Label="X7BuildCopyCommand" Condition="'$(Configuration)'=='X7 Release'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite x7\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite x7\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Release\X7\$(SolutionName)\extras\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite x7\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='X8 Debug'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite x8\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite x8\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Debug\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite x8\programs64\addons\$(SolutionName)\extras" /y
+      copy "$(ProjectDir)bin\Debug\$(TargetName).pdb" "c:\program files\corel\coreldraw graphics suite x8\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Label="X8BuildCopyCommand" Condition="'$(Configuration)'=='X8 Release'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite x8\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite x8\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Release\X8\$(SolutionName)\extras\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite x8\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='2017 Debug'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite 2017\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite 2017\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Debug\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite 2017\programs64\addons\$(SolutionName)\extras" /y
+      copy "$(ProjectDir)bin\Debug\$(TargetName).pdb" "c:\program files\corel\coreldraw graphics suite 2017\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Label="X9BuildCopyCommand" Condition="'$(Configuration)'=='2017 Release'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite 2017\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite 2017\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Release\2017\$(SolutionName)\extras\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite 2017\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='2018 Debug'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite 2018\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite 2018\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Debug\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite 2018\programs64\addons\$(SolutionName)\extras" /y
+      copy "$(ProjectDir)bin\Debug\$(TargetName).pdb" "c:\program files\corel\coreldraw graphics suite 2018\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Label="X10BuildCopyCommand" Condition="'$(Configuration)'=='2018 Release'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite 2018\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite 2018\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Release\2018\$(SolutionName)\extras\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite 2018\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='2019 Debug'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite 2019\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite 2019\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Debug\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite 2019\programs64\addons\$(SolutionName)\extras" /y
+      copy "$(ProjectDir)bin\Debug\$(TargetName).pdb" "c:\program files\corel\coreldraw graphics suite 2019\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Label="X11BuildCopyCommand" Condition="'$(Configuration)'=='2019 Release'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite 2019\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite 2019\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Release\2019\$(SolutionName)\extras\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite 2019\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='2020 Debug'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite 2020\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite 2020\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Debug\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite 2020\programs64\addons\$(SolutionName)\extras" /y
+      copy "$(ProjectDir)bin\Debug\$(TargetName).pdb" "c:\program files\corel\coreldraw graphics suite 2020\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Label="X11BuildCopyCommand" Condition="'$(Configuration)'=='2020 Release'">
+    <PostBuildEvent>
+      if not exist "c:\program files\corel\coreldraw graphics suite 2020\programs64\addons\$(SolutionName)\extras" md "c:\program files\corel\coreldraw graphics suite 2020\programs64\addons\$(SolutionName)\extras"
+      copy "$(ProjectDir)bin\Release\2020\$(SolutionName)\extras\$(TargetFileName)" "c:\program files\corel\coreldraw graphics suite 2020\programs64\addons\$(SolutionName)\extras" /y
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -10,19 +10,21 @@ namespace br.corp.bonus630.ImageRender
     {
         private QrEncoder qrEncoder = new QrEncoder(ErrorCorrectionLevel.H);
         private QrCode qrCode;
-        private BitMatrix bitMatrix;
-    
+        private Gma.QrCodeNet.Encoding.BitMatrix bitMatrix;
+        public BitMatrix BitMatrixProp { get; private set; }
+
         public GmaImageRender():base()
         {
          
          
         }
-        private void EncodeNewBitMatrix(string content)
+        public void EncodeNewBitMatrix(string content, int sqrSize = 0)
         {
             if (!String.IsNullOrEmpty(content))
             {
                 qrCode = qrEncoder.Encode(content);
                 bitMatrix = qrCode.Matrix;
+                BitMatrixProp = new BitMatrix(bitMatrix.InternalArray, bitMatrix.Width, bitMatrix.Height);
             }
           
         }
@@ -111,6 +113,11 @@ namespace br.corp.bonus630.ImageRender
             }
             Debug.WriteLine(bitmap.Width.ToString());
             return bitmap;
+        }
+
+        public string DecodeQrCode(Bitmap bitmap)
+        {
+            throw new NotImplementedException();
         }
     }
 }

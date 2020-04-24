@@ -18,6 +18,8 @@ namespace br.corp.bonus630.ImageRender
         protected string qrCodeDirPath;
         public string QrCodeFilePath { get { return this.qrCodeFilePath; } }
 
+       // public BitMatrix BitMatrix { get; protected set; }
+
         public ImageRenderBase()
         {
             bWhite = Brushes.White;

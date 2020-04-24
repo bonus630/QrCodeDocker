@@ -5,15 +5,19 @@ namespace br.corp.bonus630.ImageRender
 {
     public interface IImageRender
     {
-        string QrCodeFilePath { get; }
+        string QrCodeFilePath {  get; }
         void SaveTempQrCodeFile(string content, int resolution, int sqrSize);
 
-         void SaveTempQrCodeFile(string content);
+        void SaveTempQrCodeFile(string content);
+        string DecodeQrCode(Bitmap bitmap);
+        Bitmap RenderBitmapToMemory(string content, int resolution = 72, int sqrSize = 221);
 
-         Bitmap RenderBitmapToMemory(string content, int resolution = 72, int sqrSize = 221);
+        double Measure();
 
-         double Measure();
+        double InMeasure(double newSize);
 
-         double InMeasure(double newSize);
+        BitMatrix BitMatrixProp {  get; }
+
+        void EncodeNewBitMatrix(string content,int strSize = 0);
     }   
 }

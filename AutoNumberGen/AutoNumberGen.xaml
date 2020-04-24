@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="br.corp.bonus630.plugin.AutoNumberGen.AutoNumberGen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.plugin.AutoNumberGen"
+             mc:Ignorable="d" d:DesignWidth="280">
+    <Grid>
+       <Label Content="Start:" HorizontalAlignment="Left" VerticalAlignment="Top" />    
+       <Label Content="End:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="79,0,0,0" />
+       <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Margin="42,4,0,0" TextChanged="ChangeText" Name="TextBoxStart" />
+       <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Margin="117,4,0,0" TextChanged="ChangeText" Name="TextBoxEnd"/>
+        <Label Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,26,0,0" Name="LabelResult"/>
+    </Grid>
+</UserControl>

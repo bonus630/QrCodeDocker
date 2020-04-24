@@ -4,105 +4,75 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker" x:Class="br.corp.bonus630.QrCodeDocker.Docker" 
-             mc:Ignorable="d" MinWidth="225" 
+             xmlns:tabs="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
+             xmlns:converters="clr-namespace:br.corp.bonus630.QrCodeDocker.Converters"
+             mc:Ignorable="d" MinWidth="326"
              >
-    <ScrollViewer Name="scroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <StackPanel x:Name="box_main" Margin="0,0,0,0">
-            <TabControl Height="200" Name="tabControls" SelectionChanged="tabControls_SelectionChanged">
-                <TabItem Header="Texto" Name="tabItemText">
-                    <Grid Background="#FFE5E5E5">
-                        <Label Content="Texto: (Max 300 Caracteres)"/>
-
-                        <TextBox TextWrapping="Wrap" Text="" x:Name="txt_content" TextChanged="txt_content_TextChanged" Margin="2,23,2,26" PreviewTextInput="txt_content_PreviewTextInput" Width="215"/>
-                        <Label Content="Restam: 300" Name="lba_cont" Margin="2,0,0,0" VerticalAlignment="Bottom" Height="26"></Label>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Url" Name="tabItemUrl">
-                    <Grid Background="#FFE5E5E5">
-                        <Label Content="Digite sua URL no campo abaixo." />
-                        <TextBox TextWrapping="Wrap" x:Name="txt_url"  Margin="2,25,0,0" Text="http://" TextChanged="txt_url_TextChanged" Height="26" Width="217" VerticalAlignment="Top"/>
-                        <Button Content="Colar" Margin="2,60,0,0" Name="btn_colar" Click="btn_colar_Click" Height="38" VerticalAlignment="Top"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Email" Name="tabItemEmail">
-                    <Grid Background="#FFE5E5E5">
-                        <Label Content="Digite o Email no campo abaixo."/>
-                        <TextBox TextWrapping="Wrap" x:Name="txt_email"  Margin="2,25,0,0" Text="" TextChanged="txt_email_TextChanged" Height="26" Width="217" VerticalAlignment="Top"/>
-                        <Button Content="Colar" Margin="2,60,0,0" Name="btn_colar2" Click="btn_colar2_Click" Height="38" VerticalAlignment="Top"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Tel" Name="tabItemTel">
-                    <Grid Background="#FFE5E5E5">
-                        <Label Content="Digite o Telefone no campo abaixo."/>
-                        <TextBox TextWrapping="Wrap" x:Name="txt_tel"  Margin="2,25,0,0" Text="" TextChanged="txt_tel_TextChanged" Height="26" PreviewTextInput="txt_tel_PreviewTextInput" Width="217" VerticalAlignment="Top"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="vCard" Name="tabItemVCard">
-                    <ScrollViewer Background="#FFE5E5E5">
-                        <Grid>
-                            <TextBox VerticalAlignment="Top" Margin="66,4,4,0" Name="txt_vcardTitle" TextChanged="txt_vcard" Width="132"/>
-                            <TextBox  VerticalAlignment="Top" Margin="66,30,4,0" Name="txt_vcardName" TextChanged="txt_vcard" Width="132"/>
-                            <TextBox   VerticalAlignment="Top" Margin="66,56,4,0" Name="txt_vcardEmail" TextChanged="txt_vcard" Width="132"/>
-                            <TextBox  VerticalAlignment="Top" Margin="66,82,4,0" Name="txt_vcardTel" TextChanged="txt_vcard" Width="132"/>
-                            <TextBox   VerticalAlignment="Top" Margin="66,108,4,0" Name="txt_vcardUrl" TextChanged="txt_vcard" Width="132"/>
-                            <TextBox   VerticalAlignment="Top" Margin="66,134,4,0" Name="txt_vcardJob" TextChanged="txt_vcard" Width="132"/>
-                            <TextBox VerticalAlignment="Top" Margin="66,160,4,0" Name="txt_vcardAdd" TextChanged="txt_vcard" Width="132"/>
-                            <TextBox   VerticalAlignment="Top" Margin="66,186,4,0"  Height="60" Name="txt_vcardNote" TextChanged="txt_vcard" Width="132"/>
-
-                            <Label Content="Título:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0"/>
-                            <Label Content="Nome:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,26,0,0"/>
-                            <Label Content="Email:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,52,0,0"/>
-                            <Label Content="Telefone:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,78,0,0"/>
-                            <Label Content="Web Site:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,104,0,0"/>
-                            <Label Content="Empresa:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,130,0,0"/>
-                            <Label Content="Endereço:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,156,0,0"/>
-                            <Label Content="Notas:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,182,0,0"/>
-
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem Header="Sms" Name="tabItemSms">
-                    <Grid Background="#FFE5E5E5">
-                        <Label Content="Digite o Telefone no campo abaixo."/>
-                        <TextBox TextWrapping="Wrap" x:Name="txt_smsTel"  Margin="2,25,0,0" Text="" TextChanged="txt_smsTel_TextChanged" Height="26" PreviewTextInput="txt_smsTel_PreviewTextInput" Width="217" VerticalAlignment="Top"/>
-
-                        <TextBox TextWrapping="Wrap" Text="" x:Name="txt_smsMen" TextChanged="txt_smsMen_TextChanged" Margin="2,82,2,2" Width="215"/>
-                        <Label Content="Mensagem: " VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,51,0,0"/>
-                    </Grid>
-                </TabItem>
-            </TabControl>
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Colors.xaml"/>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
+                <!--<ResourceDictionary Source="Resources/Images.xaml"/>-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer Name="scroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
+        <StackPanel x:Name="box_main" Margin="0,0,2,0">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <TabControl  Name="tabControls" SelectionChanged="TabControls_SelectionChanged">
+                    <tabs:TextControl Header="{Binding Path=Lang.TabTitleText}" x:Name="tabItemText" AnyTextChanged="Tabs_AnyTextChanged" Style="{DynamicResource TabItemStyle}">
+                    </tabs:TextControl>
+                    <tabs:URLControl  Header="{Binding Path=Lang.TabTitleURL}" x:Name="tabItemUrl" AnyTextChanged="Tabs_AnyTextChanged" Style="{DynamicResource TabItemStyle}">
+                    </tabs:URLControl>
+                    <tabs:EmailControl AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Path=Lang.TabTitleEmail}" x:Name="tabItemEmail" Style="{DynamicResource TabItemStyle}">
+                    </tabs:EmailControl>
+                    <tabs:TelControl  AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Path=Lang.TabTitlePhone}" x:Name="tabItemTel" Style="{DynamicResource TabItemStyle}">
+                    </tabs:TelControl>
+                    <tabs:VCardControl  AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Path=Lang.TabTitleVCard}" x:Name="tabItemVCard" Style="{DynamicResource TabItemStyle}">
+                    </tabs:VCardControl>
+                    <tabs:SmsControl  AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Path=Lang.TabTitleSms}" x:Name="tabItemSms" Style="{DynamicResource TabItemStyle}">
+                    </tabs:SmsControl>
+                    <tabs:WiFiControl  AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Path=Lang.TabTitleWifi}" x:Name="tabItemWifi" Style="{DynamicResource TabItemStyle}">
+                    </tabs:WiFiControl>
+                </TabControl>
+            </ScrollViewer>
             <Grid Margin="0,8,0,0" HorizontalAlignment="Left" Width="225">
-                <Label Content="Tamanho do Ponto:"></Label>
-                <TextBox x:Name="txt_dot" Text="1" IsEnabled="false" Margin="187,0,0,0" HorizontalAlignment="Left" Width="38" VerticalAlignment="Center" Height="24"/>
-            </Grid>
-            <Grid Width="225" HorizontalAlignment="Left">
-                <Label Content="Tamanho:"></Label>
-                <TextBox HorizontalAlignment="Left" Width="38" x:Name="txt_size" Text="0" TextChanged="txt_size_TextChanged" Margin="187,0,0,0" VerticalAlignment="Center" Height="24"/>
-            </Grid>
-            <Grid Height="60" HorizontalAlignment="Left" Width="225">
-                <Label Content="Método de Codificação:" Margin="0,0,0,35"/>
-
-                <RadioButton Content="Gma" HorizontalAlignment="Left" Margin="86,38,0,0" VerticalAlignment="Top"  Name="radioButton_gma" Checked="radioButton_gma_Checked"  Click="radioButton_zxing_Click" ToolTip="Método que prioriza textos AlphaNumericos https://qrcodenet.codeplex.com"/>
-                <RadioButton Content="Zxing" IsChecked="True" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Name="radioButton_zxing" Checked="radioButton_zxing_Checked" Click="radioButton_zxing_Click" ToolTip="Método com suporte a UTF-8 https://zxingnet.codeplex.com"/>
+                <Label Name="lbaDotSize" Content="{Binding Path=Lang.LabelDotSize}" Margin="0,0,147,0"/>
+                <TextBox x:Name="txt_dot" Text="1" IsEnabled="false" Margin="83,0,0,0" HorizontalAlignment="Left" Width="28" VerticalAlignment="Center" />
+                <Label Name="lbaSize" Content="{Binding Path=Lang.LabelSize}" Margin="111,0,38,0"></Label>
+                <TextBox HorizontalAlignment="Left" Width="33" x:Name="txt_size" Text="0000" TextChanged="txt_size_TextChanged" Margin="192,0,0,0" VerticalAlignment="Center" />
 
             </Grid>
+
+            <StackPanel Height="26" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,4,0,4">
+                <Label Name="lbaEncodingType" Content="{Binding Path=Lang.LabelEncodingType}"  VerticalAlignment="Center"/>
+
+                <RadioButton Content="Gma" HorizontalAlignment="Left" VerticalAlignment="Center"  Name="radioButton_gma" Checked="radioButton_gma_Checked"  Click="radioButton_zxing_Click" ToolTip="Método que prioriza textos AlphaNumericos https://qrcodenet.codeplex.com" Margin="4,0,0,0" />
+                <RadioButton Content="Zxing"  HorizontalAlignment="Left"  VerticalAlignment="Center" Name="radioButton_zxing" Checked="radioButton_zxing_Checked" Click="radioButton_zxing_Click" ToolTip="Método com suporte a UTF-8 https://zxingnet.codeplex.com" Margin="4,0,0,0" />
+
+            </StackPanel>
             <Grid Margin="0,8,0,0" HorizontalAlignment="Left" Width="225">
-                <Button Content="Gerar Vetor" x:Name="btn_gerar" Click="btn_gerar_Click" IsEnabled="false" HorizontalAlignment="Left" Width="100" Margin="12,0,0,0"/>
-                <Button Content="Gerar Bitmap" Margin="124,0,0,0" x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" IsEnabled="false" HorizontalAlignment="Left" Width="100" Height="24"/>
+                <Button Content="{Binding Path=Lang.ButtonDrawVector}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Left" Width="80" Margin="12,0,0,0"/>
+                <Button Content="{Binding Path=Lang.ButtonDrawBitmap}"  Margin="100,0,0,0" x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Left" Width="80" Height="24"/>
+                <Button Content="Extras" Margin="188,0,0,0" Name="btn_extras" Click="btn_extras_Click" Visibility="Hidden"/>
             </Grid>
-            <Label Content="Visualização:" Margin="0,8,0,0" HorizontalAlignment="Left" Width="225"/>
-            <Grid Width="225" Height="225" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Border BorderBrush="#FF464343" BorderThickness="1">
-                    <Image Height="221" Name="img_render" Stretch="UniformToFill" Margin="1,1,1,1" Width="221" OpacityMask="#FFD10B0B" HorizontalAlignment="Left"/>
+            <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader}" Name="groupBoxPluginContainer">
+
+            </GroupBox>
+            <Label Name="lbaPreview" Content="{Binding Path=Lang.LabelPreview}" Margin="0,8,0,0" HorizontalAlignment="Left" Width="225"/>
+            <Grid Width="294" Height="294" Margin="0,0,0,0" VerticalAlignment="Top">
+                <Border BorderBrush="{Binding Path=StyleScheme.ButtonStaticBorder}" BorderThickness="1">
+                    <Image Height="294" Width="294" Name="img_render" Stretch="UniformToFill" Margin="1,1,1,1"  OpacityMask="#FFD10B0B" HorizontalAlignment="Left"/>
                 </Border>
             </Grid>
             <Grid Margin="0,8,0,0" Height="44" HorizontalAlignment="Left" Width="225">
-                <Image Height="32" MouseUp="Image_MouseUp" Name="img_bonus" ToolTip="Desenvolvido por Bonus630" Cursor="Hand" Margin="192,0,0,0" HorizontalAlignment="Left" Width="32"/>
-                <Image Height="32" x:Name="img_corelNaVeia" ToolTip="Traduzido por @corelnaveia" Cursor="Hand" Margin="153,0,0,0" HorizontalAlignment="Left" Width="32" MouseUp="img_corelNaVeia_MouseUp"/>
+                <Image Height="32" MouseUp="Image_MouseUp" Name="img_bonus" ToolTip="{Binding Path=Lang.ToolTipBonus630}" Cursor="Hand" Margin="192,0,0,0" HorizontalAlignment="Left" Width="32"/>
+                <Image Height="32" x:Name="img_corelNaVeia" ToolTip="{Binding Path=Lang.ToolTipCorelNaVeia}" Cursor="Hand" Margin="153,0,0,0" HorizontalAlignment="Left" Width="32" MouseUp="img_corelNaVeia_MouseUp"/>
                 <Label x:Name="lba_zxing" Content="https://zxingnet.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0" MouseUp="lba_zxing_MouseUp" Cursor="Hand" ToolTip="third party .net libraries"/>
                 <Label x:Name="lba_gma" Content="https://qrcodenet.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0,22,0,0" MouseUp="lba_gma_MouseUp" Cursor="Hand" ToolTip="third party .net libraries"/>
             </Grid>
+           
         </StackPanel>
     </ScrollViewer>
 </UserControl>

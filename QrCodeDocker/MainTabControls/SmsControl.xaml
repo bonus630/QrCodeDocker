@@ -1,0 +1,17 @@
+﻿<TabItem x:Class="br.corp.bonus630.QrCodeDocker.MainTabControls.SmsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
+             mc:Ignorable="d" 
+          >
+    <Grid>
+
+        <Label Name="lbaSmsField" Content="{Binding Path=Lang.LabelSmsField}"/>
+        <TextBox TextWrapping="Wrap" x:Name="txt_smsTel"  Margin="2,25,0,0" Text="" TextChanged="txt_smsTel_TextChanged" PreviewTextInput="txt_smsTel_PreviewTextInput"  VerticalAlignment="Top"/>
+
+        <TextBox TextWrapping="Wrap" Text="" x:Name="txt_smsMen" TextChanged="txt_smsMen_TextChanged" Margin="2,82,2,2" />
+        <Label Name="lbaMessage" Content="{Binding Path=Lang.LabelMessage}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,51,0,0"/>
+    </Grid>
+</TabItem>

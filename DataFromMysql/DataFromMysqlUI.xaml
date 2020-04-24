@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="br.corp.bonus630.plugin.DataFromMysql.DataFromMysqlUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.plugin.DataFromMysql"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Label Content="Server / IP:" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+        <Label Content="User:" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top"/>
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top"/>
+        <Label Content="Port:" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="105,18,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="105,51,0,0" TextWrapping="Wrap" Text="root" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="105,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="105,117,0,0" TextWrapping="Wrap" Text="3306" VerticalAlignment="Top" Width="120"/>
+        <Label Content="DataBase:" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="105,152,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <Button Content="Connect" HorizontalAlignment="Left" Margin="105,186,0,0" VerticalAlignment="Top" Width="75"/>
+
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="br.corp.bonus630.plugin.MediaSchema.MediaSchemaUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.plugin.MediaSchema"
+             mc:Ignorable="d" 
+             d:DesignHeight="284" d:DesignWidth="300">
+   
+    <StackPanel>
+
+        <StackPanel Orientation="Horizontal" Name="content" />
+        <StackPanel Name="schemes" />
+        <Label Name="scheme_type" />
+        <TextBox Name="txt_msg" Margin="4,10,4,0" TextChanged="Txt_msg_TextChanged" Visibility="Hidden"/>
+
+        <!--<Button Content="Draw" Click="btn_draw_Click" Name="btn_draw" Margin="0,10,0,0" />-->
+    </StackPanel>
+</UserControl>

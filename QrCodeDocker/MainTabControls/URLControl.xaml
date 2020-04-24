@@ -1,0 +1,14 @@
+﻿<TabItem x:Class="br.corp.bonus630.QrCodeDocker.MainTabControls.URLControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
+             mc:Ignorable="d" 
+             >
+    <Grid>
+        <Label Name="lbaUrlField" Content="{Binding Path=Lang.LabelUrlField}" />
+        <TextBox TextWrapping="Wrap" x:Name="txt_url"  Margin="2,25,0,0"  TextChanged="txt_url_TextChanged" VerticalAlignment="Top"/>
+        <Button Content="{Binding Path=Lang.ButtonPaste}"  Margin="2,60,0,0" Name="btn_colar" Click="btn_colar_Click" Height="38" VerticalAlignment="Top"/>
+    </Grid>
+</TabItem>

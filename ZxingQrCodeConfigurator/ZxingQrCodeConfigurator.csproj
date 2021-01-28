@@ -123,7 +123,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2020 Release|AnyCPU'">
     <OutputPath>bin\Release\2020\</OutputPath>
     <OutDir>bin\Release\2020\$(SolutionName)\extras</OutDir>
@@ -146,6 +145,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -160,12 +160,28 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Eyedropper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ZxingQrCodeConfiguratorUI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="ColorManager.cs" />
+    <Compile Include="ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Core.cs" />
+    <Compile Include="Eyedropper.xaml.cs">
+      <DependentUpon>Eyedropper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EyedropperDataContext.cs" />
+    <Compile Include="NotifyPropertyBase.cs" />
     <Compile Include="ZxingQrCodeConfiguratorUI.xaml.cs">
       <DependentUpon>ZxingQrCodeConfiguratorUI.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -205,7 +221,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-
   <ItemGroup Label="VGCoreReferences">
     <Reference Label="X8Reference" Include="c:\program files\corel\coreldraw graphics suite x8\programs64\Assemblies\Corel.Interop.VGCore.dll" Condition="'$(Configuration)'=='X8 Debug'">
       <Name>Corel.Interop.VGCore</Name>
@@ -255,6 +270,9 @@
       <Name>Corel.Interop.VGCore</Name>
       <Private>False</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-color-dropper-48.png" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)'=='X7 Debug'">
     <PostBuildEvent>

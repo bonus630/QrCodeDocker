@@ -28,7 +28,7 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             InitializeComponent();
             this.app = app;
-            this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
+           // this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
             VGCoreReferenceChecker.Init(typeof(Docker));
             codeGenerator = new QrCodeGenerator(app);
         
@@ -44,10 +44,10 @@ namespace br.corp.bonus630.QrCodeDocker
           
         }
 
-        private void App_OnApplicationEvent(string EventName, ref object[] Parameters)
-        {
-            throw new NotImplementedException();
-        }
+        //private void App_OnApplicationEvent(string EventName, ref object[] Parameters)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public Docker()
         {
@@ -85,14 +85,9 @@ namespace br.corp.bonus630.QrCodeDocker
             codeGenerator.SetRender(imageRender);
 
             string pluginLoader = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\PluginLoader.dll");
-#if DEBUGX8
+#if DEBUG
             pluginLoader = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X8\\Programs64\\Addons\\QrCodeDocker\\PluginLoader.dll";
-#elif DEBUGX7
-            pluginLoader = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\Addons\\QrCodeDocker\\PluginLoader.dll";
-#elif DEBUGX9
-            pluginLoader = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite 2017\\Programs64\\Addons\\QrCodeDocker\\PluginLoader.dll";
-#elif DEBUGX10
-            pluginLoader = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite 2018\\Programs64\\Addons\\QrCodeDocker\\PluginLoader.dll";
+
 
 #endif
 
@@ -439,6 +434,9 @@ namespace br.corp.bonus630.QrCodeDocker
                  result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
 #endif
 #if X11
+                 result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
+#endif
+#if X12
                  result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
 #endif
                 if (!result.Equals(currentTheme))

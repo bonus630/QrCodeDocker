@@ -1,0 +1,49 @@
+﻿<Window x:Class="br.corp.bonus630.plugin.ZxingQrCodeConfigurator.ColorPicker"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.plugin.ZxingQrCodeConfigurator"
+             mc:Ignorable="d" 
+             Height="400" Width="166" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None" WindowStartupLocation="CenterOwner">
+    <Border BorderBrush="#FF535050" BorderThickness="1" Padding="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Content="{Binding PaletteName}" Grid.Row="0"/>
+            <ItemsControl  Name="Colors" Grid.Row="1" ItemsSource="{Binding ColorArray}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Background="{Binding ColorHexValue}" Width="20" Height="20" 
+                                CommandParameter="{Binding}" Command="{Binding Path=DataContext.ColorSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <Label  Content="{Binding CorelColorName}" FontSize="14" FontWeight="Bold" />
+                                        <Label Content="{Binding ColorHexValue}" FontSize="12" />
+                                    </StackPanel>
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Rectangle Fill="{Binding SelectedColor.ColorHexValue}" Width="20" Height="20" HorizontalAlignment="Left" Margin="2,0,0,0"/>
+                <Button Width="20" Height="20" Background="{x:Null}" BorderBrush="{x:Null}" Margin="4,0,0,0" Command="{Binding Path=OpenEyeDropper}">
+                    <Image Source="{Binding EyedropperIcon}" />
+                </Button>
+                <Button Content="Ok" IsDefault="True" Name="btn_ok" Width="40" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4,0,0,0"/>
+                <Button Content="Cancel" IsCancel="True" Name="btn_cancel" Width="60" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4,0,0,0"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+    </Window>

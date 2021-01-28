@@ -10,21 +10,52 @@ using System.IO;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker;
 using System.Text.RegularExpressions;
+using System.Windows.Media;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class ZxingQrCodeConfiguratorUI : UserControl,IPluginUI,IPluginConfig
+    public partial class ZxingQrCodeConfiguratorUI : UserControl,IPluginUI,IPluginConfig,INotifyPropertyChanged
     {
-        
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ZxingQrCodeConfiguratorUI()
         {
             InitializeComponent();
-            
+
+            this.DataContext = this;
+        }
+        private ColorSystem selectedBorderColor;
+        public ColorSystem SelectedBorderColor
+        {
+            get { return selectedBorderColor; }
+            set { selectedBorderColor = value;
+                NotifyPropertyChanged("SelectedBorderColor");
+            }
+        }
+        private ColorSystem selectedDotColor;
+        public ColorSystem SelectedDotColor
+        {
+            get { return selectedDotColor; }
+            set
+            {
+                selectedDotColor = value;
+                NotifyPropertyChanged("SelectedDotColor");
+            }
+        }
+        private ColorSystem selectedDotBorderColor;
+        public ColorSystem SelectedDotBorderColor
+        {
+            get { return selectedDotBorderColor; }
+            set
+            {
+                selectedDotBorderColor = value;
+                NotifyPropertyChanged("SelectedDotBorderColor");
+            }
         }
         private Corel.Interop.VGCore.Application app;
         public Corel.Interop.VGCore.Application App { set { this.app = value; } }
@@ -35,7 +66,11 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public event Action<int> ProgressChange;
         public event Action<object, Type> GetCodeGenerator;
         public event Action<string> AnyTextChanged;
-
+        public void NotifyPropertyChanged(string propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
         public void OnFinishJob(object obj)
         {
             throw new NotImplementedException();
@@ -66,31 +101,31 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         {
             OnGetCodeGenerator(this, typeof(QrCodeGenerator));
             ck_weld.IsChecked = (CodeGenerator as QrCodeGenerator).Weld;
-            if (this.app.ActivePalette != null)
-            {
-                ColorManager colorManager = new ColorManager(this.app.ActivePalette);
-                cb_borderColor.ItemsSource = colorManager.ColorArray;
-                cb_dotColor.ItemsSource = colorManager.ColorArray;
-                cb_dotBorderColor.ItemsSource = colorManager.ColorArray;
-            }
+            //if (this.app.ActivePalette != null)
+            //{
+            //    ColorManager colorManager = new ColorManager(this.app.ActivePalette);
+            //    cb_borderColor.ItemsSource = colorManager.ColorArray;
+            //    cb_dotColor.ItemsSource = colorManager.ColorArray;
+            //    cb_dotBorderColor.ItemsSource = colorManager.ColorArray;
+            //}
         }
 
-        private void cb_borderColor_DropDownClosed(object sender, EventArgs e)
-        {
-            if(cb_borderColor.SelectedItem != null)
-                (CodeGenerator as QrCodeGenerator).BorderColor = (cb_borderColor.SelectedItem as ColorSystem).CorelColor;
-        }
+        //private void cb_borderColor_DropDownClosed(object sender, EventArgs e)
+        //{
+        //    if(cb_borderColor.SelectedItem != null)
+        //        (CodeGenerator as QrCodeGenerator).BorderColor = (cb_borderColor.SelectedItem as ColorSystem).CorelColor;
+        //}
 
-        private void cb_dotColor_DropDownClosed(object sender, EventArgs e)
-        {
-            if(cb_dotColor.SelectedItem != null)
-                (CodeGenerator as QrCodeGenerator).DotFillColor = (cb_dotColor.SelectedItem as ColorSystem).CorelColor;
-        }
-        private void cb_dotBorderColor_DropDownClosed(object sender, EventArgs e)
-        {
-            if (cb_dotBorderColor.SelectedItem != null)
-                (CodeGenerator as QrCodeGenerator).DotOutlineColor = (cb_dotBorderColor.SelectedItem as ColorSystem).CorelColor;
-        }
+        //private void cb_dotColor_DropDownClosed(object sender, EventArgs e)
+        //{
+        //    if(cb_dotColor.SelectedItem != null)
+        //        (CodeGenerator as QrCodeGenerator).DotFillColor = (cb_dotColor.SelectedItem as ColorSystem).CorelColor;
+        //}
+        //private void cb_dotBorderColor_DropDownClosed(object sender, EventArgs e)
+        //{
+        //    if (cb_dotBorderColor.SelectedItem != null)
+        //        (CodeGenerator as QrCodeGenerator).DotOutlineColor = (cb_dotBorderColor.SelectedItem as ColorSystem).CorelColor;
+        //}
 
         private void btn_validate_Click(object sender, RoutedEventArgs e)
         {
@@ -196,6 +231,39 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         {
             if ((sender as TextBox).Text == "")
                 (sender as TextBox).Text = "0";
+        }
+
+        private void btn_BorderColor_Click(object sender, RoutedEventArgs e)
+        {
+            ColorPicker c = new ColorPicker(app.ActivePalette);
+            if ((bool)c.ShowDialog())
+            {
+                SelectedBorderColor = c.SelectedColor;
+                if (SelectedBorderColor != null)
+                    (CodeGenerator as QrCodeGenerator).BorderColor = SelectedBorderColor.CorelColor;
+            }
+        }
+
+        private void btn_DotColor_Click(object sender, RoutedEventArgs e)
+        {
+            ColorPicker c = new ColorPicker(app.ActivePalette);
+            if ((bool)c.ShowDialog())
+            {
+                SelectedDotColor = c.SelectedColor;
+                if(SelectedDotColor != null)
+                    (CodeGenerator as QrCodeGenerator).DotFillColor = SelectedDotColor.CorelColor;
+            }
+        }
+
+        private void btn_DotBorderColor_Click(object sender, RoutedEventArgs e)
+        {
+            ColorPicker c = new ColorPicker(app.ActivePalette);
+            if ((bool)c.ShowDialog())
+            {
+                SelectedDotBorderColor = c.SelectedColor;
+                if (SelectedDotBorderColor != null)
+                    (CodeGenerator as QrCodeGenerator).DotOutlineColor = SelectedDotBorderColor.CorelColor;
+            }
         }
     }
 }

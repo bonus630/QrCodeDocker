@@ -107,16 +107,29 @@
         </Grid>
         <Grid Height="34" Margin="0,0,0,2">
             <Label Content="Border Color:" Height="30"/>
-            <ComboBox Height="30" x:Name="cb_borderColor" ItemTemplate="{DynamicResource cb_color_template}" DropDownClosed="cb_borderColor_DropDownClosed" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
+            <Button Height="30" x:Name="btn_BorderColor" Background="{Binding SelectedBorderColor.ColorHexValue}"  HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" Click="btn_BorderColor_Click"/>
         </Grid>
+        <!--<Grid Height="34" Margin="0,0,0,2">
+            <Label Content="Border Color:" Height="30"/>
+            <ComboBox Height="30" x:Name="cb_borderColor" ItemTemplate="{DynamicResource cb_color_template}" DropDownClosed="cb_borderColor_DropDownClosed" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
+        </Grid>-->
         <Grid Height="34" Margin="0,0,0,2">
             <Label Content="Dot Color:" Height="30"/>
-            <ComboBox Height="30" x:Name="cb_dotColor" ItemTemplate="{StaticResource cb_color_template}" DropDownClosed="cb_dotColor_DropDownClosed" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
+            <Button Height="30" x:Name="btn_DotColor" Click="btn_DotColor_Click" Background="{Binding SelectedDotColor.ColorHexValue}" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
         </Grid>
+        <!--<Grid Height="34" Margin="0,0,0,2">
+            <Label Content="Dot Color:" Height="30"/>
+            <ComboBox Height="30" x:Name="cb_dotColor" ItemTemplate="{StaticResource cb_color_template}" DropDownClosed="cb_dotColor_DropDownClosed" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
+        </Grid>-->
         <Grid Height="34" Margin="0,0,0,2">
             <Label Content="Dot Border Color:" Height="30"/>
-            <ComboBox Height="30" x:Name="cb_dotBorderColor" ItemTemplate="{StaticResource cb_color_template}" DropDownClosed="cb_dotBorderColor_DropDownClosed" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
+            <Button Height="30" x:Name="btn_DotBorderColor" Click="btn_DotBorderColor_Click" Background="{Binding SelectedDotBorderColor.ColorHexValue}" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
         </Grid>
+        <!--<Grid Height="34" Margin="0,0,0,2">
+            <Label Content="Dot Border Color:" Height="30"/>
+            <ComboBox Height="30" x:Name="cb_dotBorderColor" ItemTemplate="{StaticResource cb_color_template}" DropDownClosed="cb_dotBorderColor_DropDownClosed" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
+        </Grid>-->
+        
         <Grid  Height="34" Margin="0,0,0,2">
             <Label Content="Dot Border Size:" />
             <TextBox Height="30" Margin="105,0,136,0" x:Name="txt_dotBorderSize" PreviewKeyUp="txt_dotBorderSize_PreviewKeyUp" PreviewTextInput="checkTextFormat" LostFocus="txt_content_LostFocus" GotFocus="txt_content_GotFocus" Text="0"/>

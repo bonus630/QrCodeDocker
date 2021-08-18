@@ -47,14 +47,14 @@ namespace br.corp.bonus630.QrCodeDocker.MainTabControls
 
             if (!String.IsNullOrEmpty(temp))
             {
-                temp = removeSpaces(temp);
+                //temp = removeSpaces(temp);
                 sb.AppendLine("N:" + temp);
 
             }
             temp = txt_vcardTitle.Text;
             if (!String.IsNullOrEmpty(temp))
             {
-                temp = removeSpaces(temp);
+                //temp = removeSpaces(temp);
                 sb.AppendLine("TITLE:" + temp);
 
             }
@@ -82,14 +82,14 @@ namespace br.corp.bonus630.QrCodeDocker.MainTabControls
             temp = txt_vcardJob.Text;
             if (!String.IsNullOrEmpty(temp))
             {
-                temp = removeSpaces(temp);
+               // temp = removeSpaces(temp);
                 sb.AppendLine("ORG:" + temp);
 
             }
             temp = txt_vcardAdd.Text;
             if (!String.IsNullOrEmpty(temp))
             {
-                temp = removeSpaces(temp);
+             //   temp = removeSpaces(temp);
                 sb.AppendLine("ADR:" + temp);
 
             }

@@ -62,7 +62,7 @@
             </GroupBox>
             <Label Name="lbaPreview" Content="{Binding Path=Lang.LabelPreview}" Margin="0,8,0,0" HorizontalAlignment="Left" Width="225"/>
             <Grid Width="294" Height="294" Margin="0,0,0,0" VerticalAlignment="Top">
-                <Border BorderBrush="{Binding Path=StyleScheme.ButtonStaticBorder}" BorderThickness="1">
+                <Border BorderThickness="1">
                     <Image Height="294" Width="294" Name="img_render" Stretch="UniformToFill" Margin="1,1,1,1"  OpacityMask="#FFD10B0B" HorizontalAlignment="Left"/>
                 </Border>
             </Grid>

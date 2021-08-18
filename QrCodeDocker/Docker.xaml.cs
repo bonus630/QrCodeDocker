@@ -3,9 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-
 using Corel.Interop.VGCore;
-
 using br.corp.bonus630.ImageRender;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker.MainTabControls;
@@ -28,8 +26,7 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             InitializeComponent();
             this.app = app;
-           // this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
-            VGCoreReferenceChecker.Init(typeof(Docker));
+            this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
             codeGenerator = new QrCodeGenerator(app);
         
             img_bonus.Source = BitmapResources.Bonus630;
@@ -115,19 +112,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         /// /////////////////////////////////////
         #region Métodos
-        //public void Start()
-        //{
-        //if (this.Doc != null && !String.IsNullOrEmpty(this.textContent))
-        //{
-        //    btn_gerar.IsEnabled = true;
-        //    btn_gerarBitmap.IsEnabled = true;
-        //}
-        //else
-        //{
-        //    btn_gerar.IsEnabled = false;
-        //    btn_gerarBitmap.IsEnabled = false;
-        //}
-        //}
+      
         private void renderImage()
         {
 
@@ -332,16 +317,7 @@ namespace br.corp.bonus630.QrCodeDocker
         private void btn_extras_Click(object sender, RoutedEventArgs e)
         {
    
-            //int strSize = 221;
-            //if (!Int32.TryParse(txt_size.Text, out strSize))
-            //    MessageBox.Show(langObj.MBoxFormatErroTitle, langObj.MBoxFormatErroMessage);
-            //ps = new PluginSelect(strSize,this.app,this.imageRender,this.codeGenerator);
-            //ps.Closed += Ps_Closed;
-            //btn_extras.IsEnabled = false;
-            //IntPtr ownerWindowHandler = GetFocus();
-            //WindowInteropHelper helper = new WindowInteropHelper(ps);
-            //helper.Owner = ownerWindowHandler;
-            //ps.Show();
+    
         }
 
         private void TabControls_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -349,28 +325,7 @@ namespace br.corp.bonus630.QrCodeDocker
             setContent((tabControls.SelectedItem as IMainTabControl).FormatedText);
           
         }
-        //public  IntPtr GetOwnerHandler(string wName)
-        //{
-        //    IntPtr focusH = IntPtr.Zero;
-        //    foreach (System.Diagnostics.Process pList in System.Diagnostics.Process.GetProcessesByName(wName))
-        //    {
-        //        focusH = GetFocus();
-        //    }
-        //    return focusH;
-        //}
-        //[DllImport("user32.dll")]
-        //static extern IntPtr GetFocus();
-
-        //private void Ps_Closed(object sender, EventArgs e)
-        //{
-        //    if ((sender as PluginSelect).PluginFound)
-        //    {
-        //        btn_extras.IsEnabled = true;
-        //        GenNewCodeGenerator();
-        //    }
-        //}
-
-        //}
+       
 
         #region theme select
         //Keys resources name follow the resource order to add a new value, order to works you need add 5 resources colors and Resources/Colors.xaml
@@ -424,21 +379,10 @@ namespace br.corp.bonus630.QrCodeDocker
             try
             {
                 string result = "";
-#if X8
+#if !X7
                 result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
 #endif
-#if X9
-                 result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
-#endif
-#if X10
-                 result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
-#endif
-#if X11
-                 result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
-#endif
-#if X12
-                 result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
-#endif
+
                 if (!result.Equals(currentTheme))
                 {
                     if (!result.Equals(string.Empty))

@@ -19,6 +19,11 @@ namespace br.corp.bonus630.QrCodeDocker
             this.app = corelApp;
             LoadLang();
         }
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
         private void LoadLang()
         {
             switch (this.app.UILanguage)

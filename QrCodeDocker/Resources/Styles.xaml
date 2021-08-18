@@ -50,7 +50,9 @@
         <Setter Property="Stroke" Value="{DynamicResource Button.MouseOver.Border}"/>
 
     </Style>
-
+    <Style TargetType="Border">
+        <Setter Property="BorderBrush" Value="{DynamicResource Button.Static.Border}"/>
+    </Style>
     <Style TargetType="Expander">
         <Setter Property="Foreground" Value="{DynamicResource Default.Static.Foreground}"/>
 

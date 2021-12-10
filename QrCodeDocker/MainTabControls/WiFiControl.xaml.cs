@@ -34,7 +34,7 @@ namespace br.corp.bonus630.QrCodeDocker.MainTabControls
         {
             if (ComboBoxSecurity.SelectedItem != null && !string.IsNullOrEmpty(TextBoxSSID.Text))
             {
-                FormatedText = string.Format("WIFI:S:{0};T:{1};P:{2};H:{3};", TextBoxSSID.Text, ComboBoxSecurity.SelectedItem.ToString(), TextBoxPassword.Text, (bool)CheckBoxSSIDHidden.IsChecked ? "true" : "false");
+                FormatedText = string.Format("WIFI:S:{0};T:{1};P:{2};H:{3};", TextBoxSSID.Text, (ComboBoxSecurity.SelectedItem as ComboBoxItem).Content, TextBoxPassword.Text, (bool)CheckBoxSSIDHidden.IsChecked ? "true" : "false");
                 if (AnyTextChanged != null)
                     AnyTextChanged(FormatedText);
             }

@@ -1,0 +1,4 @@
+Qrcode Docker Addon para CorelDraw
+
+Janela de encaixa para CorelDraw, esta
+

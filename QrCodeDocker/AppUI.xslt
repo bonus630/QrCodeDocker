@@ -18,15 +18,15 @@
     <xsl:copy>
       <xsl:apply-templates select="node()|@*"/>
 		<!-- Define the button will contains menu is same in all projects -->
-		<itemData guid="f1d3d1d0-cc8d-4f04-91cb-7112255b8af1" noBmpOnMenu="true"
+		<itemData guid="61fea129-6e7a-46be-bfac-49075cfb97d8" noBmpOnMenu="true"
 				  type="flyout"
 				  dynamicCategory="2cc24a3e-fe24-4708-9a74-9c75406eebcd"
-				  userCaption="Bonus630 Dockers"
+				  userCaption="CorelNaVeia Dockers"
 				  enable="true"
 				  flyoutBarRef="FB727225-CEA7-4D27-BB27-52C687B53029"
                 />
       <!-- Define the button which shows the docker -->
-      <itemData guid="DF67BEBE-6551-4F3B-BE5B-1BF46E16AB67" noBmpOnMenu="true"
+      <itemData guid="7836b4c1-0d32-4da0-a15f-68060f29648a" noBmpOnMenu="true"
                 type="checkButton"
                 check="*Docker('68622454-ABAA-4099-976F-E620DCF8C89B')"
                 dynamicCategory="2cc24a3e-fe24-4708-9a74-9c75406eebcd"
@@ -34,7 +34,7 @@
                 enable="true"/>
 
       <!-- Define the web control which will be placed on our docker -->
-      <itemData guid="991EC505-20DD-48C5-8313-58C0E293C9C3"
+      <itemData guid="efc02df4-8eb5-44b5-8016-1c495af1504e"
                 type="wpfhost"
                 hostedType="Addons\QrCodeDocker\QrCodeDocker.dll,br.corp.bonus630.QrCodeDocker.Docker"
                 enable="true"/>
@@ -46,9 +46,9 @@
 		<xsl:copy>
 			<xsl:apply-templates select="node()|@*"/>
 
-			<commandBarData guid="FB727225-CEA7-4D27-BB27-52C687B53029"
+			<commandBarData guid="8baeb154-f910-46cd-b05c-3cf2808d1391"
 							type="menu"
-							nonLocalizableName="Bonus630 Dockers"
+							nonLocalizableName="CorelNaVeia Dockers"
 							flyout="true">
 				<menu>
 
@@ -64,7 +64,7 @@
 			<xsl:apply-templates select="node()|@*"/>
 
 					<!--Here change to new item-->
-					<item guidRef="DF67BEBE-6551-4F3B-BE5B-1BF46E16AB67"/>
+					<item guidRef="7836b4c1-0d32-4da0-a15f-68060f29648a"/>
 
 		</xsl:copy>
 	</xsl:template>
@@ -79,7 +79,7 @@
                   focusStyle="noThrow">
         <container>
           <!-- add the webpage control to the docker -->
-          <item dock="fill" margin="0,0,0,0" guidRef="991EC505-20DD-48C5-8313-58C0E293C9C3"/>
+          <item dock="fill" margin="0,0,0,0" guidRef="efc02df4-8eb5-44b5-8016-1c495af1504e"/>
         </container>
       </dockerData>
     </xsl:copy>

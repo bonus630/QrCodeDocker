@@ -57,6 +57,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                 NotifyPropertyChanged("SelectedDotBorderColor");
             }
         }
+
         private Corel.Interop.VGCore.Application app;
         public Corel.Interop.VGCore.Application App { set { this.app = value; } }
         public ICodeGenerator CodeGenerator { get; set; }
@@ -264,6 +265,11 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                 if (SelectedDotBorderColor != null)
                     (CodeGenerator as QrCodeGenerator).DotOutlineColor = SelectedDotBorderColor.CorelColor;
             }
+        }
+
+        private void ck_noBorder_Checked(object sender, RoutedEventArgs e)
+        {
+            (CodeGenerator as QrCodeGenerator).NoBorder = (bool)ck_noBorder.IsChecked;
         }
     }
 }

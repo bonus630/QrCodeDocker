@@ -51,7 +51,7 @@
 			<xsl:with-param name="content">
 				
 		<!-- Make sure we don't read the menu item it it already exists -->
-		<xsl:if test="not(./item[@guidRef='f1d3d1d0-cc8d-4f04-91cb-7112255b8af1'])">
+		<xsl:if test="not(./item[@guidRef='61fea129-6e7a-46be-bfac-49075cfb97d8'])">
 			<item guidRef="f1d3d1d0-cc8d-4f04-91cb-7112255b8af1"/>
 		</xsl:if>
 		</xsl:with-param>
@@ -61,12 +61,12 @@
 	</xsl:template>
 	
 	<!-- Put the new command at the end of the 'Bonus630 dockers' menu -->
-	<xsl:template match="commandBarData[@guid='FB727225-CEA7-4D27-BB27-52C687B53029']/menu">
+	<xsl:template match="commandBarData[@guid='8baeb154-f910-46cd-b05c-3cf2808d1391']/menu">
 		<xsl:apply-templates  mode="insert-item" select=".">
 			<xsl:with-param name="content">
 			<!-- Make sure we don't read the menu item it it already exists -->
-			<xsl:if test="not(./item[@guidRef='DF67BEBE-6551-4F3B-BE5B-1BF46E16AB67'])">
-				<item guidRef="DF67BEBE-6551-4F3B-BE5B-1BF46E16AB67"/>
+			<xsl:if test="not(./item[@guidRef='7836b4c1-0d32-4da0-a15f-68060f29648a'])">
+				<item guidRef="7836b4c1-0d32-4da0-a15f-68060f29648a"/>
 			</xsl:if>
 			</xsl:with-param>
 		</xsl:apply-templates>

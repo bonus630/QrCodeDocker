@@ -105,6 +105,8 @@
                 </ComboBoxItem>
             </ComboBox>
         </Grid>
+        <CheckBox Content="No Border" x:Name="ck_noBorder" Checked="ck_noBorder_Checked" VerticalAlignment="Center"/>
+
         <Grid Height="34" Margin="0,0,0,2">
             <Label Content="Border Color:" Height="30"/>
             <Button Height="30" x:Name="btn_BorderColor" Background="{Binding SelectedBorderColor.ColorHexValue}"  HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" Click="btn_BorderColor_Click"/>

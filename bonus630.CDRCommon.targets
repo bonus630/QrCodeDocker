@@ -57,6 +57,14 @@
 				<CurrentCorelDebugConst>X13</CurrentCorelDebugConst>
 			</PropertyGroup>
 		</When>
+		<When Condition="'$(Configuration)' == '2022 Release' or '$(Configuration)' == '2022 Debug'">
+			<PropertyGroup>
+
+				<CurrentCorelPath>c:\program files\corel\coreldraw graphics suite 2022\programs64\</CurrentCorelPath>
+				<CurrentCorelAbr>2022</CurrentCorelAbr>
+				<CurrentCorelDebugConst>X14</CurrentCorelDebugConst>
+			</PropertyGroup>
+		</When>
 	</Choose>
 	<PropertyGroup>
 		<VGCoreDLL>Assemblies\Corel.Interop.VGCore.dll</VGCoreDLL>

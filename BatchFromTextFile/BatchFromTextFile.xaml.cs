@@ -62,6 +62,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         
         private void btn_file_Click(object sender, RoutedEventArgs e)
         {
+            
             Microsoft.Win32.OpenFileDialog of = new Microsoft.Win32.OpenFileDialog();
             of.Filter = "text files|*.txt";
             of.Multiselect = false;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace br.corp.bonus630.plugin.DataFromClipboard.Properties {
+namespace br.corp.bonus630.plugin.PlaceHere.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

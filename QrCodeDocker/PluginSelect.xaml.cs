@@ -19,6 +19,7 @@ namespace br.corp.bonus630.QrCodeDocker
       
         Loader loader;
         double size;
+        public double Size { get { return this.size; } set { this.size = value; } }
         Corel.Interop.VGCore.Application app;
         //ImageRender.IImageRender imageRender;
         private List<object[]> dataSource;
@@ -31,6 +32,7 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             if (loadedPluginList == null)
                 return;
+            this.size = size;
             for (int i = 0; i < loadedPluginList.Count; i++)
             {
                 //SetValues(loadedPluginList[i], size, app, imageRender);
@@ -42,6 +44,7 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             if (obj == null)
                 return;
+            this.size = size;
             if (typeof(IPluginDrawer).IsAssignableFrom(obj.GetType()))
             {
                 (obj as IPluginDrawer).App = app;

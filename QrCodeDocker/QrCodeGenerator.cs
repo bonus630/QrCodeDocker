@@ -22,6 +22,13 @@ namespace br.corp.bonus630.QrCodeDocker
         public bool Weld {
             get { return this.weld; }
             set { this.weld = value; } }
+        private bool noBorder;
+
+        public bool NoBorder
+        {
+            get { return noBorder; }
+            set { noBorder = value; }
+        }
 
         private Color borderColor; 
         public Color BorderColor { get { return borderColor; } set { borderColor = value; } }
@@ -111,16 +118,21 @@ namespace br.corp.bonus630.QrCodeDocker
                 qrCodeShape = this.app.ActiveSelection.Weld(qr);
             else
                 qrCodeShape = this.app.ActiveSelection.Group();
-            
-            Shape border = layerTemp.CreateRectangle2(0, 0, strSize, strSize);
-            border.Fill.ApplyUniformFill(borderColor);
-            border.Outline.SetNoOutline();
             qrCodeShape.Flip(cdrFlipAxes.cdrFlipVertical);
-            border.OrderToBack();
             qrCodeShape.AddToSelection();
-            border.AddToSelection();
-            this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignHCenter, border.SizeWidth / 2, border.SizeHeight / 2);
-            this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignVCenter, border.SizeWidth / 2, border.SizeHeight / 2);
+            if (!noBorder)
+            {
+                Shape border = layerTemp.CreateRectangle2(0, 0, strSize, strSize);
+                border.Fill.ApplyUniformFill(borderColor);
+                border.Outline.SetNoOutline();
+
+                border.OrderToBack();
+                border.AddToSelection();
+                this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignHCenter, border.SizeWidth / 2, border.SizeHeight / 2);
+                this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignVCenter, border.SizeWidth / 2, border.SizeHeight / 2);
+            }
+           
+            
             Shape g = this.app.ActiveSelection.Group();
             g.MoveToLayer(layer);
             layerTemp.Delete();
@@ -171,18 +183,17 @@ namespace br.corp.bonus630.QrCodeDocker
 
                         Color cWhite = new Color();
                         cWhite.CMYKAssign(0, 0, 0, 0);
-                        Shape border = layerTemp.CreateRectangle2(x, y - h, w, h);
-                        border.Fill.ApplyUniformFill(cWhite);
-                        border.Outline.Width = 0;
-
-                        border.Name = "Borda";
-
-
-
-                        border.AddToSelection();
                         cod.AddToSelection();
-                        this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignHCenter, border.SizeWidth / 2, border.SizeHeight / 2);
-                        this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignVCenter, border.SizeWidth / 2, border.SizeHeight / 2);
+                        if (!noBorder)
+                        {
+                            Shape border = layerTemp.CreateRectangle2(x, y - h, w, h);
+                            border.Fill.ApplyUniformFill(cWhite);
+                            border.Outline.Width = 0;
+                            border.Name = "Borda";
+                            border.AddToSelection();
+                            this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignHCenter, border.SizeWidth / 2, border.SizeHeight / 2);
+                            this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignVCenter, border.SizeWidth / 2, border.SizeHeight / 2);
+                        }
                         Shape g = this.app.ActiveSelection.Group();
 
 

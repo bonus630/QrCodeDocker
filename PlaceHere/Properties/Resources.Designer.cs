@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace br.corp.bonus630.plugin.DataFromClipboard.Properties {
+namespace br.corp.bonus630.plugin.PlaceHere.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("br.corp.bonus630.plugin.DataFromClipboard.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("br.corp.bonus630.plugin.PlaceHere.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

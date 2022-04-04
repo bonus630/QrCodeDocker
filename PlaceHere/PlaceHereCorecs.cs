@@ -16,71 +16,133 @@ namespace br.corp.bonus630.plugin.PlaceHere
         int dsCursor = 0;
         public double FactorX { get; set; }
         public double FactorY { get; set; }
+        public Anchor ReferencePoint { get; set; }
         private List<object[]> dataSource;
-        public List<object[]> DataSource { set {
+        public List<object[]> DataSource
+        {
+            set
+            {
                 this.dataSource = value;
-               
-            } }
+
+            }
+        }
+        private Rect[] points;
+
         public double Size { get; set; }
-        
+
         public Corel.Interop.VGCore.Application App { set { this.corelApp = value; } }
         public ICodeGenerator CodeGenerator { set { this.codeGenerator = value; } }
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
+        public Action DrawAction;
+        //private ICUITaskManager taskManager;
 
         cdrUnit prevUnit = cdrUnit.cdrInch;
+        public bool GetContainer { get; set; }
+        public PlaceHereCorecs()
+        {
+            DrawAction = new Action(drawFunction);
+        }
         public void Draw()
         {
             try
             {
-                if (dsCursor < dataSource.Count)
-                {
-                    corelApp.Optimization = true;
-                    corelApp.Unit = cdrUnit.cdrMillimeter;
-                    corelApp.ActiveDocument.BeginCommandGroup();
-                    if (corelApp.Unit != prevUnit)
-                        corelApp.Unit = prevUnit;
-                    c.Shape code = null;
-                    double x = 0, y = 0,x2=0,y2=0;
-                    int s = 0;
+                dataSource = new List<object[]>();
+                dataSource.Add(new object[] { "square" });
+                dataSource.Add(new object[] { "Portrait" });
+                dataSource.Add(new object[] { "Landscape" });
+                points = new Rect[dataSource.Count];
+                //if (dsCursor < dataSource.Count)
+                //{
 
-                    //corelApp.ActiveDocument.GetUserArea(out x, out y, out x2, out y2, out s, 0, true, cdrCursorShape.cdrCursorExtPick);
+                //corelApp.Optimization = true;
+                //corelApp.Unit = cdrUnit.cdrMillimeter;
+                //corelApp.ActiveDocument.BeginCommandGroup();
+                //if (corelApp.Unit != prevUnit)
+                //    corelApp.Unit = prevUnit;
+                //c.Shape code = null;
+                double x = 0, y = 0, w = 0, h = 0;
+                int s = 0;
+                for (int i = 0; i < dataSource.Count; i++)
+                {
 
 
                     corelApp.ActiveDocument.GetUserClick(out x, out y, out s, 0, true, c.cdrCursorShape.cdrCursorSmallcrosshair);
 
-                    code = this.codeGenerator.CreateVetorLocal(corelApp.ActiveLayer, 
-                        dataSource[dsCursor][0].ToString()
-                        , corelApp.ConvertUnits(Size,corelApp.ActiveDocument.Unit,cdrUnit.cdrMillimeter)
-                        , 0, 0, string.Format("QR-{0}", dataSource[dsCursor][0].ToString()));
-                    Console.WriteLine("Unit: App|{0} Doc|{1}",corelApp.Unit,corelApp.ActiveDocument.Unit);
-                    //code = corelApp.ActiveLayer.CreateArtisticText(x, y, dataSource[dsCursor][0].ToString());
-                    //double x1 = corelApp.ConvertUnits(x, corelApp.ActiveDocument.Unit, corelApp.Unit);
-                    //double y1 = corelApp.ConvertUnits(y, corelApp.ActiveDocument.Unit, corelApp.Unit);
+                    if (GetContainer)
+                    {
+#if X7
 
-                    double h, w;
-                    //h = corelApp.ConvertUnits(code.SizeHeight, corelApp.Unit, corelApp.ActiveDocument.Rulers.HUnits);
-                    //w = corelApp.ConvertUnits(code.SizeWidth, corelApp.Unit, corelApp.ActiveDocument.Rulers.HUnits);
+                        Shape shapes = app.ActiveDocument.ActivePage.SelectShapesAtPoint(x, y, false);
+                        Shape shape = shapes.Shapes[1];
+                        for (int i = 1; i <= shapes.Shapes.Count; i++)
+                        {
+                            if (shape.ZOrder > shapes.Shapes[i].ZOrder)
+                                shape = shapes.Shapes[i];
+                        }
+            
 
-                    h = code.SizeHeight;
-                    w = code.SizeWidth;
-                    x = x - w * FactorX;
-                    y = y- h * FactorY;
+#else
+                        Shape shape = corelApp.ActiveDocument.ActivePage.FindShapeAtPoint(x, y);
+#endif
+                        // corelApp.ActiveDocument.PreserveSelection = preservSelection;
+                        if (shape == null)
+                            return;
+                        x = shape.LeftX;
+                        y = shape.TopY;
+                        w = shape.SizeWidth;
+                        h = shape.SizeHeight;
 
-                    //code.SetPosition(corelApp.ConvertUnits(x1,corelApp.Unit,corelApp.ActiveDocument.Unit),
-                    //corelApp.ConvertUnits(y1, corelApp.Unit, corelApp.ActiveDocument.Unit));
-                    code.SetPosition(x,y);
-                    OnProgressChange(dsCursor++);
-                    //corelApp.Refresh();
-                    
-                    corelApp.Optimization = false;
-                    corelApp.Refresh();
-                    Draw();
+
+                    }
+
+
+                    points[i] = corelApp.CreateRect(x, y, w, h);
+                    // OnProgressChange(dsCursor++);
                 }
-                else
-                    dsCursor = 0;
-                
+                drawFunction();
+                ////corelApp.ActiveDocument.GetUserArea(out x, out y, out x2, out y2, out s, 0, true, cdrCursorShape.cdrCursorExtPick);
+
+
+
+                //code = this.codeGenerator.CreateVetorLocal(corelApp.ActiveLayer, 
+                //    dataSource[dsCursor][0].ToString()
+                //    , corelApp.ConvertUnits(Size,corelApp.ActiveDocument.Unit,cdrUnit.cdrMillimeter)
+                //    , 0, 0, string.Format("QR-{0}", dataSource[dsCursor][0].ToString()));
+                //Console.WriteLine("Unit: App|{0} Doc|{1}",corelApp.Unit,corelApp.ActiveDocument.Unit);
+                ////code = corelApp.ActiveLayer.CreateArtisticText(x, y, dataSource[dsCursor][0].ToString());
+                ////double x1 = corelApp.ConvertUnits(x, corelApp.ActiveDocument.Unit, corelApp.Unit);
+                ////double y1 = corelApp.ConvertUnits(y, corelApp.ActiveDocument.Unit, corelApp.Unit);
+
+                //double h, w;
+                ////h = corelApp.ConvertUnits(code.SizeHeight, corelApp.Unit, corelApp.ActiveDocument.Rulers.HUnits);
+                ////w = corelApp.ConvertUnits(code.SizeWidth, corelApp.Unit, corelApp.ActiveDocument.Rulers.HUnits);
+
+                //h = code.SizeHeight;
+                //w = code.SizeWidth;
+                //x = x - w * FactorX;
+                //y = y- h * FactorY;
+
+                ////code.SetPosition(corelApp.ConvertUnits(x1,corelApp.Unit,corelApp.ActiveDocument.Unit),
+                ////corelApp.ConvertUnits(y1, corelApp.Unit, corelApp.ActiveDocument.Unit));
+                //code.SetPosition(x,y);
+                //OnProgressChange(dsCursor++);
+                ////corelApp.Refresh();
+
+                //corelApp.Optimization = false;
+                //corelApp.Refresh();
+                //Draw();
+                // }
+                // else
+                // {
+                //    dsCursor = 0;
+                //if (taskManager == null)
+                //    taskManager = corelApp.FrameWork.TaskManager;
+                //BackgroundTask backgroundTask = new BackgroundTask(corelApp, DrawAction);
+                //taskManager.RunInBackground(cuiTaskPriority.kASAP, backgroundTask);
+                // }
+
             }
             catch (Exception e)
             {
@@ -91,11 +153,107 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 if (corelApp.ActiveDocument != null)
                     corelApp.ActiveDocument.EndCommandGroup();
                 corelApp.Optimization = false;
+                corelApp.EventsEnabled = true;
                 corelApp.Refresh();
             }
-            
+
         }
 
+        private void drawFunction()
+        {
+            c.Shape code = null;
+            double x = 0, y = 0;
+            int s = 0;
+            corelApp.Optimization = true;
+            corelApp.EventsEnabled = false;
+            corelApp.Unit = cdrUnit.cdrMillimeter;
+            corelApp.ActiveDocument.BeginCommandGroup();
+            if (corelApp.Unit != prevUnit)
+                corelApp.Unit = prevUnit;
+            for (int i = 0; i < dataSource.Count; i++)
+            {
+                if (GetContainer)
+                    Size = points[i].Height;
+                // corelApp.ActiveDocument.GetUserClick(out x, out y, out s, 0, true, c.cdrCursorShape.cdrCursorSmallcrosshair);
+                code = this.codeGenerator.CreateVetorLocal(corelApp.ActiveLayer,
+                  dataSource[i][0].ToString()
+                  , corelApp.ConvertUnits(Size, corelApp.ActiveDocument.Unit, cdrUnit.cdrMillimeter)
+                  , 0, 0, string.Format("QR-{0}", dataSource[dsCursor][0].ToString()));
+                Console.WriteLine("Unit: App|{0} Doc|{1}", corelApp.Unit, corelApp.ActiveDocument.Unit);
+                double h, w;
+                x = points[i].x;
+                y = points[i].y;
+                w = Size;
+                h = Size;
+                if (GetContainer)
+                {
+                    w = points[i].Width;
+                    h = points[i].Height;
+                    if (w > h)
+                        Size = h;
+                    if (h > w)
+                        Size = w;
+                    switch (ReferencePoint)
+                    {
+                        case Anchor.Center:
+                            if (w > Size)
+                                x = x + (w / 2) - (Size / 2);
+                            if (h > Size)
+                                y = y - (h / 2) + (Size / 2);
+                            break;
+                        case Anchor.TopMiddle:
+                            if (w > Size)
+                                x = x + (w / 2) - (Size / 2);
+                            break;
+                        case Anchor.TopRight:
+                            if (w > Size)
+                                x = x + (w) - (Size);
+
+                            break;
+                        case Anchor.MiddleLeft:
+
+                            if (h > Size)
+                                y = y - (h / 2) + (Size / 2);
+                            break;
+                        case Anchor.MiddleRight:
+                            if (w > Size)
+                                x = x + (w) - (Size);
+                            if (h > Size)
+                                y = y - (h / 2) + (Size / 2);
+                            break;
+                        case Anchor.BottonLeft:
+
+                            if (h > Size)
+                                y = y - (h) + (Size);
+                            break;
+                        case Anchor.BottonMiddle:
+                            if (w > Size)
+                                x = x + (w / 2) - (Size / 2);
+                            if (h > Size)
+                                y = y - (h) + (Size);
+                            break;
+                        case Anchor.BottonRight:
+                            if (w > Size)
+                                x = x + (w) - (Size);
+                            if (h > Size)
+                                y = y - (h) + (Size);
+                            break;
+                    }
+                }
+                else
+                {
+                    x = x - w * FactorX;
+                    y = y - h * FactorY;
+                }
+                code.SetPosition(x, y);
+                code.SetSize(Size, Size);
+                corelApp.Refresh();
+            }
+            //corelApp.Refresh();
+            corelApp.ActiveDocument.EndCommandGroup();
+            corelApp.Optimization = false;
+            corelApp.Refresh();
+        }
         public void OnFinishJob(object obj)
         {
             if (FinishJob != null)
@@ -108,4 +266,5 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 ProgressChange(progress);
         }
     }
+
 }

@@ -23,7 +23,7 @@
 				  dynamicCategory="2cc24a3e-fe24-4708-9a74-9c75406eebcd"
 				  userCaption="CorelNaVeia Dockers"
 				  enable="true"
-				  flyoutBarRef="FB727225-CEA7-4D27-BB27-52C687B53029"
+				  flyoutBarRef="8baeb154-f910-46cd-b05c-3cf2808d1391"
                 />
       <!-- Define the button which shows the docker -->
       <itemData guid="7836b4c1-0d32-4da0-a15f-68060f29648a" noBmpOnMenu="true"
@@ -53,13 +53,13 @@
 				<menu>
 
 					<!--Here change to new item-->
-					<!--<item guidRef="DF67BEBE-6551-4F3B-BE5B-1BF46E16AB67"/>-->
+					<!--<item guidRef="7836b4c1-0d32-4da0-a15f-68060f29648a"/>-->
 
 				</menu>
 			</commandBarData>
 		</xsl:copy>
 	</xsl:template>
-	<xsl:template match="uiConfig/commandBars/commandBarData[guid='FB727225-CEA7-4D27-BB27-52C687B53029']/menu">
+	<xsl:template match="uiConfig/commandBars/commandBarData[guid='8baeb154-f910-46cd-b05c-3cf2808d1391']/menu">
 		<xsl:copy>
 			<xsl:apply-templates select="node()|@*"/>
 

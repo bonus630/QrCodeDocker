@@ -9,8 +9,9 @@
 
     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
         <Label Content="Anchor:"/>
-        <local:AnchorButton Width="30" Height="30" FactorChanged="AnchorButton_FactorChanged"></local:AnchorButton>
+        <local:AnchorButton Width="30" Height="30" FactorChanged="AnchorButton_FactorChanged" x:Name="anchorButton"></local:AnchorButton>
         <Button x:Name="btn_start" Content="Start" Height="30" Margin="20,0,20,0" Click="btn_start_Click"/>
+        <CheckBox Content="GetContainer" x:Name="ck_getContainer" VerticalAlignment="Center" Click="ck_getContainer_Click"/>
     </StackPanel>
 
 </UserControl>

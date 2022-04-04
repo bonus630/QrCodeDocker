@@ -1,6 +1,8 @@
-﻿namespace br.corp.bonus630.QrCodeDocker.Lang
+﻿using br.corp.bonus630.PluginLoader;
+
+namespace br.corp.bonus630.QrCodeDocker.Lang
 {
-    public class US_EN : Ilang
+    public class EN_US : LangController, Ilang
     {
         public string MainTitle { get { return ""; } }
 

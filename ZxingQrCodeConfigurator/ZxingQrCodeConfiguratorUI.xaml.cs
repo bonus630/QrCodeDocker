@@ -29,6 +29,12 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 
             this.DataContext = this;
         }
+        public void ChangeLang(LangTagsEnum langTag)
+        {
+            //Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.Repeater.SimpleRepeater)), langTag) as Ilang;
+            //this.DataContext = Lang;
+            //(Lang as LangController).AutoUpdateProperties();
+        }
         private ColorSystem selectedBorderColor;
         public ColorSystem SelectedBorderColor
         {
@@ -271,5 +277,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         {
             (CodeGenerator as QrCodeGenerator).NoBorder = (bool)ck_noBorder.IsChecked;
         }
+
+        
     }
 }

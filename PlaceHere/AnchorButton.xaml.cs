@@ -23,7 +23,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public double FactorY { get; set; }
 
         public event Action<double,double> FactorChanged;
-
+        public Anchor ReferencePoint { get; set; }
         public AnchorButton()
         {
             InitializeComponent();
@@ -40,38 +40,47 @@ namespace br.corp.bonus630.plugin.PlaceHere
             switch (tag)
             {
                 case 0:
+                    ReferencePoint = Anchor.TopLeft;
                     FactorX = 0;
                     FactorY = 0;
                 break;
                 case 1:
+                    ReferencePoint = Anchor.TopMiddle;
                     FactorX = 0.5;
                     FactorY = 0;
                 break;
                 case 2:
+                    ReferencePoint = Anchor.TopRight;
                     FactorX = 1;
                     FactorY = 0;
                     break;
                 case 3:
+                    ReferencePoint = Anchor.MiddleLeft;
                     FactorX = 0;
                     FactorY = -0.5;
                     break;
                 case 4:
+                    ReferencePoint = Anchor.Center;
                     FactorX = 0.5;
                     FactorY = -0.5;
                     break;
                 case 5:
+                    ReferencePoint = Anchor.MiddleRight;
                     FactorX = 1;
                     FactorY = -0.5;
                     break;
                 case 6:
+                    ReferencePoint = Anchor.BottonLeft;
                     FactorX = 0;
                     FactorY = -1;
                     break;
                 case 7:
+                    ReferencePoint = Anchor.BottonMiddle;
                     FactorX = 0.5;
                     FactorY = -1;
                     break;
                 case 8:
+                    ReferencePoint = Anchor.BottonRight;
                     FactorX = 1;
                     FactorY = -1;
                     break;
@@ -79,5 +88,18 @@ namespace br.corp.bonus630.plugin.PlaceHere
             if (FactorChanged != null)
                 FactorChanged(FactorX, FactorY);
         }
+    }
+
+    public enum Anchor
+    {
+        TopLeft,
+        TopMiddle,
+        TopRight,
+        MiddleLeft,
+        Center,
+        MiddleRight,
+        BottonLeft,
+        BottonMiddle,
+        BottonRight
     }
 }

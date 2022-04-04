@@ -136,6 +136,6 @@
             <Label Content="Dot Border Size:" />
             <TextBox Height="30" Margin="105,0,136,0" x:Name="txt_dotBorderSize" PreviewKeyUp="txt_dotBorderSize_PreviewKeyUp" PreviewTextInput="checkTextFormat" LostFocus="txt_content_LostFocus" GotFocus="txt_content_GotFocus" Text="0"/>
         </Grid>
-        <Button Content="Validate" x:Name="btn_validate" Click="btn_validate_Click" Height="34" Width="120" HorizontalAlignment="Left" Margin="90,10,0,0"/>
+        <Button Content="Verify" x:Name="btn_validate" Click="btn_validate_Click" Height="34" Width="120" HorizontalAlignment="Left" Margin="90,10,0,0"/>
     </StackPanel>
 </UserControl>

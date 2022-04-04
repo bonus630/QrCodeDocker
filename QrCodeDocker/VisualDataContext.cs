@@ -5,6 +5,8 @@ using System.Text;
 using Corel.Interop.VGCore;
 using br.corp.bonus630.QrCodeDocker.Lang;
 using System.ComponentModel;
+using br.corp.bonus630.PluginLoader;
+using System.Reflection;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -26,18 +28,8 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void LoadLang()
         {
-            switch (this.app.UILanguage)
-            {
-                case cdrTextLanguage.cdrBrazilianPortuguese:
-                    langObj = new PT_BR();
-                    break;
-                case cdrTextLanguage.cdrEnglishUS:
-                    langObj = new US_EN();
-                    break;
-                default:
-                    langObj = new US_EN();
-                    break;
-            }
+            langObj = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.QrCodeDocker.Docker)), this.app.UILanguage.cdrLangToSys()) as Ilang;
+            (langObj as LangController).AutoUpdateProperties();
         }
     }
 }

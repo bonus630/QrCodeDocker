@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.AutoNumberGen"
              mc:Ignorable="d" d:DesignWidth="280">
     <Grid>
-       <Label Content="Start:" HorizontalAlignment="Left" VerticalAlignment="Top" />    
-       <Label Content="End:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="79,0,0,0" />
+       <Label Content="{Binding LBA_Start}" HorizontalAlignment="Left" VerticalAlignment="Top" />    
+       <Label Content="{Binding LBA_End}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="79,0,0,0" />
        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Margin="42,4,0,0" TextChanged="ChangeText" Name="TextBoxStart" />
        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Margin="117,4,0,0" TextChanged="ChangeText" Name="TextBoxEnd"/>
         <Label Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,26,0,0" Name="LabelResult"/>

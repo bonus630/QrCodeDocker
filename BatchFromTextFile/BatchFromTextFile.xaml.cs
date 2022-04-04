@@ -4,7 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using br.corp.bonus630.PluginLoader;
 using System.Collections.Generic;
-
+using System.Reflection;
+using br.corp.bonus630.plugin.BatchFromTextFile.Lang;
 
 namespace br.corp.bonus630.plugin.BatchFromTextFile
 {
@@ -15,7 +16,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         public event Action<object> FinishJob;
         public event Action<string> AnyTextChanged;
         Core core;
-
+        Ilang Lang;
         public List<object[]> DataSource { get { return core.DataSource; } }
 
         public int Index { get ; set; }
@@ -42,7 +43,12 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             core.FinishJob += Core_FinishJob;
             this.Loaded += BatchFromTextFile_Loaded;
         }
-
+        public void ChangeLang(LangTagsEnum langTag)
+        {
+            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.BatchFromTextFile.BatchFromTextFile)), langTag) as Ilang;
+            this.DataContext = Lang;
+            (Lang as LangController).AutoUpdateProperties();
+        }
         private void BatchFromTextFile_Loaded(object sender, RoutedEventArgs e)
         {
             txt_delimiter.TextChanged += Txt_delimiter_TextChanged;
@@ -64,7 +70,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         {
             
             Microsoft.Win32.OpenFileDialog of = new Microsoft.Win32.OpenFileDialog();
-            of.Filter = "text files|*.txt";
+            of.Filter = Lang.OF_File;
             of.Multiselect = false;
             if((bool)of.ShowDialog())
             {
@@ -83,9 +89,9 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         {
             if (core.DataSource == null)
                 return;
-            lba_number.Content = string.Format("{0} Rows", core.DataSource.Count);
+            lba_number.Content = string.Format("{0} {1}", core.DataSource.Count,Lang.Rows);
             if (core.DataSource.Count > 0)
-                lba_numberColumn.Content = string.Format("{0} Columns", core.DataSource[0].Length);
+                lba_numberColumn.Content = string.Format("{0} {1}", core.DataSource[0].Length,Lang.Columns);
         }
 
 
@@ -108,5 +114,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
                 ChangeData();
             }
         }
+
+       
     }
 }

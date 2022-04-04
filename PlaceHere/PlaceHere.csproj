@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <CdrTargetPath>$([System.Environment]::GetEnvironmentVariable('localappdata'))\bonus630\bonus630.CDRCommon.targets</CdrTargetPath>
+    <CdrTargetPath>$(SolutionDir)bonus630.CDRCommon.targets</CdrTargetPath>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E1F2D9DB-87E7-4A80-9D52-218637C54D18}</ProjectGuid>
@@ -209,6 +209,7 @@
     <Compile Include="AnchorButton.xaml.cs">
       <DependentUpon>AnchorButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BackgroundTask.cs" />
     <Compile Include="PlaceHereCorecs.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -246,11 +247,11 @@
   <ItemGroup>
     <Page Include="AnchorButton.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PlaceHereUI.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -258,6 +259,6 @@
     <Message Text="CopyFiles" />
     <Message Text="$(CurrentCorelPath)" />
     <MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras" />
-    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
-  </Target>
+	  <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')"
+					Command='xcopy "$(TargetPath)" "$(CurrentCorelPath)Addons\$(SolutionName)\extras\" /y /d /e /c' />  </Target>
 </Project>

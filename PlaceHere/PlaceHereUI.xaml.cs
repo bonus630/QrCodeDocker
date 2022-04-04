@@ -1,23 +1,14 @@
-﻿using br.corp.bonus630.PluginLoader;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c = Corel.Interop.VGCore;
+using br.corp.bonus630.PluginLoader;
 
 namespace br.corp.bonus630.plugin.PlaceHere
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for PlaceHereUI.xaml
     /// </summary>
     public partial class PlaceHereUI : UserControl, IPluginUI, IPluginDrawer
     {
@@ -32,7 +23,12 @@ namespace br.corp.bonus630.plugin.PlaceHere
             core.ProgressChange += Core_ProgressChange;
             
         }
-
+        public void ChangeLang(LangTagsEnum langTag)
+        {
+            //Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.Repeater.SimpleRepeater)), langTag) as Ilang;
+            //this.DataContext = Lang;
+            //(Lang as LangController).AutoUpdateProperties();
+        }
         private void Core_ProgressChange(int obj)
         {
             OnProgressChange(obj);
@@ -56,6 +52,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
         public void Draw()
         {
+            this.corelApp.OpenDocument("C:\\Users\\bonus\\OneDrive\\Ambiente de Trabalho\\TestPlaceHereTPL.cdr");
             core.DataSource = this.dataSource;
             core.DSCursor = 0;
             core.Draw();
@@ -82,6 +79,14 @@ namespace br.corp.bonus630.plugin.PlaceHere
         {
             core.FactorX = factorX;
             core.FactorY = factorY;
+            core.ReferencePoint = anchorButton.ReferencePoint;
         }
+
+        private void ck_getContainer_Click(object sender, RoutedEventArgs e)
+        {
+            core.GetContainer = (bool)(sender as CheckBox).IsChecked;
+        }
+
+      
     }
 }

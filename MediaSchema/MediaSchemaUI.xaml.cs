@@ -31,6 +31,10 @@ namespace br.corp.bonus630.plugin.MediaSchema
             InitializeComponent();
             FillSource();
         }
+        public void ChangeLang(LangTagsEnum langTag)
+        {
+          
+        }
         private void FillSource()
         {
             schemesDataSource.Add(
@@ -147,6 +151,8 @@ namespace br.corp.bonus630.plugin.MediaSchema
         {
             throw new NotImplementedException();
         }
+
+       
 
 
 

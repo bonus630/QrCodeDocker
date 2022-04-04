@@ -8,6 +8,10 @@ namespace br.corp.bonus630.PluginLoader
         
         void OnProgressChange(int progress);
         void OnFinishJob(object obj);
+
+        void ChangeLang(LangTagsEnum langTag);
+
+
         event Action<object> FinishJob;
         event Action<string> AnyTextChanged;
         event Action<int> ProgressChange;

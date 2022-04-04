@@ -4,7 +4,7 @@
 		<When Condition="'$(Configuration)' == 'X7 Release' or '$(Configuration)' == 'X7 Debug'">
 			<PropertyGroup>
 
-				<CurrentCorelPath></CurrentCorelPath>
+				<CurrentCorelPath>D:\Program Files\Corel\CorelDRAW Graphics Suite X7\Programs64\</CurrentCorelPath>
 				<CurrentCorelAbr>X7</CurrentCorelAbr>
 				<CurrentCorelDebugConst>X7</CurrentCorelDebugConst>
 			</PropertyGroup>
@@ -20,7 +20,7 @@
 		<When Condition="'$(Configuration)' == '2017 Release' or '$(Configuration)' == '2017 Debug'">
 			<PropertyGroup>
 
-				<CurrentCorelPath></CurrentCorelPath>
+				<CurrentCorelPath>D:\Program Files\Corel\CorelDRAW Graphics Suite 2017\Programs64\</CurrentCorelPath>
 				<CurrentCorelAbr>2017</CurrentCorelAbr>
 				<CurrentCorelDebugConst>X9</CurrentCorelDebugConst>
 			</PropertyGroup>
@@ -28,7 +28,7 @@
 		<When Condition="'$(Configuration)' == '2018 Release' or '$(Configuration)' == '2018 Debug'">
 			<PropertyGroup>
 
-				<CurrentCorelPath></CurrentCorelPath>
+				<CurrentCorelPath>D:\Program Files\Corel\CorelDRAW Graphics Suite 2018\Programs64\</CurrentCorelPath>
 				<CurrentCorelAbr>2018</CurrentCorelAbr>
 				<CurrentCorelDebugConst>X10</CurrentCorelDebugConst>
 			</PropertyGroup>
@@ -36,7 +36,7 @@
 		<When Condition="'$(Configuration)' == '2019 Release' or '$(Configuration)' == '2019 Debug'">
 			<PropertyGroup>
 
-				<CurrentCorelPath></CurrentCorelPath>
+				<CurrentCorelPath>D:\Program Files\Corel\CorelDRAW Graphics Suite 2018\Programs64\</CurrentCorelPath>
 				<CurrentCorelAbr>2019</CurrentCorelAbr>
 				<CurrentCorelDebugConst>X11</CurrentCorelDebugConst>
 			</PropertyGroup>
@@ -79,6 +79,7 @@
 		<Message Text="CopyFiles" />
 		<Message Text="$(CurrentCorelPath)" />
 		<MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)" />
-		<Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)')" Command='xcopy "$(ProjectDir)$(OutDir)*.*" "$(CurrentCorelPath)Addons\$(SolutionName)" /y /d /e /c' />
+		<Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)')" 
+			  Command='xcopy "$(ProjectDir)$(OutDir)*.*" "$(CurrentCorelPath)Addons\$(SolutionName)" /y /d /e /c' />
 	</Target>
 </Project>

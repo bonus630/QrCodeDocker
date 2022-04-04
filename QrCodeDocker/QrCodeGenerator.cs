@@ -46,9 +46,9 @@ namespace br.corp.bonus630.QrCodeDocker
         public QrCodeGenerator(Application app)
         {
             this.app = app;
-            borderColor = new Color();
+            borderColor = app.CreateColor();
             borderColor.CMYKAssign(0, 0, 0, 0);
-            dotFillColor = new Color();
+            dotFillColor = app.CreateColor();
             dotFillColor.CMYKAssign(0, 0, 0, 100);
             dotOutlineColor = dotFillColor;
         }
@@ -67,8 +67,8 @@ namespace br.corp.bonus630.QrCodeDocker
             double m_Padding = 0.0;
             imageRender.EncodeNewBitMatrix(content, (int)strSize);
             double dotSize = imageRender.InMeasure((int)strSize);
-          
-            ShapeRange shapeRange = new ShapeRange();
+
+            ShapeRange shapeRange = app.CreateShapeRange();
 
             for (int j = 0; j < imageRender.BitMatrixProp.Width; j++)
             {
@@ -119,7 +119,7 @@ namespace br.corp.bonus630.QrCodeDocker
             else
                 qrCodeShape = this.app.ActiveSelection.Group();
             qrCodeShape.Flip(cdrFlipAxes.cdrFlipVertical);
-            qrCodeShape.AddToSelection();
+            Shape g = null;
             if (!noBorder)
             {
                 Shape border = layerTemp.CreateRectangle2(0, 0, strSize, strSize);
@@ -128,12 +128,15 @@ namespace br.corp.bonus630.QrCodeDocker
 
                 border.OrderToBack();
                 border.AddToSelection();
+                qrCodeShape.AddToSelection();
                 this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignHCenter, border.SizeWidth / 2, border.SizeHeight / 2);
                 this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignVCenter, border.SizeWidth / 2, border.SizeHeight / 2);
+                g = this.app.ActiveSelection.Group();
             }
-           
+            else
+                g = qrCodeShape;
             
-            Shape g = this.app.ActiveSelection.Group();
+            
             g.MoveToLayer(layer);
             layerTemp.Delete();
         
@@ -183,7 +186,8 @@ namespace br.corp.bonus630.QrCodeDocker
 
                         Color cWhite = new Color();
                         cWhite.CMYKAssign(0, 0, 0, 0);
-                        cod.AddToSelection();
+                        
+                        Shape g = null;
                         if (!noBorder)
                         {
                             Shape border = layerTemp.CreateRectangle2(x, y - h, w, h);
@@ -191,10 +195,14 @@ namespace br.corp.bonus630.QrCodeDocker
                             border.Outline.Width = 0;
                             border.Name = "Borda";
                             border.AddToSelection();
+                            cod.AddToSelection();
                             this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignHCenter, border.SizeWidth / 2, border.SizeHeight / 2);
                             this.app.ActiveSelection.AlignToPoint(cdrAlignType.cdrAlignVCenter, border.SizeWidth / 2, border.SizeHeight / 2);
+                            g = this.app.ActiveSelection.Group();
+                            g.Shapes[1].OrderToBack();
                         }
-                        Shape g = this.app.ActiveSelection.Group();
+                        else
+                            g = cod;
 
 
                         g.SetSize(strSize, strSize);
@@ -202,7 +210,7 @@ namespace br.corp.bonus630.QrCodeDocker
                         layer.Activate();
                         g.MoveToLayer(layer);
                         layerTemp.Delete();
-                        g.Shapes[1].OrderToBack();
+                        
                         g.RemoveFromSelection();
 
                         return g;

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <CdrTargetPath>$([System.Environment]::GetEnvironmentVariable('localappdata'))\bonus630\bonus630.CDRCommon.targets</CdrTargetPath>
+    <CdrTargetPath>$(SolutionDir)bonus630.CDRCommon.targets</CdrTargetPath>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{38A3FC12-256A-49DE-B6B6-9F6268EF782D}</ProjectGuid>
@@ -225,10 +225,11 @@
   <ItemGroup>
     <Compile Include="DataFromClipboardUI.xaml.cs">
       <DependentUpon>DataFromClipboardUI.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Lang\EN_US.cs" />
+    <Compile Include="Lang\Ilang.cs" />
+    <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -254,15 +255,11 @@
       <Project>{eaf9534f-74a1-4b07-a61c-0eab13c70fb3}</Project>
       <Name>PluginLoader</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QrCodeDocker\QrCodeDocker.csproj">
-      <Project>{0bc78d26-dbd1-4802-bee7-796d2a980471}</Project>
-      <Name>QrCodeDocker</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="DataFromClipboardUI.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

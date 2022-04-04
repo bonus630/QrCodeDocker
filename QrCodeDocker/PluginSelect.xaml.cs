@@ -70,7 +70,7 @@ namespace br.corp.bonus630.QrCodeDocker
             InitializeComponent();
             try
             {
-                loader = new Loader();
+                loader = new Loader(app.AddonPath);
                 List<PluginMap> pluginNames = loader.PluginList();
                 if (pluginNames.Count == 0)
                 {
@@ -253,6 +253,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 (objUI as IPluginUI).ProgressChange += PluginSelect_ProgressChange;
                 (objUI as IPluginUI).FinishJob += PluginSelect_FinishJob;
                 (objUI as IPluginUI).AnyTextChanged += PluginSelect_AnyTextChanged;
+                (objUI as IPluginUI).ChangeLang(app.UILanguage.cdrLangToSys());
                 if (typeof(IPluginConfig).IsAssignableFrom(objUI.GetType()))
                     (objUI as IPluginConfig).GetCodeGenerator += PluginSelect_GetCodeGenerator;
                 SetDataSource(this.dataSource);

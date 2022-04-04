@@ -12,7 +12,7 @@
     <!-- The Application Info should always be the topmost frmwrk element -->
     <frmwrk:compositeNode xPath="/uiConfig/commandBars/commandBarData[@guid='cdb9ea9c-223e-4865-97a6-31c007c69674']"/>
 	  <!-- Ours command bar frmwrk element-->
-	  <frmwrk:compositeNode xPath="/uiConfig/commandBars/commandBarData[@guid='FB727225-CEA7-4D27-BB27-52C687B53029']"/>
+	  <frmwrk:compositeNode xPath="/uiConfig/commandBars/commandBarData[@guid='8baeb154-f910-46cd-b05c-3cf2808d1391']"/>
     <!--<frmwrk:compositeNode xPath="/uiConfig/commandBars/commandBarData[@guid='f455d4da-90b9-45c9-aaf9-77aa5f69384d']"/>-->
     <frmwrk:compositeNode xPath="/uiConfig/frame"/>
   </frmwrk:uiconfig>
@@ -50,9 +50,9 @@
 			
 			<xsl:with-param name="content">
 				
-		<!-- Make sure we don't read the menu item it it already exists -->
+		<!-- Make sure we don't read the menu item it is already exists -->
 		<xsl:if test="not(./item[@guidRef='61fea129-6e7a-46be-bfac-49075cfb97d8'])">
-			<item guidRef="f1d3d1d0-cc8d-4f04-91cb-7112255b8af1"/>
+			<item guidRef="61fea129-6e7a-46be-bfac-49075cfb97d8"/>
 		</xsl:if>
 		</xsl:with-param>
 		<xsl:with-param name="after" select = "'47cc9a2d-0b7a-4df1-a686-ea3aa21b4631'"/>
@@ -60,11 +60,11 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
-	<!-- Put the new command at the end of the 'Bonus630 dockers' menu -->
+	<!-- Put the new command at the end of the 'CorelNaVeia dockers' menu -->
 	<xsl:template match="commandBarData[@guid='8baeb154-f910-46cd-b05c-3cf2808d1391']/menu">
 		<xsl:apply-templates  mode="insert-item" select=".">
 			<xsl:with-param name="content">
-			<!-- Make sure we don't read the menu item it it already exists -->
+			<!-- Make sure we don't read the menu item it is already exists -->
 			<xsl:if test="not(./item[@guidRef='7836b4c1-0d32-4da0-a15f-68060f29648a'])">
 				<item guidRef="7836b4c1-0d32-4da0-a15f-68060f29648a"/>
 			</xsl:if>

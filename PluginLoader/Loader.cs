@@ -8,19 +8,10 @@ namespace br.corp.bonus630.PluginLoader
     public class Loader
     {
         private string pluginFolder; 
-        public Loader()
+        public Loader(string addonsPath)
         {
-            pluginFolder = Path.Combine(Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\extras");
-#if X7
-            pluginFolder = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\Addons\\QrCodeDocker\\extras";
-#elif X8
-            pluginFolder = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X8\\Programs64\\Addons\\QrCodeDocker\\extras";
-#elif X9
-            pluginFolder = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite 2017\\Programs64\\Addons\\QrCodeDocker\\extras";
-#elif X10
-            pluginFolder = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite 2018\\Programs64\\Addons\\QrCodeDocker\\extras";
-#endif
-
+       
+            pluginFolder = Path.Combine(addonsPath, "QrCodeDocker\\extras");
             if (!Directory.Exists(pluginFolder))
                 Directory.CreateDirectory(pluginFolder);
 

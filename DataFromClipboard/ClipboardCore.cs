@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using br.corp.bonus630.PluginLoader;
-using br.corp.bonus630.QrCodeDocker;
 using System.Threading;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
+using br.corp.bonus630.plugin.DataFromClipboard.Lang;
 
 namespace br.corp.bonus630.plugin.DataFromClipboard
 {
@@ -25,12 +25,12 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         public bool MonitorClipboard { get { return this.monitorClipboard; } set { this.monitorClipboard = value; } }
 
         public const string PluginDisplayName = "Data From Clipboard";
-
+        public Ilang Lang { get; set; }
         public List<object[]> DataSource
         {
             get
             {
-                convertObservableToList(); 
+                convertObservableToList();
                 return this.dataSouce;
             }
             set
@@ -48,7 +48,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
             {
                 this.dataSouce.Add(new object[] { clipboardDatas[i].Text });
             }
-            
+
         }
 
         ObservableCollection<ClipboardData> clipboardDatas = new ObservableCollection<ClipboardData>();
@@ -60,6 +60,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
         public RoutedCommand<ClipboardData> DeleteCommand { get; set; }
+        public RoutedCommand<object> ClearAllCommand { get; set; }
         private Dispatcher dispatcher = null;
 
         public ObservableCollection<ClipboardData> ClipboardDatas
@@ -73,6 +74,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         {
             this.dispatcher = dispatcher;
             DeleteCommand = new RoutedCommand<ClipboardData>(DeleteClipboardData);
+            ClearAllCommand = new RoutedCommand<object>(ClearAll);
             monitor = new Thread(new ThreadStart(Process));
             monitor.SetApartmentState(ApartmentState.STA);
             monitor.IsBackground = true;
@@ -83,6 +85,13 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         {
             if (FinishJob != null)
                 FinishJob(obj);
+        }
+        private void ClearAll(object obj)
+        {
+            this.dispatcher.Invoke(new Action(() =>
+            {
+                ClipboardDatas.Clear();
+            }));
         }
         private void DeleteClipboardData(ClipboardData obj)
         {
@@ -103,20 +112,24 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
             {
                 if (monitorClipboard)
                 {
-
-                    if (Clipboard.ContainsText())
+                    try
                     {
-                        string currentText = Clipboard.GetText();
-                        if (!lastText.Equals(currentText))
+
+                        if (Clipboard.ContainsText())
                         {
-                            this.dispatcher.Invoke(new Action(() =>
+                            string currentText = Clipboard.GetText();
+                            if (!lastText.Equals(currentText))
                             {
-                                ClipboardDatas.Add(new ClipboardData() { Text = currentText });
-                            }));
-                            lastText = currentText;
-                            OnFinishJob(DataSource);
+                                this.dispatcher.Invoke(new Action(() =>
+                                {
+                                    ClipboardDatas.Add(new ClipboardData() { Text = currentText });
+                                }));
+                                lastText = currentText;
+                                OnFinishJob(DataSource);
+                            }
                         }
                     }
+                    catch { }
                 }
                 Thread.Sleep(100);
             }

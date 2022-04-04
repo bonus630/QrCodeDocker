@@ -189,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -198,12 +199,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\IntVisibilityConverter.cs" />
     <Compile Include="ICodeGenerator.cs" />
     <Compile Include="IPluginConfig.cs" />
     <Compile Include="IPluginCore.cs" />
     <Compile Include="IPluginDataSource.cs" />
     <Compile Include="IPluginDrawer.cs" />
     <Compile Include="IPluginUI.cs" />
+    <Compile Include="LangController.cs" />
+    <Compile Include="LangTagsEnum.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="ModelViewBase.cs" />
     <Compile Include="PluginMap.cs" />

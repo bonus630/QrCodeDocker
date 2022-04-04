@@ -481,16 +481,16 @@
     </UserControl.Resources>
     <StackPanel>
         <Grid Height="30">
-            <RadioButton x:Name="cb_vector" Content="Vetor" IsChecked="True" Margin="118,5,84,10"  />
-            <RadioButton x:Name="cb_bitmap" Content="Bitmap" Margin="196,5,10,10" />
-            <Label Content="QrCode Format:" Margin="0,0,187,0"  />
+            <RadioButton x:Name="cb_vector" Content="{Binding CB_Vector}" IsChecked="True" Margin="118,5,84,10"  />
+            <RadioButton x:Name="cb_bitmap" Content="{Binding CB_Bitmap}" Margin="196,5,10,10" />
+            <Label Content="{Binding LBA_QR_Format}" Margin="0,0,187,0"  />
         </Grid>
 
         <Grid>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" CanContentScroll="True" VerticalScrollBarVisibility="Disabled" Visibility="Collapsed" Name="scrollViewer_buttons" HorizontalAlignment="Left" Margin="6,0,0,0" Width="274" Template="{DynamicResource ScrollViewerControlTemplateTiny}">
-                <GroupBox Header="First Line Model">
+                <GroupBox Header="{Binding GBH_FirstLineTpl}">
                     <GroupBox.ToolTip>
-                        <Label Content="Choose a type and a shape model for each column"/>
+                        <Label Content="{Binding ToolTip_GBH_FirstLineTpl}"/>
                     </GroupBox.ToolTip>
 
                     <StackPanel Orientation="Horizontal" Name="stackPanel_buttons"  Margin="2,2,2,2" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
@@ -501,35 +501,40 @@
         </Grid>
 
         <Grid>
-            <GroupBox Header="Position" HorizontalAlignment="Left" Width="115" Height="146" VerticalAlignment="Top" Margin="165,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>  
+            <GroupBox Header="{Binding GBH_Enumaration}" Grid.Column="0" Margin="5,10,0,0" HorizontalAlignment="Left"  Height="146" VerticalAlignment="Top" >
                 <Grid>
-                    <CheckBox x:Name="cb_fitToPage" Content="Fit To Page" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Click="cb_fitToPage_Click"/>
-                    <Label Content="Left X:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Top Y:" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Gap:" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
+                    <Button Name="btn_enumerator" Content="{Binding BTN_Enumerator}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="131" Click="Button_Click"/>
+                    <Grid Name="grid_enumerator" Margin="10,35,0,0" HorizontalAlignment="Left" Width="131" Height="69" VerticalAlignment="Top" >
+                        <Label Content="{Binding LBA_InitialValue}" Margin="0,3,0,0"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="77" />
+                        <TextBox Name="txt_initialValue" Text="0" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="56" Margin="69,3,0,0" />
+                        <Label Content="{Binding LBA_Increment}"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="77" Margin="0,21,0,0" />
+                        <TextBox Name="txt_increment" Height="18" Text="1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="56" Margin="69,25,0,0" />
+                        <Label Content="{Binding LBA_Mask}" HorizontalAlignment="Left" Width="77" VerticalAlignment="Top" Margin="0,39,0,0" />
+                        <TextBox Name="txt_mask" Height="18" Text="0000" VerticalAlignment="Top" HorizontalAlignment="Left" Width="56" Margin="69,47,0,0" />
+                    </Grid>
+
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="{Binding GBH_Position}" Grid.Column="1" HorizontalAlignment="Left"  Height="146" VerticalAlignment="Top" Margin="5,10,0,0">
+                <Grid>
+                    <CheckBox x:Name="cb_fitToPage" Content="{Binding CB_FitToPage}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Click="cb_fitToPage_Click"/>
+                    <Label Content="{Binding LBA_Left}" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
+                    <Label Content="{Binding LBA_Top}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                    <Label Content="{Binding LBA_Gap}" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
                     <TextBox HorizontalAlignment="Left" Height="18" Margin="69,24,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="33" Name="txt_startX"/>
                     <TextBox HorizontalAlignment="Left" Height="18" Margin="69,84,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="33" Name="txt_gap"/>
                     <TextBox HorizontalAlignment="Left" Height="18" Margin="69,54,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="33" Name="txt_startY"/>
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Enumeration" Margin="5,10,0,0" HorizontalAlignment="Left" Width="155" Height="146" VerticalAlignment="Top" >
-                <Grid>
-                    <Button Name="btn_enumerator" Content="Enumerator" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="131" Click="Button_Click"/>
-                    <Grid Name="grid_enumerator" Margin="10,35,0,0" HorizontalAlignment="Left" Width="131" Height="69" VerticalAlignment="Top" >
-                        <Label Content="Initial Value" Margin="0,3,0,0"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="77" />
-                        <TextBox Name="txt_initialValue" Text="0" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="56" Margin="69,3,0,0" />
-                        <Label Content="Increment"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="77" Margin="0,21,0,0" />
-                        <TextBox Name="txt_increment" Height="18" Text="1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="56" Margin="69,25,0,0" />
-                        <Label Content="Mask" HorizontalAlignment="Left" Width="77" VerticalAlignment="Top" Margin="0,39,0,0" />
-                        <TextBox Name="txt_mask" Height="18" Text="0000" VerticalAlignment="Top" HorizontalAlignment="Left" Width="56" Margin="69,47,0,0" />
-                    </Grid>
-
-                </Grid>
-            </GroupBox>
+         
         </Grid>
         <Grid Height="41">
-            <Button x:Name="btn_process" Content="MultiDraw" Click="btn_process_Click" Width="73" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,7,0,0"/>
+            <Button x:Name="btn_process" Content="{Binding BTN_Process}" Click="btn_process_Click" Width="73" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,7,0,0"/>
         </Grid>
     </StackPanel>
 </UserControl>

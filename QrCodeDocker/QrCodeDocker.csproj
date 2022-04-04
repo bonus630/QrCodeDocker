@@ -147,46 +147,46 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2021 Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE;X13</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2021 Release|AnyCPU' ">
-		<DebugType>none</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
-		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
-		<DefineConstants>X13</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
-  	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE;X14</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Release|AnyCPU' ">
-		<DebugType>none</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
-		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
-		<DefineConstants>X14</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2021 Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;X13</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2021 Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+    <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+    <DefineConstants>X13</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;X14</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+    <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+    <DefineConstants>X14</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup Label="VGCoreReferences">
     <Reference Include="$(CurrentCorelPath)$(VGCoreDLL)">
       <Name>Corel.Interop.VGCore</Name>
@@ -214,8 +214,8 @@
     <Compile Include="BitmapResources.cs" />
     <Compile Include="Converters\StyleConverter.cs" />
     <Compile Include="Lang\Ilang.cs" />
-    <Compile Include="Lang\US-EN.cs" />
-    <Compile Include="Lang\PT-BR.cs" />
+    <Compile Include="Lang\EN_US.cs" />
+    <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="MainTabControls\EmailControl.xaml.cs">
       <DependentUpon>EmailControl.xaml</DependentUpon>
     </Compile>

@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using Corel.Interop.VGCore;
 using br.corp.bonus630.QrCodeDocker;
 using br.corp.bonus630.PluginLoader;
+using System.Reflection;
+using br.corp.bonus630.plugin.Repeater.Lang;
 
 namespace br.corp.bonus630.plugin.Repeater
 {
@@ -26,6 +28,7 @@ namespace br.corp.bonus630.plugin.Repeater
         double size;
         Corel.Interop.VGCore.Application app;
         br.corp.bonus630.ImageRender.IImageRender imageRender;
+        Ilang Lang;
         RepeaterCore core;
         private int qrcodeContentIndex = 0;
         private List<object[]> dataSource;
@@ -53,8 +56,14 @@ namespace br.corp.bonus630.plugin.Repeater
             core = new RepeaterCore();
             core.FinishJob += Core_FinishJob;
             core.ProgressChange += Core_ProgressChange;
+            
         }
-
+        public void ChangeLang(LangTagsEnum langTag)
+        {
+            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.Repeater.SimpleRepeater)), langTag) as Ilang;
+            this.DataContext = Lang;
+            (Lang as LangController).AutoUpdateProperties();
+        }
         private void Core_ProgressChange(int obj)
         {
             OnProgressChange(obj);
@@ -184,12 +193,12 @@ namespace br.corp.bonus630.plugin.Repeater
            
             if (shape.SizeWidth != shape.SizeHeight && type == ItemType.Code)
             {
-                app.MsgShow("You need get a perfect square");
+                app.MsgShow(Lang.MBOX_ERROR_PerfectSquare);
                 return false;
             }
             if(shape.Type != cdrShapeType.cdrTextShape && type == ItemType.Text)
             {
-                app.MsgShow("You need an text shape");
+                app.MsgShow(Lang.MBOX_ERROR_TextShape);
                 return false;
             }
 
@@ -238,7 +247,7 @@ namespace br.corp.bonus630.plugin.Repeater
             }
             //  core.ShapeContainer = shapeContainer;
             // core.Size = shapeContainer.SizeWidth;
-            if (app.MsgShow("Is correct shape?", "Warning", QrCodeDocker.MessageBox.DialogButtons.YesNo) != QrCodeDocker.MessageBox.DialogResult.Yes)
+            if (app.MsgShow(Lang.MBOX_ERROR_CorrectShape, Lang.Warning, QrCodeDocker.MessageBox.DialogButtons.YesNo) != QrCodeDocker.MessageBox.DialogResult.Yes)
             {
                 this.app.ActiveDocument.Undo();
                 if (type == ItemType.Code)
@@ -269,22 +278,22 @@ namespace br.corp.bonus630.plugin.Repeater
         {
             if (dataSource == null)
             {
-                app.MsgShow("You need load a valid Data Source");
+                app.MsgShow(Lang.MBOX_ERROR_ValidDataSource);
                 return;
             }
             if (dataSource.Count == 0)
             {
-                app.MsgShow("You Data Source is empty");
+                app.MsgShow(Lang.MBOX_ERROR_DataSourceEmpty);
                 return;
             }
             if (app.ActiveSelectionRange == null)
             {
-                app.MsgShow("No shapes selected");
+                app.MsgShow(Lang.MBOX_ERROR_NoShapes);
                 return;
             }
             if (app.ActiveSelection.Shapes.Count == 0)
             {
-                app.MsgShow("No shapes selected");
+                app.MsgShow(Lang.MBOX_ERROR_NoShapes);
                 return;
             }
             double val = 0;
@@ -342,5 +351,7 @@ namespace br.corp.bonus630.plugin.Repeater
             GetContainer(shapeContainerEnumerator.Count, ItemType.Enumerator);
             btn_enumerator.IsEnabled = true;
         }
+
+      
     }
 }

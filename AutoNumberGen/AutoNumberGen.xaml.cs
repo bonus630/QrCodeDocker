@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace br.corp.bonus630.plugin.AutoNumberGen
 {
@@ -25,7 +26,17 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
         {
             InitializeComponent();
             core = new AutoNumberGenCore();
+            //ChangeLang(LangTagsEnum.PT_BR);
+            
         }
+        public AutoNumberGen(LangTagsEnum lang)
+        {
+            InitializeComponent();
+            core = new AutoNumberGenCore();
+            ChangeLang(lang);
+            this.DataContext = LangBase;
+        }
+        private LangController LangBase;
         AutoNumberGenCore core;
         public List<object[]> DataSource { get { return core.DataSource; } }
 
@@ -45,7 +56,12 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
         {
             
         }
-
+        public void ChangeLang(LangTagsEnum lang)
+        {
+            LangBase = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.AutoNumberGen.AutoNumberGen)), lang);
+            this.DataContext = LangBase;
+            LangBase.AutoUpdateProperties();
+        }
         private void ChangeText(object sender, TextChangedEventArgs e)
         {
             int start, end;

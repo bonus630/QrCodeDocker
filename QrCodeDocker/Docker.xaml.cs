@@ -81,12 +81,8 @@ namespace br.corp.bonus630.QrCodeDocker
             imageRender = new ZXingImageRender();
             codeGenerator.SetRender(imageRender);
 
-            string pluginLoader = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\PluginLoader.dll");
-#if DEBUG
-            pluginLoader = "C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X8\\Programs64\\Addons\\QrCodeDocker\\PluginLoader.dll";
-
-
-#endif
+           // string pluginLoader = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\PluginLoader.dll");
+           string pluginLoader = System.IO.Path.Combine(this.app.AddonPath, "QrCodeDocker\\PluginLoader.dll"); 
 
 
             if (System.IO.File.Exists(pluginLoader))

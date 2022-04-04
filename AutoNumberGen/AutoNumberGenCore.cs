@@ -15,6 +15,7 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
+        
 
         public void OnFinishJob(object obj)
         {
@@ -35,5 +36,6 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
             }
             OnFinishJob(dataSource);
         }
+      
     }
 }

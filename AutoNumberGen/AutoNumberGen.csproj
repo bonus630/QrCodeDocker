@@ -162,26 +162,26 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE;X14</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Release|AnyCPU' ">
-		<DebugType>none</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
-		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
-		<DefineConstants>X14</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;X14</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+    <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+    <DefineConstants>X14</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -201,9 +201,12 @@
       <DependentUpon>AutoNumberGen.xaml</DependentUpon>
     </Compile>
     <Compile Include="AutoNumberGenCore.cs" />
+    <Compile Include="Lang\EN_US.cs" />
+    <Compile Include="Lang\ILang.cs" />
+    <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\PluginLoader\PluginLoader.csproj">
       <Project>{eaf9534f-74a1-4b07-a61c-0eab13c70fb3}</Project>
       <Name>PluginLoader</Name>
@@ -228,10 +231,10 @@ copy "$(TargetDir)$(TargetFileName)" "$(SolutionDir)$(SolutionName)\$(OutDir)" /
 	  </PostBuildEvent>
 	  
   </PropertyGroup>-->
-  	<Target Name="CopyFiles" AfterTargets="Build">
-		<Message Text="CopyFiles" />
-		<Message Text="$(CurrentCorelPath)" />
-		<MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras" />
-		<Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command='xcopy "$(TargetPath)" "$(CurrentCorelPath)Addons\$(SolutionName)\extras\" /y /d /e /c' />
-	</Target>
+  <Target Name="CopyFiles" AfterTargets="Build">
+    <Message Text="CopyFiles" />
+    <Message Text="$(CurrentCorelPath)" />
+    <MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
+  </Target>
 </Project>

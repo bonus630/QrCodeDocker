@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using c = Corel.Interop.VGCore;
 using br.corp.bonus630.PluginLoader;
+using System.Reflection;
+using br.corp.bonus630.plugin.PlaceHere.Lang;
 
 namespace br.corp.bonus630.plugin.PlaceHere
 {
@@ -15,6 +17,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         c.Application corelApp;
         ICodeGenerator codeGenerator;
         PlaceHereCorecs core;
+        Ilang Lang;
         public PlaceHereUI()
         {
             InitializeComponent();
@@ -25,9 +28,9 @@ namespace br.corp.bonus630.plugin.PlaceHere
         }
         public void ChangeLang(LangTagsEnum langTag)
         {
-            //Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.Repeater.SimpleRepeater)), langTag) as Ilang;
-            //this.DataContext = Lang;
-            //(Lang as LangController).AutoUpdateProperties();
+            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.PlaceHere.PlaceHereUI)), langTag) as Ilang;
+            this.DataContext = Lang;
+            (Lang as LangController).AutoUpdateProperties();
         }
         private void Core_ProgressChange(int obj)
         {
@@ -52,7 +55,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
         public void Draw()
         {
-            this.corelApp.OpenDocument("C:\\Users\\bonus\\OneDrive\\Ambiente de Trabalho\\TestPlaceHereTPL.cdr");
+            //this.corelApp.OpenDocument("C:\\Users\\bonus\\OneDrive\\Ambiente de Trabalho\\TestPlaceHereTPL.cdr");
             core.DataSource = this.dataSource;
             core.DSCursor = 0;
             core.Draw();
@@ -71,7 +74,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
         private void btn_start_Click(object sender, RoutedEventArgs e)
         {
-            btn_start.Content = "Restart";
+            btn_start.Content = Lang.BTN_Restart;
             Draw();
         }
 

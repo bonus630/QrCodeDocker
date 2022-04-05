@@ -52,16 +52,10 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 dataSource.Add(new object[] { "square" });
                 dataSource.Add(new object[] { "Portrait" });
                 dataSource.Add(new object[] { "Landscape" });
+                corelApp.Unit = cdrUnit.cdrMillimeter;
+                corelApp.ActiveDocument.Unit = cdrUnit.cdrMillimeter;
                 points = new Rect[dataSource.Count];
-                //if (dsCursor < dataSource.Count)
-                //{
-
-                //corelApp.Optimization = true;
-                //corelApp.Unit = cdrUnit.cdrMillimeter;
-                //corelApp.ActiveDocument.BeginCommandGroup();
-                //if (corelApp.Unit != prevUnit)
-                //    corelApp.Unit = prevUnit;
-                //c.Shape code = null;
+           
                 double x = 0, y = 0, w = 0, h = 0;
                 int s = 0;
                 for (int i = 0; i < dataSource.Count; i++)
@@ -99,49 +93,10 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
 
                     points[i] = corelApp.CreateRect(x, y, w, h);
-                    // OnProgressChange(dsCursor++);
+                    
                 }
                 drawFunction();
-                ////corelApp.ActiveDocument.GetUserArea(out x, out y, out x2, out y2, out s, 0, true, cdrCursorShape.cdrCursorExtPick);
-
-
-
-                //code = this.codeGenerator.CreateVetorLocal(corelApp.ActiveLayer, 
-                //    dataSource[dsCursor][0].ToString()
-                //    , corelApp.ConvertUnits(Size,corelApp.ActiveDocument.Unit,cdrUnit.cdrMillimeter)
-                //    , 0, 0, string.Format("QR-{0}", dataSource[dsCursor][0].ToString()));
-                //Console.WriteLine("Unit: App|{0} Doc|{1}",corelApp.Unit,corelApp.ActiveDocument.Unit);
-                ////code = corelApp.ActiveLayer.CreateArtisticText(x, y, dataSource[dsCursor][0].ToString());
-                ////double x1 = corelApp.ConvertUnits(x, corelApp.ActiveDocument.Unit, corelApp.Unit);
-                ////double y1 = corelApp.ConvertUnits(y, corelApp.ActiveDocument.Unit, corelApp.Unit);
-
-                //double h, w;
-                ////h = corelApp.ConvertUnits(code.SizeHeight, corelApp.Unit, corelApp.ActiveDocument.Rulers.HUnits);
-                ////w = corelApp.ConvertUnits(code.SizeWidth, corelApp.Unit, corelApp.ActiveDocument.Rulers.HUnits);
-
-                //h = code.SizeHeight;
-                //w = code.SizeWidth;
-                //x = x - w * FactorX;
-                //y = y- h * FactorY;
-
-                ////code.SetPosition(corelApp.ConvertUnits(x1,corelApp.Unit,corelApp.ActiveDocument.Unit),
-                ////corelApp.ConvertUnits(y1, corelApp.Unit, corelApp.ActiveDocument.Unit));
-                //code.SetPosition(x,y);
-                //OnProgressChange(dsCursor++);
-                ////corelApp.Refresh();
-
-                //corelApp.Optimization = false;
-                //corelApp.Refresh();
-                //Draw();
-                // }
-                // else
-                // {
-                //    dsCursor = 0;
-                //if (taskManager == null)
-                //    taskManager = corelApp.FrameWork.TaskManager;
-                //BackgroundTask backgroundTask = new BackgroundTask(corelApp, DrawAction);
-                //taskManager.RunInBackground(cuiTaskPriority.kASAP, backgroundTask);
-                // }
+             
 
             }
             catch (Exception e)
@@ -166,10 +121,10 @@ namespace br.corp.bonus630.plugin.PlaceHere
             int s = 0;
             corelApp.Optimization = true;
             corelApp.EventsEnabled = false;
-            corelApp.Unit = cdrUnit.cdrMillimeter;
+            
             corelApp.ActiveDocument.BeginCommandGroup();
-            if (corelApp.Unit != prevUnit)
-                corelApp.Unit = prevUnit;
+            //if (corelApp.Unit != prevUnit)
+            //    corelApp.Unit = prevUnit;
             for (int i = 0; i < dataSource.Count; i++)
             {
                 if (GetContainer)
@@ -247,9 +202,10 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 }
                 code.SetPosition(x, y);
                 code.SetSize(Size, Size);
-                corelApp.Refresh();
+                
             }
             //corelApp.Refresh();
+            corelApp.EventsEnabled = true;
             corelApp.ActiveDocument.EndCommandGroup();
             corelApp.Optimization = false;
             corelApp.Refresh();

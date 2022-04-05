@@ -210,6 +210,9 @@
       <DependentUpon>AnchorButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="BackgroundTask.cs" />
+    <Compile Include="Lang\EN_US.cs" />
+    <Compile Include="Lang\Ilang.cs" />
+    <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="PlaceHereCorecs.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +262,6 @@
     <Message Text="CopyFiles" />
     <Message Text="$(CurrentCorelPath)" />
     <MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras" />
-	  <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')"
-					Command='xcopy "$(TargetPath)" "$(CurrentCorelPath)Addons\$(SolutionName)\extras\" /y /d /e /c' />  </Target>
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
+  </Target>
 </Project>

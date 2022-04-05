@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using br.corp.bonus630.plugin.ShapeToCode.Lang;
 using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 
@@ -22,6 +24,7 @@ namespace br.corp.bonus630.plugin.ShapeToCode
     public partial class ShapeToCodeUI : UserControl, IPluginUI,IPluginDrawer
     {
         private ShapeToCodeCore core;
+        Ilang Lang;
         public ShapeToCodeUI()
         {
             InitializeComponent();
@@ -34,9 +37,9 @@ namespace br.corp.bonus630.plugin.ShapeToCode
         }
         public void ChangeLang(LangTagsEnum langTag)
         {
-            //Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.Repeater.SimpleRepeater)), langTag) as Ilang;
-            //this.DataContext = Lang;
-            //(Lang as LangController).AutoUpdateProperties();
+            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.ShapeToCode.ShapeToCodeUI)), langTag) as Ilang;
+            this.DataContext = Lang;
+            (Lang as LangController).AutoUpdateProperties();
         }
         public int Index { get; set; }
         public List<object[]> DataSource { get; set; }

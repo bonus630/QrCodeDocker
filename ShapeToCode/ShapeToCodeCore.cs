@@ -32,6 +32,7 @@ namespace br.corp.bonus630.plugin.ShapeToCode
                 app.Optimization = true;
                 app.EventsEnabled = false;
                 app.Unit = cdrUnit.cdrMillimeter;
+                app.ActiveDocument.Unit = cdrUnit.cdrMillimeter;
                 app.ActiveDocument.BeginCommandGroup();
                 ShapeRange range = GetRange();
                 processRange(range);
@@ -86,11 +87,16 @@ namespace br.corp.bonus630.plugin.ShapeToCode
 
             string tessdataPath = this.app.AddonPath + "QrCodeDocker\\extras\\tessdata";
 
-            var toDelete = this.app.ActiveShape;
-            var rect = this.app.ActiveShape.BoundingBox;
+            //var toDelete = this.app.ActiveShape;
+            var rect = curve.BoundingBox;
+            ShapeRange originalSelection = this.app.ActiveSelectionRange;
+            originalSelection.RemoveFromSelection();
+            curve.AddToSelection();
+            curve.SetSize(curve.SizeWidth * 4, curve.SizeHeight * 4);
             var exportFilter = this.app.ActiveDocument.ExportBitmap(path, cdrFilter.cdrPNG, cdrExportRange.cdrSelection, cdrImageType.cdrRGBColorImage);
             exportFilter.Finish();
-
+            curve.RemoveFromSelection();
+            originalSelection.AddToSelection();
             if (File.Exists(path))
             {
                 try

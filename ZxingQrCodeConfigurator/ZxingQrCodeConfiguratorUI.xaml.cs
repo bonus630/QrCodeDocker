@@ -13,6 +13,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Reflection;
+using br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Lang;
 
 namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 {
@@ -22,18 +24,18 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
     public partial class ZxingQrCodeConfiguratorUI : UserControl,IPluginUI,IPluginConfig,INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public Ilang Lang { get; set; }
         public ZxingQrCodeConfiguratorUI()
         {
             InitializeComponent();
 
-            this.DataContext = this;
+            
         }
         public void ChangeLang(LangTagsEnum langTag)
         {
-            //Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.Repeater.SimpleRepeater)), langTag) as Ilang;
-            //this.DataContext = Lang;
-            //(Lang as LangController).AutoUpdateProperties();
+            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.ZxingQrCodeConfigurator.ZxingQrCodeConfiguratorUI)), langTag) as Ilang;
+            this.DataContext = this;
+            (Lang as LangController).AutoUpdateProperties();
         }
         private ColorSystem selectedBorderColor;
         public ColorSystem SelectedBorderColor
@@ -151,18 +153,18 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                 {
                     string text = CodeGenerator.DecodeImage(filePath);
                     
-                    app.MsgShow(text,"Your Qrcode contains the follow message:");
+                    app.MsgShow(text,Lang.MBOX_QrMessage);
                     //ValidateWindow val = new ValidateWindow(text, filePath);
                     //val.Show();
                     //val.LostFocus += (s, ev) => { val.Close(); };
                 }
                 catch(NotImplementedException ex1)
                 {
-                    app.MsgShow("Change your encoding to Zxing to validate!","Warning",QrCodeDocker.MessageBox.DialogButtons.Ok);
+                    app.MsgShow(Lang.MBOX_QrCodingWarning,Lang.Warning,QrCodeDocker.MessageBox.DialogButtons.Ok);
                 }
                 catch(Exception ex2)
                 {
-                    app.MsgShow("Invalid qrcode");
+                    app.MsgShow(Lang.MBOX_ERRO_QRInvalid);
                 }
                 finally
                 {

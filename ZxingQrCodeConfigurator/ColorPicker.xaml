@@ -4,9 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.ZxingQrCodeConfigurator"
+            xmlns:Resources="clr-namespace:br.corp.bonus630.QrCodeDocker;assembly=QrCodeDocker"
              mc:Ignorable="d" 
-             Height="400" Width="166" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None" WindowStartupLocation="CenterOwner">
-    <Border BorderBrush="#FF535050" BorderThickness="1" Padding="2">
+             Height="400" Width="166" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!--<ResourceDictionary Source="Resources/Styles.xaml"/>
+                <ResourceDictionary Source="Resources/Images.xaml"/>-->
+                <ResourceDictionary Source="Resources/Colors.xaml"/>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="mainBorder" TargetType="Border">
+                        <Setter Property="BorderBrush" Value="{DynamicResource Button.Static.Border}" />
+                        <Setter Property="Background" Value="{DynamicResource Container.Static.Background}"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border Style="{StaticResource mainBorder}" BorderThickness="1" Padding="2">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>

@@ -22,6 +22,7 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
     /// </summary>
     public partial class AutoNumberGen : UserControl, IPluginUI, IPluginDataSource
     {
+        public string PluginDisplayName { get { return AutoNumberGenCore.PluginDisplayName; } }
         public AutoNumberGen()
         {
             InitializeComponent();
@@ -45,6 +46,7 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
         public event Action<object> FinishJob;
         public event Action<string> AnyTextChanged;
         public event Action<int> ProgressChange;
+        public event Action UpdatePreview;
 
         public void OnFinishJob(object obj)
         {
@@ -71,6 +73,25 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
                 LabelResult.Content = string.Format("{0} Rows",core.DataSource.Count);
                 OnFinishJob(core.DataSource);
             }
+        }
+
+        public void SaveConfig()
+        {
+            Properties.Settings1.Default.RangeStart = core.StartValue;
+            Properties.Settings1.Default.RangeEnd = core.EndValue;
+            Properties.Settings1.Default.Save();
+        }
+
+        public void LoadConfig()
+        {
+            TextBoxStart.Text = Properties.Settings1.Default.RangeStart.ToString();
+            TextBoxEnd.Text = Properties.Settings1.Default.RangeEnd.ToString();
+            ChangeText(null, null);
+        }
+
+        public void DeleteConfig()
+        {
+            Properties.Settings1.Default.Reset();
         }
     }
 }

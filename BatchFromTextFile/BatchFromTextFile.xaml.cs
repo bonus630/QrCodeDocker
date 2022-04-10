@@ -15,6 +15,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
 
         public event Action<object> FinishJob;
         public event Action<string> AnyTextChanged;
+        public string PluginDisplayName { get { return Core.PluginDisplayName; } }
         Core core;
         Ilang Lang;
         public List<object[]> DataSource { get { return core.DataSource; } }
@@ -28,7 +29,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
 
 
         public event Action<int> ProgressChange;
-   
+        public event Action UpdatePreview;
 
         public void OnProgressChange(int progress)
         {
@@ -115,6 +116,19 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             }
         }
 
-       
+        public void SaveConfig()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void LoadConfig()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void DeleteConfig()
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace br.corp.bonus630.QrCodeDocker
         
         private Application app;
         IImageRender imageRender;
+        
         private bool weld = true;
         public bool Weld {
             get { return this.weld; }
@@ -31,13 +32,23 @@ namespace br.corp.bonus630.QrCodeDocker
         }
 
         private Color borderColor; 
-        public Color BorderColor { get { return borderColor; } set { borderColor = value; } }
+        public Color BorderColor { get { return borderColor; } set { borderColor = value; 
+                (imageRender as IImageRenderConfig).BorderColor=value.ToSystemColor(); 
+            } }
         private Color dotFillColor;
-        public Color DotFillColor { get { return dotFillColor; } set { dotFillColor = value; } }
+        public Color DotFillColor { get { return dotFillColor; } set { dotFillColor = value;
+                (imageRender as IImageRenderConfig).DotFillColor = value.ToSystemColor();
+            }
+        }
         private Color dotOutlineColor;
-        public Color DotOutlineColor { get { return dotOutlineColor; } set { dotOutlineColor = value; } }
+        public Color DotOutlineColor { get { return dotOutlineColor; } set { dotOutlineColor = value;
+                (imageRender as IImageRenderConfig).DotBorderColor = value.ToSystemColor();
+            }
+        }
         private double dotOutlineWidth = 0;
-        public double DotBorderSize { get { return dotOutlineWidth; } set { dotOutlineWidth = value; } }
+        public double DotBorderSize { get { return dotOutlineWidth; } set { dotOutlineWidth = value;
+                (imageRender as IImageRenderConfig).DotBorderWidth = value;
+            } }
         private DotShape dotShapeType = DotShape.Square;
         public DotShape DotShapeType     {            get { return dotShapeType ; }            set { dotShapeType =  value; }        }
 

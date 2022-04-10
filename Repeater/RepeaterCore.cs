@@ -29,20 +29,20 @@ namespace br.corp.bonus630.plugin.Repeater
         private int enumerator = 0;
         private int enumeratorIncrement = 1;
 
-        public double Gap { set { this.gap = value; } }
-        public double StartX { set { this.startX = value; } }
-        public double StartY { set { this.startY = value; } }
-        public int Enumerator { set { this.enumerator = value; } }
-        public int EnumeratorIncrement { set { this.enumeratorIncrement = value; } }
+        public double Gap { get { return this.gap; } set { this.gap = value; } }
+        public double StartX { get { return this.startX; } set { this.startX = value; } }
+        public double StartY { get { return this.startY; } set { this.startY = value; } }
+        public int Enumerator { get { return this.enumerator; } set { this.enumerator = value; } }
+        public int EnumeratorIncrement { get { return this.enumeratorIncrement; } set { this.enumeratorIncrement = value; } }
         private int numColumns, numLines;
         private string mask = "0000";
 
-        public string Mask{ set { mask =  value; }
+        public string Mask{get { return mask; } set { mask =  value; }
         }
 
 
 
-        public bool FitToPage { set { this.fitToPage = value; } }
+        public bool FitToPage { get {return this.fitToPage; } set { this.fitToPage = value; } }
 
         public RepeaterCore()
         {
@@ -86,6 +86,7 @@ namespace br.corp.bonus630.plugin.Repeater
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
+        public event Action UpdatePreview;
 
         public void Draw()
         {

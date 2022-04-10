@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using br.corp.bonus630.plugin.ShapeToCode.Lang;
+using br.corp.bonus630.plugin.PlaceHere.Lang;
 using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 
-namespace br.corp.bonus630.plugin.ShapeToCode
+namespace br.corp.bonus630.plugin.PlaceHere
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
@@ -24,6 +24,7 @@ namespace br.corp.bonus630.plugin.ShapeToCode
     public partial class ShapeToCodeUI : UserControl, IPluginUI,IPluginDrawer
     {
         private ShapeToCodeCore core;
+        public string PluginDisplayName { get { return ShapeToCodeCore.PluginDisplayName; } }
         Ilang Lang;
         public ShapeToCodeUI()
         {
@@ -37,7 +38,7 @@ namespace br.corp.bonus630.plugin.ShapeToCode
         }
         public void ChangeLang(LangTagsEnum langTag)
         {
-            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.ShapeToCode.ShapeToCodeUI)), langTag) as Ilang;
+            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.PlaceHere.ShapeToCodeUI)), langTag) as Ilang;
             this.DataContext = Lang;
             (Lang as LangController).AutoUpdateProperties();
         }
@@ -52,6 +53,7 @@ namespace br.corp.bonus630.plugin.ShapeToCode
         public event Action<object> FinishJob;
         public event Action<string> AnyTextChanged;
         public event Action<int> ProgressChange;
+        public event Action UpdatePreview;
 
         public void Draw()
         {
@@ -68,5 +70,19 @@ namespace br.corp.bonus630.plugin.ShapeToCode
            
         }
 
+        public void SaveConfig()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void LoadConfig()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void DeleteConfig()
+        {
+           // throw new NotImplementedException();
+        }
     }
 }

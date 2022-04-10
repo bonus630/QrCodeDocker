@@ -12,7 +12,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -20,6 +20,87 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Weld {
+            get {
+                return ((bool)(this["Weld"]));
+            }
+            set {
+                this["Weld"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public ushort DotShape {
+            get {
+                return ((ushort)(this["DotShape"]));
+            }
+            set {
+                this["DotShape"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool NoBorder {
+            get {
+                return ((bool)(this["NoBorder"]));
+            }
+            set {
+                this["NoBorder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::Corel.Interop.VGCore.ColorClass BorderColor {
+            get {
+                return ((global::Corel.Interop.VGCore.ColorClass)(this["BorderColor"]));
+            }
+            set {
+                this["BorderColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::Corel.Interop.VGCore.ColorClass DotFillColor {
+            get {
+                return ((global::Corel.Interop.VGCore.ColorClass)(this["DotFillColor"]));
+            }
+            set {
+                this["DotFillColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::Corel.Interop.VGCore.ColorClass DotBorderColor {
+            get {
+                return ((global::Corel.Interop.VGCore.ColorClass)(this["DotBorderColor"]));
+            }
+            set {
+                this["DotBorderColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double DotBordeSize {
+            get {
+                return ((double)(this["DotBordeSize"]));
+            }
+            set {
+                this["DotBordeSize"] = value;
             }
         }
     }

@@ -215,6 +215,10 @@
       <Name>PluginLoader</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\QrCodeDocker\QrCodeDocker.csproj">
+      <Project>{0bc78d26-dbd1-4802-bee7-796d2a980471}</Project>
+      <Name>QrCodeDocker</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="ShapeToCodeUI.xaml">
@@ -262,7 +266,7 @@
     <Message Text="CopyFiles" />
     <Message Text="$(CurrentCorelPath)" />
     <MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras" />
-    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(ProjectDir)$(OutDir)*.*&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
   </Target>
   <Import Project="..\packages\Tesseract.4.1.1\build\Tesseract.targets" Condition="Exists('..\packages\Tesseract.4.1.1\build\Tesseract.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

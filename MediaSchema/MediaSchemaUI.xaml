@@ -3,17 +3,142 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.MediaSchema"
+             xmlns:converters="clr-namespace:br.corp.bonus630.plugin.MediaSchema.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="284" d:DesignWidth="300">
-   
-    <StackPanel>
+             d:DesignWidth="290">
+    <UserControl.Resources>
+        <ResourceDictionary>
 
-        <StackPanel Orientation="Horizontal" Name="content" />
+            <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
+            <system:Double x:Key="OpacityValue">0.5</system:Double>
+            <system:String x:Key="GroupName">RadioGroupSchemas</system:String>
+            <Style x:Key="ImageRadioButton" TargetType="{x:Type RadioButton}">
+                <Setter Property="FocusVisualStyle">
+                    <Setter.Value>
+                        <Style>
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#FF707070"/>
+                <Setter Property="Width" Value="52"/>
+                <Setter Property="Height" Value="52"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                            <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                                <Border x:Name="radioButtonBorder" BorderThickness="1" BorderBrush="{DynamicResource Button.Static.Border}" CornerRadius="5" Padding="4">
+                                    <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" 
+                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="Center" 
+                                                      Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="HasContent" Value="True">
+                                    <Setter Property="FocusVisualStyle">
+                                        <Setter.Value>
+                                            <Style>
+                                                <Setter Property="Control.Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Padding" Value="4,-1,0,0"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource Button.MouseOver.Background}"/>-->
+                                    <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource Button.MouseOver.Border}"/>
+                                    
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource Button.MouseOver.Background}"/>-->
+                                    <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource Button.Static.Border}"/>
+
+                                </Trigger>
+
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource Button.Pressed.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource Button.Pressed.Border}"/>
+                                   
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource TabItem.Selected.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource TabItem.Selected.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="{x:Null}">
+                                    <Setter Property="Background" TargetName="radioButtonBorder" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource Button.Static.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter Property="Background" TargetName="radioButtonBorder" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource Button.Static.Border}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Width="290">
+        <!--<RadioButton Style="{DynamicResource ImageRadioButton}">
+            <Image Source="whatsapp.png" />
+        </RadioButton>-->
+        <ItemsControl ItemsSource="{Binding SchemesDataSource}" Padding="2">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <RadioButton Style="{DynamicResource ImageRadioButton}" Click="RadioButton_Click" IsChecked="{Binding IsSelected,Mode=TwoWay}" Tag="{Binding Tag}"
+                                 GroupName="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl},Path=DataContext.GroupName}">
+                        <Image Source="{Binding MediaImage}">
+                            <Image.Style>
+                                <Style TargetType="Image" >
+                                    <Setter Property="Opacity" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=RadioButton},
+                                        Path=IsChecked,Converter={StaticResource BoolToOpacityConverter}, 
+                                        ConverterParameter={StaticResource OpacityValue}}" />
+                                </Style>
+                            </Image.Style>
+                            <Image.ToolTip>
+                                <Label Content="{Binding Name}" />
+                            </Image.ToolTip>
+                        </Image>
+                    </RadioButton>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="FrameworkElement.Margin" Value="2"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+        <!--<WrapPanel Orientation="Horizontal" Name="content" />-->
         <StackPanel Name="schemes" />
-        <Label Name="scheme_type" />
-        <TextBox Name="txt_msg" Margin="4,10,4,0" TextChanged="Txt_msg_TextChanged" Visibility="Hidden"/>
+        <Label Name="scheme_type" FontSize="13" FontWeight="DemiBold"/>
+        <!--<TextBox Name="txt_msg" Margin="4,10,4,0" TextChanged="Txt_msg_TextChanged" Visibility="Hidden"/>-->
+        <StackPanel x:Name="sp_attributesContent" Margin="0,10,0,0">
 
+        </StackPanel>
         <!--<Button Content="Draw" Click="btn_draw_Click" Name="btn_draw" Margin="0,10,0,0" />-->
     </StackPanel>
 </UserControl>

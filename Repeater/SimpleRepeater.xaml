@@ -481,14 +481,14 @@
     </UserControl.Resources>
     <StackPanel>
         <Grid Height="30">
-            <RadioButton x:Name="cb_vector" Content="{Binding CB_Vector}" IsChecked="True" Margin="118,5,84,10"  />
-            <RadioButton x:Name="cb_bitmap" Content="{Binding CB_Bitmap}" Margin="196,5,10,10" />
-            <Label Content="{Binding LBA_QR_Format}" Margin="0,0,187,0"  />
+            <RadioButton x:Name="cb_vector" Content="{Binding CB_Vector,FallbackValue=vector}" IsChecked="True" Margin="118,5,84,10"  />
+            <RadioButton x:Name="cb_bitmap" Content="{Binding CB_Bitmap,FallbackValue=bitmap}" Margin="196,5,10,10" />
+            <Label Content="{Binding LBA_QR_Format,FallbackValue=qrFormat}" Margin="0,0,187,0"  />
         </Grid>
 
         <Grid>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" CanContentScroll="True" VerticalScrollBarVisibility="Disabled" Visibility="Collapsed" Name="scrollViewer_buttons" HorizontalAlignment="Left" Margin="6,0,0,0" Width="274" Template="{DynamicResource ScrollViewerControlTemplateTiny}">
-                <GroupBox Header="{Binding GBH_FirstLineTpl}">
+                <GroupBox Header="{Binding GBH_FirstLineTpl,FallbackValue=ModeloDaPrimeiraLinha}">
                     <GroupBox.ToolTip>
                         <Label Content="{Binding ToolTip_GBH_FirstLineTpl}"/>
                     </GroupBox.ToolTip>
@@ -496,7 +496,6 @@
                     <StackPanel Orientation="Horizontal" Name="stackPanel_buttons"  Margin="2,2,2,2" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
                 </GroupBox>
             </ScrollViewer>
-
 
         </Grid>
 

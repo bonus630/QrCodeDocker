@@ -22,6 +22,9 @@
         <Setter Property="Background" Value="{DynamicResource Container.Static.Background}"/>
         <Setter Property="Foreground" Value="{DynamicResource Container.Text.Static.Foreground}" />
     </Style>
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="{DynamicResource Container.Static.Background}"/>
+    </Style>
     <Style TargetType="StackPanel">
         <Setter Property="Background" Value="{DynamicResource Container.Static.Background}"/>
     </Style>

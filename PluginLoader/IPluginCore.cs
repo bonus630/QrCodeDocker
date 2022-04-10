@@ -6,6 +6,7 @@ namespace br.corp.bonus630.PluginLoader
     {
         void OnFinishJob(object obj);
         event Action<object> FinishJob;
+        
         void OnProgressChange(int progress);
         event Action<int> ProgressChange;
        

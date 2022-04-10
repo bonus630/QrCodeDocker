@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib"
+                    xmlns:Converters="clr-namespace:br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Converters">
+    <Converters:ResourceToMediaImageConverter x:Key="ResourceToMediaImageConverter" />
+    
+    <!-- Usage exemple-->
+    <System:String x:Key="DotShape">DotShape</System:String>
+    <Style x:Key="DotShapeImage" TargetType="Image">
+        <Setter Property="Source" Value="{Binding Source={StaticResource DotShape},Converter={StaticResource ResourceToMediaImageConverter}}"/>
+    </Style>
+    <System:String x:Key="DotFillColor">DotFillColor</System:String>
+    <Style x:Key="DotFillColorImage" TargetType="Image">
+        <Setter Property="Source" Value="{Binding Source={StaticResource DotFillColor},Converter={StaticResource ResourceToMediaImageConverter}}"/>
+    </Style>
+    <System:String x:Key="BorderColor">BorderColor</System:String>
+    <Style x:Key="BorderColorImage" TargetType="Image">
+        <Setter Property="Source" Value="{Binding Source={StaticResource BorderColor},Converter={StaticResource ResourceToMediaImageConverter}}"/>
+    </Style>
+    <System:String x:Key="DotBorderColor">DotBorderColor</System:String>
+    <Style x:Key="DotBorderColorImage" TargetType="Image">
+        <Setter Property="Source" Value="{Binding Source={StaticResource DotBorderColor},Converter={StaticResource ResourceToMediaImageConverter}}"/>
+    </Style>
+    <System:String x:Key="Weld">Weld</System:String>
+    <Style x:Key="WeldImage" TargetType="Image">
+        <Setter Property="Source" Value="{Binding Source={StaticResource Weld},Converter={StaticResource ResourceToMediaImageConverter}}"/>
+    </Style>
+    
+    
+</ResourceDictionary>

@@ -38,6 +38,9 @@
         string ButtonDrawVector { get; }
         string ButtonDrawBitmap { get; }
         string ButtonExtras { get; }
+        string BTN_BrowserPluginToolTip { get; }
+        string BTN_SavePluginToolTip { get; }
+        string BTN_DeletePluginToolTip { get; }
         string LabelPreview { get; }
         string LabelEncodingType { get; }
 
@@ -45,7 +48,7 @@
         string MBoxFormatErroTitle { get; }
         string MBoxFormatErroMessage { get; }
         string MBoxContentErroMessage { get; }
-
+        string MBOX_ERROR_SettingsCountNoMatch { get; }
         string WifiLabelSSID { get; }
         string WifiLabelSecurity { get; }
         string WifiLabelPassword { get; }

@@ -88,6 +88,6 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         public event Action<object> FinishJob;
 
         public event Action<int> ProgressChange;
-       
+        public event Action UpdatePreview;
     }
 }

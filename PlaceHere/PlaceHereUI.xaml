@@ -11,6 +11,7 @@
         <Label Content="{Binding LBA_ObjOrigin}"/>
         <local:AnchorButton Width="30" Height="30" FactorChanged="AnchorButton_FactorChanged" x:Name="anchorButton"></local:AnchorButton>
         <Button x:Name="btn_start" Content="{Binding BTN_Start}" Height="30" Margin="20,0,20,0" Click="btn_start_Click"/>
+        <Button x:Name="btn_teste" Content="teste" Height="30" Margin="20,0,20,0" Click="btn_teste_click"/>
         <CheckBox Content="{Binding CB_GetContainer}" x:Name="ck_getContainer" VerticalAlignment="Center" Click="ck_getContainer_Click"/>
     </StackPanel>
 

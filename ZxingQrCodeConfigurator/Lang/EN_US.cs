@@ -28,5 +28,11 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Lang
 
         public string MBOX_ERRO_QRInvalid { get { return "Invalid qrcode"; } }
         public string Warning { get { return "Warning"; } }
+
+        public string BTN_BrowserPluginToolTip { get { return "Browser extra"; } }
+
+        public string BTN_SavePluginToolTip { get { return "Save extras states"; } }
+
+        public string BTN_DeletePluginToolTip { get { return "Delete salved state"; } }
     }
 }

@@ -23,6 +23,8 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public bool InEyedropper { get; set; }
         private ColorSystem selectedColor;
         private Corel.Interop.VGCore.Application application;
+        public Corel.Interop.VGCore.Application App { get { return application; } }
+        
         private Eyedropper eyedropper;
         public event Action ExitEyedropper;
         public ColorSystem SelectedColor
@@ -56,6 +58,15 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             bitmap.Dispose();
             return bitmapSource;
         }
+        //public static ColorSystem CreateColorSystemFromHex (string hexValue,Palette palette)
+        //{
+        //    int colorValue = Convert.ToInt32(hexValue.Substring(1),16);
+        //    System.Drawing.Color color = System.Drawing.Color.FromArgb(colorValue);
+        //    for (int i = 1; i < Palette palette; i++)
+        //    {
+
+        //    }
+        //}
         public void Close()
         {
             eyedropper.Close();
@@ -96,6 +107,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             {
                 Color color = palette.Color[i];
                 colorArray[i - 1] = new ColorSystem(color.HexValue, color.Name, color);
+                Debug.WriteLine(color.HexValue);
             }
 
         }
@@ -138,6 +150,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             this.corelColorName = corelColorName;
             this.corelColor = corelColor;
         }
+
 
         private string colorHexValue;
 

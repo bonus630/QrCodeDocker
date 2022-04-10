@@ -2,7 +2,7 @@
 
 using br.corp.bonus630.PluginLoader;
 
-namespace br.corp.bonus630.plugin.ShapeToCode.Lang
+namespace br.corp.bonus630.plugin.PlaceHere.Lang
 {
     public class PT_BR : LangController, Ilang
     {

@@ -152,7 +152,7 @@ namespace br.corp.bonus630.ImageRender
             bitmap.SetResolution(resolution, resolution);
             using (graphics = Graphics.FromImage(bitmap))
             {
-                graphics.FillRectangle(bWhite, 0, 0, sqrSize, sqrSize);
+                graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
 
                 for (int j = 0; j < bitMatrix.Width; j++)
                 {
@@ -162,12 +162,51 @@ namespace br.corp.bonus630.ImageRender
 
                         if (bitMatrix[i, j])
                         {
-                            graphics.FillRectangle(bBlack, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                            graphics.FillRectangle(bDotFill, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
 
                         }
                         else
                         {
-                            graphics.FillRectangle(bWhite, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                            graphics.FillRectangle(bBorder, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                        }
+                    }
+                }
+
+            }
+            Debug.WriteLine(bitmap.Width.ToString());
+            return bitmap;
+        }
+        public Bitmap RenderBitmapToMemory2(string content, int resolution = 72, int sqrSize = 221)
+        {
+
+            EncodeNewBitMatrix(content, sqrSize);
+
+
+            dotSize = sqrSize / bitMatrix.Width;
+            Pen pDotBorder = new Pen(bDotBorder,(float)DotBorderWidth*10);
+            Rectangle rDot;
+            Bitmap bitmap = new Bitmap(sqrSize, sqrSize);
+            bitmap.SetResolution(resolution, resolution);
+            using (graphics = Graphics.FromImage(bitmap))
+            {
+                if(!NoBorder)
+                    graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
+
+                for (int j = 0; j < bitMatrix.Width; j++)
+                {
+                    for (int i = 0; i < bitMatrix.Width; i++)
+                    {
+
+                        rDot = new Rectangle(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                        if (bitMatrix[i, j])
+                        {
+                            graphics.FillRectangle(bDotFill,rDot);
+                            if(DotBorderWidth>0)
+                                graphics.DrawRectangle(pDotBorder, rDot);
+                        }
+                        else
+                        {
+                            graphics.FillRectangle(bBorder, rDot);
                         }
                     }
                 }
@@ -195,6 +234,36 @@ namespace br.corp.bonus630.ImageRender
                 throw new Exception();
             }
             
+        }
+
+        public Bitmap RenderWireframeToMemory(string content, int resolution = 72, int sqrSize = 221)
+        {
+            EncodeNewBitMatrix(content, sqrSize);
+
+
+            dotSize = sqrSize / bitMatrix.Width;
+           
+
+            Bitmap bitmap = new Bitmap(sqrSize, sqrSize);
+            bitmap.SetResolution(resolution, resolution);
+            //bitmap.MakeTransparent(Color.White);
+            using (graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.DrawRectangle(pWireframe, 0, 0, sqrSize, sqrSize);
+
+                for (int j = 0; j < bitMatrix.Width; j++)
+                {
+                    for (int i = 0; i < bitMatrix.Width; i++)
+                    {
+                        if (bitMatrix[i, j])
+                        {
+                            graphics.DrawRectangle(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                        }
+                    }
+                }
+            }
+            Debug.WriteLine(bitmap.Width.ToString());
+            return bitmap;
         }
     }
 }

@@ -88,5 +88,12 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
         public string ToolTipBonus630 { get { return "Desenvolvido por Bonus630"; } }
 
         public string ToolTipCorelNaVeia { get { return "Traduzido por @corelnaveia"; } }
+
+        public string BTN_BrowserPluginToolTip { get { return "Procurar extra"; } }
+
+        public string BTN_SavePluginToolTip { get { return "Salvar estado dos extras"; } }
+
+        public string BTN_DeletePluginToolTip { get { return "Apagar estado salvo"; } }
+        public string MBOX_ERROR_SettingsCountNoMatch { get { return "Não será possível redefiner todos os estados dos extras"; } }
     }
 }

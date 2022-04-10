@@ -193,6 +193,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -213,12 +214,17 @@
     <Compile Include="Lang\EN_US.cs" />
     <Compile Include="Lang\Ilang.cs" />
     <Compile Include="Lang\PT_BR.cs" />
+    <Compile Include="NotifyPropertyBase.cs" />
     <Compile Include="PlaceHereCorecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PlaceHereUI.xaml.cs">
       <DependentUpon>PlaceHereUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Preview.xaml.cs">
+      <DependentUpon>Preview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PreviewDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -242,6 +248,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageRender\ImageRender.csproj">
+      <Project>{4F0AAE56-5D21-40ED-AA72-69490BE8DE47}</Project>
+      <Name>ImageRender</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PluginLoader\PluginLoader.csproj">
       <Project>{EAF9534F-74A1-4B07-A61C-0EAB13C70FB3}</Project>
       <Name>PluginLoader</Name>
@@ -255,6 +265,10 @@
     <Page Include="PlaceHereUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Preview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,27 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Weld" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DotShape" Type="System.UInt16" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="NoBorder" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="BorderColor" Type="Corel.Interop.VGCore.ColorClass" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DotFillColor" Type="Corel.Interop.VGCore.ColorClass" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DotBorderColor" Type="Corel.Interop.VGCore.ColorClass" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DotBordeSize" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

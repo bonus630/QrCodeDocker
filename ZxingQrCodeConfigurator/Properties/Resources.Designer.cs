@@ -63,9 +63,59 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BorderColor {
+            get {
+                object obj = ResourceManager.GetObject("BorderColor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DotBorderColor {
+            get {
+                object obj = ResourceManager.GetObject("DotBorderColor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DotFillColor {
+            get {
+                object obj = ResourceManager.GetObject("DotFillColor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DotShape {
+            get {
+                object obj = ResourceManager.GetObject("DotShape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_color_dropper_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8_color_dropper_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weld {
+            get {
+                object obj = ResourceManager.GetObject("Weld", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

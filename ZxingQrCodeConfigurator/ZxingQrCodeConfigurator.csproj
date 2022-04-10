@@ -212,9 +212,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Eyedropper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ZxingQrCodeConfiguratorUI.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -224,7 +236,9 @@
     <Compile Include="ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ResourceToMediaImageConverter.cs" />
     <Compile Include="Core.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Eyedropper.xaml.cs">
       <DependentUpon>Eyedropper.xaml</DependentUpon>
     </Compile>
@@ -233,6 +247,7 @@
     <Compile Include="Lang\Ilang.cs" />
     <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="NotifyPropertyBase.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ZxingQrCodeConfiguratorUI.xaml.cs">
       <DependentUpon>ZxingQrCodeConfiguratorUI.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -256,6 +271,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -276,6 +292,21 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="Resources\icons8-color-dropper-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1704.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2815.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3724.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5234.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1625.png" />
   </ItemGroup>
   <Target Name="CopyFiles" AfterTargets="Build">
     <Message Text="CopyFiles" />

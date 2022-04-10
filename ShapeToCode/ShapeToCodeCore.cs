@@ -7,7 +7,7 @@ using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 using Tesseract;
 
-namespace br.corp.bonus630.plugin.ShapeToCode
+namespace br.corp.bonus630.plugin.PlaceHere
 {
     public class ShapeToCodeCore : IPluginCore, IPluginDrawer
     {
@@ -24,6 +24,7 @@ namespace br.corp.bonus630.plugin.ShapeToCode
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
+        public event Action UpdatePreview;
 
         public void Draw()
         {
@@ -51,16 +52,16 @@ namespace br.corp.bonus630.plugin.ShapeToCode
         {
             try
             {
-               
+
                 for (int i = 1; i <= range.Count; i++)
                 {
                     if (range[i].Type.Equals(cdrShapeType.cdrTextShape))
                     {
                         CreateCode(range[i]);
                     }
-                    if(range[i].Type.Equals(cdrShapeType.cdrGroupShape))
+                    if (range[i].Type.Equals(cdrShapeType.cdrGroupShape))
                     {
-                        processRange(range[i].Shapes.Range());
+                        processRange(range[i].Shapes.All());
                     }
                     if (range[i].Type.Equals(cdrShapeType.cdrCurveShape))
                     {
@@ -70,38 +71,45 @@ namespace br.corp.bonus630.plugin.ShapeToCode
                     }
                 }
             }
-            catch(Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
         }
 
         private string processCurve(Shape curve)
         {
+            string tessdataPath = this.app.AddonPath + "QrCodeDocker\\extras\\tessdata";
+
 
             // System.Windows.MessageBox.Show("ToText");
 
             string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\bonus630\\OCR";
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-            path += "\\1.png";
-
-            string tessdataPath = this.app.AddonPath + "QrCodeDocker\\extras\\tessdata";
-
-            //var toDelete = this.app.ActiveShape;
-            var rect = curve.BoundingBox;
-            ShapeRange originalSelection = this.app.ActiveSelectionRange;
-            originalSelection.RemoveFromSelection();
-            curve.AddToSelection();
-            curve.SetSize(curve.SizeWidth * 4, curve.SizeHeight * 4);
-            var exportFilter = this.app.ActiveDocument.ExportBitmap(path, cdrFilter.cdrPNG, cdrExportRange.cdrSelection, cdrImageType.cdrRGBColorImage);
-            exportFilter.Finish();
-            curve.RemoveFromSelection();
-            originalSelection.AddToSelection();
-            if (File.Exists(path))
+            try
             {
-                try
+                using (var engine = new TesseractEngine(tessdataPath, "eng", EngineMode.Default))
                 {
-                    using (var engine = new TesseractEngine(tessdataPath, "eng", EngineMode.Default))
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    path += "\\1.png";
+
+
+                    //var toDelete = this.app.ActiveShape;
+                    var rect = curve.BoundingBox;
+                    ShapeRange originalSelection = this.app.ActiveSelectionRange;
+                    originalSelection.RemoveFromSelection();
+                    curve.AddToSelection();
+                    //double w, h;
+                    // w = curve.SizeWidth;
+                    // h = curve.SizeHeight;
+                    //curve.SetSize(w * 4, h * 4);
+                    var exportFilter = this.app.ActiveDocument.ExportBitmap(path, cdrFilter.cdrPNG, cdrExportRange.cdrSelection, cdrImageType.cdrRGBColorImage, 0, 0, 300, 300);
+                    exportFilter.Finish();
+                    //curve.SetSize(w, h);
+                    curve.RemoveFromSelection();
+                    originalSelection.AddToSelection();
+
+                    if (File.Exists(path))
                     {
                         using (var img = Pix.LoadFromFile(path))
                         {
@@ -109,31 +117,21 @@ namespace br.corp.bonus630.plugin.ShapeToCode
                             {
                                 var text = page.GetText();
 
-                                ResultIterator resultInterator = page.GetIterator();
-                                FontAttributes fontAttributes = resultInterator.GetWordFontAttributes();
-
                                 if (!string.IsNullOrEmpty(text))
-                                {
                                     return text;
-                                }
-                                //if (fontAttributes != null)
-                                //    this.app.MsgShow(fontAttributes.FontInfo.Name);
-
-
-
                                 Console.WriteLine("Taxa:{0}", page.GetMeanConfidence());
                                 Console.WriteLine(text);
 
                             }
                         }
                     }
-
-                }
-                catch (Exception erro)
-                {
-                    Console.WriteLine(erro.Message);
                 }
             }
+            catch (Exception erro)
+            {
+                Console.WriteLine(erro.Message);
+            }
+
 
             return "";
         }

@@ -2,15 +2,12 @@
 using Corel.Interop.VGCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using c = Corel.Interop.VGCore;
 namespace br.corp.bonus630.plugin.PlaceHere
 {
     public class PlaceHereCorecs : IPluginCore, IPluginDrawer
     {
         public const string PluginDisplayName = "Place Here";
-        c.Application corelApp;
+        Application corelApp;
         ICodeGenerator codeGenerator;
         public int DSCursor { set { this.dsCursor = value; } }
         int dsCursor = 0;
@@ -35,6 +32,8 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
+        public event Action UpdatePreview;
+
         public Action DrawAction;
         //private ICUITaskManager taskManager;
 
@@ -48,10 +47,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         {
             try
             {
-                dataSource = new List<object[]>();
-                dataSource.Add(new object[] { "square" });
-                dataSource.Add(new object[] { "Portrait" });
-                dataSource.Add(new object[] { "Landscape" });
+               
                 corelApp.Unit = cdrUnit.cdrMillimeter;
                 corelApp.ActiveDocument.Unit = cdrUnit.cdrMillimeter;
                 points = new Rect[dataSource.Count];
@@ -62,7 +58,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 {
 
 
-                    corelApp.ActiveDocument.GetUserClick(out x, out y, out s, 0, true, c.cdrCursorShape.cdrCursorSmallcrosshair);
+                    corelApp.ActiveDocument.GetUserClick(out x, out y, out s, 0, true, cdrCursorShape.cdrCursorSmallcrosshair);
 
                     if (GetContainer)
                     {
@@ -116,7 +112,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
         private void drawFunction()
         {
-            c.Shape code = null;
+            Shape code = null;
             double x = 0, y = 0;
             int s = 0;
             corelApp.Optimization = true;

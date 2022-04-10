@@ -59,6 +59,8 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
+        public event Action UpdatePreview;
+
         public RoutedCommand<ClipboardData> DeleteCommand { get; set; }
         public RoutedCommand<object> ClearAllCommand { get; set; }
         private Dispatcher dispatcher = null;

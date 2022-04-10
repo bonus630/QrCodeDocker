@@ -26,7 +26,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
     public partial class DataFromClipboardUI : UserControl, IPluginUI, IPluginDataSource
     {
         ClipboardCore clipboardCore;
-       
+        public string PluginDisplayName { get { return ClipboardCore.PluginDisplayName; } }
         public DataFromClipboardUI()
         {
             InitializeComponent();
@@ -75,8 +75,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
         public event Action<string> AnyTextChanged;
-
-
+        public event Action UpdatePreview;
 
         public void OnFinishJob(object obj)
         {
@@ -96,6 +95,19 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
             clipboardCore.MonitorClipboard = (bool)cb_monitorClipboard.IsChecked;
         }
 
-        
+        public void SaveConfig()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void LoadConfig()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void DeleteConfig()
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

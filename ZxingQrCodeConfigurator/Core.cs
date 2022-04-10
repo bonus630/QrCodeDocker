@@ -12,6 +12,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public const string PluginDisplayName = "Qrcode Configuration";
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
+        public event Action UpdatePreview;
 
         public void OnFinishJob(object obj)
         {
@@ -21,6 +22,11 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public void OnProgressChange(int progress)
         {
             throw new NotImplementedException();
+        }
+        public void OnUpdatePreview()
+        {
+            if (UpdatePreview != null)
+                UpdatePreview();
         }
     }
 }

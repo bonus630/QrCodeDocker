@@ -20,17 +20,17 @@ namespace br.corp.bonus630.QrCodeDocker
         string textContent;
         PluginSelect pluginSelect;
         VisualDataContext dataContextObj;
-        private string currentTheme;
+        StyleController styleController;
 
         public Docker(Corel.Interop.VGCore.Application app)
         {
             InitializeComponent();
             this.app = app;
-            this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
+            styleController = new StyleController(this.Resources, this.app);
             codeGenerator = new QrCodeGenerator(app);
         
-            img_bonus.Source = BitmapResources.Bonus630;
-            img_corelNaVeia.Source = BitmapResources.CorelNaVeia2015;
+            //img_bonus.Source = BitmapResources.Bonus630;
+            //img_corelNaVeia.Source = BitmapResources.CorelNaVeia2015;
             app.DocumentNew += app_DocumentNew;
             app.DocumentOpen += app_DocumentOpen;
             app.WindowActivate += app_WindowActivate;
@@ -49,8 +49,8 @@ namespace br.corp.bonus630.QrCodeDocker
         public Docker()
         {
             InitializeComponent();
-            img_bonus.Source = BitmapResources.Bonus630;
-            img_corelNaVeia.Source = BitmapResources.CorelNaVeia2015;
+            //img_bonus.Source = BitmapResources.Bonus630;
+            //img_corelNaVeia.Source = BitmapResources.CorelNaVeia2015;
             codeGenerator = new QrCodeGenerator();
             dataContextObj = new VisualDataContext(this.app);
             this.DataContext = dataContextObj;
@@ -76,7 +76,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         void Docker_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadThemeFromPreference();
+            styleController.LoadThemeFromPreference();
             radioButton_zxing.IsChecked = true;
             imageRender = new ZXingImageRender();
             codeGenerator.SetRender(imageRender);
@@ -92,8 +92,9 @@ namespace br.corp.bonus630.QrCodeDocker
                 int strSize = 221;
                 if (!Int32.TryParse(txt_size.Text, out strSize))
                     app.MsgShow(dataContextObj.Lang.MBoxFormatErroTitle, dataContextObj.Lang.MBoxFormatErroMessage);
-                pluginSelect = new PluginSelect(strSize, this.app, this.imageRender, this.codeGenerator);
+                pluginSelect = new PluginSelect(strSize, this.app,this.dataContextObj.Lang ,this.imageRender, this.codeGenerator);
                 pluginSelect.AnyTextChanged += PluginSelect_AnyTextChanged;
+                pluginSelect.UpdatePreview += renderImage;
                 groupBoxPluginContainer.Content = pluginSelect;
             }
             
@@ -111,11 +112,14 @@ namespace br.corp.bonus630.QrCodeDocker
       
         private void renderImage()
         {
-
-            System.Windows.Media.Imaging.BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-             imageRender.RenderBitmapToMemory(textContent).GetHbitmap(),
-             IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            img_render.Source = bitmapSource;
+            try
+            {
+                System.Windows.Media.Imaging.BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                 imageRender.RenderBitmapToMemory2(textContent).GetHbitmap(),
+                 IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                img_render.Source = bitmapSource;
+            }
+            catch { }
 
         }
         private string removeSpaces(string temp)
@@ -210,7 +214,6 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 app.MsgShow(erro.Message);
             }
-
             app.Optimization = false;
             app.ActiveDocument.EndCommandGroup();
             app.Refresh();
@@ -246,7 +249,6 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 app.MsgShow(erro.Message);
             }
-           
             app.Optimization = false;
             app.ActiveDocument.EndCommandGroup();
             app.Refresh();
@@ -260,7 +262,6 @@ namespace br.corp.bonus630.QrCodeDocker
      
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
             System.Diagnostics.Process.Start("http://bonus630.tk");
         }
         private void radioButton_gma_Checked(object sender, RoutedEventArgs e)
@@ -268,7 +269,6 @@ namespace br.corp.bonus630.QrCodeDocker
             imageRender = new GmaImageRender();
             codeGenerator.SetRender(imageRender);
             SetValuesPlugin();
-
         }
         private void radioButton_zxing_Checked(object sender, RoutedEventArgs e)
         {
@@ -280,7 +280,6 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             setContent(textContent);
         }
-       
        
         private void img_corelNaVeia_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -307,91 +306,12 @@ namespace br.corp.bonus630.QrCodeDocker
                 imageRender = new GmaImageRender();
             codeGenerator.SetRender(imageRender);
             SetValuesPlugin();
-
-
         }
-        private void btn_extras_Click(object sender, RoutedEventArgs e)
-        {
-   
-    
-        }
-
+     
         private void TabControls_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             setContent((tabControls.SelectedItem as IMainTabControl).FormatedText);
           
         }
-       
-
-        #region theme select
-        //Keys resources name follow the resource order to add a new value, order to works you need add 5 resources colors and Resources/Colors.xaml
-        //1º is default, is the same name of StyleKeys string array
-        //2º add LightestGrey. in start name of 1º for LightestGrey style in corel
-        //3º MediumGrey
-        //4º DarkGrey
-        //5º Black
-        public readonly string[] StyleKeys = new string[] {
-         "TabControl.Static.Border",
-         "TabItem.Static.Border" ,
-         "TabItem.Disabled.Background",
-         "TabItem.Selected.Background",
-         "TabItem.Static.Background",
-         "TabItem.Selected.MouseOver.Background" ,
-         "TabItem.Static.MouseOver.Background",
-         "Button.MouseOver.Background" ,
-         "Button.MouseOver.Border",
-         "Button.Static.Border" ,
-         "Button.Static.Background" ,
-         "Button.Pressed.Background" ,
-         "Button.Pressed.Border" ,
-         "Button.Disabled.Foreground",
-         "Button.Disabled.Background",
-         "Default.Static.Foreground" ,
-         "Container.Text.Static.Background" ,
-         "Container.Text.Static.Foreground" ,
-         "Container.Static.Background" ,
-         "Default.Static.Inverted.Foreground" ,
-         "ComboBox.Border.Popup.Item.MouseOver"
-        };
-      
-        public void LoadStyle(string name)
-        {
-
-            string style = name.Substring(name.LastIndexOf("_") + 1);
-            for (int i = 0; i < StyleKeys.Length; i++)
-            {
-                this.Resources[StyleKeys[i]] = this.Resources[string.Format("{0}.{1}", style, StyleKeys[i])];
-            }
-        }
-        private void CorelApp_OnApplicationEvent(string EventName, ref object[] Parameters)
-        {
-            if (EventName.Equals("WorkspaceChanged") || EventName.Equals("OnColorSchemeChanged"))
-            {
-                LoadThemeFromPreference();
-            }
-        }
-        public void LoadThemeFromPreference()
-        {
-            try
-            {
-                string result = "";
-#if !X7
-                result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
-#endif
-
-                if (!result.Equals(currentTheme))
-                {
-                    if (!result.Equals(string.Empty))
-                    {
-                        currentTheme = result;
-                        LoadStyle(currentTheme);
-                    }
-                }
-            }
-            catch { }
-
-        }
-        #endregion
     }
-
 }

@@ -23,7 +23,7 @@ namespace br.corp.bonus630.plugin.Repeater
     /// <summary>
     /// Interaction logic for SimpleRepeater.xaml
     /// </summary>
-    public partial class SimpleRepeater : UserControl,IPluginUI ,IPluginDrawer
+    public partial class SimpleRepeater : UserControl, IPluginUI, IPluginDrawer
     {
         double size;
         Corel.Interop.VGCore.Application app;
@@ -40,7 +40,8 @@ namespace br.corp.bonus630.plugin.Repeater
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
         public event Action<string> AnyTextChanged;
-
+        public event Action UpdatePreview;
+        public string PluginDisplayName { get{return RepeaterCore.PluginDisplayName;} }
         private ICodeGenerator codeGenerator;
 
         public ICodeGenerator CodeGenerator
@@ -296,20 +297,7 @@ namespace br.corp.bonus630.plugin.Repeater
                 app.MsgShow(Lang.MBOX_ERROR_NoShapes);
                 return;
             }
-            double val = 0;
-            if (Double.TryParse(txt_gap.Text, out val))
-                core.Gap = val;
-            if (Double.TryParse(txt_startX.Text, out val))
-                core.StartX = val;
-            if (Double.TryParse(txt_startY.Text, out val))
-                core.StartY = val;
-            int val1 = 0;
-            if (Int32.TryParse(txt_increment.Text, out val1))
-                core.EnumeratorIncrement = val1;
-            if (Int32.TryParse(txt_initialValue.Text, out val1))
-                core.Enumerator = val1;
-            if(!string.IsNullOrEmpty(txt_mask.Text))
-             core.Mask = txt_mask.Text;
+            SetCoreValues();
             this.app.ActiveDocument.Unit = this.app.ActiveDocument.Rulers.HUnits;
             core.Size = this.size;
             core.App = this.app;
@@ -339,7 +327,23 @@ namespace br.corp.bonus630.plugin.Repeater
             //});
             //t.Start();
         }
-
+        private void SetCoreValues()
+        {
+            double val = 0;
+            if (Double.TryParse(txt_gap.Text, out val))
+                core.Gap = val;
+            if (Double.TryParse(txt_startX.Text, out val))
+                core.StartX = val;
+            if (Double.TryParse(txt_startY.Text, out val))
+                core.StartY = val;
+            int val1 = 0;
+            if (Int32.TryParse(txt_increment.Text, out val1))
+                core.EnumeratorIncrement = val1;
+            if (Int32.TryParse(txt_initialValue.Text, out val1))
+                core.Enumerator = val1;
+            if (!string.IsNullOrEmpty(txt_mask.Text))
+                core.Mask = txt_mask.Text;
+        }
         private void cb_fitToPage_Click(object sender, RoutedEventArgs e)
         {
             core.FitToPage = (bool)cb_fitToPage.IsChecked;
@@ -352,6 +356,41 @@ namespace br.corp.bonus630.plugin.Repeater
             btn_enumerator.IsEnabled = true;
         }
 
-      
+        public void SaveConfig()
+        {
+            SetCoreValues();
+            Properties.Settings1.Default.QrFormatVector = (bool)cb_vector.IsChecked;
+            Properties.Settings1.Default.InitialValue = core.Enumerator;
+            Properties.Settings1.Default.Increment = core.EnumeratorIncrement;
+            Properties.Settings1.Default.Mask = core.Mask;
+            Properties.Settings1.Default.FitToPage = core.FitToPage;
+            Properties.Settings1.Default.StartX = core.StartX;
+            Properties.Settings1.Default.Starty = core.StartY;
+            Properties.Settings1.Default.Gap = core.Gap;
+            Properties.Settings1.Default.Save();
+
+
+        }
+
+        public void LoadConfig()
+        {
+            if (Properties.Settings1.Default.QrFormatVector)
+                cb_vector.IsChecked = true;
+            else
+                cb_bitmap.IsChecked = true;
+
+            txt_initialValue.Text = Properties.Settings1.Default.InitialValue.ToString();
+            txt_increment.Text = Properties.Settings1.Default.Increment.ToString();
+            txt_mask.Text = Properties.Settings1.Default.Mask.ToString();
+            cb_fitToPage.IsChecked = Properties.Settings1.Default.FitToPage;
+            txt_startX.Text = Properties.Settings1.Default.StartX.ToString();
+            txt_startY.Text = Properties.Settings1.Default.Starty.ToString();
+            txt_gap.Text = Properties.Settings1.Default.Gap.ToString();
+        }
+
+        public void DeleteConfig()
+        {
+            Properties.Settings1.Default.Reset();
+        }
     }
 }

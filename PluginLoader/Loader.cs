@@ -48,8 +48,9 @@ namespace br.corp.bonus630.PluginLoader
             {
                 try
                 {
-                    
-                    result.Add(GetPluginMap(files[i]));
+                    PluginMap p = GetPluginMap(files[i]);
+                    if(p!= null)
+                        result.Add(p);
                     
                 }
                 catch(Exception e)

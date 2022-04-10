@@ -91,7 +91,7 @@ namespace br.corp.bonus630.ImageRender
             bitmap.SetResolution(resolution, resolution);
             using(graphics = Graphics.FromImage(bitmap))
             {
-                graphics.FillRectangle(bWhite, 0, 0, size.Width, size.Height);
+                graphics.FillRectangle(bBorder, 0, 0, size.Width, size.Height);
              
                 for (int j = 0; j < bitMatrix.Width; j++)
                 {
@@ -100,12 +100,12 @@ namespace br.corp.bonus630.ImageRender
                       
                        if (bitMatrix[i, j])
                         {
-                            graphics.FillRectangle(bBlack, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                            graphics.FillRectangle(bDotFill, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
                            
                         }
                        else
                        {
-                           graphics.FillRectangle(bWhite, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                           graphics.FillRectangle(bBorder, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
                        }
                     }
                 }
@@ -116,6 +116,16 @@ namespace br.corp.bonus630.ImageRender
         }
 
         public string DecodeQrCode(Bitmap bitmap)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Bitmap RenderBitmapToMemory2(string content, int resolution = 72, int sqrSize = 221)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Bitmap RenderWireframeToMemory(string content, int resolution = 72, int sqrSize = 221)
         {
             throw new NotImplementedException();
         }

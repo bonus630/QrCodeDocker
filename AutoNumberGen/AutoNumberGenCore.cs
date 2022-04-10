@@ -15,22 +15,26 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
-        
+        public event Action UpdatePreview;
+
+        public int StartValue { get; set; }
+        public int EndValue { get; set; }
 
         public void OnFinishJob(object obj)
         {
             if (FinishJob != null)
                 FinishJob(obj);
         }
-
         public void OnProgressChange(int progress)
         {
             
         }
-        public void changeData(int startValue, int finalValue)
+        public void changeData(int startValue, int endValue)
         {
+            StartValue = startValue;
+            EndValue = endValue;
             dataSource = new List<object[]>();
-            for (int i = startValue; i <= finalValue; i++)
+            for (int i = startValue; i <= endValue; i++)
             {
                 dataSource.Add(new object[] { i });
             }

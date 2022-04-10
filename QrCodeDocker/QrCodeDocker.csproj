@@ -211,8 +211,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapResources.cs" />
+    <Compile Include="Converters\ResourceToMediaImageConverter.cs" />
     <Compile Include="Converters\StyleConverter.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Lang\Ilang.cs" />
     <Compile Include="Lang\EN_US.cs" />
     <Compile Include="Lang\PT_BR.cs" />
@@ -243,6 +244,7 @@
       <DependentUpon>PluginSelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="QrCodeGenerator.cs" />
+    <Compile Include="StyleController.cs" />
     <Compile Include="VisualDataContext.cs" />
     <Page Include="Docker.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -288,6 +290,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Images.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -311,6 +317,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="CorelDrw.addon">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -321,6 +328,14 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\434.png" />
+    <None Include="Resources\84.png" />
+    <None Include="Resources\2344.png" />
+    <None Include="Resources\CorelNaVeia2022.png" />
+    <None Include="Resources\BANNERQUAD.jpg" />
+    <Content Include="zxing.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="UserUI2019.xslt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

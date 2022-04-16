@@ -22,5 +22,17 @@ namespace br.corp.bonus630.plugin.PlaceHere.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool GetContainer {
+            get {
+                return ((bool)(this["GetContainer"]));
+            }
+            set {
+                this["GetContainer"] = value;
+            }
+        }
     }
 }

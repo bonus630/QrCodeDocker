@@ -243,7 +243,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 label.SetValue(Label.WidthProperty, converted);
                 FrameworkElementFactory btn = new FrameworkElementFactory(typeof(Button));
                 btn.SetValue(Button.ContentProperty, "-");
-                var btnWidth = lc.ConvertFrom("15px");
+                var btnWidth = lc.ConvertFromInvariantString("20px");
                 btn.SetValue(Button.WidthProperty, btnWidth);
                 btn.SetValue(Button.TagProperty, index);
                 btn.AddHandler(Button.ClickEvent, new RoutedEventHandler(expanderRemoveClick));
@@ -258,6 +258,9 @@ namespace br.corp.bonus630.QrCodeDocker
                 cont.IsExpanded = true;
                 cont.SetValue(Expander.TagProperty, pluginMap.DisplayName);
                 cont.Content = (UserControl)objUI;
+                var t = new ThicknessConverter();
+                object thi = t.ConvertFromInvariantString("0,0,0,14");
+                cont.SetValue(Control.MarginProperty, thi);
                 cont.AddHandler(Expander.ExpandedEvent, new RoutedEventHandler(expanderExpander));
                 grid_controlUI.Children.Add(cont);
                 loadedPluginList.Add(objUI as IPluginUI);

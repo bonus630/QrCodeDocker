@@ -7,12 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="284">
 
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-        <Label Content="{Binding LBA_ObjOrigin}"/>
-        <local:AnchorButton Width="30" Height="30" FactorChanged="AnchorButton_FactorChanged" x:Name="anchorButton"></local:AnchorButton>
-        <Button x:Name="btn_start" Content="{Binding BTN_Start}" Height="30" Margin="20,0,20,0" Click="btn_start_Click"/>
-        <Button x:Name="btn_teste" Content="teste" Height="30" Margin="20,0,20,0" Click="btn_teste_click"/>
-        <CheckBox Content="{Binding CB_GetContainer}" x:Name="ck_getContainer" VerticalAlignment="Center" Click="ck_getContainer_Click"/>
+    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal">
+            <Label Content="{Binding LBA_ObjOrigin}"/>
+            <local:AnchorButton Width="30" Height="30" FactorChanged="AnchorButton_FactorChanged" x:Name="anchorButton"></local:AnchorButton>
+            <CheckBox Content="{Binding CB_GetContainer}" Margin="20,0,0,0" x:Name="ck_getContainer" VerticalAlignment="Center" Click="ck_getContainer_Click"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+            <Button x:Name="btn_start" Content="{Binding BTN_Start}" Height="30" Margin="0,0,20,0" Click="btn_start_Click"/>
+            <Button x:Name="btn_continue" Content="{Binding BTN_Continue}" Height="30" Margin="20,0,20,0" Click="btn_continue_Click"/>
+        </StackPanel>
     </StackPanel>
 
 </UserControl>

@@ -16,6 +16,8 @@ namespace br.corp.bonus630.QrCodeDocker
         Ilang langObj;
         public event PropertyChangedEventHandler PropertyChanged;
         public Ilang Lang {get{return this.langObj;} }
+        private bool canLoadPlugin = true;
+        public bool CanLoadPlugin { get { return canLoadPlugin; } set { canLoadPlugin = value; OnPropertyChanged("CanLoadPlugin"); } }
         public VisualDataContext(Application corelApp)
         {
             this.app = corelApp;

@@ -34,6 +34,7 @@
                 <Setter Property="Height" Value="52"/>
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
                 <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RadioButton}">
@@ -99,13 +100,13 @@
     </UserControl.Resources>
     <StackPanel Width="290">
         <!--<RadioButton Style="{DynamicResource ImageRadioButton}">
-            <Image Source="whatsapp.png" />
+            <Image Source="whatsapp.png" Cursor="Hand" />
         </RadioButton>-->
         <ItemsControl ItemsSource="{Binding SchemesDataSource}" Padding="2">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <RadioButton Style="{DynamicResource ImageRadioButton}" Click="RadioButton_Click" IsChecked="{Binding IsSelected,Mode=TwoWay}" Tag="{Binding Tag}"
-                                 GroupName="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl},Path=DataContext.GroupName}">
+                                 GroupName="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl},Path=DataContext.GroupName}" >
                         <Image Source="{Binding MediaImage}">
                             <Image.Style>
                                 <Style TargetType="Image" >

@@ -34,7 +34,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
             this.DataContext = eye;
             eye.NewPositionEvent += Eye_NewPositionEvent;
             this.app = app;
-           
+            eye.Start();
         }
 
         private void Eye_NewPositionEvent(System.Drawing.Rectangle obj)

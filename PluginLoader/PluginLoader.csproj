@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\IntVisibilityConverter.cs" />
+    <Compile Include="ICodeConfig.cs" />
     <Compile Include="ICodeGenerator.cs" />
     <Compile Include="IPluginConfig.cs" />
     <Compile Include="IPluginCore.cs" />

@@ -60,7 +60,7 @@
                     <Label Content="{Binding B}" />
                 </StackPanel>-->
 
-                <Label Content="Name:"  Grid.Row="0" Grid.Column="0"/>
+                <Label Content="Name:" Grid.Row="0" Grid.Column="0"/>
                 <Label Content="{Binding ColorName}" Grid.Row="0" Grid.Column="1"/>
 
 

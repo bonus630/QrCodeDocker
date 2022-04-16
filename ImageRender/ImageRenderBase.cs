@@ -11,7 +11,7 @@ namespace br.corp.bonus630.ImageRender
         protected Brush bBorder;
         protected Brush bDotFill;
         protected Brush bDotBorder;
-        protected Pen pWireframe = new Pen(Brushes.AliceBlue);
+        protected Pen pWireframe = new Pen(Brushes.Blue);
         protected int dotSize = 2;
         protected double _dotSize = 1;
         protected double dotBorderWidth = 0;
@@ -52,10 +52,14 @@ namespace br.corp.bonus630.ImageRender
         protected Size Measure(int matrixWidth)
         {
             double areaWidth = dotSize * matrixWidth;
-            m_Padding = quietZoneDot * dotSize;
+            if (NoBorder)
+                m_Padding = 0;
+            else
+                m_Padding = quietZoneDot * dotSize;
             double padding = m_Padding;
             double totalWidth = areaWidth + 2 * padding;
-            return new Size((int)totalWidth, (int)totalWidth);
+          
+                return new Size((int)totalWidth, (int)totalWidth);
         }
       
         public double InMeasure(int matrixWidth, double size)

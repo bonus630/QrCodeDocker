@@ -10,7 +10,9 @@ using System.Drawing;
 
 namespace br.corp.bonus630.ImageRender
 {
+    //References
     //https://zxingnet.codeplex.com/discussions/453067
+    //https://skrymerdev.wordpress.com/2012/09/22/qr-code-generation-with-zxing/
     public class ZXingImageRender : ImageRenderBase, IImageRender
     {
         //protected Graphics graphics;
@@ -51,7 +53,7 @@ namespace br.corp.bonus630.ImageRender
         //    double totalWidth = size - 1;
         //    double _dotSize = (size) / (matrixWidth + 4);
         //    return _dotSize;
-       // }
+        // }
 
 
 
@@ -59,26 +61,34 @@ namespace br.corp.bonus630.ImageRender
         private ZXing.Common.BitMatrix bitMatrix;
         public BitMatrix BitMatrixProp { get; private set; }
         BarcodeWriter writer = new BarcodeWriter();
-        
-        public ZXingImageRender():base()
+
+        public ZXingImageRender() : base()
         {
-          
+
 
         }
-        public void EncodeNewBitMatrix(string content, int sqrSize =0)
+        public void EncodeNewBitMatrix(string content, int sqrSize = 0,bool useSQRSize = false)
         {
 
             this.writer.Format = BarcodeFormat.QR_CODE;
-            
+
             //this.writer.Options = new QrCodeEncodingOptions { Width = sqrSize , Height = sqrSize , CharacterSet = "UTF-8" };
-            this.writer.Options = new QrCodeEncodingOptions { CharacterSet = "UTF-8" };
+            
+            QrCodeEncodingOptions options = new QrCodeEncodingOptions {  CharacterSet = "UTF-8" };
+
+            if (NoBorder)
+                options.Margin = 0;
+            if (useSQRSize)
+            {
+                options.Width = sqrSize;
+                options.Height = sqrSize;
+            }
+            this.writer.Options = options;
 
 
             if (!String.IsNullOrEmpty(content))
             {
-                //this.bitMatrix = this.writer.Encode(content);
                 this.bitMatrix = this.writer.Encode(content);
-
                 bool[,] m = new bool[this.bitMatrix.Width, this.bitMatrix.Width];
                 for (int j = 0; j < bitMatrix.Width; j++)
                 {
@@ -91,7 +101,7 @@ namespace br.corp.bonus630.ImageRender
             }
 
         }
-       
+
 
         public void SaveTempQrCodeFile(string content, int resolution, int sqrSize)
         {
@@ -109,7 +119,7 @@ namespace br.corp.bonus630.ImageRender
         public void SaveTempQrCodeFile(string content)
         {
 
-            Bitmap bitmap = this.RenderBitmapToMemory(content);
+            Bitmap bitmap = this.RenderBitmapToMemory2(content);
             try
             {
                 bitmap.Save(qrCodeFilePath);
@@ -121,13 +131,21 @@ namespace br.corp.bonus630.ImageRender
         }
         public double Measure()
         {
-            
+
             if (this.bitMatrix == null)
                 return 0;
             double areaWidth = _dotSize * this.bitMatrix.Width;
-            double padding = quietZoneDot * _dotSize;
+            double padding;
+            if (NoBorder)
+                padding = 0;
+            else
+                padding = quietZoneDot * dotSize;
+           
             double totalWidth = areaWidth + 2 * padding;
-            return totalWidth;
+            if (NoBorder)
+                return areaWidth;
+            else
+                return totalWidth;
         }
         public double InMeasure(double newSize)
         {
@@ -138,11 +156,11 @@ namespace br.corp.bonus630.ImageRender
             double _dotSize = (size) / (this.bitMatrix.Width + 4);
             return _dotSize;
         }
-       
+
         public Bitmap RenderBitmapToMemory(string content, int resolution = 72, int sqrSize = 221)
         {
 
-            EncodeNewBitMatrix(content, sqrSize);
+            EncodeNewBitMatrix(content, sqrSize,true);
 
 
             dotSize = sqrSize / bitMatrix.Width;
@@ -176,20 +194,28 @@ namespace br.corp.bonus630.ImageRender
             Debug.WriteLine(bitmap.Width.ToString());
             return bitmap;
         }
+        /// <summary>
+        /// Have weld function
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="resolution"></param>
+        /// <param name="sqrSize"></param>
+        /// <returns></returns>
         public Bitmap RenderBitmapToMemory2(string content, int resolution = 72, int sqrSize = 221)
         {
 
-            EncodeNewBitMatrix(content, sqrSize);
+            EncodeNewBitMatrix(content, sqrSize,false);
 
-
+            //dotSize = 10;
             dotSize = sqrSize / bitMatrix.Width;
-            Pen pDotBorder = new Pen(bDotBorder,(float)DotBorderWidth*10);
+            Pen pDotBorder = new Pen(bDotBorder, (float)DotBorderWidth * 10);
             Rectangle rDot;
-            Bitmap bitmap = new Bitmap(sqrSize, sqrSize);
+            int bmpWidth = dotSize * bitMatrix.Width;
+            Bitmap bitmap = new Bitmap(bmpWidth, bmpWidth);
             bitmap.SetResolution(resolution, resolution);
             using (graphics = Graphics.FromImage(bitmap))
             {
-                if(!NoBorder)
+                if (!NoBorder)
                     graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
 
                 for (int j = 0; j < bitMatrix.Width; j++)
@@ -200,14 +226,44 @@ namespace br.corp.bonus630.ImageRender
                         rDot = new Rectangle(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
                         if (bitMatrix[i, j])
                         {
-                            graphics.FillRectangle(bDotFill,rDot);
-                            if(DotBorderWidth>0)
-                                graphics.DrawRectangle(pDotBorder, rDot);
+                            if (DotShapeType.Equals(1))
+                                graphics.FillEllipse(bDotFill, rDot);
+                            else
+                                graphics.FillRectangle(bDotFill, rDot);
+                            if (DotBorderWidth > 0)
+                            {
+                                if (Weld)
+                                {
+                                    //Dot top line
+                                    if (j != 0 && !bitMatrix[i, j - 1])
+                                        graphics.DrawLine(pDotBorder, i * dotSize + m_Padding, j * dotSize + m_Padding, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
+
+                                    //Dot left line
+                                    if (i != 0 && !bitMatrix[i - 1, j])
+                                        graphics.DrawLine(pDotBorder, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding, j * dotSize + m_Padding);
+                                    //Dot right line
+                                    if ((i + 1) < bitMatrix.Width && !bitMatrix[i + 1, j])
+                                        graphics.DrawLine(pDotBorder, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
+
+                                    //Dot bottom line
+                                    if ((j + 1) < bitMatrix.Width && !bitMatrix[i, j + 1])
+                                        graphics.DrawLine(pDotBorder, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize);
+
+
+                                }
+                                else
+                                {
+                                    if (DotShapeType.Equals(2))
+                                        graphics.DrawEllipse(pDotBorder, rDot);
+                                    else
+                                        graphics.DrawRectangle(pDotBorder, rDot);
+                                }
+                            }
                         }
-                        else
-                        {
-                            graphics.FillRectangle(bBorder, rDot);
-                        }
+                        //else
+                        //{
+                        //    graphics.FillRectangle(bBorder, rDot);
+                        //}
                     }
                 }
 
@@ -226,38 +282,59 @@ namespace br.corp.bonus630.ImageRender
                 reader = null;
                 result = null;
                 return res;
-                
+
             }
 
             catch
             {
                 throw new Exception();
             }
-            
+
         }
+        Pen redPen = new Pen(Brushes.Red);
+        Pen bluePen = new Pen(Brushes.Blue);
+        Pen blackPen = new Pen(Brushes.Black);
+        Pen greenPen = new Pen(Brushes.Green);
 
         public Bitmap RenderWireframeToMemory(string content, int resolution = 72, int sqrSize = 221)
         {
-            EncodeNewBitMatrix(content, sqrSize);
+            EncodeNewBitMatrix(content, sqrSize,true);
 
 
             dotSize = sqrSize / bitMatrix.Width;
-           
+
 
             Bitmap bitmap = new Bitmap(sqrSize, sqrSize);
             bitmap.SetResolution(resolution, resolution);
             //bitmap.MakeTransparent(Color.White);
             using (graphics = Graphics.FromImage(bitmap))
             {
-                graphics.DrawRectangle(pWireframe, 0, 0, sqrSize, sqrSize);
-
+                if (!NoBorder)
+                    graphics.DrawRectangle(pWireframe, 0, 0, sqrSize, sqrSize);
+                //graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
                 for (int j = 0; j < bitMatrix.Width; j++)
                 {
                     for (int i = 0; i < bitMatrix.Width; i++)
                     {
                         if (bitMatrix[i, j])
                         {
-                            graphics.DrawRectangle(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                            //graphics.DrawRectangle(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                            //Dot top line
+                            if (j != 0 && !bitMatrix[i, j - 1])
+                                graphics.DrawLine(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
+
+                            //Dot left line
+                            if (i != 0 && !bitMatrix[i - 1, j])
+                                graphics.DrawLine(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding, j * dotSize + m_Padding);
+                            //Dot right line
+                            if ((i + 1) < bitMatrix.Width&&!bitMatrix[i + 1, j])
+                                graphics.DrawLine(pWireframe, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
+
+                            //Dot bottom line
+                            if ((j + 1) < bitMatrix.Width&&!bitMatrix[i, j + 1])
+                                graphics.DrawLine(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize);
+
+
                         }
                     }
                 }

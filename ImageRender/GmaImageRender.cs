@@ -18,7 +18,7 @@ namespace br.corp.bonus630.ImageRender
          
          
         }
-        public void EncodeNewBitMatrix(string content, int sqrSize = 0)
+        public void EncodeNewBitMatrix(string content, int sqrSize = 0, bool useSQRSize = false)
         {
             if (!String.IsNullOrEmpty(content))
             {

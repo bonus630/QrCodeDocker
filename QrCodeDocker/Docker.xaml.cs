@@ -82,21 +82,21 @@ namespace br.corp.bonus630.QrCodeDocker
             codeGenerator.SetRender(imageRender);
 
            // string pluginLoader = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\PluginLoader.dll");
-           string pluginLoader = System.IO.Path.Combine(this.app.AddonPath, "QrCodeDocker\\PluginLoader.dll"); 
+           string pluginLoader = System.IO.Path.Combine(this.app.AddonPath, "QrCodeDocker\\PluginLoader.dll");
 
 
             if (System.IO.File.Exists(pluginLoader))
             {
-                //btn_extras.Visibility = Visibility.Visible;
-                groupBoxPluginContainer.Visibility = Visibility.Visible;
                 int strSize = 221;
                 if (!Int32.TryParse(txt_size.Text, out strSize))
                     app.MsgShow(dataContextObj.Lang.MBoxFormatErroTitle, dataContextObj.Lang.MBoxFormatErroMessage);
-                pluginSelect = new PluginSelect(strSize, this.app,this.dataContextObj.Lang ,this.imageRender, this.codeGenerator);
+                pluginSelect = new PluginSelect(strSize, this.app, this.dataContextObj.Lang, this.imageRender, this.codeGenerator);
                 pluginSelect.AnyTextChanged += PluginSelect_AnyTextChanged;
                 pluginSelect.UpdatePreview += renderImage;
                 groupBoxPluginContainer.Content = pluginSelect;
             }
+            else
+                dataContextObj.CanLoadPlugin = false;
             
         }
 

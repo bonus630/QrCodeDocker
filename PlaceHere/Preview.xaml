@@ -11,7 +11,7 @@
          
     
     <Grid Background="Transparent"  Visibility="{Binding IsVisibility}">
-        
+        <Label Name="position" FontSize="12" Content="X:160 - Y:250" />
         <Image x:Name="img_preview" />
     </Grid>
 </Window>

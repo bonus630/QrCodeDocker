@@ -11,5 +11,8 @@ namespace br.corp.bonus630.plugin.PlaceHere.Lang
         string BTN_Start { get; }
         string CB_GetContainer { get; }
         string BTN_Restart { get; }
+        string BTN_Continue { get; }
+
+        string OC_MSG_Exit { get; }
     }
 }

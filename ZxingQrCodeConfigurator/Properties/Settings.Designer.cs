@@ -61,9 +61,10 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::Corel.Interop.VGCore.ColorClass BorderColor {
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public string BorderColor {
             get {
-                return ((global::Corel.Interop.VGCore.ColorClass)(this["BorderColor"]));
+                return ((string)(this["BorderColor"]));
             }
             set {
                 this["BorderColor"] = value;
@@ -72,9 +73,10 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::Corel.Interop.VGCore.ColorClass DotFillColor {
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public string DotFillColor {
             get {
-                return ((global::Corel.Interop.VGCore.ColorClass)(this["DotFillColor"]));
+                return ((string)(this["DotFillColor"]));
             }
             set {
                 this["DotFillColor"] = value;
@@ -83,9 +85,10 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::Corel.Interop.VGCore.ColorClass DotBorderColor {
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public string DotBorderColor {
             get {
-                return ((global::Corel.Interop.VGCore.ColorClass)(this["DotBorderColor"]));
+                return ((string)(this["DotBorderColor"]));
             }
             set {
                 this["DotBorderColor"] = value;
@@ -101,6 +104,18 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Properties {
             }
             set {
                 this["DotBordeSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PaletteIndentifier {
+            get {
+                return ((string)(this["PaletteIndentifier"]));
+            }
+            set {
+                this["PaletteIndentifier"] = value;
             }
         }
     }

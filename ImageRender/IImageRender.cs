@@ -19,6 +19,6 @@ namespace br.corp.bonus630.ImageRender
 
         BitMatrix BitMatrixProp {  get; }
 
-        void EncodeNewBitMatrix(string content,int strSize = 0);
+        void EncodeNewBitMatrix(string content,int strSize = 0, bool useSQRSize = false);
     }   
 }

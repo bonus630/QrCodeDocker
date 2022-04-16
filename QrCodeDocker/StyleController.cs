@@ -1,4 +1,5 @@
 ﻿using Corel.Interop.VGCore;
+using System.Diagnostics;
 using System.Windows;
 
 namespace br.corp.bonus630.QrCodeDocker
@@ -62,6 +63,16 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void CorelApp_OnApplicationEvent(string EventName, ref object[] Parameters)
         {
+            string debug = "Event:" + EventName;
+            if(Parameters!= null)
+            {
+                for (int i = 0; i < Parameters.Length; i++)
+                {
+                    if(Parameters[i]!= null)
+                        debug += " | Param:" + i + " "+Parameters[i].ToString();
+                }
+            }
+            Debug.WriteLine(debug);
             if (EventName.Equals("WorkspaceChanged") || EventName.Equals("OnColorSchemeChanged"))
             {
                 LoadThemeFromPreference();

@@ -9,6 +9,7 @@ using Corel.Interop.VGCore;
 using System.IO;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker;
+using br.corp.bonus630.QrCodeDocker.Enums;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Input;
@@ -31,7 +32,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public ZxingQrCodeConfiguratorUI()
         {
             InitializeComponent();
-
+          
 
         }
         public void ChangeLang(LangTagsEnum langTag)
@@ -147,7 +148,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                 try
                 {
                     string text = CodeGenerator.DecodeImage(filePath);
-
+                   
                     app.MsgShow(text, Lang.MBOX_QrMessage);
                    
                 }
@@ -243,7 +244,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 
         private void btn_BorderColor_Click(object sender, EventArgs e)
         {
-            ColorPicker c = new ColorPicker(app.ActivePalette);
+            ColorPicker c = GetColorPicker(sender);
             if ((bool)c.ShowDialog())
             {
                 SelectedBorderColor = c.SelectedColor;
@@ -256,7 +257,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 
         private void btn_DotColor_Click(object sender, EventArgs e)
         {
-            ColorPicker c = new ColorPicker(app.ActivePalette);
+            ColorPicker c =  GetColorPicker(sender);
             if ((bool)c.ShowDialog())
             {
                 SelectedDotColor = c.SelectedColor;
@@ -269,7 +270,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 
         private void btn_DotBorderColor_Click(object sender, EventArgs e)
         {
-            ColorPicker c = new ColorPicker(app.ActivePalette);
+            ColorPicker c =  GetColorPicker(sender);
             if ((bool)c.ShowDialog())
             {
                 SelectedDotBorderColor = c.SelectedColor;
@@ -280,10 +281,24 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                 }
             }
         }
-
+        private ColorPicker GetColorPicker(object sender)
+        {
+            int x, y, w, h = 0;
+            app.FrameWork.Automation.GetItemScreenRect("68622454-ABAA-4099-976F-E620DCF8C89B", "efc02df4-8eb5-44b5-8016-1c495af1504e", out x, out y, out w, out h);
+            ColorPicker colorPicker = new ColorPicker(app.ActivePalette);
+            colorPicker.WindowStartupLocation = WindowStartupLocation.Manual;
+            x = (int)(x - (colorPicker.Width + 16));
+            if (x < 0)
+                x = 0;
+                colorPicker.Left = x;
+            
+            colorPicker.Top = y + 32;
+            return colorPicker;
+        }
         private void ck_noBorder_Checked(object sender, RoutedEventArgs e)
         {
             (CodeGenerator as QrCodeGenerator).NoBorder = (bool)ck_noBorder.IsChecked;
+            btn_BorderColor.IsEnabled = !(bool)ck_noBorder.IsChecked;
             OnUpdatePreview();
         }
 
@@ -301,12 +316,12 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             Properties.Settings.Default.DotShape = (ushort)code.DotShapeType;
             Properties.Settings.Default.DotBordeSize = (uint)code.DotBorderSize;
             if (SelectedBorderColor != null)
-                Properties.Settings.Default.BorderColor = SelectedBorderColor.CorelColor as ColorClass;
+                Properties.Settings.Default.BorderColor = SelectedBorderColor.CorelColorName;
             if (SelectedDotColor != null)
-                Properties.Settings.Default.DotFillColor = SelectedDotColor.CorelColor as ColorClass;
+                Properties.Settings.Default.DotFillColor = SelectedDotColor.CorelColorName;
             if (SelectedDotBorderColor != null)
-                Properties.Settings.Default.DotBorderColor = SelectedDotBorderColor.CorelColor as ColorClass;
-
+                Properties.Settings.Default.DotBorderColor = SelectedDotBorderColor.CorelColorName;
+            Properties.Settings.Default.PaletteIndentifier = app.ActivePalette.Name;
             Properties.Settings.Default.Save();
         }
 
@@ -319,12 +334,19 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             cb_dotShape.SelectedIndex = Properties.Settings.Default.DotShape;
             //O codegenerator está nulo nesse momento teremos que modificar o modo de carga de plugin para corrigir?
             // code.NoBorder = Properties.Settings.Default.Weld;
-            Corel.Interop.VGCore.Color bColor = Properties.Settings.Default.BorderColor;
-            SelectedBorderColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
-            bColor = Properties.Settings.Default.DotFillColor;
-            SelectedDotColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
-            bColor = Properties.Settings.Default.DotBorderColor;
-            SelectedDotBorderColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
+            string paletter = Properties.Settings.Default.PaletteIndentifier;
+            try
+            {
+                Palette palette = app.PaletteManager.GetPalette(paletter);
+                int index = palette.FindColor(Properties.Settings.Default.BorderColor);
+                Corel.Interop.VGCore.Color bColor = palette.Color[index];
+                SelectedBorderColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
+                bColor = palette.Color[palette.FindColor(Properties.Settings.Default.DotFillColor)];
+                SelectedDotColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
+                bColor = palette.Color[palette.FindColor(Properties.Settings.Default.DotBorderColor)];
+                SelectedDotBorderColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
+            }
+            catch { }
 
         }
         private void LoadConfigToCode()
@@ -348,4 +370,5 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         }
 
     }
+   
 }

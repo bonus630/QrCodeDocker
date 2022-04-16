@@ -77,52 +77,28 @@ namespace br.corp.bonus630.plugin.MediaSchema
                     new SchemesAttribute("DDD", typeof(string)) ,
                     new SchemesAttribute("Phone", typeof(string)) })
               );
-            schemesDataSource.Add(
-              new Schemes(4, "WIFI:S:{0};T:{1};P:{2};H:{3};", Properties.Resource.wifi, "Wifi",
-                new SchemesAttribute[] { new SchemesAttribute("SSID", typeof(string)),
-                new SchemesAttribute("Encryption type", typeof(string)),
-                new SchemesAttribute("Password", typeof(string)),
-                new SchemesAttribute("SSID Hidden", typeof(bool))})
-              );
-            //for (int i = 0; i < schemesDataSource.Count; i++)
-            //{
-            //    System.Windows.Controls.Image image = new System.Windows.Controls.Image();
-            //    image.Source = schemesDataSource[i].MediaImage;
-            //    image.Width = 80;
-            //    image.Height = 80;
-            //    image.Tag = schemesDataSource[i].Tag;
-            //    image.Cursor = Cursors.Hand;
-            //    image.ToolTip = tooltip;
-            //    image.MouseLeave += Image_MouseLeave;
-
-            //    image.MouseUp += Image_MouseUp;
-            //    image.MouseEnter += Image_MouseEnter;
-            //   // content.Children.Add(image);
-            //}
-            //content.Children.Add(new BaseControls(null));
+            //schemesDataSource.Add(
+            //  new Schemes(4, "WIFI:S:{0};T:{1};P:{2};H:{3};", Properties.Resource.wifi, "Wifi",
+            //    new SchemesAttribute[] { new SchemesAttribute("SSID", typeof(string)),
+            //    new SchemesAttribute("Encryption type", typeof(string)),
+            //    new SchemesAttribute("Password", typeof(string)),
+            //    new SchemesAttribute("SSID Hidden", typeof(bool))})
+            //  );
+        
         }
 
-
-        //private void Image_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    System.Windows.Controls.Image image = sender as System.Windows.Controls.Image;
-        //    int tag = (int)image.Tag;
-        //    Schemes scheme = schemesDataSource.Single(r => r.Tag == tag);
-        //    tooltip.Content = scheme.Name;
-        //    UpdatePreview();
-        //}
         private void OnUpdatePreview()
         {
             if (UpdatePreview != null)
                 UpdatePreview();
         }
-        //private void Image_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    tooltip.IsOpen = false;
-        //}
+     
 
         private void buildCheckBox(SchemesAttribute attribute, int index)
         {
+            CheckBox ck = new CheckBox();
+            ck.Tag = attribute.Name;
+            ck.Content = attribute.Name;
 
         }
 
@@ -131,11 +107,11 @@ namespace br.corp.bonus630.plugin.MediaSchema
             TextBox textBox = new TextBox();
             textBox.HorizontalAlignment = HorizontalAlignment.Left;
             textBox.VerticalAlignment = VerticalAlignment.Center;
+            textBox.VerticalContentAlignment = VerticalAlignment.Center;
             textBox.MinWidth = 200;
             textBox.Height = 32;
             //textBox.Text = attribute.param[0].ToString();
             textBox.Tag = attribute.Name;
-            // textBox.Name = attribute.Name;
             textBox.TextChanged += txt_any_TextChanged;
             return textBox;
         }
@@ -224,13 +200,6 @@ namespace br.corp.bonus630.plugin.MediaSchema
                 }
             }
             SelectSchema(currentScheme.Tag);
-            //for (int i = 0; i < content.Children.Count; i++)
-            //{
-            //    if((int)(content.Children[i] as System.Windows.Controls.Image).Tag == currentScheme.Tag)
-            //    {
-            //        Image_MouseUp(content.Children[i], null);
-            //    }
-            //}
         }
 
         public void DeleteConfig()
@@ -266,8 +235,6 @@ namespace br.corp.bonus630.plugin.MediaSchema
                         buildCheckBox(attribute, i);
                         break;
                 }
-
-
             }
             sp_attributesContent.Children.Add(grid);
         }
@@ -278,13 +245,5 @@ namespace br.corp.bonus630.plugin.MediaSchema
             SelectSchema(tag);
         }
 
-
-
-
-
-        //private void btn_draw_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Draw();
-        //}
     }
 }

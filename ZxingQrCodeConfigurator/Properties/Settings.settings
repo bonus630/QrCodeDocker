@@ -11,17 +11,20 @@
     <Setting Name="NoBorder" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="BorderColor" Type="Corel.Interop.VGCore.ColorClass" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="BorderColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">White</Value>
     </Setting>
-    <Setting Name="DotFillColor" Type="Corel.Interop.VGCore.ColorClass" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="DotFillColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Black</Value>
     </Setting>
-    <Setting Name="DotBorderColor" Type="Corel.Interop.VGCore.ColorClass" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="DotBorderColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Black</Value>
     </Setting>
     <Setting Name="DotBordeSize" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="PaletteIndentifier" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

@@ -212,6 +212,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MessageBoxVerify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -246,6 +250,9 @@
     <Compile Include="Lang\EN_US.cs" />
     <Compile Include="Lang\Ilang.cs" />
     <Compile Include="Lang\PT_BR.cs" />
+    <Compile Include="MessageBoxVerify.xaml.cs">
+      <DependentUpon>MessageBoxVerify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NotifyPropertyBase.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ZxingQrCodeConfiguratorUI.xaml.cs">

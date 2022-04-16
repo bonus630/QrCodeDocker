@@ -33,5 +33,17 @@ namespace br.corp.bonus630.QrCodeDocker.Properties {
                 this["PluginNameCollection"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int QRCounter {
+            get {
+                return ((int)(this["QRCounter"]));
+            }
+            set {
+                this["QRCounter"] = value;
+            }
+        }
     }
 }

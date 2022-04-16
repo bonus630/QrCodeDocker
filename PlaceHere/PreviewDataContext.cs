@@ -18,8 +18,8 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public bool GetContainer { get; set; }
         private bool running = true;
         private Shape shape;
-        private Curve osCurve;
-        OnScreenCurve os;
+        //private Curve osCurve;
+        //OnScreenCurve os;
 
 
         public void Close()
@@ -39,23 +39,23 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public PreviewDataContext(Corel.Interop.VGCore.Application app)
         {
             this.app = app;  
-            th = new Thread(new ThreadStart(Update));
-            th.IsBackground = true;
+            //th = new Thread(new ThreadStart(Update));
+            //th.IsBackground = true;
             
         }
         public void Start()
         {
             th.Start();
         }
-        public void SetCurve(Curve curve)
-        {
-             os = app.CreateOnScreenCurve();
-             os.SetCurve(curve);
-        }
+        //public void SetCurve(Curve curve)
+        //{
+        //     os = app.CreateOnScreenCurve();
+        //     os.SetCurve(curve);
+        //}
         public void Update()
         {
             dc = this.app.FrameWork.Application.DataContext.GetDataSource("WStatusBarDS");
-            System.Windows.MessageBox.Show(app.ActiveDocument.Unit.ToString());
+           
             app.Unit = app.ActiveDocument.Unit;
             while (running)
             {
@@ -65,22 +65,24 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 {
                     //(103, 396; 21,312 )
                     string coord = (string)dc.GetProperty("CursorCoords");
-                    double x = Double.Parse(coord.Substring(1, coord.IndexOf(';') - 1));
-                    double y = Double.Parse(coord.Substring(coord.IndexOf(';') + 1, coord.IndexOf(')') - coord.IndexOf(';') - 1));
-                    //double size = this.Size;
-                    //x = this.app.ConvertUnits(x, app.ActiveDocument.Rulers.HUnits, Corel.Interop.VGCore.cdrUnit.cdrInch);
-                    //y = this.app.ConvertUnits(y, app.ActiveDocument.Rulers.HUnits, Corel.Interop.VGCore.cdrUnit.cdrInch);  
-                    double size = Size;
-                    //double size = app.ActiveWindow.ScreenDistanceToDocumentDistance(Size);
+                    double inBarX = Double.Parse(coord.Substring(1, coord.IndexOf(';') - 1));
+                    double inBarY = Double.Parse(coord.Substring(coord.IndexOf(';') + 1, coord.IndexOf(')') - coord.IndexOf(';') - 1));
+                    double size = this.Size;
+                    //double convertedX = this.app.ConvertUnits(inBarX, app.ActiveDocument.Rulers.HUnits, Corel.Interop.VGCore.cdrUnit.cdrInch);
+                    //double convertedY = this.app.ConvertUnits(inBarY, app.ActiveDocument.Rulers.HUnits, Corel.Interop.VGCore.cdrUnit.cdrInch);
+                 
+                    double x = inBarX;
+                    double y = inBarY;
+                     size = app.ActiveWindow.ScreenDistanceToDocumentDistance(size);
                     if (GetContainer)
                     {
-                        shape = this.app.ActivePage.FindShapeAtPoint(x, y, false);
+                        shape = this.app.ActivePage.FindShapeAtPoint(inBarX, inBarY, false);
                         if(shape != null)
                         {
 
                             x = shape.LeftX;
                             y = shape.TopY;
-                            Debug.WriteLine("ShapeX:{0} - ShapeY:{1}", x,y);
+                            Debug.WriteLine("ShapeX:{0} - ShapeY:{1}", inBarX,inBarY);
                             if (shape.SizeWidth > shape.SizeHeight)
                                 size = shape.SizeHeight;
                             if (shape.SizeHeight > shape.SizeWidth)
@@ -88,22 +90,22 @@ namespace br.corp.bonus630.plugin.PlaceHere
                             //size = app.ActiveWindow.DocumentDistanceToScreenDistance(size);
                         }
                     }
-                    os.SetRectangle(x, y, x + size, y + size);
-                    //int xs = 0;
-                    //int ys = 0;
+                   // os.SetRectangle(x, y, x + size, y + size);
+                    int xs = 0;
+                    int ys = 0;
 
-                    //app.ActiveWindow.DocumentToScreen(x, y, out xs, out ys);
-                    //int ws = (int)((x + size) - x);
-                    //int hs = (int)((y + size) - y);
+                    app.ActiveWindow.DocumentToScreen(x, y, out xs, out ys);
+                    int ws = (int)((inBarX + size) - inBarX);
+                    int hs = (int)((inBarY + size) - inBarY);
                     //app.ActiveWindow.DocumentToScreen((double)x+Size,(double)y-Size,out xs,out ys);
-                
-                    //System.Drawing.Rectangle rect = new System.Drawing.Rectangle(xs, ys, ws , hs);
-                    
-                    //if (NewPositionEvent != null)
-                        
-                    //    NewPositionEvent(rect);
-                    
-                    // this.IsVisibility = System.Windows.Visibility.Visible;
+
+                    System.Drawing.Rectangle rect = new System.Drawing.Rectangle(xs, ys, ws , hs);
+                    Debug.WriteLine("Rect:{0}", rect.ToString());
+                    if (NewPositionEvent != null)
+
+                        NewPositionEvent(rect);
+
+                    this.IsVisibility = System.Windows.Visibility.Visible;
                     //if (shape != null)
                     //{
                     //}
@@ -115,7 +117,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
                     //Debug.WriteLine("Size:{0} - ScreenToDocument:{1} - DocumentToScreen:{2}", s, sn, sj);
                     //Debug.WriteLine("x:{0}-y{1}-ws:{2}-ys:{3}-Unit:{4}",(int)x,(int)y,ws,ys,app.ActiveDocument.Unit);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
                 }
                 catch (Exception e) { Debug.WriteLine(e.Message); }
             }

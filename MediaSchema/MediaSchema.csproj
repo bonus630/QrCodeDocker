@@ -279,7 +279,6 @@
     <None Include="icons\youtube.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="whatsapp.png" />
     <None Include="icons\whatsapp.png" />
     <Content Include="icons\wifi.png" />
   </ItemGroup>

@@ -211,8 +211,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorSystem.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ResourceToMediaImageConverter.cs" />
     <Compile Include="Converters\StyleConverter.cs" />
+    <Compile Include="Enums\DotShapeEnum.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Lang\Ilang.cs" />
     <Compile Include="Lang\EN_US.cs" />

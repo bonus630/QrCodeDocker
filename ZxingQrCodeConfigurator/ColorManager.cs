@@ -142,9 +142,10 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         }
   
     }
+
     public class ColorSystem
     {
-        public ColorSystem(string colorHexValue,string corelColorName, Color corelColor)
+        public ColorSystem(string colorHexValue, string corelColorName, Color corelColor)
         {
             this.colorHexValue = colorHexValue;
             this.corelColorName = corelColorName;
@@ -172,7 +173,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             get { return corelColor; }
             set { corelColor = value; }
         }
-    
-
     }
+
+
 }

@@ -24,8 +24,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public PlaceHereUI()
         {
             InitializeComponent();
-            core = new PlaceHereCorecs();
-            
+            core = new PlaceHereCorecs(corelApp);
             core.ProgressChange += Core_ProgressChange;
             
         }
@@ -33,6 +32,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         {
             Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.PlaceHere.PlaceHereUI)), langTag) as Ilang;
             this.DataContext = Lang;
+            core.Lang = Lang;
             (Lang as LangController).AutoUpdateProperties();
         }
         private void Core_ProgressChange(int obj)
@@ -57,12 +57,15 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public event Action<int> ProgressChange;
         public event Action UpdatePreview;
 
+
+
+
         public void Draw()
         {
             //this.corelApp.OpenDocument("C:\\Users\\bonus\\OneDrive\\Ambiente de Trabalho\\TestPlaceHereTPL.cdr");
-            core.DataSource = this.dataSource;
-            core.DSCursor = 0;
-            core.Draw();
+            //core.DataSource = this.dataSource;
+            //core.DSCursor = 0;
+            //core.Draw();
         }
 
         public void OnFinishJob(object obj)
@@ -75,27 +78,22 @@ namespace br.corp.bonus630.plugin.PlaceHere
             if (ProgressChange != null)
                 ProgressChange(progress);
         }
-        Guid previewUID;
+      
         private void btn_start_Click(object sender, RoutedEventArgs e)
         {
-            this.dataSource = new List<object[]>() { new object[1] { "teste" } };
-            corelApp.OpenDocument("C:\\Users\\bonus\\OneDrive\\Ambiente de Trabalho\\TestPlaceHereTPL.cdr");
-            double x = 0;
-            double y = 0;
-            int a = 0;
-            if (preview != null)
-                preview.Close();
-            preview = new Preview(corelApp);
-            preview.Render = codeGenerator.ImageRender;
-            preview.SetSize(Size);
-            preview.SetGetContainer((bool)ck_getContainer.IsChecked);
-            preview.renderImage((string)this.dataSource[0][0]);
-            preview.Show();
-           
+            if (this.dataSource == null || this.dataSource.Count == 0)
+                return;
             btn_start.Content = Lang.BTN_Restart;
-            Draw();
+            core.DataSource = this.dataSource;
+            core.Draw(true);
         }
-      
+        private void btn_continue_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.dataSource == null || this.dataSource.Count == 0)
+                return;
+            core.DataSource = this.dataSource;
+            core.Draw(false);
+        }
         private void AnchorButton_FactorChanged(double factorX, double factorY)
         {
             core.FactorX = factorX;
@@ -108,41 +106,23 @@ namespace br.corp.bonus630.plugin.PlaceHere
             core.GetContainer = (bool)(sender as CheckBox).IsChecked;
         }
 
-        private void btn_teste_click(object sender, RoutedEventArgs e)
-        {
-            this.dataSource = new List<object[]>() { new object[1] { "teste" } };
-            corelApp.OpenDocument("C:\\Users\\bonus\\OneDrive\\Ambiente de Trabalho\\TestPlaceHereTPL.cdr");
-            PreviewDataContext p = new PreviewDataContext(this.corelApp);
-            // Bitmap bitmap = codeGenerator.ImageRender.RenderBitmapToMemory((string)this.dataSource[0][0]);
-            // string path = "C:\\Users\\bonus\\OneDrive\\Ambiente de Trabalho\\1.png";
-
-            // bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Png);
-
-            //corelApp.ActiveDocument.ActiveLayer.Import(path);
-            // corelApp.ActiveSelection.q
-            c.Shape s = codeGenerator.CreateBitmapLocal(corelApp.ActiveLayer, (string)this.dataSource[0][0], 30);
-            s.ConvertToCurves();
-            c.Curve curve = corelApp.CreateCurve();
-            curve.CopyAssign(s.DisplayCurve);
-            s.Delete();
-            p.SetCurve(curve);
-            p.Size = curve.BoundingBox.Width;
-            p.Start();
-        }
+   
 
         public void SaveConfig()
         {
-            //throw new NotImplementedException();
+            Properties.Settings.Default.GetContainer = (bool)ck_getContainer.IsChecked;
+            Properties.Settings.Default.Save();
         }
 
         public void LoadConfig()
         {
-            //throw new NotImplementedException();
+            ck_getContainer.IsChecked = Properties.Settings.Default.GetContainer;
+            core.GetContainer = (bool)ck_getContainer.IsChecked;
         }
 
         public void DeleteConfig()
         {
-            //throw new NotImplementedException();
+            Properties.Settings.Default.Reset();
         }
     }
 }

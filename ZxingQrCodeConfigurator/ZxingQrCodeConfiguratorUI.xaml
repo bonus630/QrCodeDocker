@@ -136,7 +136,7 @@
 
         <Image Grid.Row="3" Grid.Column="0" Style="{StaticResource BorderColorImage}"  HorizontalAlignment="Left" Margin="4" />
         <Label Grid.Row="3" Grid.Column="1" Content="{Binding Lang.LBA_BorderColor,FallbackValue=Border Color}"   HorizontalAlignment="Left" Margin="2,1.8,0,1.6"  Width="167" />
-        <ComboBox Grid.Row="3" Grid.Column="2" x:Name="btn_BorderColor"  HorizontalAlignment="Left" SelectedIndex="0"  DropDownOpened="btn_BorderColor_Click" Width="58" Margin="2"   >
+        <ComboBox Grid.Row="3" Grid.Column="2" x:Name="btn_BorderColor"  HorizontalAlignment="Left" SelectedIndex="0"  DropDownOpened="btn_BorderColor_Click" Width="58" Margin="2" IsEnabled="{Binding ElementName=ck_noBorder, Path=IsChecked}"  >
             <ComboBoxItem HorizontalContentAlignment="Center">
                 <Rectangle Fill="{Binding SelectedBorderColor.ColorHexValue,FallbackValue=#FFFFFF}"  Width="38" Height="26"/>
             </ComboBoxItem>

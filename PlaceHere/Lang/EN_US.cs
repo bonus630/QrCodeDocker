@@ -9,8 +9,10 @@ namespace br.corp.bonus630.plugin.PlaceHere.Lang
 
         public string BTN_Start { get { return "Start"; } }
 
-        public string CB_GetContainer { get { return "Get Container"; } }
+        public string CB_GetContainer { get { return "Put in Container"; } }
 
         public string BTN_Restart { get { return "Restart"; } }
+        public string BTN_Continue { get { return "Continue"; } }
+        public string OC_MSG_Exit { get { return "Press \"ESC\" to Cancel"; } }
     }
 }

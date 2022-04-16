@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
                 <ResourceDictionary Source="Resources/Images.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer Name="scroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
@@ -57,7 +58,7 @@
                 <Button Content="{Binding Path=Lang.ButtonDrawBitmap}"  Margin="100,0,0,0" x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Left" Width="80" Height="24"/>
                 <!--<Button Content="Extras" Margin="188,0,0,0" Name="btn_extras" Click="btn_extras_Click" Visibility="Hidden"/>-->
             </Grid>
-            <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader}" Name="groupBoxPluginContainer">
+            <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader}" Name="groupBoxPluginContainer" Margin="0,10" Visibility="{Binding CanLoadPlugin,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Visible}">
 
             </GroupBox>
             <Label Name="lbaPreview" Content="{Binding Path=Lang.LabelPreview}" Margin="0,8,0,0" HorizontalAlignment="Left" Width="225"/>

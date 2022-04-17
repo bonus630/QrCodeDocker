@@ -84,7 +84,7 @@ namespace br.corp.bonus630.plugin.MediaSchema
             //    new SchemesAttribute("Password", typeof(string)),
             //    new SchemesAttribute("SSID Hidden", typeof(bool))})
             //  );
-        
+
         }
 
         private void OnUpdatePreview()
@@ -94,13 +94,16 @@ namespace br.corp.bonus630.plugin.MediaSchema
         }
      
 
-        private void buildCheckBox(SchemesAttribute attribute, int index)
+        private CheckBox buildCheckBox(SchemesAttribute attribute, int index)
         {
             CheckBox ck = new CheckBox();
             ck.Tag = attribute.Name;
             ck.Content = attribute.Name;
-
+            ck.Checked += Ck_Clicked;
+            return ck;
         }
+
+    
 
         private TextBox buildTextBox(SchemesAttribute attribute, int index)
         {
@@ -151,22 +154,29 @@ namespace br.corp.bonus630.plugin.MediaSchema
 
         public void OnFinishJob(object obj)
         {
-            throw new NotImplementedException();
         }
 
         public void OnProgressChange(int progress)
         {
-            throw new NotImplementedException();
         }
 
    
         private void txt_any_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox txt = sender as TextBox;
-            currentScheme.SetAttributeValue(txt.Tag.ToString(), new object[] { txt.Text });
+            OnAnyTextChanged(txt.Tag.ToString(), new object[] { txt.Text });
+
+        }
+        private void Ck_Clicked(object sender, RoutedEventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            OnAnyTextChanged(cb.Tag.ToString(), new object[] { cb.IsChecked });
+        }
+        private void OnAnyTextChanged(string tag,object[] param)
+        {
+            currentScheme.SetAttributeValue(tag, param );
             if (AnyTextChanged != null && currentScheme.NotEmpty)
                 AnyTextChanged(currentScheme.FormatedURI(currentScheme.AttributesValues));
-
         }
         public void Draw()
         {
@@ -223,7 +233,6 @@ namespace br.corp.bonus630.plugin.MediaSchema
                     case TypeCode.String:
                         Label label = buildLabel(attribute, i);
                         TextBox txt = buildTextBox(attribute, i);
-                        
                         Grid.SetColumn(label, 0);
                         Grid.SetRow(label, i);
                         Grid.SetColumn(txt, 1);
@@ -232,7 +241,11 @@ namespace br.corp.bonus630.plugin.MediaSchema
                         grid.Children.Add(txt);
                         break;
                     case TypeCode.Boolean:
-                        buildCheckBox(attribute, i);
+                        CheckBox cb =  buildCheckBox(attribute, i);
+                        Grid.SetColumn(cb, 0);
+                        Grid.SetColumnSpan(cb, 2);
+                        Grid.SetRow(cb, i);
+                        grid.Children.Add(cb);
                         break;
                 }
             }

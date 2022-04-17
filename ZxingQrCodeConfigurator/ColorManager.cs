@@ -142,8 +142,13 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         }
   
     }
-
-    public class ColorSystem
+    public interface IColorSystem
+    {
+        string ColorHexValue { get; set; }
+        string CorelColorName { get; set; }
+        Color CorelColor { get; set; }
+    }
+    public class ColorSystem:IColorSystem
     {
         public ColorSystem(string colorHexValue, string corelColorName, Color corelColor)
         {

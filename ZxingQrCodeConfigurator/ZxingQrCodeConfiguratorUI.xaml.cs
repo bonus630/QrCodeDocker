@@ -314,7 +314,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             Properties.Settings.Default.Weld = code.Weld;
             Properties.Settings.Default.NoBorder = code.NoBorder;
             Properties.Settings.Default.DotShape = (ushort)code.DotShapeType;
-            Properties.Settings.Default.DotBordeSize = (uint)code.DotBorderSize;
+            Properties.Settings.Default.DotBordeSize = code.DotBorderSize;
             if (SelectedBorderColor != null)
                 Properties.Settings.Default.BorderColor = SelectedBorderColor.CorelColorName;
             if (SelectedDotColor != null)

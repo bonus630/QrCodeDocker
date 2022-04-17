@@ -43,7 +43,9 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public int Index { get; set; }
         private List<object[]> dataSource;
         public List<object[]> DataSource { set { 
-                this.dataSource = value; } }
+                this.dataSource = value;
+                btn_start.Content = Lang.BTN_Start;
+            } }
         private double size = 0;
         public double Size { get { return this.size; } set { 
                 this.size = value; 

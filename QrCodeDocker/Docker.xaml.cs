@@ -153,8 +153,10 @@ namespace br.corp.bonus630.QrCodeDocker
                 else
                     img_render.Visibility = System.Windows.Visibility.Hidden;
             }
-            //if (this.IsLoaded)
-            //    /Start();
+            if(pluginSelect != null)
+            {
+                pluginSelect.SetDataSource(new System.Collections.Generic.List<object[]>() { new object[] {this.textContent } });
+            }
            
 
         }
@@ -262,7 +264,7 @@ namespace br.corp.bonus630.QrCodeDocker
      
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://bonus630.tk");
+            System.Diagnostics.Process.Start("https://bonus630.com.br");
         }
         private void radioButton_gma_Checked(object sender, RoutedEventArgs e)
         {

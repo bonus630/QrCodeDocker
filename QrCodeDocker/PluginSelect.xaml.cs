@@ -97,6 +97,8 @@ namespace br.corp.bonus630.QrCodeDocker
                 //(obj as IPluginDrawer).ImageRender = imageRender;
                 (obj as IPluginDrawer).CodeGenerator = codeGenerator;
             }
+            if (typeof(IPluginConfig).IsAssignableFrom(obj.GetType()))
+                SetValues(obj as IPluginConfig, typeof(QrCodeGenerator), app);
 
         }
         public void SetValues(IPluginConfig plugin, Type type, Corel.Interop.VGCore.Application app)
@@ -168,7 +170,16 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void expanderExpander(object sender, RoutedEventArgs e)
         {
-            //this.Title = (sender as Expander).Tag.ToString();
+            for (int i = 0; i < loadedPluginList.Count; i++)
+            {
+                if (typeof(IPluginDataSource).IsAssignableFrom(loadedPluginList[i].GetType()) && dataSource != null)
+                {
+                    List<object[]> dataSource = (loadedPluginList[i] as IPluginDataSource).DataSource;
+                    if (dataSource != null && dataSource.Count > 0)
+                        SetDataSource(dataSource);
+                }
+
+            }
 
 
         }
@@ -196,10 +207,12 @@ namespace br.corp.bonus630.QrCodeDocker
                 }
             }));
         }
-        void SetDataSource(List<object[]> dataSource)
+        public void SetDataSource(List<object[]> dataSource)
         {
             if (loadedPluginList == null && dataSource == null && dataSource.Count == 0)
                 return;
+            if (dataSource != this.dataSource)
+                this.dataSource = dataSource;
             for (int i = 0; i < loadedPluginList.Count; i++)
             {
                 if (typeof(IPluginDrawer).IsAssignableFrom(loadedPluginList[i].GetType()) && dataSource != null)

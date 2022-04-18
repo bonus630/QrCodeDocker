@@ -12,7 +12,7 @@ using br.corp.bonus630.plugin.DataFromClipboard.Lang;
 
 namespace br.corp.bonus630.plugin.DataFromClipboard
 {
-    public class ClipboardCore : IPluginCore, IPluginDataSource
+    public class ClipboardCore : PluginCoreBase, IPluginDataSource
 
     {
         private double size;
@@ -56,11 +56,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         //public Application App { set => this.app = value; }
         public ICodeGenerator CodeGenerator { set { this.codeGenerator = value; } }
         //List<object[]> IPluginDrawer.DataSource { set => this.dataSouce = value; }
-
-        public event Action<object> FinishJob;
-        public event Action<int> ProgressChange;
-        public event Action UpdatePreview;
-
+  
         public RoutedCommand<ClipboardData> DeleteCommand { get; set; }
         public RoutedCommand<object> ClearAllCommand { get; set; }
         private Dispatcher dispatcher = null;
@@ -83,11 +79,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
             monitor.Start();
 
         }
-        public void OnFinishJob(object obj)
-        {
-            if (FinishJob != null)
-                FinishJob(obj);
-        }
+     
         private void ClearAll(object obj)
         {
             this.dispatcher.Invoke(new Action(() =>
@@ -150,10 +142,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         //}
 
 
-        public void OnProgressChange(int progress)
-        {
-            throw new NotImplementedException();
-        }
+      
         //private void AddItemFromClipboard()
         //{
         //    if (System.Windows.Clipboard.ContainsText() && MonitorClipboard)

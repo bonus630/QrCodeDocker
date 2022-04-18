@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace br.corp.bonus630.plugin.PlaceHere
 {
-    public class PlaceHereCorecs : IPluginCore, IPluginDrawer
+    public class PlaceHereCorecs : PluginCoreBase, IPluginDrawer
     {
         public const string PluginDisplayName = "Place Here";
         public Application corelApp;
@@ -42,10 +42,8 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public Corel.Interop.VGCore.Application App { set { this.corelApp = value; } }
         public ICodeGenerator CodeGenerator { set { this.codeGenerator = value; } }
 
-        public event Action<object> FinishJob;
         public event Action<bool> ViewFinishJob;
-        public event Action<int> ProgressChange;
-        public event Action UpdatePreview;
+ 
 
         public Action DrawAction;
         private View view;
@@ -211,17 +209,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
             return shape;
 
         }
-        public void OnFinishJob(object obj)
-        {
-            if (FinishJob != null)
-                FinishJob(obj);
-        }
-
-        public void OnProgressChange(int progress)
-        {
-            if (ProgressChange != null)
-                ProgressChange(progress);
-        }
+     
         private void OnViewFinishJob(bool sucess)
         {
             if (ViewFinishJob != null)

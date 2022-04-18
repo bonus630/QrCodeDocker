@@ -7,7 +7,7 @@ using Corel.Interop.VGCore;
 
 namespace br.corp.bonus630.plugin.MediaSchema
 {
-    public class Core : IPluginCore,IPluginDrawer
+    public class Core : PluginCoreBase,IPluginDrawer
     {
         public const string PluginDisplayName = "Media Scheme";
 
@@ -20,22 +20,10 @@ namespace br.corp.bonus630.plugin.MediaSchema
         public Application App { set { this.app = value; } }
         public ICodeGenerator CodeGenerator { set { this.codeGenerator = value; } }
 
-        public event Action<object> FinishJob;
-        public event Action<int> ProgressChange;
-
         public void Draw()
         {
             throw new NotImplementedException();
         }
-
-        public void OnFinishJob(object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnProgressChange(int progress)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

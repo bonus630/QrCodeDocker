@@ -9,7 +9,7 @@ using System.IO;
 
 namespace br.corp.bonus630.plugin.Repeater
 {
-    public class RepeaterCore :  IPluginCore, IPluginDrawer
+    public class RepeaterCore :  PluginCoreBase, IPluginDrawer
     {
         public const string PluginDisplayName = "Simple Repeater";
 
@@ -84,147 +84,27 @@ namespace br.corp.bonus630.plugin.Repeater
         public List<ItemTuple<Shape>> ShapeContainerImageFile { get; internal set; }
         public ICodeGenerator CodeGenerator { set { this.codeGenerator = value; } }
 
-        public event Action<object> FinishJob;
-        public event Action<int> ProgressChange;
-        public event Action UpdatePreview;
+  
 
         public void Draw()
         {
             
         }
 
-        public void OnFinishJob(object obj)
-        {
-            if (FinishJob != null)
-                FinishJob(obj);
-        }
 
-        public void OnProgressChange(int progress)
+        protected override void OnProgressChange(int progress)
         {
             int p = (int)100 * progress / this.dataSource.Count;
-
-            if(ProgressChange!=null)
-                ProgressChange(p);
+            base.OnProgressChange(p);
         }
-        //public double LeftXRelativePage(ShapeRange shape, Page page)
-        //{
-        //    return shape.LeftX - page.LeftX;
-        //}
-        //public double TopYRelativePage(ShapeRange shape, Page page)
-        //{
-        //    return shape.TopY - page.TopY;
-        //}
-        //public double LeftX(double x, Page page)
-        //{
-        //    return x + page.LeftX;
-        //}
-        //public double TopY(double y, Page page)
-        //{
-        //    return y + page.TopY;
-        //}
-        //public void ColorDuplicateOrder(List<Color> colors, double margin)
-        //{
 
-        //    this.corelApp.ActiveDocument.Unit = this.corelApp.ActiveDocument.Rulers.VUnits;
-        //    //double margin = 10;
-        //    bool createPage = false;
-        //    ShapeRange shapeRange = this.corelApp.ActiveSelectionRange;
-        //    ShapeRange pageShapes = this.corelApp.ActivePage.Shapes.All();
-        //    pageShapes.RemoveRange(shapeRange);
-        //    double x, y, w, h, startX, startY = 0;
-        //    int xc = 1;
-
-        //    int yc = 0;
-        //    //int pageC = 1;
-        //    startX = this.LeftXRelativePage(shapeRange, this.corelApp.ActivePage);
-        //    startY = this.TopYRelativePage(shapeRange, this.corelApp.ActivePage);
-        //    //shapeRange.GetPosition(out startX, out startY);
-        //    shapeRange.GetSize(out w, out h);
-
-        //    Page page = this.corelApp.ActiveDocument.ActivePage;
-
-
-
-        //    for (int i = 0; i < colors.Count; i++)
-        //    {
-        //        shapeRange.AlignAndDistribute(cdrAlignDistributeH.cdrAlignDistributeHAlignCenter, cdrAlignDistributeV.cdrAlignDistributeVNone);
-        //        //if (!useOrigin)
-        //        //{
-        //        x = startX + (w + margin) * xc;
-        //        y = startY - (h + margin) * yc;
-
-        //        //x = ((w + margin) * xc);
-        //        //y = ((h + margin) * yc);
-        //        ////  MessageBox.Show(x.ToString());
-        //        if (page.SizeWidth - (x + w) >= w)
-        //        {
-        //            xc++;
-
-        //        }
-        //        else
-        //            xc = 0;
-        //        if (xc == 0)
-        //        {
-        //            yc++;
-        //            ////MessageBox.Show(string.Format("y:{0} page:{1}",  y - startY - h,this.app.ActiveDocument.ActivePage.SizeHeight));
-        //            if (page.SizeHeight + (y - h) < h)
-        //            {
-        //                createPage = true;
-        //                //pageC++;
-
-
-        //                xc = 0;
-        //                yc = 0;
-        //            }
-
-        //        }
-
-        //        foreach (Shape item in shapeRange.Shapes)
-        //        {
-        //            if (item.Name == "cor")
-        //                item.Fill.ApplyUniformFill(colors[i]);
-        //            if (item.Type == cdrShapeType.cdrTextShape)
-        //                item.Text.Contents = colors[i].Name;
-
-        //        }
-        //        if (i == colors.Count - 1)
-        //            return;
-        //        shapeRange = shapeRange.Duplicate();
-
-
-        //        shapeRange.TopY = this.TopY(y, this.corelApp.ActivePage);
-        //        shapeRange.LeftX = this.LeftX(x, this.corelApp.ActivePage);
-        //        shapeRange.MoveToLayer(page.ActiveLayer);
-
-        //        if (createPage)
-        //        {
-        //            page = this.corelApp.ActiveDocument.InsertPages(1, false, this.corelApp.ActivePage.Index);
-        //            page.Activate();
-
-        //            pageShapes.Duplicate();
-        //            pageShapes.MoveToLayer(page.ActiveLayer);
-        //            //foreach (Shape item in pageShapes)
-        //            //{
-        //            //    item.Duplicate();
-        //            //    item.MoveToLayer(page.ActiveLayer);
-        //            //}
-
-
-        //            createPage = false;
-        //        }
-
-        //        string pageName = page.Name;
-
-        //    }
-        //}
         
        
         public void ProcessVector(int qrcodeContentIndex = -1,bool vector = true)
         {
             try
             {
-                //QrCodeGenerator generator = new QrCodeGenerator(app);
-                //generator.SetRender(imageRender);
+            
                 int colCount = 0;
                 int linCount = 0;
                 int colMax = 0;
@@ -253,11 +133,6 @@ namespace br.corp.bonus630.plugin.Repeater
                         if (vector)
                         {
                             code = codeGenerator.CreateVetorLocal(page.ActiveLayer, dataSource[i][qrcodeContentIndex].ToString(), this.size, i * (this.size + 2), 20, dataSource[i][qrcodeContentIndex].ToString());
-                            //codeGenerator.ImageRender.EncodeNewBitMatrix(dataSource[i][qrcodeContentIndex].ToString());
-
-                            //code = codeGenerator.CreateVetorLocal(page.ActiveLayer, dataSource[i][qrcodeContentIndex].ToString(), codeGenerator.ImageRender.Measure(), i * (this.size + 2), 20, dataSource[i][qrcodeContentIndex].ToString());
-                            //code.SetSize(this.size, this.size);
-                            //code = codeGenerator.CreateVetorLocal(page.ActiveLayer, dataSource[i][qrcodeContentIndex].ToString(), (int)app.ConvertUnits(this.size, app.ActiveDocument.Unit, cdrUnit.cdrPixel), i * (this.size + 2), 20, dataSource[i][qrcodeContentIndex].ToString());
                         }
                         else
                             code = codeGenerator.CreateBitmapLocal(page.ActiveLayer, dataSource[i][qrcodeContentIndex].ToString(), (int)app.ConvertUnits(this.size, app.ActiveDocument.Unit, cdrUnit.cdrPixel), i * (this.size + 2), 20, dataSource[i][qrcodeContentIndex].ToString());
@@ -290,10 +165,7 @@ namespace br.corp.bonus630.plugin.Repeater
                         tuple = this.ShapeContainerImageFile.FirstOrDefault(r => r.Item.Name == item.Name && r.Item.SizeHeight == item.SizeHeight && r.Item.SizeWidth == item.SizeWidth);
                         if (tuple != null)
                         {
-                            //code.PositionX = item.PositionX;
-                            //code.PositionY = item.PositionY;
-                            //code.SizeHeight = item.SizeHeight;
-                            //code.SizeWidth = item.SizeWidth;
+                         
                             Shape image = ImportImageFile(page.ActiveLayer, this.dataSource[i][tuple.Index].ToString(), (int)item.SizeWidth, (int)item.SizeHeight);
                             if (image == null)
                                 continue;

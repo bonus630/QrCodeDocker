@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X7 Release|AnyCPU' ">
-	 <DebugType>None</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\X7\</OutputPath>
     <OutDir>bin\Release\X7\$(SolutionName)</OutDir>
@@ -212,6 +212,7 @@
     <Compile Include="LangTagsEnum.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="ModelViewBase.cs" />
+    <Compile Include="PluginCoreBase.cs" />
     <Compile Include="PluginMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoutedCommand.cs" />

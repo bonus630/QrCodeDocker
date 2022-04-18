@@ -7,7 +7,7 @@ using System.Text;
 
 namespace br.corp.bonus630.plugin.BatchFromTextFile
 {
-    public class Core : IPluginCore, IPluginDataSource
+    public class Core : PluginCoreBase, IPluginDataSource
     {
         public const string PluginDisplayName = "Data From Text File";
 
@@ -70,24 +70,12 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
                 OnFinishJob(this.dataSource);
             }
         }
-        public void OnFinishJob(object obj)
-        {
-            if (FinishJob != null)
-                FinishJob(obj);
-        }
-        public void OnProgressChange(int progress)
-        {
-
-            int p = (int)100 * progress / content.Count;
-            if (ProgressChange != null)
-                ProgressChange(progress);
-        }
-
       
-
-        public event Action<object> FinishJob;
-
-        public event Action<int> ProgressChange;
-        public event Action UpdatePreview;
+        protected override void OnProgressChange(int progress)
+        {
+            int p = (int)100 * progress / content.Count;
+            base.OnProgressChange(p);
+        }
+        
     }
 }

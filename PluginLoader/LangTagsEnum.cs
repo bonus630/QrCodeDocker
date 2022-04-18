@@ -12,7 +12,8 @@ namespace br.corp.bonus630.PluginLoader
     public enum LangTagsEnum
     {
         PT_BR,
-        EN_US
+        EN_US,
+        ES_ES
     }
     public static class LangConvertion
     {
@@ -26,6 +27,9 @@ namespace br.corp.bonus630.PluginLoader
                     break;
                 case cdrTextLanguage.cdrEnglishUS:
                     tag = LangTagsEnum.EN_US;
+                    break;
+                case cdrTextLanguage.cdrSpanish:
+                    tag = LangTagsEnum.ES_ES;
                     break;
 
             }

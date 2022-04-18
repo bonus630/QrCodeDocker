@@ -63,6 +63,7 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void CorelApp_OnApplicationEvent(string EventName, ref object[] Parameters)
         {
+#if DEBUG
             string debug = "Event:" + EventName;
             if(Parameters!= null)
             {
@@ -73,6 +74,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 }
             }
             Debug.WriteLine(debug);
+#endif
             if (EventName.Equals("WorkspaceChanged") || EventName.Equals("OnColorSchemeChanged"))
             {
                 LoadThemeFromPreference();

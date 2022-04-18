@@ -77,6 +77,14 @@ namespace br.corp.bonus630.plugin.MediaSchema
                     new SchemesAttribute("DDD", typeof(string)) ,
                     new SchemesAttribute("Phone", typeof(string)) })
               );
+            schemesDataSource.Add(
+              new Schemes(4, "https://www.snapchat.com/add/{0}", Properties.Resource.snapchat, "Snapchat",
+               new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
+              );
+            schemesDataSource.Add(
+              new Schemes(5, "https://t.me/{0}", Properties.Resource.telegran, "Telegran",
+               new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
+              );
             //schemesDataSource.Add(
             //  new Schemes(4, "WIFI:S:{0};T:{1};P:{2};H:{3};", Properties.Resource.wifi, "Wifi",
             //    new SchemesAttribute[] { new SchemesAttribute("SSID", typeof(string)),
@@ -209,14 +217,14 @@ namespace br.corp.bonus630.plugin.MediaSchema
                     currentScheme.SchemesAttributes[i].param = Properties.Settings1.Default.SchemaData[i] as object[];
                 }
             }
-            SelectSchema(currentScheme.Tag);
+            InflateUISchema(currentScheme.Tag);
         }
 
         public void DeleteConfig()
         {
             Properties.Settings1.Default.Reset();
         }
-        private void SelectSchema(int schemaTag)
+        private void InflateUISchema(int schemaTag)
         {
             sp_attributesContent.Children.Clear();
             currentScheme = schemesDataSource.Single(r => r.Tag == schemaTag);
@@ -255,7 +263,7 @@ namespace br.corp.bonus630.plugin.MediaSchema
         {
             System.Windows.Controls.RadioButton button = sender as System.Windows.Controls.RadioButton;
             int tag = (int)button.Tag;
-            SelectSchema(tag);
+            InflateUISchema(tag);
         }
 
     }

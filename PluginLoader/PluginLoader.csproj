@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X7 Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+	 <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\X7\</OutputPath>
     <OutDir>bin\Release\X7\$(SolutionName)</OutDir>
@@ -57,7 +57,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X8 Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\X8\</OutputPath>
     <OutDir>bin\Release\X8\$(SolutionName)</OutDir>
@@ -77,7 +77,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2017 Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\2017\</OutputPath>
     <OutDir>bin\Release\2017\$(SolutionName)</OutDir>
@@ -97,7 +97,7 @@
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2018 Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\2018\</OutputPath>
     <OutDir>bin\Release\2018\$(SolutionName)</OutDir>
@@ -115,7 +115,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2019 Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\2019\</OutputPath>
     <OutDir>bin\Release\2019\$(SolutionName)</OutDir>
@@ -133,7 +133,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2020 Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\2020\</OutputPath>
     <OutDir>bin\Release\2020\$(SolutionName)</OutDir>
@@ -152,7 +152,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2021 Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>

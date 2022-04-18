@@ -61,7 +61,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
             catch (Exception erro)
             {
-                app.MsgShow(erro.Message + " | " + erro.Source);
+                app.MsgShow(string.Format("{0} | {1} | {2}", erro.Message,erro.Source,erro.TargetSite.Name));
                 this.PluginFound = false;
                 // this.Title = "No extras found!";
             }
@@ -172,7 +172,7 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             for (int i = 0; i < loadedPluginList.Count; i++)
             {
-                if (typeof(IPluginDataSource).IsAssignableFrom(loadedPluginList[i].GetType()) && dataSource != null)
+                if (typeof(IPluginDataSource).IsAssignableFrom(loadedPluginList[i].GetType()))
                 {
                     List<object[]> dataSource = (loadedPluginList[i] as IPluginDataSource).DataSource;
                     if (dataSource != null && dataSource.Count > 0)

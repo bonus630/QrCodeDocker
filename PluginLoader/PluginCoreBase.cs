@@ -7,12 +7,18 @@ namespace br.corp.bonus630.PluginLoader
 {
     public abstract class PluginCoreBase<T> : IPluginCore where T: class, new()
     {
+        protected IPluginUI mainUI;
+
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
         public event Action UpdatePreview;
 
         public abstract LangController Lang { get; set; }
         public abstract string PluginDisplayName { get; }
+        public T GetCore { get { return this as T; } }
+        public IPluginCore GetICore { get { return GetCore as IPluginCore; } }
+        public Type GetType { get { return typeof(T); } }
+        public int Index { get; set; }
 
         protected virtual void OnFinishJob(object obj)
         {
@@ -32,18 +38,27 @@ namespace br.corp.bonus630.PluginLoader
                 UpdatePreview();
         }
 
+
         public void ChangeLang(LangTagsEnum langTag, System.Reflection.Assembly assembly)
         {
             LangController Lang = LangController.CreateInstance(assembly, langTag);
             Lang.AutoUpdateProperties();
         }
         
-        public IPluginUI CreateUIIntance()
+        public IPluginUI CreateOrGetMainUIIntance()
         {
-            IPluginUI ui = Activator.CreateInstance(typeof(T)) as IPluginUI;
-            ui.DataContext = this;
-            return ui;
+            if (mainUI == null)
+            {
+                mainUI = Activator.CreateInstance(typeof(T)) as IPluginUI;
+                mainUI.DataContext = this;
+            }
+            return mainUI;
         }
 
+        public abstract void SaveConfig();
+
+        public abstract void LoadConfig();
+
+        public abstract void DeleteConfig();
     }
 }

@@ -17,7 +17,7 @@ namespace br.corp.bonus630.plugin.MediaSchema
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class MediaSchemaUI : UserControl, IPluginUI, IPluginDrawer
+    public partial class MediaSchemaUI : UserControl, IPluginMainUI, IPluginDrawer
     {
 
         Schemes currentScheme = null;

@@ -6,16 +6,18 @@ namespace br.corp.bonus630.PluginLoader
     {
         //void OnFinishJob(object obj);
         event Action<object> FinishJob;
-        
+        event Action<string> AnyTextChanged;
         //void OnProgressChange(int progress);
         event Action<int> ProgressChange;
+        event Action LoadConfigEvent;
+        event Action SaveConfigEvent;
         event Action UpdatePreview;
         LangController Lang { get; set; }
         int Index { get; set; }
-        string PluginDisplayName { get; }
+        string GetPluginDisplayName { get; }
         IPluginCore GetICore { get; }
         Type GetType { get; }
-        IPluginUI CreateOrGetMainUIIntance();
+        IPluginMainUI CreateOrGetMainUIIntance(Type type);
         void SaveConfig();
         void LoadConfig();
         void DeleteConfig();

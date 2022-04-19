@@ -7,17 +7,20 @@ namespace br.corp.bonus630.PluginLoader
 {
     public abstract class PluginCoreBase<T> : IPluginCore where T: class, new()
     {
-        protected IPluginUI mainUI;
+        protected IPluginMainUI mainUI;
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
+        public event Action<string> AnyTextChanged;
         public event Action UpdatePreview;
+        public event Action LoadConfigEvent;
+        public event Action SaveConfigEvent;
 
-        public abstract LangController Lang { get; set; }
-        public abstract string PluginDisplayName { get; }
+        public  LangController Lang { get; set; }
+        public abstract string GetPluginDisplayName { get; }
         public T GetCore { get { return this as T; } }
         public IPluginCore GetICore { get { return GetCore as IPluginCore; } }
-        public Type GetType { get { return typeof(T); } }
+        public new Type GetType { get { return typeof(T); } }
         public int Index { get; set; }
 
         protected virtual void OnFinishJob(object obj)
@@ -37,27 +40,40 @@ namespace br.corp.bonus630.PluginLoader
             if (UpdatePreview != null)
                 UpdatePreview();
         }
-
+        protected virtual void OnAnyTextChanged(string text)
+        {
+            if (AnyTextChanged != null)
+                AnyTextChanged(text);
+        }
 
         public void ChangeLang(LangTagsEnum langTag, System.Reflection.Assembly assembly)
         {
-            LangController Lang = LangController.CreateInstance(assembly, langTag);
+            Lang = LangController.CreateInstance(assembly, langTag);
             Lang.AutoUpdateProperties();
         }
         
-        public IPluginUI CreateOrGetMainUIIntance()
+        public IPluginMainUI CreateOrGetMainUIIntance(Type type)
         {
             if (mainUI == null)
             {
-                mainUI = Activator.CreateInstance(typeof(T)) as IPluginUI;
+                mainUI = Activator.CreateInstance(type) as IPluginMainUI;
+                mainUI.Core = GetICore;
                 mainUI.DataContext = this;
             }
             return mainUI;
         }
 
-        public abstract void SaveConfig();
+        public virtual void SaveConfig()
+        {
+            if (SaveConfigEvent != null)
+                SaveConfigEvent();
+        }
 
-        public abstract void LoadConfig();
+        public virtual void LoadConfig()
+        {
+            if (LoadConfigEvent != null)
+                LoadConfigEvent();
+        }
 
         public abstract void DeleteConfig();
     }

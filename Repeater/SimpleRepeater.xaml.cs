@@ -23,7 +23,7 @@ namespace br.corp.bonus630.plugin.Repeater
     /// <summary>
     /// Interaction logic for SimpleRepeater.xaml
     /// </summary>
-    public partial class SimpleRepeater : UserControl, IPluginUI, IPluginDrawer
+    public partial class SimpleRepeater : UserControl, IPluginMainUI, IPluginDrawer
     {
         double size;
         Corel.Interop.VGCore.Application app;

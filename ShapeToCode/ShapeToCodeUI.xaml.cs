@@ -21,7 +21,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class ShapeToCodeUI : UserControl, IPluginUI,IPluginDrawer
+    public partial class ShapeToCodeUI : UserControl, IPluginMainUI,IPluginDrawer
     {
         private ShapeToCodeCore core;
         public string PluginDisplayName { get { return ShapeToCodeCore.PluginDisplayName; } }

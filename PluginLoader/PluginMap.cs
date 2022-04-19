@@ -1,4 +1,6 @@
-﻿namespace br.corp.bonus630.PluginLoader
+﻿using System;
+
+namespace br.corp.bonus630.PluginLoader
 {
     public class PluginMap
     {
@@ -24,11 +26,34 @@
             get { return displayName; }
             set { displayName = value; }
         }
+        private Type coreType;
+
+        public Type CoreType
+        {
+            get { return coreType; }
+            set { coreType = value; }
+        }
+
+        private Type mainUIType;
+
+        public Type MainUIType
+        {
+            get { return mainUIType; }
+            set { mainUIType = value; }
+        }
         public PluginMap(int index,string dllFile,string displayName)
         {
             this.index = index;
             this.dllFile = dllFile;
             this.displayName = displayName;
+        }
+        public PluginMap(int index, string dllFile, string displayName,Type coreType, Type mainUIType)
+        {
+            this.index = index;
+            this.dllFile = dllFile;
+            this.displayName = displayName;
+            this.coreType = coreType;
+            this.mainUIType = mainUIType;
         }
         public override string ToString()
         {

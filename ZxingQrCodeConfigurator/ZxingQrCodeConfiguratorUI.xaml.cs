@@ -22,7 +22,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class ZxingQrCodeConfiguratorUI : UserControl, IPluginUI, IPluginConfig, INotifyPropertyChanged
+    public partial class ZxingQrCodeConfiguratorUI : UserControl, IPluginMainUI, IPluginConfig, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public Ilang Lang { get; set; }

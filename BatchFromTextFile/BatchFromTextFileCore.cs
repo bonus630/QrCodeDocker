@@ -7,7 +7,7 @@ using System.Text;
 
 namespace br.corp.bonus630.plugin.BatchFromTextFile
 {
-    public class Core : PluginCoreBase, IPluginDataSource
+    public class BatchFromTextFileCore : PluginCoreBase<BatchFromTextFileCore>, IPluginDataSource
     {
         public const string PluginDisplayName = "Data From Text File";
 
@@ -17,9 +17,13 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         private List<object[]> dataSource;
         public List<object[]> DataSource { get { return dataSource; } }
 
+        public override LangController Lang { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public override string GetPluginDisplayName => throw new NotImplementedException();
+
         private string filePath;
 
-        public Core()
+        public BatchFromTextFileCore()
         {
 
         }
@@ -76,6 +80,20 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             int p = (int)100 * progress / content.Count;
             base.OnProgressChange(p);
         }
-        
+
+        public override void SaveConfig()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void LoadConfig()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteConfig()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

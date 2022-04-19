@@ -14,7 +14,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
     /// <summary>
     /// Interaction logic for PlaceHereUI.xaml
     /// </summary>
-    public partial class PlaceHereUI : UserControl, IPluginUI, IPluginDrawer
+    public partial class PlaceHereUI : UserControl, IPluginMainUI, IPluginDrawer
     {
         c.Application corelApp;
         ICodeGenerator codeGenerator;

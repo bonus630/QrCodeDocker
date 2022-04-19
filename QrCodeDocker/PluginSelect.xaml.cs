@@ -16,7 +16,7 @@ namespace br.corp.bonus630.QrCodeDocker
     public partial class PluginSelect : UserControl
     {
 
-        private List<IPluginUI> loadedPluginList = null;
+        private List<IPluginCore> loadedPluginList = null;
         public Ilang Lang { get; set; }
         List<PluginMap> pluginNames;
         Loader loader;
@@ -53,7 +53,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 this.app = app;
                 //this.imageRender = imageRender;
                 this.codeGenerator = codeGenerator;
-                loadedPluginList = new List<IPluginUI>();
+                loadedPluginList = new List<IPluginCore>();
                 this.PluginFound = true;
                 this.DataContext = this;
                 LoadConfig();
@@ -234,11 +234,14 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             try
             {
-                object objUI = loader.GetUIControl(pluginMap);
-                if (objUI == null)
+                IPluginCore objCore = loader.GetCore(pluginMap);
+                if (objCore == null)
                     return;
-
-                (objUI as IPluginUI).Index = index;
+                Type type = loader.GetMainUIType(pluginMap);
+                IPluginMainUI mainUI = objCore.CreateOrGetMainUIIntance(type);
+                if (mainUI == null)
+                    return;
+                objCore.Index = index;
 
                 Expander cont = new Expander();
 
@@ -270,24 +273,24 @@ namespace br.corp.bonus630.QrCodeDocker
 
                 cont.IsExpanded = true;
                 cont.SetValue(Expander.TagProperty, pluginMap.DisplayName);
-                cont.Content = (UserControl)objUI;
+                cont.Content = (UserControl)mainUI;
                 var t = new ThicknessConverter();
                 object thi = t.ConvertFromInvariantString("0,0,0,14");
                 cont.SetValue(Control.MarginProperty, thi);
                 cont.AddHandler(Expander.ExpandedEvent, new RoutedEventHandler(expanderExpander));
                 grid_controlUI.Children.Add(cont);
-                loadedPluginList.Add(objUI as IPluginUI);
+                loadedPluginList.Add(objCore);
 
-                SetValues(objUI, size, app, codeGenerator);
+                SetValues(objCore, size, app, codeGenerator);
                 // this.Title = pluginMap.DisplayName;
 
-                (objUI as IPluginUI).ProgressChange += PluginSelect_ProgressChange;
-                (objUI as IPluginUI).FinishJob += PluginSelect_FinishJob;
-                (objUI as IPluginUI).AnyTextChanged += PluginSelect_AnyTextChanged;
-                (objUI as IPluginUI).UpdatePreview += PluginSelect_UpdatePreview; ;
-                (objUI as IPluginUI).ChangeLang(app.UILanguage.cdrLangToSys());
-                if (typeof(IPluginConfig).IsAssignableFrom(objUI.GetType()))
-                    (objUI as IPluginConfig).GetCodeGenerator += PluginSelect_GetCodeGenerator;
+                objCore.ProgressChange += PluginSelect_ProgressChange;
+                objCore.FinishJob += PluginSelect_FinishJob;
+                objCore.AnyTextChanged += PluginSelect_AnyTextChanged;
+                objCore.UpdatePreview += PluginSelect_UpdatePreview; ;
+                objCore.ChangeLang(app.UILanguage.cdrLangToSys(),loader.GetAssembly(pluginMap));
+                if (typeof(IPluginConfig).IsAssignableFrom(objCore.GetType()))
+                    (objCore as IPluginConfig).GetCodeGenerator += PluginSelect_GetCodeGenerator;
                 SetDataSource(this.dataSource);
 
                 index++;
@@ -313,11 +316,11 @@ namespace br.corp.bonus630.QrCodeDocker
         private void btn_saveConfig_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.PluginNameCollection = new System.Collections.Specialized.StringCollection();
-            IPluginUI plugin;
+            IPluginCore plugin;
             for (int i = 0; i < loadedPluginList.Count; i++)
             {
                 plugin = loadedPluginList[i];
-                Properties.Settings.Default.PluginNameCollection.Add(plugin.PluginDisplayName);
+                Properties.Settings.Default.PluginNameCollection.Add(plugin.GetPluginDisplayName);
                 plugin.SaveConfig();
             }
             Properties.Settings.Default.Save();
@@ -325,7 +328,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         private void btn_deleteConfig_Click(object sender, RoutedEventArgs e)
         {
-            IPluginUI plugin;
+            IPluginCore plugin;
             if (loadedPluginList.Count < Properties.Settings.Default.PluginNameCollection.Count)
                 this.app.MsgShow(Lang.MBOX_ERROR_SettingsCountNoMatch);
             for (int i = 0; i < loadedPluginList.Count; i++)
@@ -333,7 +336,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 plugin = loadedPluginList[i];
                 for (int r = 0; r < this.pluginNames.Count; r++)
                 {
-                    if (plugin.PluginDisplayName.Equals(pluginNames[r].DisplayName))
+                    if (plugin.GetPluginDisplayName.Equals(pluginNames[r].DisplayName))
                         plugin.DeleteConfig();
                 }
             }

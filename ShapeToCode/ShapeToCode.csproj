@@ -218,6 +218,7 @@
     <ProjectReference Include="..\QrCodeDocker\QrCodeDocker.csproj">
       <Project>{0bc78d26-dbd1-4802-bee7-796d2a980471}</Project>
       <Name>QrCodeDocker</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

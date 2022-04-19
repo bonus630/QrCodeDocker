@@ -9,7 +9,7 @@ using Tesseract;
 
 namespace br.corp.bonus630.plugin.PlaceHere
 {
-    public class ShapeToCodeCore : PluginCoreBase, IPluginDrawer
+    public class ShapeToCodeCore : PluginCoreBase<ShapeToCodeCore>, IPluginDrawer
     {
         public const string PluginDisplayName = "Shape To Code";
         public List<object[]> DataSource { get; set; }
@@ -22,7 +22,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public ICodeGenerator CodeGenerator { set { code = value; } }
         public Range Sr_Range { get; set; }
 
-       
+        public override string GetPluginDisplayName { get { return ShapeToCodeCore.PluginDisplayName; } }
 
         public void Draw()
         {
@@ -168,7 +168,11 @@ namespace br.corp.bonus630.plugin.PlaceHere
             }
             return range;
         }
-       
+
+        public override void DeleteConfig()
+        {
+            
+        }
     }
     public enum Range
     {

@@ -17,7 +17,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         private List<object[]> dataSource;
         public List<object[]> DataSource { get { return dataSource; } }
 
-        public override LangController Lang { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+       
 
         public override string GetPluginDisplayName => throw new NotImplementedException();
 
@@ -83,17 +83,17 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
 
         public override void SaveConfig()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void LoadConfig()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void DeleteConfig()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

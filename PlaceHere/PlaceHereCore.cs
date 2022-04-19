@@ -7,11 +7,14 @@ using System.Diagnostics;
 
 namespace br.corp.bonus630.plugin.PlaceHere
 {
-    public class PlaceHereCorecs : PluginCoreBase, IPluginDrawer
+    public class PlaceHereCore : PluginCoreBase<PlaceHereCore>, IPluginDrawer
     {
         public const string PluginDisplayName = "Place Here";
         public Application corelApp;
         ICodeGenerator codeGenerator;
+        Preview preview;
+   
+       
         public Ilang Lang { get; set; }
         //private int DSCursor { private get { return dsCursor; } set { this.dsCursor = value; } }
         int dsCursor = 0;
@@ -29,6 +32,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         private List<object[]> dataSource;
         public List<object[]> DataSource
         {
+            get { return this.dataSource; }
             set
             {
                 this.dataSource = value;
@@ -56,10 +60,11 @@ namespace br.corp.bonus630.plugin.PlaceHere
         private bool getContainer;
 
         public bool GetContainer { get { return getContainer; } set { getContainer = value; setViewConfig(); } }
-        public PlaceHereCorecs(Application app)
+
+        public override string GetPluginDisplayName { get { return PlaceHereCore.PluginDisplayName; } }
+
+        public PlaceHereCore()
         {
-            //DrawAction = new Action(drawFunction);
-            this.corelApp = app;
            
         }
 
@@ -383,6 +388,21 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public void Draw()
         {
 
+        }
+        public override void SaveConfig()
+        {
+            Properties.Settings.Default.GetContainer = this.getContainer;
+            Properties.Settings.Default.Save();
+            base.SaveConfig();
+        }
+        public override void LoadConfig()
+        {
+            this.GetContainer = Properties.Settings.Default.GetContainer;
+            base.LoadConfig();
+        }
+        public override void DeleteConfig()
+        {
+            Properties.Settings.Default.Reset();
         }
     }
 }

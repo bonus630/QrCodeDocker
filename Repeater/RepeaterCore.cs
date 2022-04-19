@@ -9,13 +9,13 @@ using System.IO;
 
 namespace br.corp.bonus630.plugin.Repeater
 {
-    public class RepeaterCore :  PluginCoreBase, IPluginDrawer
+    public class RepeaterCore :  PluginCoreBase<RepeaterCore>, IPluginDrawer
     {
         public const string PluginDisplayName = "Simple Repeater";
 
         double size = 221;
         private Application app;
-        //private br.corp.bonus630.ImageRender.IImageRender imageRender;
+     
         private br.corp.bonus630.PluginLoader.ICodeGenerator codeGenerator;
         private ShapeRange modelShape;
         private ItemTuple<Shape> shapeContainer;
@@ -39,7 +39,7 @@ namespace br.corp.bonus630.plugin.Repeater
 
         public string Mask{get { return mask; } set { mask =  value; }
         }
-
+        public bool QrFormatVector { get; set; }
 
 
         public bool FitToPage { get {return this.fitToPage; } set { this.fitToPage = value; } }
@@ -55,13 +55,10 @@ namespace br.corp.bonus630.plugin.Repeater
 
         public Application App
         {
+            get { return this.app; }
             set { this.app = value; }
         }
 
-        //public IImageRender ImageRender
-        //{
-        //    set { this.imageRender = value; }
-        //}
         public ShapeRange ModelShape
         {
             set { this.modelShape = value; }
@@ -76,7 +73,7 @@ namespace br.corp.bonus630.plugin.Repeater
                 this.size = shapeContainer.Item.SizeWidth;
             }
         }
-        public List<object[]> DataSource { get { return this.dataSource; } set { this.dataSource = value; } }
+        public List<object[]> DataSource { get { return this.dataSource; } set { this.dataSource = value; (mainUI as SimpleRepeater).FillButtons(); } }
         Application IPluginDrawer.App { set { this.app = value; } }
 
         public List<ItemTuple<Shape>> ShapeContainerText { get; internal set; }
@@ -84,7 +81,7 @@ namespace br.corp.bonus630.plugin.Repeater
         public List<ItemTuple<Shape>> ShapeContainerImageFile { get; internal set; }
         public ICodeGenerator CodeGenerator { set { this.codeGenerator = value; } }
 
-  
+        public override string GetPluginDisplayName { get { return RepeaterCore.PluginDisplayName; } }
 
         public void Draw()
         {
@@ -283,6 +280,34 @@ namespace br.corp.bonus630.plugin.Repeater
             }
 
         }
-       
+        public override void SaveConfig()
+        {
+            Properties.Settings1.Default.QrFormatVector = QrFormatVector;
+            Properties.Settings1.Default.InitialValue = Enumerator;
+            Properties.Settings1.Default.Increment = EnumeratorIncrement;
+            Properties.Settings1.Default.Mask = Mask;
+            Properties.Settings1.Default.FitToPage = FitToPage;
+            Properties.Settings1.Default.StartX = StartX;
+            Properties.Settings1.Default.Starty = StartY;
+            Properties.Settings1.Default.Gap = Gap;
+            Properties.Settings1.Default.Save();
+            base.SaveConfig();
+        }
+        public override void LoadConfig()
+        {
+            QrFormatVector = Properties.Settings1.Default.QrFormatVector;
+            Enumerator = (int)Properties.Settings1.Default.InitialValue;
+            EnumeratorIncrement = (int)Properties.Settings1.Default.Increment;
+           Mask = Properties.Settings1.Default.Mask.ToString();
+            FitToPage = Properties.Settings1.Default.FitToPage;
+            StartX= Properties.Settings1.Default.StartX;
+            StartY= Properties.Settings1.Default.Starty;
+            Gap = Properties.Settings1.Default.Gap;
+            base.LoadConfig();  
+        }
+        public override void DeleteConfig()
+        {
+            Properties.Settings1.Default.Reset();
+        }
     }
 }

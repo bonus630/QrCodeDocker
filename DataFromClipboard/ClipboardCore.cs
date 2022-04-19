@@ -12,12 +12,10 @@ using br.corp.bonus630.plugin.DataFromClipboard.Lang;
 
 namespace br.corp.bonus630.plugin.DataFromClipboard
 {
-    public class ClipboardCore : PluginCoreBase, IPluginDataSource
+    public class ClipboardCore : PluginCoreBase<ClipboardCore>, IPluginDataSource
 
     {
-        private double size;
-        //private Application app;
-        private ICodeGenerator codeGenerator;
+     
         private List<object[]> dataSouce;
         private string lastText = "";
         //public bool AutoDraw { get; set; }
@@ -52,25 +50,29 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         }
 
         ObservableCollection<ClipboardData> clipboardDatas = new ObservableCollection<ClipboardData>();
-        public double Size { set { this.size = value; } }
-        //public Application App { set => this.app = value; }
-        public ICodeGenerator CodeGenerator { set { this.codeGenerator = value; } }
-        //List<object[]> IPluginDrawer.DataSource { set => this.dataSouce = value; }
+     
+      
   
         public RoutedCommand<ClipboardData> DeleteCommand { get; set; }
         public RoutedCommand<object> ClearAllCommand { get; set; }
         private Dispatcher dispatcher = null;
-
+        public Dispatcher UIDispatcher { get { return dispatcher; } set { dispatcher = value; } }
         public ObservableCollection<ClipboardData> ClipboardDatas
         {
             get { return clipboardDatas; }
             set { clipboardDatas = value; }
         }
+
+        public override string GetPluginDisplayName
+        {
+            get { return ClipboardCore.PluginDisplayName; }
+        }
+
         private Thread monitor;
 
-        public ClipboardCore(Dispatcher dispatcher)
+        public ClipboardCore()
         {
-            this.dispatcher = dispatcher;
+           
             DeleteCommand = new RoutedCommand<ClipboardData>(DeleteClipboardData);
             ClearAllCommand = new RoutedCommand<object>(ClearAll);
             monitor = new Thread(new ThreadStart(Process));
@@ -128,65 +130,12 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
                 Thread.Sleep(100);
             }
         }
-        //public void DrawItem(int index)
-        //{
 
-        //    double x1 = 0;
-        //    double y1 = 0;
-        //    double x2 = 0;
-        //    double y2 = 0;
-        //    int shift = 0;
-        //    app.ActiveDocument.GetUserArea(out x1, out y1, out x2, out y2, out shift, 0, true, cdrCursorShape.cdrCursorPick);
-        //    Shape code = this.codeGenerator.CreateVetorLocal(app.ActiveLayer, this.dataSouce[index][0].ToString(), x2 - x1, x1, y1);
-        //    OnFinishJob(code);
-        //}
+        public override void DeleteConfig()
+        {
+            
+        }
 
-
-      
-        //private void AddItemFromClipboard()
-        //{
-        //    if (System.Windows.Clipboard.ContainsText() && MonitorClipboard)
-        //    {
-        //        string text;
-        //        text = System.Windows.Clipboard.GetText();
-
-        //        // Clipboard cp = app.Clipboard;
-        //        //string text = cp.Parent.ToString();
-        //        if (text != lastText)
-        //        {
-        //            lastText = text;
-        //            if (this.dataSouce == null)
-        //                this.dataSouce = new List<object[]>();
-        //            this.dataSouce.Add(new string[] { text });
-        //            if (AutoDraw)
-        //                DrawItem(this.dataSouce.Count - 1);
-        //        }
-        //    }
-
-        //}
-        //private void AddItemFromClipboard()
-        //{
-        //    if (System.Windows.Clipboard.ContainsText() && MonitorClipboard)
-        //    {
-        //        string text;
-        //        lock (thread)
-        //        {
-        //            text = System.Windows.Clipboard.GetText();
-        //        }
-        //       // Clipboard cp = app.Clipboard;
-        //        //string text = cp.Parent.ToString();
-        //        if(text != lastText)
-        //        {
-        //            lastText = text;
-        //            if (this.dataSouce == null)
-        //                this.dataSouce = new List<object[]>();
-        //            this.dataSouce.Add(new string[] { text });
-        //            if (AutoDraw)
-        //                DrawItem(this.dataSouce.Count - 1);
-        //        }
-        //    }
-
-        //}
     }
 
 }

@@ -22,7 +22,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         private int positionX = 0, positionY = 0, width = 100, height = 100;
         double cPositionX = 0, cPositionY = 0, cW = 1, cH = 1;
         c.Application app;
-        PlaceHereCorecs core;
+        PlaceHereCore core;
 
         private Thread mainDrawThread;
         private bool running = true;
@@ -46,7 +46,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public Anchor ReferencePoint { get; set; }
         public Ilang Lang { get; set; }
 
-        public View(c.Application app,PlaceHereCorecs vc)
+        public View(c.Application app,PlaceHereCore vc)
         {
             this.app = app;
             this.core = vc;

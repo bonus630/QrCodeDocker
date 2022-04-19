@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.ZxingQrCodeConfigurator"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="284" Loaded="UserControl_Loaded">
+             d:DesignHeight="300" d:DesignWidth="284">
     <UserControl.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="cb_color_template">

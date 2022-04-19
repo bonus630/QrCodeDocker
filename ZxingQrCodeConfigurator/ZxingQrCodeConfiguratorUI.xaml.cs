@@ -14,7 +14,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Input;
 using System.ComponentModel;
-using System.Reflection;
 using br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Lang;
 
 namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
@@ -22,116 +21,41 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class ZxingQrCodeConfiguratorUI : UserControl, IPluginMainUI, IPluginConfig, INotifyPropertyChanged
+    public partial class ZxingQrCodeConfiguratorUI : UserControl, IPluginMainUI
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public Ilang Lang { get; set; }
-
-        public string PluginDisplayName { get { return Core.PluginDisplayName; } }
+        ZxingConfiguratorCore zcCore;
+        Corel.Interop.VGCore.Application app;
+        Ilang Lang;
+    
 
         public ZxingQrCodeConfiguratorUI()
         {
             InitializeComponent();
-          
+            this.Loaded += ZxingQrCodeConfiguratorUI_Loaded; 
 
         }
-        public void ChangeLang(LangTagsEnum langTag)
+
+        private void ZxingQrCodeConfiguratorUI_Loaded(object sender, RoutedEventArgs e)
         {
-            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.ZxingQrCodeConfigurator.ZxingQrCodeConfiguratorUI)), langTag) as Ilang;
-            this.DataContext = this;
-            (Lang as LangController).AutoUpdateProperties();
-        }
-        private ColorSystem selectedBorderColor;
-        public ColorSystem SelectedBorderColor
-        {
-            get { return selectedBorderColor; }
-            set
-            {
-                selectedBorderColor = value;
-                NotifyPropertyChanged("SelectedBorderColor");
-            }
-        }
-        private ColorSystem selectedDotColor;
-        public ColorSystem SelectedDotColor
-        {
-            get { return selectedDotColor; }
-            set
-            {
-                selectedDotColor = value;
-                NotifyPropertyChanged("SelectedDotColor");
-            }
-        }
-        private ColorSystem selectedDotBorderColor;
-        public ColorSystem SelectedDotBorderColor
-        {
-            get { return selectedDotBorderColor; }
-            set
-            {
-                selectedDotBorderColor = value;
-                NotifyPropertyChanged("SelectedDotBorderColor");
-            }
+            zcCore = Core as ZxingConfiguratorCore;
+            zcCore.LoadConfigEvent += ZcCore_LoadConfigEvent;
+            app = zcCore.App;
+            Lang = zcCore.Lang;
         }
 
-        private Corel.Interop.VGCore.Application app;
-        public Corel.Interop.VGCore.Application App { set { this.app = value; } }
-
-        private ICodeGenerator codeGenerator;
-        public ICodeGenerator CodeGenerator
+        private void ZcCore_LoadConfigEvent()
         {
-            get { return codeGenerator; }
-            set { codeGenerator = value; }
-        }
-        public int Index { get; set; }
-
-        public event Action<object> FinishJob;
-        public event Action<int> ProgressChange;
-        public event Action<object, Type> GetCodeGenerator;
-        public event Action<string> AnyTextChanged;
-        public event Action UpdatePreview;
-
-        public void NotifyPropertyChanged(string propertyName = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public void OnFinishJob(object obj)
-        {
-            throw new NotImplementedException();
+            LoadConfig();
         }
 
-        public void OnGetCodeGenerator(object sender, Type type)
-        {
-            if (CodeGenerator == null)
-            {
-                if (GetCodeGenerator != null)
-                    GetCodeGenerator(sender, type);
-            }
-        }
+        public IPluginCore Core { get; set; }
 
-        public void OnProgressChange(int progress)
-        {
-            throw new NotImplementedException();
-        }
 
         private void ck_weld_Click(object sender, RoutedEventArgs e)
         {
-
-            OnGetCodeGenerator(this, typeof(QrCodeGenerator));
-            (CodeGenerator as QrCodeGenerator).Weld = (bool)ck_weld.IsChecked;
-            OnUpdatePreview();
-
+            zcCore.Weld = (bool)ck_weld.IsChecked;
+            
         }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            OnGetCodeGenerator(this, typeof(QrCodeGenerator));
-            LoadConfigToCode();
-            ck_weld.IsChecked = (CodeGenerator as QrCodeGenerator).Weld;
-       
-        }
-
-  
-
         private void btn_validate_Click(object sender, RoutedEventArgs e)
         {
             if ((this.app.ActiveSelection != null && this.app.ActiveSelection.Shapes.Count > 0) || this.app.ActiveShape != null)
@@ -147,7 +71,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                 ex.Finish();
                 try
                 {
-                    string text = CodeGenerator.DecodeImage(filePath);
+                    string text = zcCore.CodeGenerator.DecodeImage(filePath);
                    
                     app.MsgShow(text, Lang.MBOX_QrMessage);
                    
@@ -173,9 +97,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             double size = 0;
             if (Double.TryParse(txt_dotBorderSize.Text, out size))
             {
-                (CodeGenerator as QrCodeGenerator).DotBorderSize = size;
-                OnUpdatePreview();
-
+                zcCore.DotBorderSize = size;
             }
         }
 
@@ -183,8 +105,8 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         {
             if (cb_dotShape.SelectedIndex != -1)
             {
-                (CodeGenerator as QrCodeGenerator).DotShapeType = (DotShape)cb_dotShape.SelectedIndex;
-                OnUpdatePreview();
+                zcCore.DotShapeType = (DotShape)cb_dotShape.SelectedIndex;
+                
             }
 
         }
@@ -247,11 +169,8 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             ColorPicker c = GetColorPicker(sender);
             if ((bool)c.ShowDialog())
             {
-                SelectedBorderColor = c.SelectedColor;
-                if (SelectedBorderColor != null)
-                {
-                    (CodeGenerator as QrCodeGenerator).BorderColor = SelectedBorderColor.CorelColor; OnUpdatePreview();
-                }
+                zcCore.SelectedBorderColor = c.SelectedColor;
+              
             }
         }
 
@@ -260,11 +179,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             ColorPicker c =  GetColorPicker(sender);
             if ((bool)c.ShowDialog())
             {
-                SelectedDotColor = c.SelectedColor;
-                if (SelectedDotColor != null)
-                {
-                    (CodeGenerator as QrCodeGenerator).DotFillColor = SelectedDotColor.CorelColor; OnUpdatePreview();
-                }
+                zcCore.SelectedDotColor = c.SelectedColor;
             }
         }
 
@@ -273,12 +188,8 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             ColorPicker c =  GetColorPicker(sender);
             if ((bool)c.ShowDialog())
             {
-                SelectedDotBorderColor = c.SelectedColor;
-                if (SelectedDotBorderColor != null)
-                {
-                    (CodeGenerator as QrCodeGenerator).DotOutlineColor = SelectedDotBorderColor.CorelColor;
-                    OnUpdatePreview();
-                }
+                zcCore.SelectedDotBorderColor = c.SelectedColor;
+               
             }
         }
         private ColorPicker GetColorPicker(object sender)
@@ -297,72 +208,18 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         }
         private void ck_noBorder_Checked(object sender, RoutedEventArgs e)
         {
-            (CodeGenerator as QrCodeGenerator).NoBorder = (bool)ck_noBorder.IsChecked;
+            zcCore.NoBorder = (bool)ck_noBorder.IsChecked;
             btn_BorderColor.IsEnabled = !(bool)ck_noBorder.IsChecked;
-            OnUpdatePreview();
         }
-
-        private void OnUpdatePreview()
-        {
-            if (UpdatePreview != null)
-                UpdatePreview();
-        }
-
-        public void SaveConfig()
-        {
-            QrCodeGenerator code = (CodeGenerator as QrCodeGenerator);
-            Properties.Settings.Default.Weld = code.Weld;
-            Properties.Settings.Default.NoBorder = code.NoBorder;
-            Properties.Settings.Default.DotShape = (ushort)code.DotShapeType;
-            Properties.Settings.Default.DotBordeSize = code.DotBorderSize;
-            if (SelectedBorderColor != null)
-                Properties.Settings.Default.BorderColor = SelectedBorderColor.CorelColorName;
-            if (SelectedDotColor != null)
-                Properties.Settings.Default.DotFillColor = SelectedDotColor.CorelColorName;
-            if (SelectedDotBorderColor != null)
-                Properties.Settings.Default.DotBorderColor = SelectedDotBorderColor.CorelColorName;
-            Properties.Settings.Default.PaletteIndentifier = app.ActivePalette.Name;
-            Properties.Settings.Default.Save();
-        }
-
+     
         public void LoadConfig()
         {
-
             ck_noBorder.IsChecked = Properties.Settings.Default.NoBorder;
             ck_weld.IsChecked = Properties.Settings.Default.Weld;
             txt_dotBorderSize.Text = Properties.Settings.Default.DotBordeSize.ToString();
             cb_dotShape.SelectedIndex = Properties.Settings.Default.DotShape;
-            //O codegenerator está nulo nesse momento teremos que modificar o modo de carga de plugin para corrigir?
-            // code.NoBorder = Properties.Settings.Default.Weld;
-            string paletter = Properties.Settings.Default.PaletteIndentifier;
-            try
-            {
-                Palette palette = app.PaletteManager.GetPalette(paletter);
-                int index = palette.FindColor(Properties.Settings.Default.BorderColor);
-                Corel.Interop.VGCore.Color bColor = palette.Color[index];
-                SelectedBorderColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
-                bColor = palette.Color[palette.FindColor(Properties.Settings.Default.DotFillColor)];
-                SelectedDotColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
-                bColor = palette.Color[palette.FindColor(Properties.Settings.Default.DotBorderColor)];
-                SelectedDotBorderColor = new ColorSystem(bColor.HexValue, bColor.Name, bColor);
-            }
-            catch { }
-
         }
-        private void LoadConfigToCode()
-        {
-            QrCodeGenerator code = (CodeGenerator as QrCodeGenerator);
-            code.NoBorder = Properties.Settings.Default.NoBorder;
-            code.Weld = Properties.Settings.Default.Weld;
-            code.DotShapeType = (DotShape)Properties.Settings.Default.DotShape;
-            code.DotBorderSize = Properties.Settings.Default.DotBordeSize;
-            if(selectedBorderColor!=null)
-                code.BorderColor = selectedBorderColor.CorelColor;
-            if (selectedDotColor != null)
-                code.DotFillColor = selectedDotColor.CorelColor;
-            if (selectedDotBorderColor != null)
-                code.DotOutlineColor = selectedDotBorderColor.CorelColor;
-        }
+     
 
         public void DeleteConfig()
         {

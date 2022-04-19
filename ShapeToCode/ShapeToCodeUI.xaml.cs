@@ -21,68 +21,37 @@ namespace br.corp.bonus630.plugin.PlaceHere
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class ShapeToCodeUI : UserControl, IPluginMainUI,IPluginDrawer
+    public partial class ShapeToCodeUI : UserControl, IPluginMainUI
     {
-        private ShapeToCodeCore core;
-        public string PluginDisplayName { get { return ShapeToCodeCore.PluginDisplayName; } }
-        Ilang Lang;
+        private ShapeToCodeCore scCore;
+
         public ShapeToCodeUI()
         {
             InitializeComponent();
-            core = new ShapeToCodeCore();
-            btn_Doc.Click += (s,e) => { core.Sr_Range = Range.Doc; Draw(); };
-            btn_Page.Click += (s, e) => { core.Sr_Range = Range.Page; Draw(); };
-            btn_Selection.Click += (s, e) => { core.Sr_Range = Range.Selection; Draw(); };
-            ck_deleteOri.Click += (s, e) => { core.DeleteOri = (bool) (s as CheckBox).IsChecked; };
-            ck_overWidth.Click += (s, e) => { core.OverrideWidth = (bool)(s as CheckBox).IsChecked; };
+            this.Loaded += ShapeToCodeUI_Loaded;
+        
         }
-        public void ChangeLang(LangTagsEnum langTag)
-        {
-            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.PlaceHere.ShapeToCodeUI)), langTag) as Ilang;
-            this.DataContext = Lang;
-            (Lang as LangController).AutoUpdateProperties();
-        }
-        public int Index { get; set; }
-        public List<object[]> DataSource { get; set; }
-        public double Size { get; set; }
-        private Corel.Interop.VGCore.Application app;
-        public Corel.Interop.VGCore.Application App { set { app = value; core.App = value; } }
-        private ICodeGenerator code;
-        public ICodeGenerator CodeGenerator { set { code = value;core.CodeGenerator = value; } }
 
-        public event Action<object> FinishJob;
-        public event Action<string> AnyTextChanged;
-        public event Action<int> ProgressChange;
-        public event Action UpdatePreview;
+        private void ShapeToCodeUI_Loaded(object sender, RoutedEventArgs ev)
+        {
+            scCore = Core as ShapeToCodeCore;
+            btn_Doc.Click += (s, e) => { scCore.Sr_Range = Range.Doc; Draw(); };
+            btn_Page.Click += (s, e) => { scCore.Sr_Range = Range.Page; Draw(); };
+            btn_Selection.Click += (s, e) => { scCore.Sr_Range = Range.Selection; Draw(); };
+            ck_deleteOri.Click += (s, e) => { scCore.DeleteOri = (bool)(s as CheckBox).IsChecked; };
+            ck_overWidth.Click += (s, e) => { scCore.OverrideWidth = (bool)(s as CheckBox).IsChecked; };
+        }
+
+
+
+        public IPluginCore Core { get ; set; }
+
 
         public void Draw()
         {
-            core.Draw();
+            scCore.Draw();
         }
 
-        public void OnFinishJob(object obj)
-        {
-            
-        }
-
-        public void OnProgressChange(int progress)
-        {
-           
-        }
-
-        public void SaveConfig()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public void LoadConfig()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public void DeleteConfig()
-        {
-           // throw new NotImplementedException();
-        }
+        
     }
 }

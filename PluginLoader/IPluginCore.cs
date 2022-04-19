@@ -12,6 +12,7 @@ namespace br.corp.bonus630.PluginLoader
         event Action LoadConfigEvent;
         event Action SaveConfigEvent;
         event Action UpdatePreview;
+
         LangController Lang { get; set; }
         int Index { get; set; }
         string GetPluginDisplayName { get; }
@@ -22,5 +23,9 @@ namespace br.corp.bonus630.PluginLoader
         void LoadConfig();
         void DeleteConfig();
         void ChangeLang(LangTagsEnum langTag, System.Reflection.Assembly assembly);
+
+
+
+
     }
 }

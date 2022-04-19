@@ -9,13 +9,13 @@
 
     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
         <StackPanel Orientation="Horizontal">
-            <Label Content="{Binding LBA_ObjOrigin}"/>
+            <Label Content="{Binding Lang.LBA_ObjOrigin}"/>
             <local:AnchorButton Width="30" Height="30" FactorChanged="AnchorButton_FactorChanged" x:Name="anchorButton"></local:AnchorButton>
-            <CheckBox Content="{Binding CB_GetContainer}" Margin="20,0,0,0" x:Name="ck_getContainer" VerticalAlignment="Center" Click="ck_getContainer_Click"/>
+            <CheckBox Content="{Binding Lang.CB_GetContainer}" Margin="20,0,0,0" x:Name="ck_getContainer" VerticalAlignment="Center" Click="ck_getContainer_Click"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-            <Button x:Name="btn_start" Content="{Binding BTN_Start}" Height="30" Margin="0,0,20,0" Click="btn_start_Click"/>
-            <Button x:Name="btn_continue" Content="{Binding BTN_Continue}" Height="30" Margin="20,0,20,0" Click="btn_continue_Click"/>
+            <Button x:Name="btn_start" Content="{Binding Lang.BTN_Start}" Height="30" Margin="0,0,20,0" Click="btn_start_Click"/>
+            <Button x:Name="btn_continue" Content="{Binding Lang.BTN_Continue}" Height="30" Margin="20,0,20,0" Click="btn_continue_Click"/>
         </StackPanel>
     </StackPanel>
 

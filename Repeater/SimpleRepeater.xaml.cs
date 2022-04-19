@@ -23,13 +23,13 @@ namespace br.corp.bonus630.plugin.Repeater
     /// <summary>
     /// Interaction logic for SimpleRepeater.xaml
     /// </summary>
-    public partial class SimpleRepeater : UserControl, IPluginMainUI, IPluginDrawer
+    public partial class SimpleRepeater : UserControl, IPluginMainUI
     {
-        double size;
+       
         Corel.Interop.VGCore.Application app;
-        br.corp.bonus630.ImageRender.IImageRender imageRender;
+        
         Ilang Lang;
-        RepeaterCore core;
+        RepeaterCore rCore;
         private int qrcodeContentIndex = 0;
         private List<object[]> dataSource;
         private ItemTuple<Shape> shapeContainer;
@@ -37,62 +37,33 @@ namespace br.corp.bonus630.plugin.Repeater
         private List<ItemTuple<Shape>> shapeContainerEnumerator = new List<ItemTuple<Shape>>();
         private List<ItemTuple<Shape>> shapeContainerImageFile = new List<ItemTuple<Shape>>();
 
-        public event Action<object> FinishJob;
-        public event Action<int> ProgressChange;
-        public event Action<string> AnyTextChanged;
-        public event Action UpdatePreview;
-        public string PluginDisplayName { get{return RepeaterCore.PluginDisplayName;} }
-        private ICodeGenerator codeGenerator;
-
-        public ICodeGenerator CodeGenerator
-        {
-            get { return codeGenerator; }
-            set { codeGenerator = value; }
-        }
+   
 
 
         public SimpleRepeater()
         {
             InitializeComponent();
-            core = new RepeaterCore();
-            core.FinishJob += Core_FinishJob;
-            core.ProgressChange += Core_ProgressChange;
+            this.Loaded += SimpleRepeater_Loaded;
             
         }
-        public void ChangeLang(LangTagsEnum langTag)
+
+        private void SimpleRepeater_Loaded(object sender, RoutedEventArgs e)
         {
-            Lang = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.Repeater.SimpleRepeater)), langTag) as Ilang;
-            this.DataContext = Lang;
-            (Lang as LangController).AutoUpdateProperties();
-        }
-        private void Core_ProgressChange(int obj)
-        {
-            OnProgressChange(obj);
+            rCore = Core as RepeaterCore;
+            this.app = rCore.App;
+            Lang = rCore.Lang as Ilang;
+            rCore.LoadConfigEvent += RCore_LoadConfigEvent;
         }
 
-        public double Size
+        private void RCore_LoadConfigEvent()
         {
-            set { size = value; }
+            LoadConfig();
         }
 
-        public Corel.Interop.VGCore.Application App
-        {
-            set
-            {
-                app = value;
+      
+        public IPluginCore Core { get; set; }
 
-            }
-        }
-        public br.corp.bonus630.ImageRender.IImageRender ImageRender
-        {
-            set { this.imageRender = value; }
-        }
-
-        public List<object[]> DataSource { set { this.dataSource = value; FillButtons(); } }
-
-        public int Index { get ; set; }
-
-        private void FillButtons()
+        public void FillButtons()
         {
             if(this.dataSource != null && this.dataSource.Count > 0)
             {
@@ -152,12 +123,6 @@ namespace br.corp.bonus630.plugin.Repeater
         {
             Draw();
             
-        }
-
-        private void Core_FinishJob(object obj)
-        {
-            if(FinishJob!=null)
-                FinishJob(obj);
         }
 
         private bool GetContainer(int index, ItemType type)
@@ -263,17 +228,7 @@ namespace br.corp.bonus630.plugin.Repeater
             return true;
         }
 
-        public void OnProgressChange(int progress)
-        {
-            if (ProgressChange != null)
-                ProgressChange(progress);
-        }
-
-        public void OnFinishJob(object obj)
-        {
-            if (FinishJob != null)
-                FinishJob(obj);
-        }
+      
 
         public void Draw()
         {
@@ -297,56 +252,40 @@ namespace br.corp.bonus630.plugin.Repeater
                 app.MsgShow(Lang.MBOX_ERROR_NoShapes);
                 return;
             }
-            SetCoreValues();
+           
             this.app.ActiveDocument.Unit = this.app.ActiveDocument.Rulers.HUnits;
-            core.Size = this.size;
-            core.App = this.app;
-            core.CodeGenerator = this.codeGenerator;
-            //core.ImageRender = this.imageRender;
-            core.DataSource = dataSource;
-            core.ShapeContainerText = this.shapeContainerText;
-            core.ShapeContainerImageFile = this.shapeContainerImageFile;
-            core.ShapeContainerEnumerator = this.shapeContainerEnumerator;
+            //rCore.Size = this.size;
+            //rCore.App = this.app;
+            //rCore.CodeGenerator = this.codeGenerator;
+            ////core.ImageRender = this.imageRender;
+            rCore.DataSource = dataSource;
+            rCore.ShapeContainerText = this.shapeContainerText;
+            rCore.ShapeContainerImageFile = this.shapeContainerImageFile;
+            rCore.ShapeContainerEnumerator = this.shapeContainerEnumerator;
             bool vector = (bool)cb_vector.IsChecked;
-            core.ShapeContainer = this.shapeContainer;
-            core.ModelShape = app.ActiveSelectionRange;
+            rCore.ShapeContainer = this.shapeContainer;
+            rCore.ModelShape = app.ActiveSelectionRange;
          
             //Task t = new Task(() =>
             //{
             if(this.shapeContainer==null)
             {
-                core.ProcessVector();
+                rCore.ProcessVector();
                 return;
             }
             if (vector)
-                    core.ProcessVector(this.shapeContainer.Index);
+                    rCore.ProcessVector(this.shapeContainer.Index);
 
                 else
-                    core.ProcessVector(this.shapeContainer.Index,false);
+                    rCore.ProcessVector(this.shapeContainer.Index,false);
 
             //});
             //t.Start();
         }
-        private void SetCoreValues()
-        {
-            double val = 0;
-            if (Double.TryParse(txt_gap.Text, out val))
-                core.Gap = val;
-            if (Double.TryParse(txt_startX.Text, out val))
-                core.StartX = val;
-            if (Double.TryParse(txt_startY.Text, out val))
-                core.StartY = val;
-            int val1 = 0;
-            if (Int32.TryParse(txt_increment.Text, out val1))
-                core.EnumeratorIncrement = val1;
-            if (Int32.TryParse(txt_initialValue.Text, out val1))
-                core.Enumerator = val1;
-            if (!string.IsNullOrEmpty(txt_mask.Text))
-                core.Mask = txt_mask.Text;
-        }
+    
         private void cb_fitToPage_Click(object sender, RoutedEventArgs e)
         {
-            core.FitToPage = (bool)cb_fitToPage.IsChecked;
+            rCore.FitToPage = (bool)cb_fitToPage.IsChecked;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -356,21 +295,7 @@ namespace br.corp.bonus630.plugin.Repeater
             btn_enumerator.IsEnabled = true;
         }
 
-        public void SaveConfig()
-        {
-            SetCoreValues();
-            Properties.Settings1.Default.QrFormatVector = (bool)cb_vector.IsChecked;
-            Properties.Settings1.Default.InitialValue = core.Enumerator;
-            Properties.Settings1.Default.Increment = core.EnumeratorIncrement;
-            Properties.Settings1.Default.Mask = core.Mask;
-            Properties.Settings1.Default.FitToPage = core.FitToPage;
-            Properties.Settings1.Default.StartX = core.StartX;
-            Properties.Settings1.Default.Starty = core.StartY;
-            Properties.Settings1.Default.Gap = core.Gap;
-            Properties.Settings1.Default.Save();
-
-
-        }
+        
 
         public void LoadConfig()
         {
@@ -378,19 +303,16 @@ namespace br.corp.bonus630.plugin.Repeater
                 cb_vector.IsChecked = true;
             else
                 cb_bitmap.IsChecked = true;
+            txt_initialValue.Text = rCore.Enumerator.ToString();
+            txt_increment.Text = rCore.EnumeratorIncrement.ToString();
+            txt_mask.Text = rCore.Mask;
+            cb_fitToPage.IsChecked = rCore.FitToPage;
+            txt_startX.Text = rCore.StartX.ToString();
+            txt_startY.Text = rCore.StartY.ToString();
+            txt_gap.Text = rCore.Gap.ToString();
 
-            txt_initialValue.Text = Properties.Settings1.Default.InitialValue.ToString();
-            txt_increment.Text = Properties.Settings1.Default.Increment.ToString();
-            txt_mask.Text = Properties.Settings1.Default.Mask.ToString();
-            cb_fitToPage.IsChecked = Properties.Settings1.Default.FitToPage;
-            txt_startX.Text = Properties.Settings1.Default.StartX.ToString();
-            txt_startY.Text = Properties.Settings1.Default.Starty.ToString();
-            txt_gap.Text = Properties.Settings1.Default.Gap.ToString();
+
         }
 
-        public void DeleteConfig()
-        {
-            Properties.Settings1.Default.Reset();
-        }
     }
 }

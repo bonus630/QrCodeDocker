@@ -241,7 +241,7 @@
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ResourceToMediaImageConverter.cs" />
-    <Compile Include="Core.cs" />
+    <Compile Include="ZxingConfiguratorCore.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Eyedropper.xaml.cs">
       <DependentUpon>Eyedropper.xaml</DependentUpon>

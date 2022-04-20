@@ -20,70 +20,39 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
     /// <summary>
     /// Interaction logic for AutoNumberGen.xaml
     /// </summary>
-    public partial class AutoNumberGen : UserControl, IPluginUI, IPluginDataSource
+    public partial class AutoNumberGen : UserControl, IPluginMainUI
     {
-        public string PluginDisplayName { get { return AutoNumberGenCore.PluginDisplayName; } }
+       
         public AutoNumberGen()
         {
             InitializeComponent();
-            core = new AutoNumberGenCore();
-            //ChangeLang(LangTagsEnum.PT_BR);
-            
-        }
-        public AutoNumberGen(LangTagsEnum lang)
-        {
-            InitializeComponent();
-            core = new AutoNumberGenCore();
-            ChangeLang(lang);
-            this.DataContext = LangBase;
-        }
-        private LangController LangBase;
-        AutoNumberGenCore core;
-        public List<object[]> DataSource { get { return core.DataSource; } }
-
-        public int Index { get; set; }
-
-        public event Action<object> FinishJob;
-        public event Action<string> AnyTextChanged;
-        public event Action<int> ProgressChange;
-        public event Action UpdatePreview;
-
-        public void OnFinishJob(object obj)
-        {
-            if (FinishJob != null)
-                FinishJob(obj);
+            this.Loaded += AutoNumberGen_Loaded;
         }
 
-        public void OnProgressChange(int progress)
+        private void AutoNumberGen_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            Core.LoadConfigEvent += LoadConfig;
         }
-        public void ChangeLang(LangTagsEnum lang)
-        {
-            LangBase = LangController.CreateInstance(Assembly.GetAssembly(typeof(br.corp.bonus630.plugin.AutoNumberGen.AutoNumberGen)), lang);
-            this.DataContext = LangBase;
-            LangBase.AutoUpdateProperties();
-        }
+
+        public IPluginCore Core { get; set; }
+
+   
         private void ChangeText(object sender, TextChangedEventArgs e)
         {
             int start, end;
+            AutoNumberGenCore core = Core as AutoNumberGenCore;
             if(Int32.TryParse(TextBoxStart.Text,out start) && Int32.TryParse(TextBoxEnd.Text,out end))
             {
                 core.changeData(start, end);
                 LabelResult.Content = string.Format("{0} Rows",core.DataSource.Count);
-                OnFinishJob(core.DataSource);
+               
             }
         }
 
-        public void SaveConfig()
-        {
-            Properties.Settings1.Default.RangeStart = core.StartValue;
-            Properties.Settings1.Default.RangeEnd = core.EndValue;
-            Properties.Settings1.Default.Save();
-        }
 
         public void LoadConfig()
         {
+            AutoNumberGenCore core = Core as AutoNumberGenCore;
             TextBoxStart.Text = Properties.Settings1.Default.RangeStart.ToString();
             TextBoxEnd.Text = Properties.Settings1.Default.RangeEnd.ToString();
             ChangeText(null, null);

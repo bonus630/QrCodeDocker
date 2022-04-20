@@ -13,7 +13,7 @@ namespace br.corp.bonus630.PluginLoader
         double Size { set; }
        
         Corel.Interop.VGCore.Application App { set; }
-        //ImageRender.IImageRender ImageRender { set; }
+        
         ICodeGenerator CodeGenerator { set; }
     }
 }

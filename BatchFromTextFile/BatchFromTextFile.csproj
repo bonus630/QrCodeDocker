@@ -200,7 +200,7 @@
     <Compile Include="BatchFromTextFile.xaml.cs">
       <DependentUpon>BatchFromTextFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core.cs" />
+    <Compile Include="BatchFromTextFileCore.cs" />
     <Compile Include="Lang\EN_US.cs" />
     <Compile Include="Lang\Ilang.cs" />
     <Compile Include="Lang\PT_BR.cs" />

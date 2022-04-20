@@ -9,7 +9,5 @@ namespace br.corp.bonus630.PluginLoader
     public interface IPluginDataSource
     {
         List<object[]> DataSource { get; }
-        
-
     }
 }

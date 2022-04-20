@@ -16,6 +16,40 @@ namespace br.corp.bonus630.PluginLoader
                 Directory.CreateDirectory(pluginFolder);
 
         }
+        public Assembly GetAssembly(PluginMap pluginMap)
+        {
+            try
+            {
+                return Assembly.LoadFrom(pluginMap.DllFile);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
+
+        }
+        public Type GetMainUIType(PluginMap pluginMap)
+        {
+            try
+            {
+                Assembly asm = GetAssembly(pluginMap);
+                Type[] types = asm.GetTypes();
+                for (int j = 0; j < types.Length; j++)
+                {
+                    if (typeof(IPluginMainUI).IsAssignableFrom(types[j]) && !types[j].IsInterface)
+                    {
+                        return types[j];
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return null;
+        }
         public PluginMap GetPluginMap(string file)
         {
             try
@@ -62,13 +96,13 @@ namespace br.corp.bonus630.PluginLoader
             
             return result;
         }
-        public object GetUIControl(PluginMap plugin)
+        //public object GetUIControl(PluginMap plugin)
+        //{
+        //    return getInstance<IPluginUI>(plugin);
+        //}
+        public IPluginCore GetCore(PluginMap plugin)
         {
-            return getInstance<IPluginUI>(plugin);
-        }
-        public object GetCore(PluginMap plugin)
-        {
-            return getInstance<IPluginCore>(plugin);
+            return getInstance<IPluginCore>(plugin) as IPluginCore;
         }
         private object getInstance<T>(PluginMap plugin)
         {

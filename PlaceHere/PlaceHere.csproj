@@ -216,7 +216,7 @@
     <Compile Include="Lang\Ilang.cs" />
     <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="NotifyPropertyBase.cs" />
-    <Compile Include="PlaceHereCorecs.cs" />
+    <Compile Include="PlaceHereCore.cs" />
     <Compile Include="View.cs">
       <SubType>Form</SubType>
     </Compile>

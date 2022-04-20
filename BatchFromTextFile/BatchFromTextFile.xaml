@@ -6,9 +6,9 @@
              mc:Ignorable="d" d:DesignWidth="280" Height="120">
     <StackPanel >
         <StackPanel Orientation="Horizontal">
-            <Label Content="{Binding LBA_LineDelimiter}" Height="24"  VerticalAlignment="Top" />
+            <Label Content="{Binding Lang.LBA_LineDelimiter}" Height="24"  VerticalAlignment="Top" />
             <TextBox x:Name="txt_delimiter" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap" Text="\n\r" VerticalAlignment="Top" Width="31"/>
-            <Label Content="{Binding LBA_ColumnDelimiter}" Height="24"  VerticalAlignment="Top" />
+            <Label Content="{Binding Lang.LBA_ColumnDelimiter}" Height="24"  VerticalAlignment="Top" />
             <TextBox x:Name="txt_colDelimiter" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap" Text="|" VerticalAlignment="Top" Width="31" />
         </StackPanel>
         <Label Content="" Width="276"  Name="lba_file" Height="24" Margin="2,38,2,0" VerticalAlignment="Top" >
@@ -19,7 +19,7 @@
         <StackPanel Orientation="Horizontal">
             <Label Content="" x:Name="lba_number" Height="24" MinWidth="60"  VerticalAlignment="Top" />
             <Label Content="" x:Name="lba_numberColumn" Height="24" MinWidth="60"  VerticalAlignment="Top" />
-            <Button Name="btn_file" Content="{Binding BTN_Browser}" Click="btn_file_Click" Width="48" Height="24"  VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <Button Name="btn_file" Content="{Binding Lang.BTN_Browser}" Click="btn_file_Click" Width="48" Height="24"  VerticalAlignment="Top" HorizontalAlignment="Right"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

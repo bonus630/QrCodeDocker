@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-//using Corel.Interop.VGCore;
 using System.IO;
 using br.corp.bonus630.PluginLoader;
-
 using System.Windows.Input;
 using System.Collections;
 
@@ -17,90 +15,27 @@ namespace br.corp.bonus630.plugin.MediaSchema
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class MediaSchemaUI : UserControl, IPluginUI, IPluginDrawer
+    public partial class MediaSchemaUI : UserControl, IPluginMainUI
     {
-
-        Schemes currentScheme = null;
-        Corel.Interop.VGCore.Application app;
-        ICodeGenerator codeGenerator;
-        List<Schemes> schemesDataSource = new List<Schemes>();
-        public int Index { get; set; }
-        public List<object[]> DataSource { set { } }
-        public double Size { set { } }
-        public Corel.Interop.VGCore.Application App { set { app = value; } }
-        public ICodeGenerator CodeGenerator { set { codeGenerator = value; } }
-
-        public string GroupName { get { return "RadioGroupSchemasIcons"; } }
-
-        public event Action<object> FinishJob;
-        public event Action<int> ProgressChange;
-        public event Action<string> AnyTextChanged;
-        public event Action UpdatePreview;
-        public List<Schemes> SchemesDataSource { get { return this.schemesDataSource; } set { this.schemesDataSource = value; } }
+        MediaSchemaCore msCore;
         ToolTip tooltip = new ToolTip();
-        public string PluginDisplayName { get { return Core.PluginDisplayName; } }
-
+        public IPluginCore Core { get ; set ; }
         public MediaSchemaUI()
         {
             InitializeComponent();
-
-            FillSource();
-            this.DataContext = this;
-
+            this.Loaded += MediaSchemaUI_Loaded;
         }
-        public void ChangeLang(LangTagsEnum langTag)
+        private void MediaSchemaUI_Loaded(object sender, RoutedEventArgs e)
         {
-
+            msCore = Core as MediaSchemaCore;
+            this.DataContext = msCore;
+            msCore.LoadConfigEvent += MsCore_LoadConfigEvent;
         }
-        private void FillSource()
+
+        private void MsCore_LoadConfigEvent()
         {
-            schemesDataSource.Add(
-                new Schemes(0, "instagram://user?username={0}", Properties.Resource.instagran, "Instagran",
-                new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
-                );
-            schemesDataSource.Add(
-               new Schemes(1, "twitter://user?id={0}", Properties.Resource.twitter, "Twitter",
-                new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
-               );
-            schemesDataSource.Add(
-             new Schemes(2, "https://api.whatsapp.com/send?phone={0}{1}{2}&text={3}", Properties.Resource.whatsapp, "Whatsapp",
-              new SchemesAttribute[] {
-              new SchemesAttribute("DDI", typeof(string)),
-              new SchemesAttribute("DDD", typeof(string)) ,
-              new SchemesAttribute("TEL", typeof(string)),
-              new SchemesAttribute("MSG", typeof(string)) })
-             );
-            schemesDataSource.Add(
-              new Schemes(3, "tel://{0}{1}{2}", Properties.Resource.tel, "Phone",
-                new SchemesAttribute[] {
-                    new SchemesAttribute("DDI", typeof(string)),
-                    new SchemesAttribute("DDD", typeof(string)) ,
-                    new SchemesAttribute("Phone", typeof(string)) })
-              );
-            schemesDataSource.Add(
-              new Schemes(4, "https://www.snapchat.com/add/{0}", Properties.Resource.snapchat, "Snapchat",
-               new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
-              );
-            schemesDataSource.Add(
-              new Schemes(5, "https://t.me/{0}", Properties.Resource.telegran, "Telegran",
-               new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
-              );
-            //schemesDataSource.Add(
-            //  new Schemes(4, "WIFI:S:{0};T:{1};P:{2};H:{3};", Properties.Resource.wifi, "Wifi",
-            //    new SchemesAttribute[] { new SchemesAttribute("SSID", typeof(string)),
-            //    new SchemesAttribute("Encryption type", typeof(string)),
-            //    new SchemesAttribute("Password", typeof(string)),
-            //    new SchemesAttribute("SSID Hidden", typeof(bool))})
-            //  );
-
+            InflateUISchema(msCore.CurrentScheme.Tag);
         }
-
-        private void OnUpdatePreview()
-        {
-            if (UpdatePreview != null)
-                UpdatePreview();
-        }
-     
 
         private CheckBox buildCheckBox(SchemesAttribute attribute, int index)
         {
@@ -157,77 +92,22 @@ namespace br.corp.bonus630.plugin.MediaSchema
             return grid;
 
         }
-
-
-
-        public void OnFinishJob(object obj)
-        {
-        }
-
-        public void OnProgressChange(int progress)
-        {
-        }
-
    
         private void txt_any_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox txt = sender as TextBox;
-            OnAnyTextChanged(txt.Tag.ToString(), new object[] { txt.Text });
+            msCore.OnAnyTextChanged(txt.Tag.ToString(), new object[] { txt.Text });
 
         }
         private void Ck_Clicked(object sender, RoutedEventArgs e)
         {
             CheckBox cb = sender as CheckBox;
-            OnAnyTextChanged(cb.Tag.ToString(), new object[] { cb.IsChecked });
-        }
-        private void OnAnyTextChanged(string tag,object[] param)
-        {
-            currentScheme.SetAttributeValue(tag, param );
-            if (AnyTextChanged != null && currentScheme.NotEmpty)
-                AnyTextChanged(currentScheme.FormatedURI(currentScheme.AttributesValues));
-        }
-        public void Draw()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveConfig()
-        {
-            if (currentScheme != null)
-            {
-                Properties.Settings1.Default.CurrentSchema = currentScheme.Tag;
-                ArrayList schemasAttributes = new ArrayList();
-                for (int i = 0; i < currentScheme.SchemesAttributes.Length; i++)
-                {
-                    schemasAttributes.Add(currentScheme.SchemesAttributes[i].param);
-                }
-                Properties.Settings1.Default.SchemaData = schemasAttributes;
-                Properties.Settings1.Default.Save();
-            }
-        }
-
-        public void LoadConfig()
-        {
-            //tenho que alterar o valor da imagem correspondente do schema
-            currentScheme = schemesDataSource.Single(r => r.Tag == Properties.Settings1.Default.CurrentSchema);
-            currentScheme.IsSelected = true;
-            if (Properties.Settings1.Default.SchemaData != null) {
-                for (int i = 0; i < currentScheme.SchemesAttributes.Length; i++)
-                {
-                    currentScheme.SchemesAttributes[i].param = Properties.Settings1.Default.SchemaData[i] as object[];
-                }
-            }
-            InflateUISchema(currentScheme.Tag);
-        }
-
-        public void DeleteConfig()
-        {
-            Properties.Settings1.Default.Reset();
+            msCore.OnAnyTextChanged(cb.Tag.ToString(), new object[] { cb.IsChecked });
         }
         private void InflateUISchema(int schemaTag)
         {
             sp_attributesContent.Children.Clear();
-            currentScheme = schemesDataSource.Single(r => r.Tag == schemaTag);
+            Schemes currentScheme = msCore.SchemesDataSource.Single(r => r.Tag == schemaTag);
 
             scheme_type.Content = currentScheme.Name;
 

@@ -2,7 +2,7 @@
 
 using br.corp.bonus630.PluginLoader;
 
-namespace br.corp.bonus630.plugin.PlaceHere.Lang
+namespace br.corp.bonus630.plugin.ShapeToCode.Lang
 {
     public class EN_US : LangController, Ilang
     {
@@ -15,5 +15,6 @@ namespace br.corp.bonus630.plugin.PlaceHere.Lang
         public string CB_DeleteOri { get { return "Delete Original"; } }
 
         public string CB_UseWidthToSize { get { return "Use Width to size"; } }
+        public string MBOX_title { get { return "Makes corrections"; } }
     }
 }

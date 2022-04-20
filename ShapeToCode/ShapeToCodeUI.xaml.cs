@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using br.corp.bonus630.plugin.PlaceHere.Lang;
+using br.corp.bonus630.plugin.ShapeToCode.Lang;
 using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 
-namespace br.corp.bonus630.plugin.PlaceHere
+namespace br.corp.bonus630.plugin.ShapeToCode
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml

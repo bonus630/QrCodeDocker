@@ -50,6 +50,7 @@ namespace br.corp.bonus630.plugin.MediaSchema
             schemesDataSource.Add(
                 new Schemes(0, "instagram://user?username={0}", Properties.Resource.instagran, "Instagran",
                 new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
+                { IsSelected = true }
                 );
             schemesDataSource.Add(
                new Schemes(1, "twitter://user?id={0}", Properties.Resource.twitter, "Twitter",

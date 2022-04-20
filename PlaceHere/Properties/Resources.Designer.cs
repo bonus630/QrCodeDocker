@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace br.corp.bonus630.plugin.PlaceHere.Properties {
+namespace br.corp.bonus630.plugin.ShapeToCode.Properties {
     using System;
     
     

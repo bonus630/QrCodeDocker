@@ -222,10 +222,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ConfirmTextWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ShapeToCodeUI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ConfirmTextWindow.xaml.cs">
+      <DependentUpon>ConfirmTextWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Lang\EN_US.cs" />
     <Compile Include="Lang\Ilang.cs" />
     <Compile Include="Lang\PT_BR.cs" />

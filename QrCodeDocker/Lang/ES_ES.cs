@@ -72,6 +72,7 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
 
         public string MBoxFormatErroMessage { get { return "Tamaño de formato no válido"; } }
         public string MBoxContentErroMessage { get { return "El contenido esta vacio"; } }
+        public string MBOX_ERROR_LangException { get { return "No se pudo cargar el idioma"; } }
 
         public string WifiLabelSecurity { get { return "Seguridad:"; } }
         public string TabTitleWifi { get { return "WiFi"; } }

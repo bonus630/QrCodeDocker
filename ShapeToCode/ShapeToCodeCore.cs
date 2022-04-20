@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using br.corp.bonus630.plugin.ShapeToCode.Lang;
 using br.corp.bonus630.PluginLoader;
+using br.corp.bonus630.QrCodeDocker;
 using Corel.Interop.VGCore;
 using Tesseract;
 
-namespace br.corp.bonus630.plugin.PlaceHere
+namespace br.corp.bonus630.plugin.ShapeToCode
 {
     public class ShapeToCodeCore : PluginCoreBase<ShapeToCodeCore>, IPluginDrawer
     {
@@ -46,6 +48,8 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 app.Refresh();
             }
         }
+        int i = 1;
+        
         private void processRange(ShapeRange range)
         {
             try
@@ -64,11 +68,30 @@ namespace br.corp.bonus630.plugin.PlaceHere
                     if (range[i].Type.Equals(cdrShapeType.cdrCurveShape))
                     {
                         string text = processCurve(range[i]);
-                        if (!String.IsNullOrEmpty(text))
-                            CreateCode(range[i], text);
+                        ConfirmTextWindow ctw = new ConfirmTextWindow(Lang as Ilang);
+                        ctw.Text = text;
+                    //ctw.Show();
+                        if ((bool)ctw.ShowDialog())
+                        {
+                            text = ctw.Text;
+                            if (!String.IsNullOrEmpty(text))
+                                CreateCode(range[i], text);
+                        }
+                        
+
                     }
+                //i++;
+                //if(i>range.Count)
+                //{
+                //    i = 1;
+                //}
+                //else
+                //{
+                //    processRange(range);
+                //}
                 }
             }
+
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -127,6 +150,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
             }
             catch (Exception erro)
             {
+                app.MsgShow(erro.Message);
                 Console.WriteLine(erro.Message);
             }
 
@@ -171,7 +195,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
         public override void DeleteConfig()
         {
-            
+
         }
     }
     public enum Range

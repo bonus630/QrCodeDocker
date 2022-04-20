@@ -22,7 +22,6 @@ namespace br.corp.bonus630.plugin.AutoNumberGen
     /// </summary>
     public partial class AutoNumberGen : UserControl, IPluginMainUI
     {
-       
         public AutoNumberGen()
         {
             InitializeComponent();

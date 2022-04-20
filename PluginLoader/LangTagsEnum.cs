@@ -31,9 +31,6 @@ namespace br.corp.bonus630.PluginLoader
                 case cdrTextLanguage.cdrSpanish:
                     tag = LangTagsEnum.ES_ES;
                     break;
-                default:
-                    tag = LangTagsEnum.EN_US;
-                    break;
             }
             return tag;
         }

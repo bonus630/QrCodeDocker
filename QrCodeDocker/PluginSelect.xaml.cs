@@ -61,7 +61,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
             catch (Exception erro)
             {
-                app.MsgShow(string.Format("{0} | {1} | {2}", erro.Message,erro.Source,erro.TargetSite.Name));
+                app.MsgShow(string.Format("{0} | {1} | {2}", erro.Message, erro.Source, erro.TargetSite.Name));
                 this.PluginFound = false;
                 // this.Title = "No extras found!";
             }
@@ -234,7 +234,10 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             try
             {
-                IPluginCore objCore = loader.GetCore(pluginMap);
+                IPluginCore objCore  = loadedPluginList.Find(r => r.GetPluginDisplayName.Equals(pluginMap.DisplayName));
+                if (objCore != null)
+                    return;
+                objCore = loader.GetCore(pluginMap);
                 if (objCore == null)
                     return;
                 Type type = loader.GetMainUIType(pluginMap);
@@ -287,8 +290,15 @@ namespace br.corp.bonus630.QrCodeDocker
                 objCore.ProgressChange += PluginSelect_ProgressChange;
                 objCore.FinishJob += PluginSelect_FinishJob;
                 objCore.AnyTextChanged += PluginSelect_AnyTextChanged;
-                objCore.UpdatePreview += PluginSelect_UpdatePreview; ;
-                objCore.ChangeLang(app.UILanguage.cdrLangToSys(),loader.GetAssembly(pluginMap));
+                objCore.UpdatePreview += PluginSelect_UpdatePreview;
+                try
+                {
+                    objCore.ChangeLang(app.UILanguage.cdrLangToSys(), loader.GetAssembly(pluginMap));
+                }
+                catch (Exception e) 
+                { 
+                    app.MsgShow(string.Format("{0} - {1}", Lang.MBOX_ERROR_LangException,pluginMap.DisplayName)); 
+                }
                 if (typeof(IPluginConfig).IsAssignableFrom(objCore.GetType()))
                     (objCore as IPluginConfig).GetCodeGenerator += PluginSelect_GetCodeGenerator;
                 SetDataSource(this.dataSource);
@@ -356,8 +366,8 @@ namespace br.corp.bonus630.QrCodeDocker
                         {
                             InflateUI(this.pluginNames[r]);
                         }
-                        catch(Exception e) { Debug.WriteLine(e.Message,"LoadConfig"); }
-                      
+                        catch (Exception e) { Debug.WriteLine(e.Message, "LoadConfig"); }
+
                         try
                         {
                             this.loadedPluginList[this.loadedPluginList.Count - 1].LoadConfig();

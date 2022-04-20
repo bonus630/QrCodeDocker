@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
 namespace br.corp.bonus630.PluginLoader
 {
-    public abstract class PluginCoreBase<T> : IPluginCore where T: class, new()
+    public abstract class PluginCoreBase<T> : IPluginCore, INotifyPropertyChanged where T : class, new()
     {
         protected IPluginMainUI mainUI;
+        private LangController lang;
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
@@ -15,8 +17,10 @@ namespace br.corp.bonus630.PluginLoader
         public event Action UpdatePreview;
         public event Action LoadConfigEvent;
         public event Action SaveConfigEvent;
+        public event Action LangChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public  LangController Lang { get; set; }
+        public LangController Lang { get { return this.lang; } set { lang = value; if (LangChanged != null) LangChanged(); } }
         public abstract string GetPluginDisplayName { get; }
         public T GetCore { get { return this as T; } }
         public IPluginCore GetICore { get { return GetCore as IPluginCore; } }
@@ -45,20 +49,32 @@ namespace br.corp.bonus630.PluginLoader
             if (AnyTextChanged != null)
                 AnyTextChanged(text);
         }
-
+        public virtual void OnNotifyPropertyChanged(string propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
         public void ChangeLang(LangTagsEnum langTag, System.Reflection.Assembly assembly)
         {
-            Lang = LangController.CreateInstance(assembly, langTag);
-            Lang.AutoUpdateProperties();
+            try
+            {
+                this.Lang = LangController.CreateInstance(assembly, langTag);
+                this.Lang.AutoUpdateProperties();
+            }
+            catch { }
         }
-        
+
         public IPluginMainUI CreateOrGetMainUIIntance(Type type)
         {
             if (mainUI == null)
             {
-                mainUI = Activator.CreateInstance(type) as IPluginMainUI;
-                mainUI.Core = GetICore;
-                mainUI.DataContext = this;
+                try
+                {
+                    mainUI = Activator.CreateInstance(type) as IPluginMainUI;
+                    mainUI.Core = this;
+                    mainUI.DataContext = this;
+                }
+                catch { }
             }
             return mainUI;
         }

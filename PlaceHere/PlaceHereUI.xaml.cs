@@ -18,7 +18,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
     {
         PlaceHereCore phCore;
         public IPluginCore Core { get ; set; }
-
+        Ilang Lang;
         public PlaceHereUI()
         {
             InitializeComponent();
@@ -28,7 +28,8 @@ namespace br.corp.bonus630.plugin.PlaceHere
         private void PlaceHereUI_Loaded(object sender, RoutedEventArgs e)
         {
             phCore = Core as PlaceHereCore;
-            phCore.LoadConfigEvent += PhCore_LoadConfigEvent;   
+            phCore.LoadConfigEvent += PhCore_LoadConfigEvent;
+            Lang = phCore.Lang as Ilang;
         }
 
         private void PhCore_LoadConfigEvent()
@@ -40,7 +41,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         {
             if (phCore.DataSource == null || phCore.DataSource.Count == 0)
                 return;
-            btn_start.Content = phCore.Lang.BTN_Restart;
+            btn_start.Content = Lang.BTN_Restart;
            
             phCore.Draw(true);
         }

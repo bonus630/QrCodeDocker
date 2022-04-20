@@ -26,7 +26,6 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
     public partial class DataFromClipboardUI : UserControl, IPluginMainUI
     {
         ClipboardCore clipboardCore;
-        public string PluginDisplayName { get { return ClipboardCore.PluginDisplayName; } }
         public IPluginCore Core { get; set; }
         public DataFromClipboardUI()
         {

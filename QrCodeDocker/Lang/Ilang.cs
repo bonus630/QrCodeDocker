@@ -49,6 +49,7 @@
         string MBoxFormatErroMessage { get; }
         string MBoxContentErroMessage { get; }
         string MBOX_ERROR_SettingsCountNoMatch { get; }
+        string MBOX_ERROR_LangException { get; }
         string WifiLabelSSID { get; }
         string WifiLabelSecurity { get; }
         string WifiLabelPassword { get; }

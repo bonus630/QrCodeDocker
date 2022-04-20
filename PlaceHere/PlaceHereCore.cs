@@ -14,9 +14,6 @@ namespace br.corp.bonus630.plugin.PlaceHere
         ICodeGenerator codeGenerator;
         Preview preview;
    
-       
-        public Ilang Lang { get; set; }
-        //private int DSCursor { private get { return dsCursor; } set { this.dsCursor = value; } }
         int dsCursor = 0;
         public double FactorX
         {
@@ -240,7 +237,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 view.Width = (int)w;
                 view.Top = (int)y;
                 view.Height = (int)h;
-                view.Lang = Lang;
+                view.Lang = Lang as Ilang;
                 setViewConfig();
                 view.QRSize = Size;
 

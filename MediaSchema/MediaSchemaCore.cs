@@ -30,8 +30,11 @@ namespace br.corp.bonus630.plugin.MediaSchema
         public string GroupName { get { return "RadioGroupSchemasIcons"; } }
         public override string GetPluginDisplayName { get { return MediaSchemaCore.PluginDisplayName; } }
 
-      
 
+        public MediaSchemaCore()
+        {
+            FillSource();
+        }
         public void Draw()
         {
             
@@ -82,7 +85,7 @@ namespace br.corp.bonus630.plugin.MediaSchema
             //    new SchemesAttribute("Password", typeof(string)),
             //    new SchemesAttribute("SSID Hidden", typeof(bool))})
             //  );
-
+            OnNotifyPropertyChanged("SchemesDataSource");
         }
         public override void SaveConfig()
         {

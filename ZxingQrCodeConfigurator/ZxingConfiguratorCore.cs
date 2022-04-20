@@ -12,19 +12,17 @@ using Corel.Interop.VGCore;
 
 namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 {
-    public class ZxingConfiguratorCore : PluginCoreBase<ZxingConfiguratorCore>, IPluginConfig, INotifyPropertyChanged
+    public class ZxingConfiguratorCore : PluginCoreBase<ZxingConfiguratorCore>, IPluginConfig
     {
         public const string PluginDisplayName = "Qrcode Configuration";
-        public event PropertyChangedEventHandler PropertyChanged;
         public event Action<object, Type> GetCodeGenerator;
-        public Ilang Lang { get; set; }
         public override string GetPluginDisplayName { get { return ZxingConfiguratorCore.PluginDisplayName; } }
         private bool weld;
 
         public bool Weld
         {
             get { return weld; }
-            set { weld = value; OnUpdatePreview(); }
+            set { weld = value; (CodeGenerator as QrCodeGenerator).Weld = value; OnUpdatePreview(); }
         }
         private bool noBorder;
 
@@ -51,7 +49,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                     (CodeGenerator as QrCodeGenerator).BorderColor = value.CorelColor;
                     selectedBorderColor = value;
                     OnUpdatePreview();
-                    NotifyPropertyChanged("SelectedBorderColor");
+                    OnNotifyPropertyChanged("SelectedBorderColor");
                 }
             }
         }
@@ -66,7 +64,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                     (CodeGenerator as QrCodeGenerator).DotFillColor = value.CorelColor;
                     selectedDotColor = value;
                     OnUpdatePreview();
-                    NotifyPropertyChanged("SelectedDotColor");
+                    OnNotifyPropertyChanged("SelectedDotColor");
                 }
             
             }
@@ -82,7 +80,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                     (CodeGenerator as QrCodeGenerator).DotOutlineColor = value.CorelColor;
                     selectedDotBorderColor = value;
                     OnUpdatePreview();
-                    NotifyPropertyChanged("SelectedDotBorderColor");
+                    OnNotifyPropertyChanged("SelectedDotBorderColor");
                 }
             }
         }
@@ -91,14 +89,14 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public double DotBorderSize
         {
             get { return dotBorderSize; }
-            set { dotBorderSize = value; OnUpdatePreview(); }
+            set { dotBorderSize = value; (CodeGenerator as QrCodeGenerator).DotBorderSize = value; OnUpdatePreview(); }
         }
         private DotShape dotShape;
 
         public DotShape DotShapeType
         {
             get { return dotShape; }
-            set { dotShape = value; OnUpdatePreview(); }
+            set { dotShape = value; (CodeGenerator as QrCodeGenerator).DotShapeType = value; OnUpdatePreview(); }
         }
 
 
@@ -111,14 +109,6 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             get { return codeGenerator; }
             set { codeGenerator = value; }
         }
-        public int Index { get; set; }
-
-        public void NotifyPropertyChanged(string propertyName = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
 
         public void OnGetCodeGenerator(object sender, Type type)
         {

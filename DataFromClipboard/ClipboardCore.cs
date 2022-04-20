@@ -23,7 +23,6 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
         public bool MonitorClipboard { get { return this.monitorClipboard; } set { this.monitorClipboard = value; } }
 
         public const string PluginDisplayName = "Data From Clipboard";
-        public Ilang Lang { get; set; }
         public List<object[]> DataSource
         {
             get

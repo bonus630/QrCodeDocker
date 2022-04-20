@@ -19,7 +19,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
 
        
 
-        public override string GetPluginDisplayName => throw new NotImplementedException();
+        public override string GetPluginDisplayName { get { return BatchFromTextFileCore.PluginDisplayName; } }
 
         private string filePath;
 

@@ -28,8 +28,8 @@ namespace br.corp.bonus630.plugin.MediaSchema
         private void MediaSchemaUI_Loaded(object sender, RoutedEventArgs e)
         {
             msCore = Core as MediaSchemaCore;
+            this.DataContext = msCore;
             msCore.LoadConfigEvent += MsCore_LoadConfigEvent;
-            msCore.FillSource();
         }
 
         private void MsCore_LoadConfigEvent()

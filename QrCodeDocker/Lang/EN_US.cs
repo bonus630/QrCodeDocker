@@ -72,6 +72,7 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
 
         public string MBoxFormatErroMessage { get { return "Invalid format size"; } }
         public string MBoxContentErroMessage { get { return "The content is empty"; } }
+        public string MBOX_ERROR_LangException { get { return "failed to load language"; } }
 
         public string WifiLabelSecurity { get { return "Security:"; } }
         public string TabTitleWifi { get { return "WiFi"; } }

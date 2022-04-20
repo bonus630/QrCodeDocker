@@ -40,7 +40,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             zcCore = Core as ZxingConfiguratorCore;
             zcCore.LoadConfigEvent += ZcCore_LoadConfigEvent;
             app = zcCore.App;
-            Lang = zcCore.Lang;
+            Lang = zcCore.Lang as Ilang;
         }
 
         private void ZcCore_LoadConfigEvent()

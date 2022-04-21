@@ -11,6 +11,12 @@
         <Button Height="28" Content="{Binding Lang.BTN_ProcessPage}" x:Name="btn_Page" Margin="10,10,10,0" />
         <Button Height="28" Content="{Binding Lang.BTN_ProcessSelection}" x:Name="btn_Selection" Margin="10,10,10,0" />
         <CheckBox Content="{Binding Lang.CB_DeleteOri}" x:Name="ck_deleteOri" Margin="10,10,10,0"/>
-        <CheckBox Content="{Binding Lang.CB_UseWidthToSize}" x:Name="ck_overWidth" Margin="10,10,10,0"/>
+        <GroupBox Header="{Binding Lang.GB_DefineSizeType,FallbackValue=Escolha um método para o tamanho}" Margin="10,10,10,0">
+            <StackPanel>
+                <RadioButton Content="{Binding Lang.CB_UseBestFitToSize}" x:Name="ck_bestFit" Margin="10,10,10,0"/>
+                <RadioButton Content="{Binding Lang.CB_UseWidthToSize}" x:Name="ck_overWidth" Margin="10,10,10,0"/>
+                <RadioButton Content="{Binding Lang.CB_UseSizeFieldToSize}" x:Name="ck_sizeField" Margin="10,10,10,0"/>
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </UserControl>

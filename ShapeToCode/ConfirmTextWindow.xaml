@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:br.corp.bonus630.plugin.ShapeToCode"
         xmlns:Resources="clr-namespace:br.corp.bonus630.QrCodeDocker;assembly=QrCodeDocker"
         mc:Ignorable="d"            
-        Height="200" Width="166" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Height="200" Width="166" ResizeMode="CanResizeWithGrip" Title="{Binding Lang.MBOX_title}" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

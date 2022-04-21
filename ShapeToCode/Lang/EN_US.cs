@@ -15,6 +15,9 @@ namespace br.corp.bonus630.plugin.ShapeToCode.Lang
         public string CB_DeleteOri { get { return "Delete Original"; } }
 
         public string CB_UseWidthToSize { get { return "Use Width to size"; } }
+        public string CB_UseBestFitToSize { get { return "Best Fit"; } }
+       public  string CB_UseSizeFieldToSize { get {return "Use size field"; } }
+        public string GB_DefineSizeType { get { return "Select size method"; } }
         public string MBOX_title { get { return "Makes corrections"; } }
     }
 }

@@ -38,13 +38,13 @@
                     </tabs:WiFiControl>
                 </TabControl>
             </ScrollViewer>
-            <Grid Margin="0,8,0,0" HorizontalAlignment="Left" Width="225">
-                <Label Name="lbaDotSize" Content="{Binding Path=Lang.LabelDotSize}" Margin="0,0,147,0"/>
-                <TextBox x:Name="txt_dot" Text="1" IsEnabled="false" Margin="83,0,0,0" HorizontalAlignment="Left" Width="28" VerticalAlignment="Center" />
-                <Label Name="lbaSize" Content="{Binding Path=Lang.LabelSize}" Margin="111,0,38,0"></Label>
-                <TextBox HorizontalAlignment="Left" Width="33" x:Name="txt_size" Text="221" TextChanged="txt_size_TextChanged" Margin="192,0,0,0" VerticalAlignment="Center" />
+            <StackPanel Margin="0,8,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                <Label Name="lbaDotSize" Content="{Binding Path=Lang.LabelDotSize,FallbackValue=Tamanho do Ponto}" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="txt_dot" Text="1" IsEnabled="false" Margin="0,4,0,4" HorizontalAlignment="Left" Width="28" Height="28" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                <Label Name="lbaSize" Content="{Binding Path=Lang.LabelSize,FallbackValue=Tamanho}" Margin="0,0,-0,0" VerticalAlignment="Center"/>
+                <TextBox HorizontalAlignment="Left" Width="33" x:Name="txt_size" Text="221" TextChanged="txt_size_TextChanged" Margin="4,0,-0,0" VerticalAlignment="Center" Height="28" VerticalContentAlignment="Center"/>
 
-            </Grid>
+            </StackPanel>
 
             <StackPanel Height="26" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,4,0,4" Visibility="Collapsed">
                 <Label Name="lbaEncodingType" Content="{Binding Path=Lang.LabelEncodingType}"  VerticalAlignment="Center"/>
@@ -54,14 +54,15 @@
 
             </StackPanel>
             <Grid Margin="0,8,0,0" HorizontalAlignment="Left" Width="225">
-                <Button Content="{Binding Path=Lang.ButtonDrawVector}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Left" Width="80" Margin="12,0,0,0"/>
-                <Button Content="{Binding Path=Lang.ButtonDrawBitmap}"  Margin="100,0,0,0" x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Left" Width="80" Height="24"/>
+                <Button Content="{Binding Path=Lang.ButtonDrawVector}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Left" Width="80" Height="28" Margin="12,0,0,0"/>
+                <Button Content="{Binding Path=Lang.ButtonDrawBitmap}"  Margin="100,0,0,0" x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Left" Width="80" Height="28"/>
                 <!--<Button Content="Extras" Margin="188,0,0,0" Name="btn_extras" Click="btn_extras_Click" Visibility="Hidden"/>-->
             </Grid>
-            <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader}" Name="groupBoxPluginContainer" Margin="0,10" Visibility="{Binding CanLoadPlugin,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Visible}">
+            <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader,FallbackValue=Extras}" Name="groupBoxPluginContainer" Margin="0,10" Width="316"
+                      Visibility="{Binding CanLoadPlugin,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Visible}">
 
             </GroupBox>
-            <Label Name="lbaPreview" Content="{Binding Path=Lang.LabelPreview}" Margin="0,8,0,0" HorizontalAlignment="Left" Width="225"/>
+            <Label Name="lbaPreview" Content="{Binding Path=Lang.LabelPreview,FallbackValue=Preview}" Margin="0,8,0,0" HorizontalAlignment="Left" Width="225"/>
             <Grid Width="294" Height="294" Margin="0,0,0,0" VerticalAlignment="Top">
                 <Border BorderThickness="1">
                     <Image Height="294" Width="294" Name="img_render" Stretch="UniformToFill" Margin="1,1,1,1"  OpacityMask="#FFD10B0B" HorizontalAlignment="Left"/>
@@ -69,7 +70,7 @@
             </Grid>
             <Separator Margin="0,10"/>
             <Grid Height="80">
-              
+
 
                 <Image Height="68" Style="{StaticResource bonus630Image}" MouseUp="Image_MouseUp" Name="img_bonus" ToolTip="{Binding Path=Lang.ToolTipBonus630}" Cursor="Hand" Margin="255,6,0,6" HorizontalAlignment="Left" Width="68"/>
                 <Image Height="68" Style="{StaticResource CorelNaVeia2015Image}" x:Name="img_corelNaVeia" ToolTip="{Binding Path=Lang.ToolTipCorelNaVeia}" Cursor="Hand" Margin="180,6,0,6" HorizontalAlignment="Left" Width="68" MouseUp="img_corelNaVeia_MouseUp"/>
@@ -77,7 +78,7 @@
                 <!--<WebBrowser  Width="160" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="52" Margin="4,0,0,4" Source="https://bonus630.com.br/ad.html" />-->
                 <!--<Label x:Name="lba_gma" Content="https://qrcodenet.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0,22,0,0" MouseUp="lba_gma_MouseUp" Cursor="Hand" ToolTip="third party .net libraries"/>-->
             </Grid>
-           
+
         </StackPanel>
     </ScrollViewer>
 </UserControl>

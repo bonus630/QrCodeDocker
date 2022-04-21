@@ -26,6 +26,9 @@ namespace br.corp.bonus630.plugin.ShapeToCode
 
         public override string GetPluginDisplayName { get { return ShapeToCodeCore.PluginDisplayName; } }
 
+        public bool BestFit { get; internal set; }
+        public bool SizeField { get; internal set; }
+
         public void Draw()
         {
             try
@@ -48,8 +51,7 @@ namespace br.corp.bonus630.plugin.ShapeToCode
                 app.Refresh();
             }
         }
-        int i = 1;
-        
+
         private void processRange(ShapeRange range)
         {
             try
@@ -68,27 +70,15 @@ namespace br.corp.bonus630.plugin.ShapeToCode
                     if (range[i].Type.Equals(cdrShapeType.cdrCurveShape))
                     {
                         string text = processCurve(range[i]);
-                        ConfirmTextWindow ctw = new ConfirmTextWindow(Lang as Ilang);
+                        ConfirmTextWindow ctw = new ConfirmTextWindow(Lang as Ilang, app);
                         ctw.Text = text;
-                    //ctw.Show();
                         if ((bool)ctw.ShowDialog())
                         {
                             text = ctw.Text;
                             if (!String.IsNullOrEmpty(text))
                                 CreateCode(range[i], text);
                         }
-                        
-
                     }
-                //i++;
-                //if(i>range.Count)
-                //{
-                //    i = 1;
-                //}
-                //else
-                //{
-                //    processRange(range);
-                //}
                 }
             }
 
@@ -102,8 +92,6 @@ namespace br.corp.bonus630.plugin.ShapeToCode
         {
             string tessdataPath = this.app.AddonPath + "QrCodeDocker\\extras\\tessdata";
 
-
-            // System.Windows.MessageBox.Show("ToText");
 
             string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\bonus630\\OCR";
             try
@@ -161,12 +149,23 @@ namespace br.corp.bonus630.plugin.ShapeToCode
         {
             if (String.IsNullOrEmpty(text))
                 text = shape.Text.Story.Text;
-            Size = shape.SizeWidth;
-            if (shape.SizeWidth > shape.SizeHeight && !OverrideWidth)
-                Size = shape.SizeHeight;
             Shape code = this.code.CreateVetorLocal(shape.Layer, text, Size, shape.LeftX, shape.TopY, string.Format("QR-{0}", text));
-            code.SetPosition(shape.LeftX, shape.TopY);
-            code.SetSize(Size, Size);
+            double size = shape.SizeWidth;
+            if (OverrideWidth)
+            {
+                code.SetPosition(shape.LeftX, shape.CenterY + size / 2);
+            }
+            if(BestFit)
+            {
+                size = (shape.SizeHeight + shape.SizeWidth) / 2;
+                code.SetPosition(shape.CenterX - size / 2 , shape.CenterY +  size /2);
+            }
+            if(SizeField)
+            {
+                size = Size;
+                code.SetPosition(shape.CenterX - size / 2, shape.CenterY + size / 2);
+            }
+            code.SetSize(size, size);
             if (DeleteOri)
                 shape.Delete();
             return code;

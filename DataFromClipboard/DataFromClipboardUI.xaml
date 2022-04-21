@@ -23,7 +23,9 @@
                 <DataTemplate>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button ToolTip="{Binding Lang.ToolTip_Remove}" Width="24" Height="24" BorderThickness="0" CommandParameter="{Binding}" Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" Content="x" />
+                        <Button ToolTip="{Binding Path=DataContext.Lang.ToolTip_Remove, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"
+                                Width="24" Height="24" BorderThickness="0" CommandParameter="{Binding}" 
+                                Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" Content="x" />
 
                         <Label  Width="284" Content="{Binding Text}">
                             <Label.ToolTip>

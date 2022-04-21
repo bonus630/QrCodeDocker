@@ -39,10 +39,17 @@ namespace br.corp.bonus630.plugin.ShapeToCode
             btn_Page.Click += (s, e) => { scCore.Sr_Range = Range.Page; Draw(); };
             btn_Selection.Click += (s, e) => { scCore.Sr_Range = Range.Selection; Draw(); };
             ck_deleteOri.Click += (s, e) => { scCore.DeleteOri = (bool)(s as CheckBox).IsChecked; };
-            ck_overWidth.Click += (s, e) => { scCore.OverrideWidth = (bool)(s as CheckBox).IsChecked; };
+            ck_overWidth.Click += (s, e) => { SetSize(); };
+            ck_bestFit.Click += (s, e) => { SetSize(); };
+            ck_sizeField.Click += (s, e) => { SetSize(); };
         }
 
-
+        public void SetSize()
+        {
+            scCore.OverrideWidth = (bool)ck_overWidth.IsChecked;
+            scCore.BestFit = (bool)ck_bestFit.IsChecked;
+            scCore.SizeField = (bool)ck_sizeField.IsChecked;
+        }
 
         public IPluginCore Core { get ; set; }
 

@@ -37,7 +37,8 @@
       <itemData guid="efc02df4-8eb5-44b5-8016-1c495af1504e"
                 type="wpfhost"
                 hostedType="Addons\QrCodeDocker\QrCodeDocker.dll,br.corp.bonus630.QrCodeDocker.Docker"
-                enable="true"/>
+                enable="true"
+				width="326"/>
 
     </xsl:copy>
   </xsl:template>

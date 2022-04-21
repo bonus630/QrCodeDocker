@@ -12,6 +12,9 @@ namespace br.corp.bonus630.plugin.ShapeToCode.Lang
         string BTN_ProcessSelection { get; }
         string CB_DeleteOri { get; }
         string CB_UseWidthToSize { get; }
+        string CB_UseBestFitToSize { get; }
+        string CB_UseSizeFieldToSize { get; }
+         string GB_DefineSizeType { get;  }
         string MBOX_title { get; }
     }
 }

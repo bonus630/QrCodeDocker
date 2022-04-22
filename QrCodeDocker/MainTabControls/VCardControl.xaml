@@ -13,14 +13,14 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
             <TextBox VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0" Name="txt_vcardTitle" TextChanged="txt_vcard" />
             <TextBox VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Name="txt_vcardName" TextChanged="txt_vcard"/>

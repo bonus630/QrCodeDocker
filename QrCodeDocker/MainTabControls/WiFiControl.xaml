@@ -11,10 +11,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
         <Label Content="{Binding Path=Lang.WifiLabelSSID}" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
         <Label  Content="{Binding Path=Lang.WifiLabelSecurity}" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"/>

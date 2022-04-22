@@ -42,11 +42,16 @@ namespace br.corp.bonus630.plugin.MediaSchema
             CheckBox ck = new CheckBox();
             ck.Tag = attribute.Name;
             ck.Content = attribute.Name;
-            ck.Checked += Ck_Clicked;
+            ck.Checked += Ck_Checked; ;
             return ck;
         }
 
-    
+        private void Ck_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            msCore.CurrentScheme = msCore.SchemesDataSource.Single(r => r.Tag == (int)cb.Tag);
+            msCore.OnAnyTextChanged(cb.Tag.ToString(), new object[] { cb.IsChecked });
+        }
 
         private TextBox buildTextBox(SchemesAttribute attribute, int index)
         {
@@ -99,22 +104,18 @@ namespace br.corp.bonus630.plugin.MediaSchema
             msCore.OnAnyTextChanged(txt.Tag.ToString(), new object[] { txt.Text });
 
         }
-        private void Ck_Clicked(object sender, RoutedEventArgs e)
-        {
-            CheckBox cb = sender as CheckBox;
-            msCore.OnAnyTextChanged(cb.Tag.ToString(), new object[] { cb.IsChecked });
-        }
+     
         private void InflateUISchema(int schemaTag)
         {
             sp_attributesContent.Children.Clear();
-            Schemes currentScheme = msCore.SchemesDataSource.Single(r => r.Tag == schemaTag);
+            msCore.CurrentScheme = msCore.SchemesDataSource.Single(r => r.Tag == schemaTag);
 
-            scheme_type.Content = currentScheme.Name;
+            scheme_type.Content = msCore.CurrentScheme.Name;
 
-            Grid grid = buildGrid(currentScheme.SchemesAttributes.Length, 2);
-            for (int i = 0; i < currentScheme.SchemesAttributes.Length; i++)
+            Grid grid = buildGrid(msCore.CurrentScheme.SchemesAttributes.Length, 2);
+            for (int i = 0; i < msCore.CurrentScheme.SchemesAttributes.Length; i++)
             {
-                SchemesAttribute attribute = currentScheme.SchemesAttributes[i];
+                SchemesAttribute attribute = msCore.CurrentScheme.SchemesAttributes[i];
 
                 switch (Type.GetTypeCode(attribute.type))
                 {

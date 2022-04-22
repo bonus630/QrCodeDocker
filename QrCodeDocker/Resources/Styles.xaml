@@ -63,6 +63,8 @@
     <Style TargetType="TextBox">
         <Setter Property="Background" Value="{DynamicResource Container.Text.Static.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Default.Static.Foreground}" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
     <!--<Style TargetType="ComboBox">
             <Setter Property="Background" Value="{Binding Path=StyleScheme.ContainerTextStaticBackground}" />
@@ -234,6 +236,7 @@
         <Setter Property="Background" Value="{DynamicResource Button.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Button.Static.Border}"/>
         <Setter Property="Foreground" Value="{DynamicResource Default.Static.Foreground}"/>
+        <Setter Property="Height" Value="28" />
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -624,6 +627,7 @@
         <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
         <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+        <Setter Property="Height" Value="28" />
         <Style.Triggers>
             <Trigger Property="IsEditable" Value="true">
                 <Setter Property="IsTabStop" Value="false"/>

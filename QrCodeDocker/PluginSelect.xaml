@@ -15,7 +15,7 @@
                 <BlurEffect/>
             </ProgressBar.Effect>
         </ProgressBar>
-        <Grid Height="30">
+        <Grid Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="30"/>
@@ -24,28 +24,28 @@
             </Grid.ColumnDefinitions>
             <!--<Label Content="Extras:" Margin="0,10,0,-10" />-->
             <ComboBox Grid.Column="0" Name="cb_plugins" DropDownClosed="cb_plugins_DropDownClosed" Margin="2"/>
-            <Button Width="26" Height="26" Grid.Column="1" Name="btn_loadPlugin" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="2"  Click="btn_loadPlugin_Click" Background="Transparent">
+            <Button Width="28" Height="28" Grid.Column="1" Name="btn_loadPlugin" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="2"  Click="btn_loadPlugin_Click" Background="Transparent">
                 <Image Style="{StaticResource BrowserImage}"  />
                 <Button.ToolTip>
                     <Label Content="{Binding Lang.BTN_BrowserPluginToolTip}"/>
                 </Button.ToolTip> 
             </Button>
-            <Button Width="26" Height="26"  Grid.Column="2" Name="btn_saveConfig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"  Click="btn_saveConfig_Click" Background="Transparent">
+            <Button Width="28" Height="28"  Grid.Column="2" Name="btn_saveConfig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"  Click="btn_saveConfig_Click" Background="Transparent">
                 <Image Style="{StaticResource SaveImage}" />
                 <Button.ToolTip>
                     <Label Content="{Binding Lang.BTN_SavePluginToolTip}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Width="26" Height="26" Grid.Column="3" Name="btn_deleteConfig" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="2" Click="btn_deleteConfig_Click" Background="Transparent">
+            <Button Width="28" Height="28" Grid.Column="3" Name="btn_deleteConfig" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="2" Click="btn_deleteConfig_Click" Background="Transparent">
                 <Image Style="{StaticResource DeleteImage}"/>
                 <Button.ToolTip>
                     <Label Content="{Binding Lang.BTN_DeletePluginToolTip}"/>
                 </Button.ToolTip>
             </Button>
         </Grid>
-        <ScrollViewer  Margin="0,26,0,0"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <!--<ScrollViewer  Margin="0,26,0,0"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
             <StackPanel x:Name="grid_controlUI"/>
-        </ScrollViewer>
+        <!--</ScrollViewer>-->
 
 
     </StackPanel>

@@ -53,12 +53,12 @@
                 <RadioButton Content="Zxing"  HorizontalAlignment="Left"  VerticalAlignment="Center" Name="radioButton_zxing" Checked="radioButton_zxing_Checked" Click="radioButton_zxing_Click" ToolTip="Método com suporte a UTF-8 https://zxingnet.codeplex.com" Margin="4,0,0,0" />
 
             </StackPanel>
-            <Grid Margin="0,8,0,0" HorizontalAlignment="Left" Width="225">
-                <Button Content="{Binding Path=Lang.ButtonDrawVector}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Left" Width="80" Height="28" Margin="12,0,0,0"/>
-                <Button Content="{Binding Path=Lang.ButtonDrawBitmap}"  Margin="100,0,0,0" x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Left" Width="80" Height="28"/>
+            <Grid Margin="0,8,0,0" HorizontalAlignment="Left" >
+                <Button Content="{Binding Path=Lang.ButtonDrawVector,FallbackValue=Desenhar Vetor}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Left" Width="100" Height="28" Margin="12,0,0,0"/>
+                <Button Content="{Binding Path=Lang.ButtonDrawBitmap,FallbackValue=Desenha Bitmap}"  Margin="119,0,0,0" x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Left" Width="100" Height="28"/>
                 <!--<Button Content="Extras" Margin="188,0,0,0" Name="btn_extras" Click="btn_extras_Click" Visibility="Hidden"/>-->
             </Grid>
-            <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader,FallbackValue=Extras}" Name="groupBoxPluginContainer" Margin="0,10" Width="316"
+            <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader,FallbackValue=Extras}" Name="groupBoxPluginContainer" Margin="0,10" 
                       Visibility="{Binding CanLoadPlugin,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Visible}">
 
             </GroupBox>

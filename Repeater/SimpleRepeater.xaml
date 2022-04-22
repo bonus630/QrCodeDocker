@@ -503,27 +503,33 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-            </Grid.ColumnDefinitions>  
+            </Grid.ColumnDefinitions>
             <GroupBox Header="{Binding Lang.GBH_Enumaration}" Grid.Column="0" Margin="5,10,0,0" HorizontalAlignment="Left"  Height="146" VerticalAlignment="Top" >
-                <Grid>
-                    <Button Name="btn_enumerator" Content="{Binding Lang.BTN_Enumerator,FallbackValue=Enumarator}" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" MinWidth="120" Click="Button_Click"/>
-                    <Grid Name="grid_enumerator" Margin="2,35,2,0" HorizontalAlignment="Left" Width="131"  VerticalAlignment="Top" >
+                <Grid Margin="2,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+
+
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Name="btn_enumerator" Content="{Binding Lang.BTN_Enumerator,FallbackValue=Enumarator}" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="120" Click="Button_Click"/>
+                    <Grid Grid.Row="1" Name="grid_enumerator" Margin="2,0,2,0" HorizontalAlignment="Left" Width="131"  VerticalAlignment="Top" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="32"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="28"/>
-                            <RowDefinition Height="28"/>
-                            <RowDefinition Height="28"/>
-                            
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Grid.Column="0"  Content="{Binding Lang.LBA_InitialValue}"  VerticalAlignment="Center" HorizontalAlignment="Left"  />
-                        <TextBox Grid.Row="0" Grid.Column="1"  Name="txt_initialValue" Text="0" Height="18" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" />
+                        <TextBox Grid.Row="0" Grid.Column="1"  Name="txt_initialValue" Text="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" />
                         <Label Grid.Row="1" Grid.Column="0"  Content="{Binding Lang.LBA_Increment}"  VerticalAlignment="Center" HorizontalAlignment="Left"  />
-                        <TextBox  Grid.Row="1" Grid.Column="1" Name="txt_increment" Height="18" Text="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" />
+                        <TextBox  Grid.Row="1" Grid.Column="1" Name="txt_increment" Text="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" />
                         <Label Grid.Row="2" Grid.Column="0"  Content="{Binding Lang.LBA_Mask}" HorizontalAlignment="Left"  VerticalAlignment="Center"  />
-                        <TextBox Grid.Row="2" Grid.Column="1"  Name="txt_mask" Height="18" Text="000" VerticalAlignment="Center" HorizontalAlignment="Left" Width="32"  />
+                        <TextBox Grid.Row="2" Grid.Column="1"  Name="txt_mask" Text="000" VerticalAlignment="Center" HorizontalAlignment="Left" Width="32"  />
                     </Grid>
 
                 </Grid>
@@ -535,26 +541,26 @@
                         <ColumnDefinition Width="26"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="28"/>
-                        <RowDefinition Height="28"/>
-                        <RowDefinition Height="28"/>
-                        <RowDefinition Height="28"/>
-                        
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+
                     </Grid.RowDefinitions>
                     <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="cb_fitToPage" Content="{Binding Lang.CB_FitToPage,FallbackValue=Ajustar na pagina}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Click="cb_fitToPage_Click"/>
                     <Label Grid.Row="1" Grid.Column="0" Content="{Binding Lang.LBA_Left}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                     <Label Grid.Row="2" Grid.Column="0" Content="{Binding Lang.LBA_Top}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                     <Label Grid.Row="3" Grid.Column="0" Content="{Binding Lang.LBA_Gap}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Height="18"  TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_startX"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Height="18"  TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_gap"/>
-                    <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Height="18"  TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_startY"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_startX"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_gap"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_startY"/>
                 </Grid>
             </GroupBox>
 
-         
+
         </Grid>
         <Grid Height="41">
-            <Button x:Name="btn_process" Content="{Binding Lang.BTN_Process}" Click="btn_process_Click" Width="73" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,7,0,0"/>
+            <Button x:Name="btn_process" Content="{Binding Lang.BTN_Process,FallbackValue=Multiplos desenhos}" Click="btn_process_Click" Width="130" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,7,0,0"/>
         </Grid>
     </StackPanel>
 </UserControl>

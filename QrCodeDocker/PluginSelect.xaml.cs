@@ -119,6 +119,8 @@ namespace br.corp.bonus630.QrCodeDocker
         private void cb_plugins_DropDownClosed(object sender, EventArgs e)
         {
             PluginMap pluginMap = (PluginMap)cb_plugins.SelectedItem;
+            if (pluginMap == null)
+                return;
             InflateUI(pluginMap);
             cb_plugins.SelectedIndex = -1;
 
@@ -148,25 +150,36 @@ namespace br.corp.bonus630.QrCodeDocker
 
         private void expanderRemoveClick(object sender, RoutedEventArgs e)
         {
-
             //var teste = ((sender as Button).TemplatedParent as StackPanel).Parent;
             int index = (int)(sender as Button).Tag;
-
-
+            RemovePluginUI(index);
+        }
+        private void RemovePluginUI(int index)
+        {
             for (int i = 0; i < this.loadedPluginList.Count; i++)
             {
                 if (index == this.loadedPluginList[i].Index)
                 {
+                    cb_plugins.Items.Add(pluginNames.Find(r => r.DisplayName == this.loadedPluginList[i].GetPluginDisplayName));
                     this.loadedPluginList.RemoveAt(i);
                     grid_controlUI.Children.RemoveAt(i);
+
+
+                    try
+                    {
+                        //Preciso remover a instance da interface?
+                    }
+                    catch
+                    {
+
+                    }
+
                     if (grid_controlUI.Children.Count == 0)
                     {
                         //this.Title = "Extras Select";
                     }
                 }
             }
-
-
         }
         private void expanderExpander(object sender, RoutedEventArgs e)
         {
@@ -249,12 +262,25 @@ namespace br.corp.bonus630.QrCodeDocker
                 Expander cont = new Expander();
 
                 DataTemplate dt = new DataTemplate(typeof(Expander));
-                FrameworkElementFactory stackPanel = new FrameworkElementFactory(typeof(StackPanel));
-                stackPanel.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+               // FrameworkElementFactory stackPanel = new FrameworkElementFactory(typeof(StackPanel));
+                //stackPanel.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+
+               
 
                 FrameworkElementFactory label = new FrameworkElementFactory(typeof(Label));
                 label.SetValue(Label.ContentProperty, pluginMap.DisplayName);
                 LengthConverter lc = new LengthConverter();
+                var height28 = lc.ConvertFromInvariantString("28px");
+                FrameworkElementFactory grid = new FrameworkElementFactory(typeof(Grid));
+                grid.SetValue(Grid.HeightProperty, height28);
+                FrameworkElementFactory col1 = new FrameworkElementFactory(typeof(ColumnDefinition));
+                FrameworkElementFactory col2 = new FrameworkElementFactory(typeof(ColumnDefinition));
+
+                col1.SetValue(ColumnDefinition.WidthProperty, new GridLength(1, GridUnitType.Auto));
+                col2.SetValue(ColumnDefinition.WidthProperty, new GridLength(1, GridUnitType.Star));
+                grid.AppendChild(col1);
+                grid.AppendChild(col2);
+
                 string qualifiedDouble = "250px";
 
                 var converted = lc.ConvertFrom(qualifiedDouble);
@@ -262,17 +288,21 @@ namespace br.corp.bonus630.QrCodeDocker
                 label.SetValue(Label.WidthProperty, converted);
                 FrameworkElementFactory btn = new FrameworkElementFactory(typeof(Button));
                 btn.SetValue(Button.ContentProperty, "-");
-                var btnWidth = lc.ConvertFromInvariantString("20px");
-                btn.SetValue(Button.WidthProperty, btnWidth);
+                //var btnWidth = lc.ConvertFromInvariantString("28px");
+                btn.SetValue(Button.WidthProperty, height28);
+                btn.SetValue(Button.HeightProperty, height28);
                 btn.SetValue(Button.TagProperty, index);
                 btn.AddHandler(Button.ClickEvent, new RoutedEventHandler(expanderRemoveClick));
-                stackPanel.AppendChild(label);
-                stackPanel.AppendChild(btn);
+                // stackPanel.AppendChild(label);
+                //stackPanel.AppendChild(btn);
+                grid.AppendChild(label);
+                label.SetValue(Grid.ColumnProperty, 0);
 
-
+                grid.AppendChild(btn);
+                btn.SetValue(Grid.ColumnProperty, 1);
                 cont.HeaderTemplate = dt;
-                dt.VisualTree = stackPanel;
-
+                // dt.VisualTree = stackPanel;
+                dt.VisualTree = grid;
 
                 cont.IsExpanded = true;
                 cont.SetValue(Expander.TagProperty, pluginMap.DisplayName);
@@ -281,8 +311,11 @@ namespace br.corp.bonus630.QrCodeDocker
                 object thi = t.ConvertFromInvariantString("0,0,0,14");
                 cont.SetValue(Control.MarginProperty, thi);
                 cont.AddHandler(Expander.ExpandedEvent, new RoutedEventHandler(expanderExpander));
-                grid_controlUI.Children.Add(cont);
-                loadedPluginList.Add(objCore);
+               
+                
+
+                grid_controlUI.Children.Insert(0,cont);
+                loadedPluginList.Insert(0,objCore);
 
                 SetValues(objCore, size, app, codeGenerator);
                 // this.Title = pluginMap.DisplayName;
@@ -304,6 +337,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 SetDataSource(this.dataSource);
 
                 index++;
+                cb_plugins.Items.Remove(pluginMap);
             }
             catch (Exception erro)
             {
@@ -355,6 +389,8 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         public void LoadConfig()
         {
+            if (Properties.Settings.Default.PluginNameCollection == null)
+                return;
             var pluginNames = Properties.Settings.Default.PluginNameCollection;
             for (int i = 0; i < pluginNames.Count; i++)
             {
@@ -366,13 +402,18 @@ namespace br.corp.bonus630.QrCodeDocker
                         {
                             InflateUI(this.pluginNames[r]);
                         }
-                        catch (Exception e) { Debug.WriteLine(e.Message, "LoadConfig"); }
+                        catch (Exception e) { 
+                            Debug.WriteLine(e.Message, "LoadConfig");
+                            throw new Exception(string.Format("Inflate {0} failed", this.pluginNames[r].DisplayName));
+                        }
 
                         try
                         {
                             this.loadedPluginList[this.loadedPluginList.Count - 1].LoadConfig();
                         }
-                        catch (Exception e) { Debug.WriteLine(e.Message, "LoadConfig"); }
+                        catch (Exception e) { Debug.WriteLine(e.Message, "LoadConfig");
+                            throw new Exception(string.Format("Load config {0} failed", this.pluginNames[r].DisplayName));
+                        }
                     }
                 }
             }

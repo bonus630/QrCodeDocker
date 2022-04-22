@@ -118,5 +118,17 @@ namespace br.corp.bonus630.plugin.Repeater.Properties {
                 this["Gap"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreFirstLine {
+            get {
+                return ((bool)(this["IgnoreFirstLine"]));
+            }
+            set {
+                this["IgnoreFirstLine"] = value;
+            }
+        }
     }
 }

@@ -9,13 +9,13 @@ using System.IO;
 
 namespace br.corp.bonus630.plugin.Repeater
 {
-    public class RepeaterCore :  PluginCoreBase<RepeaterCore>, IPluginDrawer
+    public class RepeaterCore : PluginCoreBase<RepeaterCore>, IPluginDrawer
     {
         public const string PluginDisplayName = "Simple Repeater";
 
         double size = 221;
         private Application app;
-     
+
         private br.corp.bonus630.PluginLoader.ICodeGenerator codeGenerator;
         private ShapeRange modelShape;
         private ItemTuple<Shape> shapeContainer;
@@ -23,7 +23,7 @@ namespace br.corp.bonus630.plugin.Repeater
         private double gap = 0.1;
         private List<object[]> dataSource;
         private bool fitToPage = false;
-        
+
         private double startX = 0.1;
         private double startY = 0.1;
         private int enumerator = 0;
@@ -37,12 +37,16 @@ namespace br.corp.bonus630.plugin.Repeater
         private int numColumns, numLines;
         private string mask = "0000";
 
-        public string Mask{get { return mask; } set { mask =  value; }
+        public string Mask
+        {
+            get { return mask; }
+            set { mask = value; }
         }
+        public bool IgnoreFirstLine { get; set; }
         public bool QrFormatVector { get; set; }
 
 
-        public bool FitToPage { get {return this.fitToPage; } set { this.fitToPage = value; } }
+        public bool FitToPage { get { return this.fitToPage; } set { this.fitToPage = value; } }
 
         public RepeaterCore()
         {
@@ -73,7 +77,18 @@ namespace br.corp.bonus630.plugin.Repeater
                 this.size = shapeContainer.Item.SizeWidth;
             }
         }
-        public List<object[]> DataSource { get { return this.dataSource; } set { this.dataSource = value; (mainUI as SimpleRepeater).FillButtons(); } }
+        public List<object[]> DataSource
+        {
+            get
+            {
+                return this.dataSource;
+            }
+            set
+            {
+                this.dataSource = value;
+                (mainUI as SimpleRepeater).FillButtons();
+            }
+        }
         Application IPluginDrawer.App { set { this.app = value; } }
 
         public List<ItemTuple<Shape>> ShapeContainerText { get; internal set; }
@@ -85,7 +100,7 @@ namespace br.corp.bonus630.plugin.Repeater
 
         public void Draw()
         {
-            
+
         }
 
 
@@ -95,13 +110,13 @@ namespace br.corp.bonus630.plugin.Repeater
             base.OnProgressChange(p);
         }
 
-        
-       
-        public void ProcessVector(int qrcodeContentIndex = -1,bool vector = true)
+
+
+        public void ProcessVector(int qrcodeContentIndex = -1, bool vector = true)
         {
             try
             {
-            
+
                 int colCount = 0;
                 int linCount = 0;
                 int colMax = 0;
@@ -116,11 +131,13 @@ namespace br.corp.bonus630.plugin.Repeater
                 System.Diagnostics.Debug.WriteLine(string.Format("modelW{0} modelH{1}", modelShape.SizeWidth, modelShape.SizeHeight), "contador");
                 System.Diagnostics.Debug.WriteLine(string.Format("W{0} H{1}", ((pageWidth - startX) - ((pageWidth - startX) % (modelShape.SizeWidth + gap))) / (modelShape.SizeWidth + gap), ((pageHeight - startY) - ((pageHeight - startY) % (modelShape.SizeHeight + gap))) / (modelShape.SizeHeight + gap)), "contador");
                 int numPerPage = colMax * linMax;
+                app.Optimization = true;
+                app.EventsEnabled = false;
+                app.ActiveDocument.BeginCommandGroup("Duplicate");
                 for (int i = 0; i < dataSource.Count; i++)
                 {
-                    app.Optimization = true;
-                    app.EventsEnabled = false;
-                    app.ActiveDocument.BeginCommandGroup("Duplicate");
+                    if (IgnoreFirstLine)
+                        continue;
                     //ShapeRange duplicate = modelShape.Duplicate();
                     Page page = this.app.ActiveDocument.ActivePage;
                     ShapeRange duplicate = modelShape.CopyToLayer(page.ActiveLayer);
@@ -136,7 +153,7 @@ namespace br.corp.bonus630.plugin.Repeater
                     }
                     foreach (Shape item in duplicate.Shapes)
                     {
-                        if (shapeContainer!=null && item.Name == shapeContainer.Item.Name)
+                        if (shapeContainer != null && item.Name == shapeContainer.Item.Name)
                         {
                             code.PositionX = item.PositionX;
                             code.PositionY = item.PositionY;
@@ -162,7 +179,7 @@ namespace br.corp.bonus630.plugin.Repeater
                         tuple = this.ShapeContainerImageFile.FirstOrDefault(r => r.Item.Name == item.Name && r.Item.SizeHeight == item.SizeHeight && r.Item.SizeWidth == item.SizeWidth);
                         if (tuple != null)
                         {
-                         
+
                             Shape image = ImportImageFile(page.ActiveLayer, this.dataSource[i][tuple.Index].ToString(), (int)item.SizeWidth, (int)item.SizeHeight);
                             if (image == null)
                                 continue;
@@ -219,7 +236,7 @@ namespace br.corp.bonus630.plugin.Repeater
                             page.Activate();
 
                         }
-                        
+
                     }
                     else
                     {
@@ -227,7 +244,7 @@ namespace br.corp.bonus630.plugin.Repeater
                         duplicate.PositionY = duplicate.PositionY;
                     }
 
-                   
+
                     OnProgressChange(i);
                 }
                 app.Optimization = false;
@@ -235,7 +252,7 @@ namespace br.corp.bonus630.plugin.Repeater
                 app.ActiveDocument.EndCommandGroup();
                 app.Refresh();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Message, "Debug");
                 System.Diagnostics.Debug.WriteLine(e.Source, "Source");
@@ -246,12 +263,12 @@ namespace br.corp.bonus630.plugin.Repeater
                 app.EventsEnabled = true;
                 app.ActiveDocument.EndCommandGroup();
                 app.Refresh();
-               
+
             }
             OnFinishJob(null);
         }
-        
-        private Shape ImportImageFile(Layer layer,string imagePath, int width, int height)
+
+        private Shape ImportImageFile(Layer layer, string imagePath, int width, int height)
         {
             if (!File.Exists(imagePath))
                 return null;
@@ -290,6 +307,8 @@ namespace br.corp.bonus630.plugin.Repeater
             Properties.Settings1.Default.StartX = StartX;
             Properties.Settings1.Default.Starty = StartY;
             Properties.Settings1.Default.Gap = Gap;
+            Properties.Settings1.Default.IgnoreFirstLine = IgnoreFirstLine;
+
             Properties.Settings1.Default.Save();
             base.SaveConfig();
         }
@@ -298,12 +317,13 @@ namespace br.corp.bonus630.plugin.Repeater
             QrFormatVector = Properties.Settings1.Default.QrFormatVector;
             Enumerator = (int)Properties.Settings1.Default.InitialValue;
             EnumeratorIncrement = (int)Properties.Settings1.Default.Increment;
-           Mask = Properties.Settings1.Default.Mask.ToString();
+            Mask = Properties.Settings1.Default.Mask.ToString();
             FitToPage = Properties.Settings1.Default.FitToPage;
-            StartX= Properties.Settings1.Default.StartX;
-            StartY= Properties.Settings1.Default.Starty;
+            StartX = Properties.Settings1.Default.StartX;
+            StartY = Properties.Settings1.Default.Starty;
             Gap = Properties.Settings1.Default.Gap;
-            base.LoadConfig();  
+            IgnoreFirstLine = Properties.Settings1.Default.IgnoreFirstLine;
+            base.LoadConfig();
         }
         public override void DeleteConfig()
         {

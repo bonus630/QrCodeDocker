@@ -25,26 +25,24 @@ namespace br.corp.bonus630.plugin.Repeater
     /// </summary>
     public partial class SimpleRepeater : UserControl, IPluginMainUI
     {
-       
+
         Corel.Interop.VGCore.Application app;
-        
+
         Ilang Lang;
         RepeaterCore rCore;
-        private int qrcodeContentIndex = 0;
-        private List<object[]> dataSource;
         private ItemTuple<Shape> shapeContainer;
         private List<ItemTuple<Shape>> shapeContainerText = new List<ItemTuple<Shape>>();
         private List<ItemTuple<Shape>> shapeContainerEnumerator = new List<ItemTuple<Shape>>();
         private List<ItemTuple<Shape>> shapeContainerImageFile = new List<ItemTuple<Shape>>();
 
-   
+
 
 
         public SimpleRepeater()
         {
             InitializeComponent();
             this.Loaded += SimpleRepeater_Loaded;
-            
+
         }
 
         private void SimpleRepeater_Loaded(object sender, RoutedEventArgs e)
@@ -60,33 +58,33 @@ namespace br.corp.bonus630.plugin.Repeater
             LoadConfig();
         }
 
-      
+
         public IPluginCore Core { get; set; }
 
         public void FillButtons()
         {
-            if(this.dataSource != null && this.dataSource.Count > 0)
+            if (rCore.DataSource != null && rCore.DataSource.Count > 0)
             {
                 stackPanel_buttons.Visibility = Visibility.Visible;
                 scrollViewer_buttons.Visibility = Visibility.Visible;
                 stackPanel_buttons.Children.Clear();
-                object[] firstLine = this.dataSource[0];
-            
+                object[] firstLine = rCore.DataSource[0];
+
                 for (int i = 0; i < firstLine.Length; i++)
                 {
                     System.Windows.Controls.Grid grid = new System.Windows.Controls.Grid();
                     System.Windows.Controls.Label label = new System.Windows.Controls.Label();
                     System.Windows.Controls.ComboBox combo = new System.Windows.Controls.ComboBox();
                     grid.Width = 74;
-                   
+
                     label.Content = firstLine[i].ToString();
                     label.Height = 26;
                     label.Width = 70;
                     label.Margin = new Thickness(2, 0, 2, 26);
                     ToolTip toolTip = new ToolTip();
-                    toolTip.Content = firstLine[i].ToString(); 
+                    toolTip.Content = firstLine[i].ToString();
                     label.ToolTip = toolTip;
-                    combo.Items.Add(new ItemTuple<ItemType>(i,ItemType.Code));
+                    combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.Code));
                     combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.Text));
                     combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.ImagePath));
                     combo.Margin = new Thickness(2, 26, 2, 0);
@@ -95,12 +93,12 @@ namespace br.corp.bonus630.plugin.Repeater
                     combo.DropDownClosed += Combo_DropDownClosed;
                     grid.Children.Add(label);
                     grid.Children.Add(combo);
-               
-                   
+
+
                     stackPanel_buttons.Children.Add(grid);
-                    
+
                 }
-               
+
             }
         }
 
@@ -108,21 +106,21 @@ namespace br.corp.bonus630.plugin.Repeater
         {
             ComboBox cb = sender as ComboBox;
             ItemTuple<ItemType> item = cb.SelectedItem as ItemTuple<ItemType>;
-            if(item != null && this.app.ActiveDocument != null)
+            if (item != null && this.app.ActiveDocument != null)
             {
-                
-                if(!GetContainer(item.Index, item.Item))
+
+                if (!GetContainer(item.Index, item.Item))
                 {
                     (sender as ComboBox).SelectedIndex = -1;
                 }
             }
-            
+
         }
 
         private void btn_process_Click(object sender, RoutedEventArgs e)
         {
             Draw();
-            
+
         }
 
         private bool GetContainer(int index, ItemType type)
@@ -132,9 +130,9 @@ namespace br.corp.bonus630.plugin.Repeater
             double x = 0;
             double y = 0;
             int shift = 0;
-            
+
             app.ActiveDocument.GetUserClick(out x, out y, out shift, 0, false, Corel.Interop.VGCore.cdrCursorShape.cdrCursorWinCross);
-            
+
 
 #if X7
 
@@ -153,16 +151,16 @@ namespace br.corp.bonus630.plugin.Repeater
             app.ActiveDocument.PreserveSelection = preservSelection;
             if (shape == null)
                 return false;
-           
 
-            
-           
+
+
+
             if (shape.SizeWidth != shape.SizeHeight && type == ItemType.Code)
             {
                 app.MsgShow(Lang.MBOX_ERROR_PerfectSquare);
                 return false;
             }
-            if(shape.Type != cdrShapeType.cdrTextShape && type == ItemType.Text)
+            if (shape.Type != cdrShapeType.cdrTextShape && type == ItemType.Text)
             {
                 app.MsgShow(Lang.MBOX_ERROR_TextShape);
                 return false;
@@ -228,16 +226,16 @@ namespace br.corp.bonus630.plugin.Repeater
             return true;
         }
 
-      
+
 
         public void Draw()
         {
-            if (dataSource == null)
+            if (rCore.DataSource == null)
             {
                 app.MsgShow(Lang.MBOX_ERROR_ValidDataSource);
                 return;
             }
-            if (dataSource.Count == 0)
+            if (rCore.DataSource.Count == 0)
             {
                 app.MsgShow(Lang.MBOX_ERROR_DataSourceEmpty);
                 return;
@@ -252,37 +250,29 @@ namespace br.corp.bonus630.plugin.Repeater
                 app.MsgShow(Lang.MBOX_ERROR_NoShapes);
                 return;
             }
-           
+
             this.app.ActiveDocument.Unit = this.app.ActiveDocument.Rulers.HUnits;
-            //rCore.Size = this.size;
-            //rCore.App = this.app;
-            //rCore.CodeGenerator = this.codeGenerator;
-            ////core.ImageRender = this.imageRender;
-            rCore.DataSource = dataSource;
+
             rCore.ShapeContainerText = this.shapeContainerText;
             rCore.ShapeContainerImageFile = this.shapeContainerImageFile;
             rCore.ShapeContainerEnumerator = this.shapeContainerEnumerator;
             bool vector = (bool)cb_vector.IsChecked;
             rCore.ShapeContainer = this.shapeContainer;
             rCore.ModelShape = app.ActiveSelectionRange;
-         
-            //Task t = new Task(() =>
-            //{
-            if(this.shapeContainer==null)
+
+
+            if (this.shapeContainer == null)
             {
                 rCore.ProcessVector();
                 return;
             }
-            if (vector)
-                    rCore.ProcessVector(this.shapeContainer.Index);
+            rCore.ProcessVector(this.shapeContainer.Index,vector);
 
-                else
-                    rCore.ProcessVector(this.shapeContainer.Index,false);
+          
 
-            //});
-            //t.Start();
+
         }
-    
+
         private void cb_fitToPage_Click(object sender, RoutedEventArgs e)
         {
             rCore.FitToPage = (bool)cb_fitToPage.IsChecked;
@@ -295,7 +285,7 @@ namespace br.corp.bonus630.plugin.Repeater
             btn_enumerator.IsEnabled = true;
         }
 
-        
+
 
         public void LoadConfig()
         {
@@ -310,9 +300,13 @@ namespace br.corp.bonus630.plugin.Repeater
             txt_startX.Text = rCore.StartX.ToString();
             txt_startY.Text = rCore.StartY.ToString();
             txt_gap.Text = rCore.Gap.ToString();
-
+            ck_ignoreFirstLine.IsChecked = rCore.IgnoreFirstLine;
 
         }
 
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            rCore.IgnoreFirstLine = (bool)ck_ignoreFirstLine.IsChecked;
+        }
     }
 }

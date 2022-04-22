@@ -48,5 +48,6 @@ namespace br.corp.bonus630.plugin.Repeater.Lang
         public string MBOX_ERROR_NoShapes { get { return "Nenhuma forma selecionada"; } }
 
         public string Warning { get { return "Aviso"; } }
+        public string CK_IgnoreFirstLine { get { return "Ignorar primeira linha"; } }
     }
 }

@@ -49,5 +49,6 @@ namespace br.corp.bonus630.plugin.Repeater.Lang
         public string MBOX_ERROR_NoShapes { get { return "No shapes selected"; } }
 
         public string Warning { get { return "Warning"; } }
+        public string CK_IgnoreFirstLine { get { return "Ignore first line"; } }
     }
 }

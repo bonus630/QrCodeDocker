@@ -42,6 +42,8 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             {
                 bCore.LoadFile(of.FileName);
                 lba_file.Content = of.FileName;
+                txt_colDelimiter.Text = ";";
+                txt_delimiter.Text = Environment.NewLine.ToString();
                 ChangeData();
             }
         }

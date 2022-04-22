@@ -93,7 +93,7 @@ namespace br.corp.bonus630.PluginLoader
                 }
 
             }
-            
+            result.Sort((x, y) => String.Compare(x.DisplayName, y.DisplayName));
             return result;
         }
         //public object GetUIControl(PluginMap plugin)

@@ -12,7 +12,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile.Lang
 
         public string BTN_Browser { get { return "Procurar"; } }
 
-        public string OF_File { get { return "Arquivos de Texto| *.txt"; } }
+        public string OF_File { get { return "Arquivos de Texto| *.txt|Arquivos CSV| *.csv"; } }
 
         public string Rows { get { return "Linhas"; } }
 

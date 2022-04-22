@@ -479,27 +479,39 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <StackPanel>
-        <Grid Height="30">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Height="30">
             <RadioButton x:Name="cb_vector" Content="{Binding Lang.CB_Vector,FallbackValue=vector}" IsChecked="True" Margin="120,5,84,10"  />
             <RadioButton x:Name="cb_bitmap" Content="{Binding Lang.CB_Bitmap,FallbackValue=bitmap}" Margin="198,5,10,10" />
             <Label Content="{Binding Lang.LBA_QR_Format,FallbackValue=qrFormat}" Margin="0,0,188,0"  />
         </Grid>
 
-        <Grid>
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" CanContentScroll="True" VerticalScrollBarVisibility="Disabled" Visibility="Collapsed" Name="scrollViewer_buttons" HorizontalAlignment="Left" Margin="6,0,0,0" Width="274" Template="{DynamicResource ScrollViewerControlTemplateTiny}">
+        <Grid Grid.Row="1"  Width="280">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" CanContentScroll="True" VerticalScrollBarVisibility="Disabled" Visibility="Visible" Name="scrollViewer_buttons" HorizontalAlignment="Left"  Template="{DynamicResource ScrollViewerControlTemplateTiny}">
                 <GroupBox Header="{Binding Lang.GBH_FirstLineTpl,FallbackValue=ModeloDaPrimeiraLinha}">
                     <GroupBox.ToolTip>
                         <Label Content="{Binding Lang.ToolTip_GBH_FirstLineTpl}"/>
                     </GroupBox.ToolTip>
-
-                    <StackPanel Orientation="Horizontal" Name="stackPanel_buttons"  Margin="2,2,2,2" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Name="stackPanel_buttons"  Margin="2,2,2,2" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                        <CheckBox Grid.Row="1" x:Name="ck_ignoreFirstLine" Content="{Binding Lang.CK_IgnoreFirstLine}" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+                    </Grid>
                 </GroupBox>
             </ScrollViewer>
 
         </Grid>
 
-        <Grid>
+        <Grid  Grid.Row="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -559,8 +571,8 @@
 
 
         </Grid>
-        <Grid Height="41">
+        <Grid  Grid.Row="3"  >
             <Button x:Name="btn_process" Content="{Binding Lang.BTN_Process,FallbackValue=Multiplos desenhos}" Click="btn_process_Click" Width="130" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,7,0,0"/>
         </Grid>
-    </StackPanel>
+    </Grid>
 </UserControl>

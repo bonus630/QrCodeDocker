@@ -51,11 +51,18 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
       
         public void ChangeData()
         {
-            if (bCore.DataSource == null)
-                return;
-            lba_number.Content = string.Format("{0} {1}", bCore.DataSource.Count,Lang.Rows);
-            if (bCore.DataSource.Count > 0)
-                lba_numberColumn.Content = string.Format("{0} {1}", bCore.DataSource[0].Length,Lang.Columns);
+            try
+            {
+                if (bCore.DataSource == null)
+                    return;
+                lba_number.Content = string.Format("{0} {1}", bCore.DataSource.Count, Lang.Rows);
+                if (bCore.DataSource.Count > 0)
+                    lba_numberColumn.Content = string.Format("{0} {1}", bCore.DataSource[0].Length, Lang.Columns);
+            }
+            catch(Exception e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+            }
         }
 
 

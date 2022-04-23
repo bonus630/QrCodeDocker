@@ -237,7 +237,7 @@ namespace br.corp.bonus630.ImageRender
                                     //Dot top line
                                     if (j != 0 && !bitMatrix[i, j - 1])
                                         graphics.DrawLine(pDotBorder, i * dotSize + m_Padding, j * dotSize + m_Padding, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
-
+                                    
                                     //Dot left line
                                     if (i != 0 && !bitMatrix[i - 1, j])
                                         graphics.DrawLine(pDotBorder, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding, j * dotSize + m_Padding);

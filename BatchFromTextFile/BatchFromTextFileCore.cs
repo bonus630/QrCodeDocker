@@ -48,30 +48,37 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             if (string.IsNullOrEmpty(filePath))
                 return;
             dataSource = new List<object[]>();
-            using (StreamReader sr = new StreamReader(filePath, true))
-
+            try
             {
+                using (StreamReader sr = new StreamReader(filePath, true))
 
-                int primarySize = 0;
-                string todo = sr.ReadToEnd();
-                string[] pieces = todo.Split(delimiter.ToArray());
-                for (int i = 0; i < pieces.Length; i++)
                 {
-                    try
-                    {
-                        object[] temp = pieces[i].Split(delimiterColumn.ToArray());
 
-                        if (i == 0)
-                            primarySize = temp.Length;
-                        if (primarySize == temp.Length)
-                            dataSource.Add(temp);
-                    }
-                    catch (Exception e)
+                    int primarySize = 0;
+                    string todo = sr.ReadToEnd();
+                    string[] pieces = todo.Split(delimiter.ToArray());
+                    for (int i = 0; i < pieces.Length; i++)
                     {
-                        throw e;
+                        try
+                        {
+                            object[] temp = pieces[i].Split(delimiterColumn.ToArray());
+
+                            if (i == 0)
+                                primarySize = temp.Length;
+                            if (primarySize == temp.Length)
+                                dataSource.Add(temp);
+                        }
+                        catch (Exception e)
+                        {
+                            throw e;
+                        }
                     }
+                    OnFinishJob(this.dataSource);
                 }
-                OnFinishJob(this.dataSource);
+            }
+            catch(IOException e)
+            {
+                throw e;
             }
         }
       

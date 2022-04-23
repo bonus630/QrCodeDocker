@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 
 namespace br.corp.bonus630.QrCodeDocker.Converters
 {
+
+    [ValueConversion(typeof(System.Drawing.Bitmap), typeof(BitmapSource))]
     public class ResourceToMediaImageConverter : IValueConverter
     {
 

@@ -482,9 +482,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="160"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="42"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Height="30">
             <RadioButton x:Name="cb_vector" Content="{Binding Lang.CB_Vector,FallbackValue=vector}" IsChecked="True" Margin="120,5,84,10"  />
@@ -492,22 +492,23 @@
             <Label Content="{Binding Lang.LBA_QR_Format,FallbackValue=qrFormat}" Margin="0,0,188,0"  />
         </Grid>
 
-        <Grid Grid.Row="1"  Width="280">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" CanContentScroll="True" VerticalScrollBarVisibility="Disabled" Visibility="Visible" Name="scrollViewer_buttons" HorizontalAlignment="Left"  Template="{DynamicResource ScrollViewerControlTemplateTiny}">
-                <GroupBox Header="{Binding Lang.GBH_FirstLineTpl,FallbackValue=ModeloDaPrimeiraLinha}">
-                    <GroupBox.ToolTip>
-                        <Label Content="{Binding Lang.ToolTip_GBH_FirstLineTpl}"/>
-                    </GroupBox.ToolTip>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition Height="30"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" Name="stackPanel_buttons"  Margin="2,2,2,2" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-                        <CheckBox Grid.Row="1" x:Name="ck_ignoreFirstLine" Content="{Binding Lang.CK_IgnoreFirstLine}" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-                    </Grid>
-                </GroupBox>
-            </ScrollViewer>
+        <Grid Grid.Row="1"  MinWidth="280" Visibility="{Binding ElementName=scrollViewer_buttons,Path=Visibility}">
+            <GroupBox Header="{Binding Lang.GBH_FirstLineTpl,FallbackValue=ModeloDaPrimeiraLinha}">
+                <GroupBox.ToolTip>
+                    <Label Content="{Binding Lang.ToolTip_GBH_FirstLineTpl}"/>
+                </GroupBox.ToolTip>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" CanContentScroll="True" VerticalScrollBarVisibility="Disabled" Visibility="Collapsed" Name="scrollViewer_buttons" HorizontalAlignment="Left"  Template="{DynamicResource ScrollViewerControlTemplateTiny}">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Name="stackPanel_buttons"  Margin="2,2,2,2" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                    </ScrollViewer>
+                    <CheckBox Grid.Row="1" x:Name="ck_ignoreFirstLine" Content="{Binding Lang.CK_IgnoreFirstLine}" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" IsChecked="{Binding IgnoreFirstLine}"/>
+                </Grid>
+            </GroupBox>
+
 
         </Grid>
 
@@ -537,11 +538,11 @@
 
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Grid.Column="0"  Content="{Binding Lang.LBA_InitialValue}"  VerticalAlignment="Center" HorizontalAlignment="Left"  />
-                        <TextBox Grid.Row="0" Grid.Column="1"  Name="txt_initialValue" Text="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" />
+                        <TextBox Grid.Row="0" Grid.Column="1"  Name="txt_initialValue" Text="{Binding Enumerator}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" />
                         <Label Grid.Row="1" Grid.Column="0"  Content="{Binding Lang.LBA_Increment}"  VerticalAlignment="Center" HorizontalAlignment="Left"  />
-                        <TextBox  Grid.Row="1" Grid.Column="1" Name="txt_increment" Text="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" />
+                        <TextBox  Grid.Row="1" Grid.Column="1" Name="txt_increment" Text="{Binding EnumeratorIncrement}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" />
                         <Label Grid.Row="2" Grid.Column="0"  Content="{Binding Lang.LBA_Mask}" HorizontalAlignment="Left"  VerticalAlignment="Center"  />
-                        <TextBox Grid.Row="2" Grid.Column="1"  Name="txt_mask" Text="000" VerticalAlignment="Center" HorizontalAlignment="Left" Width="32"  />
+                        <TextBox Grid.Row="2" Grid.Column="1"  Name="txt_mask" Text="{Binding Mask}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="32"  />
                     </Grid>
 
                 </Grid>
@@ -559,13 +560,14 @@
                         <RowDefinition Height="30"/>
 
                     </Grid.RowDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="cb_fitToPage" Content="{Binding Lang.CB_FitToPage,FallbackValue=Ajustar na pagina}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Click="cb_fitToPage_Click"/>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="cb_fitToPage" Content="{Binding Lang.CB_FitToPage,FallbackValue=Ajustar na pagina}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Click="cb_fitToPage_Click" IsChecked="{Binding FitToPage}"/>
                     <Label Grid.Row="1" Grid.Column="0" Content="{Binding Lang.LBA_Left}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                     <Label Grid.Row="2" Grid.Column="0" Content="{Binding Lang.LBA_Top}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                     <Label Grid.Row="3" Grid.Column="0" Content="{Binding Lang.LBA_Gap}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_startX"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_gap"/>
-                    <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="10" VerticalAlignment="Center" Width="26" Name="txt_startY"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding StartX}" VerticalAlignment="Center" Width="26" Name="txt_startX"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding StartY}" VerticalAlignment="Center" Width="26" Name="txt_startY"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Gap}" VerticalAlignment="Center" Width="26" Name="txt_gap"/>
+
                 </Grid>
             </GroupBox>
 

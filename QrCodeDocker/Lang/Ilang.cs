@@ -58,5 +58,6 @@
         string GroupBoxExtrasHeader { get; }
         string ToolTipBonus630 { get; }
         string ToolTipCorelNaVeia { get; }
+        string LBA_APPVersion { get; }
     }
 }

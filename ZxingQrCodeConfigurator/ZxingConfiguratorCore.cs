@@ -22,7 +22,10 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public bool Weld
         {
             get { return weld; }
-            set { weld = value; (CodeGenerator as QrCodeGenerator).Weld = value; OnUpdatePreview(); }
+            set { weld = value; 
+                (CodeGenerator as QrCodeGenerator).Weld = value;
+                base.OnNotifyPropertyChanged("Weld");
+                OnUpdatePreview(); }
         }
         private bool noBorder;
 
@@ -31,7 +34,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             get { return noBorder; }
             set { noBorder = value; 
                 (CodeGenerator as QrCodeGenerator).NoBorder = value;
-                
+                base.OnNotifyPropertyChanged("NoBorder");
                 OnUpdatePreview();
             }
         }

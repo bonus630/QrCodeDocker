@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.ZxingQrCodeConfigurator"
+             xmlns:converters="clr-namespace:br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="284">
     <UserControl.Resources>
@@ -14,7 +15,7 @@
                     <Label Content="{Binding CorelColorName}" />
                 </StackPanel>
             </DataTemplate>
-
+            <converters:InvertBoolConverter x:Key="InvertBoolConverter"></converters:InvertBoolConverter>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Images.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -92,7 +93,8 @@
         </Grid.ColumnDefinitions>
         <Image Grid.Row="0" Grid.Column="0" Style="{StaticResource WeldImage}" HorizontalAlignment="Left" Margin="4" />
 
-        <CheckBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ck_weld" Content="{Binding Lang.CB_Weld,FallbackValue=Weld}" Click="ck_weld_Click" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="190"  />
+        <CheckBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ck_weld" Content="{Binding Lang.CB_Weld,FallbackValue=Weld}" IsChecked="{Binding Weld}"
+                  Click="ck_weld_Click" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="190"  />
         <Image Grid.Row="1" Grid.Column="0" Style="{StaticResource DotShapeImage}"  HorizontalAlignment="Left" Margin="4"  />
         <Label Grid.Row="1" Grid.Column="1"  Content="{Binding Lang.LBA_DotShape,FallbackValue=Dot Shape}"    />
         <ComboBox Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Left" Width="60" x:Name="cb_dotShape" DropDownClosed="cb_dotShape_DropDownClosed" Margin="2" SelectedIndex="0">
@@ -132,11 +134,13 @@
             </ComboBoxItem>
         </ComboBox>
 
-        <CheckBox Grid.Row="2" Grid.Column="1" Content="{Binding Lang.CB_NoBorder,FallbackValue=No Border}" x:Name="ck_noBorder" Click="ck_noBorder_Checked" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="14" />
+        <CheckBox Grid.Row="2" Grid.Column="1" Content="{Binding Lang.CB_NoBorder,FallbackValue=No Border}" IsChecked="{Binding NoBorder}"
+                  x:Name="ck_noBorder" Click="ck_noBorder_Checked" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="14" />
 
         <Image Grid.Row="3" Grid.Column="0" Style="{StaticResource BorderColorImage}"  HorizontalAlignment="Left" Margin="4" />
         <Label Grid.Row="3" Grid.Column="1" Content="{Binding Lang.LBA_BorderColor,FallbackValue=Border Color}"   HorizontalAlignment="Left" Margin="2,1.8,0,1.6"  Width="167" />
-        <ComboBox Grid.Row="3" Grid.Column="2" x:Name="btn_BorderColor"  HorizontalAlignment="Left" SelectedIndex="0"  DropDownOpened="btn_BorderColor_Click" Width="58" Margin="2" IsEnabled="{Binding ElementName=ck_noBorder, Path=IsChecked}"  >
+        <ComboBox Grid.Row="3" Grid.Column="2" x:Name="btn_BorderColor"  HorizontalAlignment="Left" SelectedIndex="0"  DropDownOpened="btn_BorderColor_Click" Width="58" Margin="2" 
+                  IsEnabled="{Binding ElementName=ck_noBorder, Path=IsChecked,Converter={StaticResource InvertBoolConverter}}"  >
             <ComboBoxItem HorizontalContentAlignment="Center">
                 <Rectangle Fill="{Binding SelectedBorderColor.ColorHexValue,FallbackValue=#FFFFFF}"  Width="38" Height="26"/>
             </ComboBoxItem>

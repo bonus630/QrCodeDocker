@@ -65,39 +65,44 @@ namespace br.corp.bonus630.plugin.Repeater
         {
             if (rCore.DataSource != null && rCore.DataSource.Count > 0)
             {
-                stackPanel_buttons.Visibility = Visibility.Visible;
-                scrollViewer_buttons.Visibility = Visibility.Visible;
-                stackPanel_buttons.Children.Clear();
-                object[] firstLine = rCore.DataSource[0];
 
-                for (int i = 0; i < firstLine.Length; i++)
+                try
                 {
-                    System.Windows.Controls.Grid grid = new System.Windows.Controls.Grid();
-                    System.Windows.Controls.Label label = new System.Windows.Controls.Label();
-                    System.Windows.Controls.ComboBox combo = new System.Windows.Controls.ComboBox();
-                    grid.Width = 74;
+                    stackPanel_buttons.Children.Clear();
+                    object[] firstLine = rCore.DataSource[0];
 
-                    label.Content = firstLine[i].ToString();
-                    label.Height = 26;
-                    label.Width = 70;
-                    label.Margin = new Thickness(2, 0, 2, 26);
-                    ToolTip toolTip = new ToolTip();
-                    toolTip.Content = firstLine[i].ToString();
-                    label.ToolTip = toolTip;
-                    combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.Code));
-                    combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.Text));
-                    combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.ImagePath));
-                    combo.Margin = new Thickness(2, 26, 2, 0);
-                    combo.Height = 26;
-                    combo.Width = 70;
-                    combo.DropDownClosed += Combo_DropDownClosed;
-                    grid.Children.Add(label);
-                    grid.Children.Add(combo);
+                    for (int i = 0; i < firstLine.Length; i++)
+                    {
+                        System.Windows.Controls.Grid grid = new System.Windows.Controls.Grid();
+                        System.Windows.Controls.Label label = new System.Windows.Controls.Label();
+                        System.Windows.Controls.ComboBox combo = new System.Windows.Controls.ComboBox();
+                        grid.Width = 74;
+
+                        label.Content = firstLine[i].ToString();
+                        label.Height = 26;
+                        label.Width = 70;
+                        label.Margin = new Thickness(2, 0, 2, 26);
+                        ToolTip toolTip = new ToolTip();
+                        toolTip.Content = firstLine[i].ToString();
+                        label.ToolTip = toolTip;
+                        combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.Code));
+                        combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.Text));
+                        combo.Items.Add(new ItemTuple<ItemType>(i, ItemType.ImagePath));
+                        combo.Margin = new Thickness(2, 26, 2, 0);
+                        combo.Height = 26;
+                        combo.Width = 70;
+                        combo.DropDownClosed += Combo_DropDownClosed;
+                        grid.Children.Add(label);
+                        grid.Children.Add(combo);
 
 
-                    stackPanel_buttons.Children.Add(grid);
+                        stackPanel_buttons.Children.Add(grid);
 
+                    }
+                    stackPanel_buttons.Visibility = Visibility.Visible;
+                    scrollViewer_buttons.Visibility = Visibility.Visible;
                 }
+                catch { }
 
             }
         }

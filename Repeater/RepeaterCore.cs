@@ -29,24 +29,26 @@ namespace br.corp.bonus630.plugin.Repeater
         private int enumerator = 0;
         private int enumeratorIncrement = 1;
 
-        public double Gap { get { return this.gap; } set { this.gap = value; } }
-        public double StartX { get { return this.startX; } set { this.startX = value; } }
-        public double StartY { get { return this.startY; } set { this.startY = value; } }
-        public int Enumerator { get { return this.enumerator; } set { this.enumerator = value; } }
-        public int EnumeratorIncrement { get { return this.enumeratorIncrement; } set { this.enumeratorIncrement = value; } }
+        public double Gap { get { return this.gap; } set { this.gap = value; base.OnNotifyPropertyChanged("Gap"); } }
+        public double StartX { get { return this.startX; } set { this.startX = value; base.OnNotifyPropertyChanged("StartX"); } }
+        public double StartY { get { return this.startY; } set { this.startY = value; base.OnNotifyPropertyChanged("StartY"); } }
+        public int Enumerator { get { return this.enumerator; } set { this.enumerator = value; base.OnNotifyPropertyChanged("Enumerator"); } }
+        public int EnumeratorIncrement { get { return this.enumeratorIncrement; } set { this.enumeratorIncrement = value; base.OnNotifyPropertyChanged("EnumaratorIncrement"); } }
         private int numColumns, numLines;
         private string mask = "0000";
+        private bool ignoreFirstLine;
+        private bool qrFormatVector;
 
         public string Mask
         {
             get { return mask; }
             set { mask = value; }
         }
-        public bool IgnoreFirstLine { get; set; }
-        public bool QrFormatVector { get; set; }
+        public bool IgnoreFirstLine { get { return ignoreFirstLine; } set { ignoreFirstLine = value; base.OnNotifyPropertyChanged("IgnoreFirstLine"); } }
+        public bool QrFormatVector { get { return qrFormatVector; } set { qrFormatVector = value; base.OnNotifyPropertyChanged("QrFormatVector"); } }
 
 
-        public bool FitToPage { get { return this.fitToPage; } set { this.fitToPage = value; } }
+        public bool FitToPage { get { return this.fitToPage; } set { this.fitToPage = value; base.OnNotifyPropertyChanged("FitToPage"); } }
 
         public RepeaterCore()
         {
@@ -131,13 +133,16 @@ namespace br.corp.bonus630.plugin.Repeater
                 System.Diagnostics.Debug.WriteLine(string.Format("modelW{0} modelH{1}", modelShape.SizeWidth, modelShape.SizeHeight), "contador");
                 System.Diagnostics.Debug.WriteLine(string.Format("W{0} H{1}", ((pageWidth - startX) - ((pageWidth - startX) % (modelShape.SizeWidth + gap))) / (modelShape.SizeWidth + gap), ((pageHeight - startY) - ((pageHeight - startY) % (modelShape.SizeHeight + gap))) / (modelShape.SizeHeight + gap)), "contador");
                 int numPerPage = colMax * linMax;
-                app.Optimization = true;
-                app.EventsEnabled = false;
-                app.ActiveDocument.BeginCommandGroup("Duplicate");
-                for (int i = 0; i < dataSource.Count; i++)
+                int i = 0;
+                if (IgnoreFirstLine)
+                    i = 1;
+                for (; i < dataSource.Count; i++)
+                //for (int i = 0; i < 100; i++)
                 {
-                    if (IgnoreFirstLine)
-                        continue;
+
+                    app.Optimization = true;
+                    app.EventsEnabled = false;
+                    app.ActiveDocument.BeginCommandGroup("Duplicate");
                     //ShapeRange duplicate = modelShape.Duplicate();
                     Page page = this.app.ActiveDocument.ActivePage;
                     ShapeRange duplicate = modelShape.CopyToLayer(page.ActiveLayer);

@@ -7,6 +7,7 @@ using System.Windows.Data;
 
 namespace br.corp.bonus630.plugin.MediaSchema.Converters
 {
+    [ValueConversion(typeof(bool), typeof(double))]
     public class BoolToOpacityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

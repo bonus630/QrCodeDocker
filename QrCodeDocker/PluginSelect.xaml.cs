@@ -18,7 +18,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         private List<IPluginCore> loadedPluginList = null;
         public Ilang Lang { get; set; }
-        List<PluginMap> pluginNames;
+        public List<PluginMap> PluginNames;
         Loader loader;
         double size;
         public double Size { get { return this.size; } set { this.size = value; } }
@@ -39,15 +39,15 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 loader = new Loader(app.AddonPath);
                 Lang = lang;
-                pluginNames = loader.PluginList();
-                if (pluginNames.Count == 0)
+                PluginNames = loader.PluginList();
+                if (PluginNames.Count == 0)
                 {
                     app.MsgShow("No extras found!");
                     //return;
                 }
-                for (int i = 0; i < pluginNames.Count; i++)
+                for (int i = 0; i < PluginNames.Count; i++)
                 {
-                    cb_plugins.Items.Add(pluginNames[i]);
+                    cb_plugins.Items.Add(PluginNames[i]);
                 }
                 this.size = size;
                 this.app = app;
@@ -127,7 +127,7 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void btn_loadPlugin_Click(object sender, RoutedEventArgs e)
         {
-
+            
             OpenFileDialog of = new OpenFileDialog();
             of.Filter = "DLL|*.dll";
             of.Title = "Select a dll file";
@@ -160,7 +160,8 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 if (index == this.loadedPluginList[i].Index)
                 {
-                    cb_plugins.Items.Add(pluginNames.Find(r => r.DisplayName == this.loadedPluginList[i].GetPluginDisplayName));
+                    cb_plugins.Items.Add(PluginNames.Find(r => r.DisplayName == this.loadedPluginList[i].GetPluginDisplayName));
+                    
                     this.loadedPluginList.RemoveAt(i);
                     grid_controlUI.Children.RemoveAt(i);
 
@@ -269,6 +270,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
                 FrameworkElementFactory label = new FrameworkElementFactory(typeof(Label));
                 label.SetValue(Label.ContentProperty, pluginMap.DisplayName);
+                //label.SetValue(Label.FontWeightProperty, new FontWeightConverter().ConvertFromInvariantString("Bold"));
                 LengthConverter lc = new LengthConverter();
                 var height28 = lc.ConvertFromInvariantString("28px");
                 FrameworkElementFactory grid = new FrameworkElementFactory(typeof(Grid));
@@ -378,9 +380,9 @@ namespace br.corp.bonus630.QrCodeDocker
             for (int i = 0; i < loadedPluginList.Count; i++)
             {
                 plugin = loadedPluginList[i];
-                for (int r = 0; r < this.pluginNames.Count; r++)
+                for (int r = 0; r < this.PluginNames.Count; r++)
                 {
-                    if (plugin.GetPluginDisplayName.Equals(pluginNames[r].DisplayName))
+                    if (plugin.GetPluginDisplayName.Equals(PluginNames[r].DisplayName))
                         plugin.DeleteConfig();
                 }
             }
@@ -394,17 +396,17 @@ namespace br.corp.bonus630.QrCodeDocker
             var pluginNames = Properties.Settings.Default.PluginNameCollection;
             for (int i = 0; i < pluginNames.Count; i++)
             {
-                for (int r = 0; r < this.pluginNames.Count; r++)
+                for (int r = 0; r < this.PluginNames.Count; r++)
                 {
-                    if (pluginNames[i].Equals(this.pluginNames[r].DisplayName))
+                    if (pluginNames[i].Equals(this.PluginNames[r].DisplayName))
                     {
                         try
                         {
-                            InflateUI(this.pluginNames[r]);
+                            InflateUI(this.PluginNames[r]);
                         }
                         catch (Exception e) { 
                             Debug.WriteLine(e.Message, "LoadConfig");
-                            throw new Exception(string.Format("Inflate {0} failed", this.pluginNames[r].DisplayName));
+                            throw new Exception(string.Format("Inflate {0} failed", this.PluginNames[r].DisplayName));
                         }
 
                         try
@@ -412,7 +414,7 @@ namespace br.corp.bonus630.QrCodeDocker
                             this.loadedPluginList[this.loadedPluginList.Count - 1].LoadConfig();
                         }
                         catch (Exception e) { Debug.WriteLine(e.Message, "LoadConfig");
-                            throw new Exception(string.Format("Load config {0} failed", this.pluginNames[r].DisplayName));
+                            throw new Exception(string.Format("Load config {0} failed", this.PluginNames[r].DisplayName));
                         }
                     }
                 }

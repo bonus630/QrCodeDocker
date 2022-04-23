@@ -7,6 +7,7 @@ using System.Windows.Data;
 
 namespace br.corp.bonus630.PluginLoader.Converters
 {
+    [ValueConversion(typeof(int), typeof(System.Windows.Visibility))]
     public class IntVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

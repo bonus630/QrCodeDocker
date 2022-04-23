@@ -65,6 +65,7 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
         public string LabelPreview { get { return "Visualização:"; } }
 
         public string LabelEncodingType { get { return "Método de Codificação:"; } }
+        public string LBA_APPVersion { get { return "versão: ABACATE"; } }
 
         public string MBoxOpenDoc { get { return "Abra um novo documento para gerar"; } }
 

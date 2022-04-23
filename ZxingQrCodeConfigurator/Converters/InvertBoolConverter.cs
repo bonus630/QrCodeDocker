@@ -5,19 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 
-namespace br.corp.bonus630.plugin.MediaSchema.Converters
+namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Converters
 {
-    [ValueConversion(typeof(Schemes), typeof(bool))]
-    public class SchemaToBoolConverter : IValueConverter
+    [ValueConversion(typeof(bool), typeof(bool))]
+    public class InvertBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value!=null)
-            {
-                Schemes schemes = (Schemes)value;
-                //if()
-            }
-            return true;
+            if (value.GetType() != typeof(bool))
+                throw new InvalidCastException("require a bool");
+            return !(bool)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

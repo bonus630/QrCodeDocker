@@ -18,7 +18,7 @@
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer Name="scroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
+    <ScrollViewer Name="scroll" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" >
         <StackPanel x:Name="box_main" Margin="0,0,2,0">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <TabControl  Name="tabControls" SelectionChanged="TabControls_SelectionChanged">
@@ -77,6 +77,7 @@
                 <Label x:Name="lba_zxing" Content="https://zxingnet.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0" MouseUp="lba_zxing_MouseUp" Cursor="Hand" ToolTip="third party .net libraries"/>
                 <!--<WebBrowser  Width="160" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="52" Margin="4,0,0,4" Source="https://bonus630.com.br/ad.html" />-->
                 <!--<Label x:Name="lba_gma" Content="https://qrcodenet.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0,22,0,0" MouseUp="lba_gma_MouseUp" Cursor="Hand" ToolTip="third party .net libraries"/>-->
+                <Label Content="{Binding Lang.LBA_APPVersion,FallbackValue=Version}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0,22,0,0"/>
             </Grid>
 
         </StackPanel>

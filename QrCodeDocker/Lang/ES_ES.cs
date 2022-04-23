@@ -55,6 +55,7 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
         public string LabelDotSize { get { return "Tamaño de punto:"; } }
 
         public string LabelSize { get { return "Tamaño:"; } }
+        public string LBA_APPVersion { get { return "Versión: AGUACATE"; } }
 
         public string ButtonDrawVector { get { return "Dibujar Vetor"; } }
 

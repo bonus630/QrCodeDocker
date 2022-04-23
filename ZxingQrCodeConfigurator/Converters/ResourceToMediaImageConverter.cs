@@ -16,6 +16,8 @@ using br.corp.bonus630.QrCodeDocker;
 
 namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Converters
 {
+
+    [ValueConversion(typeof(System.Drawing.Bitmap), typeof(BitmapSource))]
     public class ResourceToMediaImageConverter : IValueConverter
     {
 

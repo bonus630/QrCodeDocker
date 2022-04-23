@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 
 namespace br.corp.bonus630.plugin.MediaSchema.Converters
 {
+    [ValueConversion(typeof(System.Drawing.Bitmap), typeof(BitmapSource))]
     public class ResourceToMediaImageConverter : IValueConverter
     {
 

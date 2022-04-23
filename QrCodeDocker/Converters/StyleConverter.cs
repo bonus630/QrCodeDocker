@@ -7,6 +7,7 @@ using System.Windows.Data;
 
 namespace br.corp.bonus630.QrCodeDocker.Converters
 {
+    [ValueConversion(typeof(FrameworkElement), typeof(Style))]
     public class StyleConverter: IMultiValueConverter
     {
        

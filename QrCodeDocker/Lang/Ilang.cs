@@ -38,6 +38,7 @@
         string ButtonDrawVector { get; }
         string ButtonDrawBitmap { get; }
         string ButtonExtras { get; }
+         string ButtonToolTipRemovePlugin { get;  }
         string BTN_BrowserPluginToolTip { get; }
         string BTN_SavePluginToolTip { get; }
         string BTN_DeletePluginToolTip { get; }

@@ -51,6 +51,7 @@ namespace br.corp.bonus630.plugin.Repeater
             this.app = rCore.App;
             Lang = rCore.Lang as Ilang;
             rCore.LoadConfigEvent += RCore_LoadConfigEvent;
+            FillButtons();
         }
 
         private void RCore_LoadConfigEvent()
@@ -63,7 +64,7 @@ namespace br.corp.bonus630.plugin.Repeater
 
         public void FillButtons()
         {
-            if (rCore.DataSource != null && rCore.DataSource.Count > 0)
+            if (rCore!=null && rCore.DataSource != null && rCore.DataSource.Count > 0)
             {
 
                 try
@@ -266,14 +267,19 @@ namespace br.corp.bonus630.plugin.Repeater
             rCore.ModelShape = app.ActiveSelectionRange;
 
 
+            //if (this.shapeContainer == null)
+            //{
+            //    rCore.ProcessVector();
+            //    return;
+            //}
+            //rCore.ProcessVector(this.shapeContainer.Index,vector);
+
             if (this.shapeContainer == null)
             {
-                rCore.ProcessVector();
+                rCore.Draw();
                 return;
             }
-            rCore.ProcessVector(this.shapeContainer.Index,vector);
-
-          
+            rCore.Draw(this.shapeContainer.Index, vector);
 
 
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using br.corp.bonus630.PluginLoader;
 using System.IO;
 using System.Text;
+using br.corp.bonus630.plugin.BatchFromTextFile.Lang;
 
 namespace br.corp.bonus630.plugin.BatchFromTextFile
 {
@@ -12,16 +13,55 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         public const string PluginDisplayName = "Data From Text File";
 
         public List<string> content;
-        public string delimiter = "\n\r";
-        public string delimiterColumn = "|";
+        private string rowDelimiter = "\n\r";
+        public string RowDelimiter
+        {
+            get
+            {
+                return rowDelimiter;
+            }
+            set
+            {
+                rowDelimiter = value;
+                OnNotifyPropertyChanged("RowDelimiter");
+                
+            }
+        }
+        private string columnDelimiter = "|";
+        public string ColumnDelimiter
+        {
+            get
+            {
+                return columnDelimiter;
+            }
+            set
+            {
+                columnDelimiter = value;
+                OnNotifyPropertyChanged("ColumnDelimiter"); 
+                
+            }
+        }
+        private string rowCountText;
+
+        public string RowCountText
+        {
+            get { return rowCountText; }
+            set { rowCountText = value; OnNotifyPropertyChanged("RowCountText"); }
+        }
+        private string columnCountText;
+
+        public string ColumnCountText
+        {
+            get { return columnCountText; }
+            set { columnCountText = value; OnNotifyPropertyChanged("ColumnCountText"); }
+        }
+
         private List<object[]> dataSource;
         public List<object[]> DataSource { get { return dataSource; } }
-
-       
-
         public override string GetPluginDisplayName { get { return BatchFromTextFileCore.PluginDisplayName; } }
 
         private string filePath;
+        public string FilePath { get { return filePath; } set { filePath = value; OnNotifyPropertyChanged("FilePath"); } }
 
         public BatchFromTextFileCore()
         {
@@ -39,8 +79,23 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             if (File.Exists(filePath))
             {
                 this.filePath = filePath;
-                ChangeData();    
-               
+                ChangeData();
+
+            }
+        }
+        public void ChangeTextData()
+        {
+            try
+            {
+                if (this.DataSource == null)
+                    return;
+                RowCountText = string.Format("{0} {1}", this.DataSource.Count, (Lang as Ilang).Rows);
+                if (this.DataSource.Count > 0)
+                    ColumnCountText = string.Format("{0} {1}", this.DataSource[0].Length, (Lang as Ilang).Columns);
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
             }
         }
         public void ChangeData()
@@ -56,12 +111,12 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
 
                     int primarySize = 0;
                     string todo = sr.ReadToEnd();
-                    string[] pieces = todo.Split(delimiter.ToArray());
+                    string[] pieces = todo.Split(rowDelimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i < pieces.Length; i++)
                     {
                         try
                         {
-                            object[] temp = pieces[i].Split(delimiterColumn.ToArray());
+                            object[] temp = pieces[i].Split(columnDelimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
                             if (i == 0)
                                 primarySize = temp.Length;
@@ -73,15 +128,16 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
                             throw e;
                         }
                     }
+                    ChangeTextData();
                     OnFinishJob(this.dataSource);
                 }
             }
-            catch(IOException e)
+            catch (IOException e)
             {
                 throw e;
             }
         }
-      
+
         protected override void OnProgressChange(int progress)
         {
             int p = (int)100 * progress / content.Count;
@@ -90,17 +146,26 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
 
         public override void SaveConfig()
         {
-            
+            Properties.Settings1.Default.FilePath = filePath;
+            Properties.Settings1.Default.ColumnDelimiter = columnDelimiter;
+            Properties.Settings1.Default.RowDelimiter = rowDelimiter;
+            Properties.Settings1.Default.Save();
+            base.SaveConfig();
+
         }
 
         public override void LoadConfig()
         {
-            
+            FilePath = Properties.Settings1.Default.FilePath;
+            ColumnDelimiter = Properties.Settings1.Default.ColumnDelimiter;
+            RowDelimiter = Properties.Settings1.Default.RowDelimiter;
+            ChangeData();
+            base.LoadConfig();
         }
 
         public override void DeleteConfig()
         {
-            
+            Properties.Settings1.Default.Reset();
         }
     }
 }

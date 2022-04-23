@@ -42,37 +42,27 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             {
                 bCore.LoadFile(of.FileName);
                 lba_file.Content = of.FileName;
-                txt_colDelimiter.Text = ";";
-                txt_delimiter.Text = Environment.NewLine.ToString();
-                ChangeData();
+                if (of.SafeFileName.Contains(".csv"))
+                {
+                    txt_colDelimiter.Text = ";";
+                    txt_delimiter.Text = Environment.NewLine.ToString();
+                }
+                bCore.ChangeData();
             }
         }
 
       
-        public void ChangeData()
-        {
-            try
-            {
-                if (bCore.DataSource == null)
-                    return;
-                lba_number.Content = string.Format("{0} {1}", bCore.DataSource.Count, Lang.Rows);
-                if (bCore.DataSource.Count > 0)
-                    lba_numberColumn.Content = string.Format("{0} {1}", bCore.DataSource[0].Length, Lang.Columns);
-            }
-            catch(Exception e)
-            {
-                System.Windows.MessageBox.Show(e.Message);
-            }
-        }
+   
 
 
         private void Txt_colDelimiter_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!string.IsNullOrEmpty(txt_colDelimiter.Text))
             {
-                bCore.delimiterColumn = txt_colDelimiter.Text;
+                bCore.ColumnDelimiter = txt_colDelimiter.Text;
+               
                 bCore.ChangeData();
-                ChangeData();
+                
             }
         }
 
@@ -80,9 +70,10 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         {
             if (!string.IsNullOrEmpty(txt_delimiter.Text))
             {
-                bCore.delimiter = txt_delimiter.Text;
+                bCore.RowDelimiter = txt_delimiter.Text;
+                
                 bCore.ChangeData();
-                ChangeData();
+                
             }
         }
 

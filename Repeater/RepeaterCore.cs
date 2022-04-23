@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 using System.IO;
+using System.Threading;
 
 namespace br.corp.bonus630.plugin.Repeater
 {
@@ -38,7 +39,8 @@ namespace br.corp.bonus630.plugin.Repeater
         private string mask = "0000";
         private bool ignoreFirstLine;
         private bool qrFormatVector;
-
+        private Thread drawThread;
+        private delegate void MyThreadStart(int index, bool v); 
         public string Mask
         {
             get { return mask; }
@@ -100,11 +102,13 @@ namespace br.corp.bonus630.plugin.Repeater
 
         public override string GetPluginDisplayName { get { return RepeaterCore.PluginDisplayName; } }
 
-        public void Draw()
+        public void Draw(int qrcodeContentIndex = -1, bool vector = true)
         {
-
+            drawThread = new Thread(new ParameterizedThreadStart(ProcessVector));
+            drawThread.IsBackground = true;
+            drawThread.Start(new ThreadParam(qrcodeContentIndex, vector));
         }
-
+        public void Draw() { }
 
         protected override void OnProgressChange(int progress)
         {
@@ -112,8 +116,21 @@ namespace br.corp.bonus630.plugin.Repeater
             base.OnProgressChange(p);
         }
 
-
-
+        private void ProcessVector(object obj)
+        {
+            ThreadParam param = obj as ThreadParam;
+            ProcessVector(param.Index, param.Vector);
+        }
+        internal class ThreadParam
+        {
+            public ThreadParam(int index, bool vector)
+            {
+                Index = index;
+                Vector = vector;
+            }
+            public int Index { get; set; }
+            public bool Vector { get; set; }
+        }
         public void ProcessVector(int qrcodeContentIndex = -1, bool vector = true)
         {
             try

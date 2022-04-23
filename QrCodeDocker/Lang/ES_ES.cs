@@ -60,6 +60,7 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
         public string ButtonDrawVector { get { return "Dibujar Vetor"; } }
 
         public string ButtonDrawBitmap { get { return "Dibujar Bitmap"; } }
+        public string ButtonToolTipRemovePlugin { get { return "Eliminar"; } }
 
         public string ButtonExtras { get { return "Extras"; } }
 

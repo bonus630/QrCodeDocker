@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Controls;
 
 namespace br.corp.bonus630.PluginLoader
 {
@@ -19,6 +20,7 @@ namespace br.corp.bonus630.PluginLoader
         IPluginCore GetICore { get; }
         Type GetType { get; }
         IPluginMainUI CreateOrGetMainUIIntance(Type type);
+        UserControl UIControl { get; }
         void SaveConfig();
         void LoadConfig();
         void DeleteConfig();

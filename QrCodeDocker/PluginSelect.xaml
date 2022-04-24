@@ -11,7 +11,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Images.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
         </ResourceDictionary>
+     
     </UserControl.Resources>
     <StackPanel>
         <ProgressBar Name="pb_progress" Height="2" Visibility="Collapsed" VerticalAlignment="Top">
@@ -48,7 +50,8 @@
             </Button>
         </Grid>
         <ListView x:Name="mainUIList" Padding="0" ItemsSource="{Binding LoadedPluginList}" Margin="0,6,0,0"
-                  Visibility="{Binding Path=LoadedPluginList.Count,Converter={StaticResource IntVisibilityConverter}}">
+                  Visibility="{Binding Path=LoadedPluginList.Count,Converter={StaticResource IntVisibilityConverter}}"
+                  BorderThickness="0" Template="{DynamicResource ListViewNewTemplate}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                 <Expander Expanded="expanderExpander" HorizontalAlignment="Stretch" Margin="0" IsExpanded="True">
@@ -63,10 +66,10 @@
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="1"  Content="-" Width="28" Tag="{Binding Index}" Click="expanderRemoveClick">
                                 <Button.ToolTip>
-                                    <Label Content="{Binding Lang.ButtonToolTipRemovePlugin}" />
+                                        <Label Content="{Binding ElementName=mainUIList, Path=DataContext.Lang.ButtonToolTipRemovePlugin,FallbackValue=Remove}" />
                                 </Button.ToolTip>
                             </Button>
-                            <Label Grid.Column="0" Content="{Binding DisplayName,FallbackValue=Testamdp}" />
+                                <Label Grid.Column="0" Content="{Binding GetPluginDisplayName,FallbackValue=Testamdp}" />
                         </Grid>
                     </Expander.Header>
                     <Grid>
@@ -78,6 +81,7 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Focusable" Value="false"/>
+                    
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>

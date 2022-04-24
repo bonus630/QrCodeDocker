@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 
 namespace br.corp.bonus630.PluginLoader
 {
@@ -21,6 +22,7 @@ namespace br.corp.bonus630.PluginLoader
         public event PropertyChangedEventHandler PropertyChanged;
 
         public LangController Lang { get { return this.lang; } set { lang = value; if (LangChanged != null) LangChanged(); } }
+        public UserControl UIControl { get { return (UserControl)this.mainUI; } }
         public abstract string GetPluginDisplayName { get; }
         public T GetCore { get { return this as T; } }
         public IPluginCore GetICore { get { return GetCore as IPluginCore; } }

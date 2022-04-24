@@ -58,7 +58,7 @@
     </Style>
     <Style TargetType="Expander">
         <Setter Property="Foreground" Value="{DynamicResource Default.Static.Foreground}"/>
-
+        <Setter Property="Background" Value="{DynamicResource Container.Static.Background}"/>
     </Style>
     <Style TargetType="TextBox">
         <Setter Property="Background" Value="{DynamicResource Container.Text.Static.Background}" />
@@ -758,4 +758,19 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <ControlTemplate x:Key="ListViewNewTemplate" TargetType="{x:Type ListBox}">
+        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True">
+            <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
+                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+            </ScrollViewer>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="IsGrouping" Value="True">
+                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 </ResourceDictionary>

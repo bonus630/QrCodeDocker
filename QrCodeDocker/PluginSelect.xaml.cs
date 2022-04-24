@@ -17,7 +17,7 @@ namespace br.corp.bonus630.QrCodeDocker
     public partial class PluginSelect : UserControl
     {
 
-        private List<IPluginCore> loadedCorelist = null;
+        //private List<IPluginCore> loadedCorelist = null;
         public Ilang Lang { get; set; }
         public List<PluginMap> PluginNames;
         Loader loader;
@@ -30,7 +30,7 @@ namespace br.corp.bonus630.QrCodeDocker
         private int index = 0;
         public event Action<string> AnyTextChanged;
         public event Action UpdatePreview;
-        public ObservableCollection<Controls> LoadedPluginList { get; set; } 
+        public ObservableCollection<IPluginCore> LoadedPluginList { get; set; } 
 
         public PluginSelect(double size, Corel.Interop.VGCore.Application app, Ilang lang, ImageRender.IImageRender imageRender, ICodeGenerator codeGenerator)
         {
@@ -53,9 +53,9 @@ namespace br.corp.bonus630.QrCodeDocker
                 this.app = app;
                 //this.imageRender = imageRender;
                 this.codeGenerator = codeGenerator;
-                loadedCorelist = new List<IPluginCore>();
+                //loadedCorelist = new List<IPluginCore>();
                 this.PluginFound = true;
-                LoadedPluginList =  new ObservableCollection<Controls>();
+                LoadedPluginList =  new ObservableCollection<IPluginCore>();
                 this.DataContext = this;
                 LoadConfig();
             }
@@ -72,13 +72,13 @@ namespace br.corp.bonus630.QrCodeDocker
 
         public void SetValues(double size, Corel.Interop.VGCore.Application app, ICodeGenerator codeGenerator)
         {
-            if (loadedCorelist == null)
+            if (LoadedPluginList == null)
                 return;
             this.size = size;
-            for (int i = 0; i < loadedCorelist.Count; i++)
+            for (int i = 0; i < LoadedPluginList.Count; i++)
             {
                 //SetValues(loadedPluginList[i], size, app, imageRender);
-                SetValues(loadedCorelist[i], size, app, codeGenerator);
+                SetValues(LoadedPluginList[i], size, app, codeGenerator);
             }
         }
         public void SetValues(object obj, double size, Corel.Interop.VGCore.Application app, ICodeGenerator codeGenerator)
@@ -99,7 +99,7 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         public void SetValues(IPluginConfig plugin, Type type, Corel.Interop.VGCore.Application app)
         {
-            if (codeGenerator == null || loadedCorelist == null)
+            if (codeGenerator == null || LoadedPluginList == null)
                 throw new Exception("Erros ");
             if (this.codeGenerator.GetType() == type)
             {
@@ -151,18 +151,18 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void RemovePluginUI(int index)
         {
-            IPluginCore core = this.loadedCorelist.Find(r => r.Index == index);
+            IPluginCore core = LoadedPluginList .Single<IPluginCore>(r => r.Index == index);
             cb_plugins.Items.Add(PluginNames.Find(r => r.DisplayName == core.GetPluginDisplayName));
-            this.loadedCorelist.Remove(core);
-            LoadedPluginList.Remove(LoadedPluginList.Single<Controls>(r=>r.Index == index));
+            //this.loadedCorelist.Remove(core);
+            LoadedPluginList.Remove(core);
         }
         private void expanderExpander(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < loadedCorelist.Count; i++)
+            for (int i = 0; i < LoadedPluginList.Count; i++)
             {
-                if (typeof(IPluginDataSource).IsAssignableFrom(loadedCorelist[i].GetType()))
+                if (typeof(IPluginDataSource).IsAssignableFrom(LoadedPluginList[i].GetType()))
                 {
-                    List<object[]> dataSource = (loadedCorelist[i] as IPluginDataSource).DataSource;
+                    List<object[]> dataSource = (LoadedPluginList[i] as IPluginDataSource).DataSource;
                     if (dataSource != null && dataSource.Count > 0)
                         SetDataSource(dataSource);
                 }
@@ -184,11 +184,11 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 pb_progress.Visibility = Visibility.Collapsed;
 
-                for (int i = 0; i < loadedCorelist.Count; i++)
+                for (int i = 0; i < LoadedPluginList.Count; i++)
                 {
-                    if (typeof(IPluginDataSource).IsAssignableFrom(loadedCorelist[i].GetType()))
+                    if (typeof(IPluginDataSource).IsAssignableFrom(LoadedPluginList[i].GetType()))
                     {
-                        this.dataSource = (loadedCorelist[i] as IPluginDataSource).DataSource;
+                        this.dataSource = (LoadedPluginList[i] as IPluginDataSource).DataSource;
                         SetDataSource(this.dataSource);
                     }
 
@@ -197,15 +197,15 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         public void SetDataSource(List<object[]> dataSource)
         {
-            if (loadedCorelist == null || dataSource == null || dataSource.Count == 0)
+            if (LoadedPluginList == null || dataSource == null || dataSource.Count == 0)
                 return;
             if (dataSource != this.dataSource)
                 this.dataSource = dataSource;
-            for (int i = 0; i < loadedCorelist.Count; i++)
+            for (int i = 0; i < LoadedPluginList.Count; i++)
             {
-                if (typeof(IPluginDrawer).IsAssignableFrom(loadedCorelist[i].GetType()) && dataSource != null)
+                if (typeof(IPluginDrawer).IsAssignableFrom(LoadedPluginList[i].GetType()) && dataSource != null)
                 {
-                    (loadedCorelist[i] as IPluginDrawer).DataSource = dataSource;
+                    (LoadedPluginList[i] as IPluginDrawer).DataSource = dataSource;
                 }
 
             }
@@ -222,10 +222,10 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             try
             {
-                IPluginCore objCore  = loadedCorelist.Find(r => r.GetPluginDisplayName.Equals(pluginMap.DisplayName));
-                if (objCore != null)
-                    return;
-                objCore = loader.GetCore(pluginMap);
+                //IPluginCore objCore  = LoadedPluginList.Single<IPluginCore>(r => r.GetPluginDisplayName.Equals(pluginMap.DisplayName));
+                //if (objCore != null)
+                //    return;
+                IPluginCore objCore = loader.GetCore(pluginMap);
                 if (objCore == null)
                     return;
                 Type type = loader.GetMainUIType(pluginMap);
@@ -234,8 +234,8 @@ namespace br.corp.bonus630.QrCodeDocker
                     return;
                 objCore.Index = index;
 
-                LoadedPluginList.Add(new Controls(pluginMap.DisplayName,index, (UserControl)mainUI));
-                loadedCorelist.Insert(0,objCore);
+               
+                LoadedPluginList.Insert(0,objCore);
 
                 SetValues(objCore, size, app, codeGenerator);
                 // this.Title = pluginMap.DisplayName;
@@ -281,9 +281,9 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             Properties.Settings.Default.PluginNameCollection = new System.Collections.Specialized.StringCollection();
             IPluginCore plugin;
-            for (int i = 0; i < loadedCorelist.Count; i++)
+            for (int i = 0; i < LoadedPluginList.Count; i++)
             {
-                plugin = loadedCorelist[i];
+                plugin = LoadedPluginList[i];
                 Properties.Settings.Default.PluginNameCollection.Add(plugin.GetPluginDisplayName);
                 plugin.SaveConfig();
             }
@@ -293,11 +293,11 @@ namespace br.corp.bonus630.QrCodeDocker
         private void btn_deleteConfig_Click(object sender, RoutedEventArgs e)
         {
             IPluginCore plugin;
-            if (loadedCorelist.Count < Properties.Settings.Default.PluginNameCollection.Count)
+            if (LoadedPluginList.Count < Properties.Settings.Default.PluginNameCollection.Count)
                 this.app.MsgShow(Lang.MBOX_ERROR_SettingsCountNoMatch);
-            for (int i = 0; i < loadedCorelist.Count; i++)
+            for (int i = 0; i < LoadedPluginList.Count; i++)
             {
-                plugin = loadedCorelist[i];
+                plugin = LoadedPluginList[i];
                 for (int r = 0; r < this.PluginNames.Count; r++)
                 {
                     if (plugin.GetPluginDisplayName.Equals(PluginNames[r].DisplayName))
@@ -329,7 +329,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
                         try
                         {
-                            this.loadedCorelist[this.loadedCorelist.Count - 1].LoadConfig();
+                            this.LoadedPluginList[this.LoadedPluginList.Count - 1].LoadConfig();
                         }
                         catch (Exception e) { Debug.WriteLine(e.Message, "LoadConfig");
                             throw new Exception(string.Format("Load config {0} failed", this.PluginNames[r].DisplayName));
@@ -339,17 +339,5 @@ namespace br.corp.bonus630.QrCodeDocker
             }
         }
     }
-    public class Controls
-    {
-        public string DisplayName { get; set; }
-        public int Index { get; set; }
-        public UserControl UIControl { get; set; }
 
-        public Controls(string displayName,int index, UserControl ui)
-        {
-            DisplayName = displayName;
-            UIControl = ui;
-            Index = index;
-        }
-    }
 }

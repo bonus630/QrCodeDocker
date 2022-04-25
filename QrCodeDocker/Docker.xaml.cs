@@ -7,6 +7,7 @@ using Corel.Interop.VGCore;
 using br.corp.bonus630.ImageRender;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker.MainTabControls;
+using System.Diagnostics;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -37,9 +38,15 @@ namespace br.corp.bonus630.QrCodeDocker
             this.Loaded += Docker_Loaded;
             dataContextObj = new VisualDataContext(this.app);
             this.DataContext = dataContextObj;
+            //this.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
           
           
         }
+
+        //private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        //{
+        //    Debug.WriteLine("teste");
+        //}
 
         //private void App_OnApplicationEvent(string EventName, ref object[] Parameters)
         //{

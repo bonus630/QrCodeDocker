@@ -61,7 +61,8 @@ namespace br.corp.bonus630.PluginLoader
             try
             {
                 this.Lang = LangController.CreateInstance(assembly, langTag);
-                this.Lang.AutoUpdateProperties();
+                if(this.Lang != null)
+                    this.Lang.AutoUpdateProperties();
             }
             catch { }
         }

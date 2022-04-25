@@ -186,6 +186,7 @@
       <Name>Corel.Interop.VGCore</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

@@ -22,12 +22,36 @@ namespace br.corp.bonus630.PluginLoader
         {
             LangController langObj = null;
             Type[] types = assembly.GetTypes();
+            List<Type> defaultTypes = new List<Type>();
             for (int i = 0; i < types.Length; i++)
             {
-                if (types[i].IsSubclassOf(typeof(LangController)) && types[i].Name.Equals(lang.ToString()))
-                    langObj = Activator.CreateInstance(types[i]) as LangController;
+                if (types[i].IsSubclassOf(typeof(LangController)))
+                {
+                    if (types[i].Name.Equals(lang.ToString()))
+                        langObj = CreateInstance(types[i], lang);
+                    defaultTypes.Add(types[i]);
+                }
+            }
+            if (langObj == null && defaultTypes.Count > 0)
+            {
+                for (int i = 0; i < defaultTypes.Count; i++)
+                {
+                    if (defaultTypes[i].Name.Equals(LangTagsEnum.EN_US.ToString()))
+                    {
+                        langObj = CreateInstance(defaultTypes[i], LangTagsEnum.EN_US);
+                    }
+                }
+
+            }
+            if (langObj == null && defaultTypes.Count > 0)
+            {
+                langObj = CreateInstance(defaultTypes[0], (LangTagsEnum)Enum.Parse(typeof(LangTagsEnum),defaultTypes[0].Name));
             }
             return langObj;
+        }
+        private static LangController CreateInstance(Type type, LangTagsEnum lang)
+        {
+            return Activator.CreateInstance(type) as LangController;
         }
         public void AutoUpdateProperties()
         {

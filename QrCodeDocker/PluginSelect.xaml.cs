@@ -30,7 +30,7 @@ namespace br.corp.bonus630.QrCodeDocker
         private int index = 0;
         public event Action<string> AnyTextChanged;
         public event Action UpdatePreview;
-        public ObservableCollection<IPluginCore> LoadedPluginList { get; set; } 
+        public ObservableCollection<IPluginCore> LoadedPluginList { get; set; }
 
         public PluginSelect(double size, Corel.Interop.VGCore.Application app, Ilang lang, ImageRender.IImageRender imageRender, ICodeGenerator codeGenerator)
         {
@@ -55,8 +55,9 @@ namespace br.corp.bonus630.QrCodeDocker
                 this.codeGenerator = codeGenerator;
                 //loadedCorelist = new List<IPluginCore>();
                 this.PluginFound = true;
-                LoadedPluginList =  new ObservableCollection<IPluginCore>();
+                LoadedPluginList = new ObservableCollection<IPluginCore>();
                 this.DataContext = this;
+                //this.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
                 LoadConfig();
             }
 
@@ -68,7 +69,13 @@ namespace br.corp.bonus630.QrCodeDocker
             }
         }
 
-
+        //private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        //{
+        //    for (int i = 0; i < LoadedPluginList.Count; i++)
+        //    {
+        //        RemovePluginUI(LoadedPluginList[i].Index);
+        //    }
+        //}
 
         public void SetValues(double size, Corel.Interop.VGCore.Application app, ICodeGenerator codeGenerator)
         {
@@ -123,7 +130,7 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void btn_loadPlugin_Click(object sender, RoutedEventArgs e)
         {
-            
+
             OpenFileDialog of = new OpenFileDialog();
             of.Filter = "DLL|*.dll";
             of.Title = "Select a dll file";
@@ -151,10 +158,19 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void RemovePluginUI(int index)
         {
-            IPluginCore core = LoadedPluginList .Single<IPluginCore>(r => r.Index == index);
-            cb_plugins.Items.Add(PluginNames.Find(r => r.DisplayName == core.GetPluginDisplayName));
-            //this.loadedCorelist.Remove(core);
-            LoadedPluginList.Remove(core);
+            try
+            {
+                IPluginCore core = LoadedPluginList.Single<IPluginCore>(r => r.Index == index);
+                cb_plugins.Items.Add(PluginNames.Find(r => r.DisplayName == core.GetPluginDisplayName));
+                //this.loadedCorelist.Remove(core);
+                LoadedPluginList.Remove(core);
+                //core.UIControl.Dispatcher.InvokeShutdown();
+                core = null;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
         }
         private void expanderExpander(object sender, RoutedEventArgs e)
         {
@@ -234,8 +250,8 @@ namespace br.corp.bonus630.QrCodeDocker
                     return;
                 objCore.Index = index;
 
-               
-                LoadedPluginList.Insert(0,objCore);
+
+                LoadedPluginList.Insert(0, objCore);
 
                 SetValues(objCore, size, app, codeGenerator);
                 // this.Title = pluginMap.DisplayName;
@@ -248,9 +264,9 @@ namespace br.corp.bonus630.QrCodeDocker
                 {
                     objCore.ChangeLang(app.UILanguage.cdrLangToSys(), loader.GetAssembly(pluginMap));
                 }
-                catch (Exception e) 
-                { 
-                    app.MsgShow(string.Format("{0} - {1}", Lang.MBOX_ERROR_LangException,pluginMap.DisplayName)); 
+                catch (Exception e)
+                {
+                    app.MsgShow(string.Format("{0} - {1}", Lang.MBOX_ERROR_LangException, pluginMap.DisplayName));
                 }
                 if (typeof(IPluginConfig).IsAssignableFrom(objCore.GetType()))
                     (objCore as IPluginConfig).GetCodeGenerator += PluginSelect_GetCodeGenerator;
@@ -322,7 +338,8 @@ namespace br.corp.bonus630.QrCodeDocker
                         {
                             InflateUI(this.PluginNames[r]);
                         }
-                        catch (Exception e) { 
+                        catch (Exception e)
+                        {
                             Debug.WriteLine(e.Message, "LoadConfig");
                             throw new Exception(string.Format("Inflate {0} failed", this.PluginNames[r].DisplayName));
                         }
@@ -331,12 +348,24 @@ namespace br.corp.bonus630.QrCodeDocker
                         {
                             this.LoadedPluginList[this.LoadedPluginList.Count - 1].LoadConfig();
                         }
-                        catch (Exception e) { Debug.WriteLine(e.Message, "LoadConfig");
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.Message, "LoadConfig");
                             throw new Exception(string.Format("Load config {0} failed", this.PluginNames[r].DisplayName));
                         }
                     }
                 }
             }
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Dispatcher.InvokeShutdown();
+                Debug.WriteLine("Test");
+            }
+            catch { }
         }
     }
 

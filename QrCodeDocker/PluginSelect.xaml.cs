@@ -358,15 +358,7 @@ namespace br.corp.bonus630.QrCodeDocker
             }
         }
 
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                this.Dispatcher.InvokeShutdown();
-                Debug.WriteLine("Test");
-            }
-            catch { }
-        }
+     
     }
 
 }

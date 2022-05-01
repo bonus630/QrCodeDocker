@@ -127,6 +127,9 @@
   <data name="location" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\location.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logo_circle_m" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo-circle-m.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="snapchat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\snapchat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

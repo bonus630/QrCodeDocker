@@ -4,29 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.DataFromClipboard"
-             xmlns:converters="clr-namespace:br.corp.bonus630.PluginLoader.Converters;assembly=PluginLoader"
+             xmlns:c="clr-namespace:br.corp.bonus630.PluginLoader.Converters;assembly=PluginLoader"
+             
              mc:Ignorable="d" 
-             d:DesignWidth="284">
+            Width="280">
     <UserControl.Resources>
         <ResourceDictionary>
-            <converters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
+            <c:IntVisibilityConverter x:Key="IntVisibilityConverter" />
+
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="20">
-            <CheckBox Content="{Binding Lang.CB_Monitor}" Name="cb_monitorClipboard" Click="cb_monitorClipboard_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <Button Content="{Binding Lang.BTN_Clear}" HorizontalAlignment="Right" Margin="20,0,0,0" Height="30" Width="60" Command="{Binding ClearAllCommand}" Visibility="{Binding ClipboardDatas.Count,Converter={StaticResource IntVisibilityConverter}}"/>
-
+        <StackPanel Orientation="Horizontal" Margin="6">
+            <CheckBox Content="{Binding Lang.CB_Monitor,FallbackValue=Monitorar Area de Transferencia}" Name="cb_monitorClipboard" Click="cb_monitorClipboard_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Button Content="{Binding Lang.BTN_Clear,FallbackValue=Limpar}" HorizontalAlignment="Right" Margin="6,0,0,0"  Width="72" Command="{Binding ClearAllCommand}" Visibility="{Binding ClipboardDatas.Count,Converter={StaticResource IntVisibilityConverter}}">
+               
+            </Button>
         </StackPanel>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding ClipboardDatas}"  Visibility="{Binding RelativeSource={RelativeSource Self},Path=ItemsSource.Count,Converter={StaticResource IntVisibilityConverter}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-
                     <StackPanel Orientation="Horizontal">
                         <Button ToolTip="{Binding Path=DataContext.Lang.ToolTip_Remove, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"
                                 Width="24" Height="24" BorderThickness="0" CommandParameter="{Binding}" 
                                 Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" Content="x" />
-
                         <Label  Width="284" Content="{Binding Text}">
                             <Label.ToolTip>
                                 <Label Content="{Binding Text}"/>

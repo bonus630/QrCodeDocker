@@ -6,6 +6,7 @@ using br.corp.bonus630.PluginLoader;
 using System.Collections.Generic;
 using System.Reflection;
 using br.corp.bonus630.plugin.BatchFromTextFile.Lang;
+using System.Diagnostics;
 
 namespace br.corp.bonus630.plugin.BatchFromTextFile
 {
@@ -44,8 +45,8 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
                 lba_file.Content = of.FileName;
                 if (of.SafeFileName.Contains(".csv"))
                 {
-                    txt_colDelimiter.Text = ";";
-                    txt_delimiter.Text = Environment.NewLine.ToString();
+                    txt_colDelimiter.Text = ",";
+                    txt_delimiter.Text = "\n\r";
                 }
                 bCore.ChangeData();
             }
@@ -77,5 +78,9 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             }
         }
 
+        private void lba_file_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Process.Start(lba_file.Content.ToString());
+        }
     }
 }

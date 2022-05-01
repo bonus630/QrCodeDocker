@@ -12,6 +12,7 @@ namespace br.corp.bonus630.ImageRender
         private QrCode qrCode;
         private Gma.QrCodeNet.Encoding.BitMatrix bitMatrix;
         public BitMatrix BitMatrixProp { get; private set; }
+        public ErrorCorrectionLevelEnum ErrorCorrection { get; set; }
 
         public GmaImageRender():base()
         {

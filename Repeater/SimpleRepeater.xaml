@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.Repeater"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="284">
+             d:DesignHeight="300" Width="280">
     <UserControl.Resources>
         <ControlTemplate x:Key="ScrollViewerControlTemplateTiny" TargetType="{x:Type ScrollViewer}">
             <Grid x:Name="Grid" Background="{TemplateBinding Background}">
@@ -487,9 +487,14 @@
             <RowDefinition Height="42"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Height="30">
-            <RadioButton x:Name="cb_vector" Content="{Binding Lang.CB_Vector,FallbackValue=vector}" IsChecked="True" Margin="120,5,84,10"  />
-            <RadioButton x:Name="cb_bitmap" Content="{Binding Lang.CB_Bitmap,FallbackValue=bitmap}" Margin="198,5,10,10" />
-            <Label Content="{Binding Lang.LBA_QR_Format,FallbackValue=qrFormat}" Margin="0,0,188,0"  />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition  Width="60"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <RadioButton Grid.Column="2" x:Name="cb_vector" Content="{Binding Lang.CB_Vector,FallbackValue=vector}" IsChecked="True" VerticalAlignment="Center" />
+            <RadioButton Grid.Column="1" x:Name="cb_bitmap" Content="{Binding Lang.CB_Bitmap,FallbackValue=bitmap}" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Content="{Binding Lang.LBA_QR_Format,FallbackValue=qrFormat}"   VerticalAlignment="Center"/>
         </Grid>
 
         <Grid Grid.Row="1"  MinWidth="280" Visibility="{Binding ElementName=scrollViewer_buttons,Path=Visibility}">
@@ -514,10 +519,10 @@
 
         <Grid  Grid.Row="2" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <GroupBox Header="{Binding Lang.GBH_Enumaration}" Grid.Column="0" Margin="5,10,0,0" HorizontalAlignment="Left"  Height="150" VerticalAlignment="Top" >
+            <GroupBox Header="{Binding Lang.GBH_Enumaration}" Grid.Column="0" Margin="2,10,0,0" HorizontalAlignment="Left"  Height="150" VerticalAlignment="Top" >
                 <Grid Margin="2,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
@@ -547,7 +552,7 @@
 
                 </Grid>
             </GroupBox>
-            <GroupBox Header="{Binding Lang.GBH_Position}" Grid.Column="1" HorizontalAlignment="Left"  Height="146" VerticalAlignment="Top" Margin="5,10,0,0">
+            <GroupBox Header="{Binding Lang.GBH_Position}" Grid.Column="1" HorizontalAlignment="Left"  Height="146" VerticalAlignment="Top" Margin="2,10,0,0">
                 <Grid Margin="2,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

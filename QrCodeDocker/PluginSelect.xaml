@@ -16,11 +16,7 @@
      
     </UserControl.Resources>
     <StackPanel>
-        <ProgressBar Name="pb_progress" Height="2" Visibility="Collapsed" VerticalAlignment="Top">
-            <ProgressBar.Effect>
-                <BlurEffect/>
-            </ProgressBar.Effect>
-        </ProgressBar>
+     
         <Grid Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -49,12 +45,17 @@
                 </Button.ToolTip>
             </Button>
         </Grid>
+        <ProgressBar Name="pb_progress" Height="2" Visibility="Collapsed" VerticalAlignment="Top">
+            <ProgressBar.Effect>
+                <BlurEffect/>
+            </ProgressBar.Effect>
+        </ProgressBar>
         <ListView x:Name="mainUIList" Padding="0" ItemsSource="{Binding LoadedPluginList}" Margin="0,6,0,0"
                   Visibility="{Binding Path=LoadedPluginList.Count,Converter={StaticResource IntVisibilityConverter}}"
                   BorderThickness="0" Template="{DynamicResource ListViewNewTemplate}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                <Expander Expanded="expanderExpander" HorizontalAlignment="Stretch" Margin="0" IsExpanded="True">
+                    <Expander Expanded="expanderExpander" Padding="0" HorizontalAlignment="Stretch" Margin="0" IsExpanded="True"  Tag="{Binding Index}" >
                  
                     <Expander.Header>
 

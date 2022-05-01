@@ -93,6 +93,16 @@ namespace br.corp.bonus630.plugin.MediaSchema.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_circle_m {
+            get {
+                object obj = ResourceManager.GetObject("logo_circle_m", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap snapchat {
             get {
                 object obj = ResourceManager.GetObject("snapchat", resourceCulture);

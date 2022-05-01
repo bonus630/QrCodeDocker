@@ -3,31 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="280" >
-    <StackPanel >
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="36"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="{Binding Lang.LBA_LineDelimiter}"   VerticalAlignment="Center" />
-            <TextBox Grid.Row="0" Grid.Column="1"  x:Name="txt_delimiter" HorizontalAlignment="Left" MaxLines="1" TextWrapping="Wrap" Text="{Binding RowDelimiter,Mode=OneWay}" VerticalAlignment="Center" Width="32"/>
-            <Label Grid.Row="1" Grid.Column="0"  Content="{Binding Lang.LBA_ColumnDelimiter}"  VerticalAlignment="Center" />
-            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="txt_colDelimiter" HorizontalAlignment="Left" MaxLines="1" TextWrapping="Wrap" Text="{Binding ColumnDelimiter,Mode=OneWay}" VerticalAlignment="Center" Width="32" />
-        </Grid>
-        <Label Content="{Binding FilePath}" Width="276"  x:Name="lba_file" Height="24" Margin="2,38,2,0" VerticalAlignment="Top" >
+             xmlns:converters="clr-namespace:br.corp.bonus630.plugin.BatchFromTextFile.Converters"
+             mc:Ignorable="d" Width="280" >
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="36"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Lang.LBA_LineDelimiter}"   VerticalAlignment="Center" />
+        <TextBox Grid.Row="0" Grid.Column="1"  x:Name="txt_delimiter" HorizontalAlignment="Left" MaxLines="1" TextWrapping="Wrap" Text="{Binding RowDelimiter,Mode=OneWay}" VerticalAlignment="Center" Width="32"/>
+        <Label Grid.Row="1" Grid.Column="0"  Content="{Binding Lang.LBA_ColumnDelimiter}"  VerticalAlignment="Center" />
+        <TextBox Grid.Row="1" Grid.Column="1"  x:Name="txt_colDelimiter" HorizontalAlignment="Left" MaxLines="1" TextWrapping="Wrap" Text="{Binding ColumnDelimiter,Mode=OneWay}" VerticalAlignment="Center" Width="32" />
+        <Label Foreground="#FF0F9BDC" Grid.Column="0" Cursor="Hand" MouseUp="lba_file_MouseUp" Grid.Row="2" Grid.ColumnSpan="2" Content="{Binding FilePath}" Width="276"  x:Name="lba_file" Height="24" VerticalAlignment="Center" >
             <Label.ToolTip>
                 <Label Content="{Binding FilePath}" />
             </Label.ToolTip>
         </Label>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Label Content="{Binding RowCountText}" x:Name="lba_number" Height="24" MinWidth="60"  VerticalAlignment="Top" />
             <Label Content="{Binding ColumnCountText}" x:Name="lba_numberColumn" Height="24" MinWidth="60"  VerticalAlignment="Top" />
-            <Button Name="btn_file" Content="{Binding Lang.BTN_Browser,FallbackValue=teste}" Click="btn_file_Click"   VerticalAlignment="Center" HorizontalAlignment="Right"/>
         </StackPanel>
-    </StackPanel>
+        <Button  Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Name="btn_file" Content="{Binding Lang.BTN_Browser,FallbackValue=teste}" Click="btn_file_Click"   VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+    </Grid>
+
 </UserControl>

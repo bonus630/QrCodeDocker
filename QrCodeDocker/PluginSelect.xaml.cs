@@ -174,18 +174,16 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void expanderExpander(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < LoadedPluginList.Count; i++)
+            var ex = sender as Expander;
+
+            IPluginCore core = LoadedPluginList.Single<IPluginCore>(r => r.Index == (int)ex.Tag);
+
+            if (typeof(IPluginDataSource).IsAssignableFrom(core.GetType()))
             {
-                if (typeof(IPluginDataSource).IsAssignableFrom(LoadedPluginList[i].GetType()))
-                {
-                    List<object[]> dataSource = (LoadedPluginList[i] as IPluginDataSource).DataSource;
-                    if (dataSource != null && dataSource.Count > 0)
-                        SetDataSource(dataSource);
-                }
-
+                List<object[]> dataSource = (core as IPluginDataSource).DataSource;
+                if (dataSource != null && dataSource.Count > 0)
+                    SetDataSource(dataSource);
             }
-
-
         }
 
         private void PluginSelect_GetCodeGenerator(object sender, Type type)
@@ -260,6 +258,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 objCore.FinishJob += PluginSelect_FinishJob;
                 objCore.AnyTextChanged += PluginSelect_AnyTextChanged;
                 objCore.UpdatePreview += PluginSelect_UpdatePreview;
+               
                 try
                 {
                     objCore.ChangeLang(app.UILanguage.cdrLangToSys(), loader.GetAssembly(pluginMap));
@@ -280,6 +279,8 @@ namespace br.corp.bonus630.QrCodeDocker
                 app.MsgShow(erro.Message);
             }
         }
+
+   
 
         private void PluginSelect_UpdatePreview()
         {
@@ -358,7 +359,7 @@ namespace br.corp.bonus630.QrCodeDocker
             }
         }
 
-     
+
     }
 
 }

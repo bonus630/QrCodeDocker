@@ -250,21 +250,30 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Schemas.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="app.config" />
-    <None Include="icons\facebook.png" />
+    <Content Include="icons\facebook.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings1.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="icons\instagran.png" />
+    <Content Include="icons\instagran.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\location.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="icons\snapchat.png" />
+    <Content Include="icons\snapchat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\tel.png" />
@@ -279,6 +288,7 @@
     <None Include="icons\youtube.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\logo-circle-m.png" />
     <None Include="icons\whatsapp.png" />
     <Content Include="icons\wifi.png" />
   </ItemGroup>

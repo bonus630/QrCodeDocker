@@ -17,6 +17,7 @@ namespace br.corp.bonus630.plugin.MediaSchema
         public int Tag { get { return tag; } }
         public string Name { get; set; }
         public SchemesAttribute[] SchemesAttributes { get; set; }
+        public System.Drawing.Bitmap Resource { get { return this.resource; } }
         private bool isSelected = false;
 
         public event PropertyChangedEventHandler PropertyChanged;

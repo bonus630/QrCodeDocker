@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.MediaSchema"
              xmlns:converters="clr-namespace:br.corp.bonus630.plugin.MediaSchema.Converters"
              mc:Ignorable="d" 
-             d:DesignWidth="290">
+             Width="280">
     <UserControl.Resources>
         <ResourceDictionary>
 

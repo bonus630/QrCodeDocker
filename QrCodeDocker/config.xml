@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config>
+	<resources>
+		<resource name="QrCodeDocker" path="QrCodeDocker.dll">
+			<resourceMap>
+				<!-- Toolbox icon and string resource -->
+				<resEntry id="bffeb385-4c48-4fa9-b285-3d32e81030a9" string="10223" icon="108"/>
+      </resourceMap>
+		</resource>
+	</resources>
+</config>

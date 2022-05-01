@@ -86,6 +86,7 @@ namespace br.corp.bonus630.QrCodeDocker
             styleController.LoadThemeFromPreference();
             radioButton_zxing.IsChecked = true;
             imageRender = new ZXingImageRender();
+            imageRender.ErrorCorrection = ErrorCorrectionLevelEnum.Q;
             codeGenerator.SetRender(imageRender);
 
            // string pluginLoader = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\PluginLoader.dll");

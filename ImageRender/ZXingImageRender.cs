@@ -60,6 +60,34 @@ namespace br.corp.bonus630.ImageRender
 
         private ZXing.Common.BitMatrix bitMatrix;
         public BitMatrix BitMatrixProp { get; private set; }
+        private ZXing.QrCode.Internal.ErrorCorrectionLevel ErrorCorrectionLevel { get; set; }
+
+        public ErrorCorrectionLevelEnum ErrorCorrection
+        {
+            get
+            {
+                return ErrorCorrectionLevelEnum.H;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case ErrorCorrectionLevelEnum.L:
+                        this.ErrorCorrectionLevel = ZXing.QrCode.Internal.ErrorCorrectionLevel.L;
+                        break;
+                    case ErrorCorrectionLevelEnum.M:
+                        this.ErrorCorrectionLevel = ZXing.QrCode.Internal.ErrorCorrectionLevel.M;
+                        break;
+                    case ErrorCorrectionLevelEnum.Q:
+                        this.ErrorCorrectionLevel = ZXing.QrCode.Internal.ErrorCorrectionLevel.Q;
+                        break;
+                    case ErrorCorrectionLevelEnum.H:
+                        this.ErrorCorrectionLevel = ZXing.QrCode.Internal.ErrorCorrectionLevel.H;
+                        break;
+                }
+            }
+        }
+
         BarcodeWriter writer = new BarcodeWriter();
 
         public ZXingImageRender() : base()
@@ -67,14 +95,14 @@ namespace br.corp.bonus630.ImageRender
 
 
         }
-        public void EncodeNewBitMatrix(string content, int sqrSize = 0,bool useSQRSize = false)
+        public void EncodeNewBitMatrix(string content, int sqrSize = 0, bool useSQRSize = false)
         {
 
             this.writer.Format = BarcodeFormat.QR_CODE;
 
             //this.writer.Options = new QrCodeEncodingOptions { Width = sqrSize , Height = sqrSize , CharacterSet = "UTF-8" };
-            
-            QrCodeEncodingOptions options = new QrCodeEncodingOptions {  CharacterSet = "UTF-8" };
+
+            QrCodeEncodingOptions options = new QrCodeEncodingOptions { CharacterSet = "UTF-8", ErrorCorrection = ErrorCorrectionLevel };
 
             if (NoBorder)
                 options.Margin = 0;
@@ -140,7 +168,7 @@ namespace br.corp.bonus630.ImageRender
                 padding = 0;
             else
                 padding = quietZoneDot * dotSize;
-           
+
             double totalWidth = areaWidth + 2 * padding;
             if (NoBorder)
                 return areaWidth;
@@ -160,7 +188,7 @@ namespace br.corp.bonus630.ImageRender
         public Bitmap RenderBitmapToMemory(string content, int resolution = 72, int sqrSize = 221)
         {
 
-            EncodeNewBitMatrix(content, sqrSize,true);
+            EncodeNewBitMatrix(content, sqrSize, true);
 
 
             dotSize = sqrSize / bitMatrix.Width;
@@ -204,7 +232,7 @@ namespace br.corp.bonus630.ImageRender
         public Bitmap RenderBitmapToMemory2(string content, int resolution = 72, int sqrSize = 221)
         {
 
-            EncodeNewBitMatrix(content, sqrSize,false);
+            EncodeNewBitMatrix(content, sqrSize, false);
 
             //dotSize = 10;
             dotSize = sqrSize / bitMatrix.Width;
@@ -237,7 +265,7 @@ namespace br.corp.bonus630.ImageRender
                                     //Dot top line
                                     if (j != 0 && !bitMatrix[i, j - 1])
                                         graphics.DrawLine(pDotBorder, i * dotSize + m_Padding, j * dotSize + m_Padding, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
-                                    
+
                                     //Dot left line
                                     if (i != 0 && !bitMatrix[i - 1, j])
                                         graphics.DrawLine(pDotBorder, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding, j * dotSize + m_Padding);
@@ -298,7 +326,7 @@ namespace br.corp.bonus630.ImageRender
 
         public Bitmap RenderWireframeToMemory(string content, int resolution = 72, int sqrSize = 221)
         {
-            EncodeNewBitMatrix(content, sqrSize,true);
+            EncodeNewBitMatrix(content, sqrSize, true);
 
 
             dotSize = sqrSize / bitMatrix.Width;
@@ -327,11 +355,11 @@ namespace br.corp.bonus630.ImageRender
                             if (i != 0 && !bitMatrix[i - 1, j])
                                 graphics.DrawLine(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding, j * dotSize + m_Padding);
                             //Dot right line
-                            if ((i + 1) < bitMatrix.Width&&!bitMatrix[i + 1, j])
+                            if ((i + 1) < bitMatrix.Width && !bitMatrix[i + 1, j])
                                 graphics.DrawLine(pWireframe, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
 
                             //Dot bottom line
-                            if ((j + 1) < bitMatrix.Width&&!bitMatrix[i, j + 1])
+                            if ((j + 1) < bitMatrix.Width && !bitMatrix[i, j + 1])
                                 graphics.DrawLine(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize);
 
 

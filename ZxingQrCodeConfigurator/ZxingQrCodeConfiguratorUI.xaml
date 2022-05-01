@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.ZxingQrCodeConfigurator"
              xmlns:converters="clr-namespace:br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="284">
+              MinWidth="280">
     <UserControl.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="cb_color_template">
@@ -87,9 +86,10 @@
             <RowDefinition Height="34" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="56" />
+            <ColumnDefinition Width="36" />
             <ColumnDefinition/>
             <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="2"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="0" Grid.Column="0" Style="{StaticResource WeldImage}" HorizontalAlignment="Left" Margin="4" />
 
@@ -97,7 +97,7 @@
                   Click="ck_weld_Click" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="190"  />
         <Image Grid.Row="1" Grid.Column="0" Style="{StaticResource DotShapeImage}"  HorizontalAlignment="Left" Margin="4"  />
         <Label Grid.Row="1" Grid.Column="1"  Content="{Binding Lang.LBA_DotShape,FallbackValue=Dot Shape}"    />
-        <ComboBox Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Left" Width="60" x:Name="cb_dotShape" DropDownClosed="cb_dotShape_DropDownClosed" Margin="2" SelectedIndex="0">
+        <ComboBox Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Left" Width="60" x:Name="cb_dotShape" DropDownClosed="cb_dotShape_DropDownClosed"  SelectedIndex="0">
             <ComboBoxItem >
                 <Rectangle Width="20" Height="20" />
             </ComboBoxItem>
@@ -138,8 +138,8 @@
                   x:Name="ck_noBorder" Click="ck_noBorder_Checked" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="14" />
 
         <Image Grid.Row="3" Grid.Column="0" Style="{StaticResource BorderColorImage}"  HorizontalAlignment="Left" Margin="4" />
-        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Lang.LBA_BorderColor,FallbackValue=Border Color}"   HorizontalAlignment="Left" Margin="2,1.8,0,1.6"  Width="167" />
-        <ComboBox Grid.Row="3" Grid.Column="2" x:Name="btn_BorderColor"  HorizontalAlignment="Left" SelectedIndex="0"  DropDownOpened="btn_BorderColor_Click" Width="58" Margin="2" 
+        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Lang.LBA_BorderColor,FallbackValue=Border Color}"   HorizontalAlignment="Left" VerticalAlignment="Center"  Width="167" />
+        <ComboBox Grid.Row="3" Grid.Column="2" x:Name="btn_BorderColor"  HorizontalAlignment="Left" SelectedIndex="0"  DropDownOpened="btn_BorderColor_Click" Width="60" 
                   IsEnabled="{Binding ElementName=ck_noBorder, Path=IsChecked,Converter={StaticResource InvertBoolConverter}}"  >
             <ComboBoxItem HorizontalContentAlignment="Center">
                 <Rectangle Fill="{Binding SelectedBorderColor.ColorHexValue,FallbackValue=#FFFFFF}"  Width="38" Height="26"/>
@@ -151,10 +151,10 @@
             <ComboBox Height="30" x:Name="cb_borderColor" ItemTemplate="{DynamicResource cb_color_template}" DropDownClosed="cb_borderColor_DropDownClosed" HorizontalAlignment="Left" Width="175" Margin="105,3,0,1" />
         </Grid>-->
         <!--<Grid Height="34" Margin="0,0,0,2">-->
-        <Image Grid.Row="4" Grid.Column="0" Style="{StaticResource DotFillColorImage}"  HorizontalAlignment="Left" Margin="4"  />
+        <Image Grid.Row="4" Grid.Column="0" Style="{StaticResource DotFillColorImage}"  HorizontalAlignment="Left"  Margin="4"  />
 
         <Label Grid.Row="4" Grid.Column="1" Content="{Binding Lang.LBA_DotFillColor,FallbackValue=Dot Fill Color}" />
-        <ComboBox Grid.Row="4" Grid.Column="2" x:Name="btn_DotColor" DropDownOpened="btn_DotColor_Click" SelectedIndex="0" HorizontalAlignment="Left" Width="58" Margin="2"   >
+        <ComboBox Grid.Row="4" Grid.Column="2" x:Name="btn_DotColor" DropDownOpened="btn_DotColor_Click" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60">
             <ComboBoxItem HorizontalContentAlignment="Center">
                 <Rectangle Fill="{Binding SelectedDotColor.ColorHexValue,FallbackValue=#000000}"  Width="38" Height="26"/>
             </ComboBoxItem>
@@ -168,7 +168,7 @@
         <Image Grid.Row="5" Grid.Column="0" Style="{StaticResource DotBorderColorImage}" HorizontalAlignment="Left" Margin="4"  />
 
         <Label Grid.Row="5" Grid.Column="1" Content="{Binding Lang.LBA_DotBorderColor,FallbackValue=Dot Border Color}" />
-        <ComboBox Grid.Row="5" Grid.Column="2" x:Name="btn_DotBorderColor" DropDownOpened="btn_DotBorderColor_Click" SelectedIndex="0" Width="58" Margin="2" >
+        <ComboBox Grid.Row="5" Grid.Column="2" x:Name="btn_DotBorderColor" DropDownOpened="btn_DotBorderColor_Click" SelectedIndex="0" VerticalAlignment="Center" Width="60">
             <ComboBoxItem HorizontalContentAlignment="Center">
                 <Rectangle Fill="{Binding SelectedDotBorderColor.ColorHexValue,FallbackValue=#000000}"  Width="38" Height="26"/>
             </ComboBoxItem>
@@ -182,7 +182,7 @@
 
 
         <Label Grid.Row="6" Grid.Column="1"  Content="{Binding Lang.LBA_DotBorderSize,FallbackValue=Dot Border Size}"  />
-        <TextBox Grid.Row="6" Grid.Column="2"  x:Name="txt_dotBorderSize" PreviewKeyUp="txt_dotBorderSize_PreviewKeyUp" PreviewTextInput="checkTextFormat" LostFocus="txt_content_LostFocus" GotFocus="txt_content_GotFocus" Text="0" TextAlignment="Right" HorizontalContentAlignment="Center" Margin="0,2.2,0,1.4"/>
+        <TextBox Grid.Row="6" Grid.Column="2"  x:Name="txt_dotBorderSize" PreviewKeyUp="txt_dotBorderSize_PreviewKeyUp" PreviewTextInput="checkTextFormat" LostFocus="txt_content_LostFocus" GotFocus="txt_content_GotFocus" Text="0" TextAlignment="Right" VerticalContentAlignment="Center"  VerticalAlignment="Center" />
 
         <Button Grid.Row="7" Grid.Column="1" Content="{Binding Lang.BTN_Verify,FallbackValue=Verify}" x:Name="btn_validate" Click="btn_validate_Click"    />
     </Grid>

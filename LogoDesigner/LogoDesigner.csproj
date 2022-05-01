@@ -5,25 +5,25 @@
     <CdrTargetPath>$(SolutionDir)bonus630.CDRCommon.targets</CdrTargetPath>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{41C58F43-E7C9-4576-8900-37BF052EAC1F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>br.corp.bonus630.plugin.BatchFromTextFile</RootNamespace>
-    <AssemblyName>BatchFromTextFile</AssemblyName>
+    <ProjectGuid>{A79662DB-86DD-4F11-A413-F2D426C3167C}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>br.corp.bonus630.plugin.LogoDesigner</RootNamespace>
+    <AssemblyName>LogoDesigner</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <Import Project="$(CdrTargetPath)" Condition="Exists('$(CdrTargetPath)')" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\extras</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X7 Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,14 +99,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2018 Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\2018\extras</OutputPath>
+    <OutputPath>bin\Release\2018\</OutputPath>
     <OutDir>bin\Release\2018\$(SolutionName)\extras</OutDir>
     <DefineConstants>TRACE;X10</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2019 Release|AnyCPU'">
-    <OutputPath>bin\Release\2019\extras</OutputPath>
+    <OutputPath>bin\Release\2019\</OutputPath>
     <OutDir>bin\Release\2019\$(SolutionName)\extras</OutDir>
     <DefineConstants>TRACE;X10</DefineConstants>
     <Optimize>true</Optimize>
@@ -125,7 +125,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2020 Release|AnyCPU'">
-    <OutputPath>bin\Release\2020\extras</OutputPath>
+    <OutputPath>bin\Release\2020\</OutputPath>
     <OutDir>bin\Release\2020\$(SolutionName)\extras</OutDir>
     <DefineConstants>TRACE;X12</DefineConstants>
     <Optimize>true</Optimize>
@@ -184,55 +184,75 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup Label="VGCoreReferences">
+    <Reference Include="$(CurrentCorelPath)$(VGCoreDLL)">
+      <Name>Corel.Interop.VGCore</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BatchFromTextFile.xaml.cs">
-      <DependentUpon>BatchFromTextFile.xaml</DependentUpon>
+    <Page Include="LogoDesignerUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="LogoDesignerCore.cs" />
+    <Compile Include="LogoDesignerUI.xaml.cs">
+      <DependentUpon>LogoDesignerUI.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BatchFromTextFileCore.cs" />
-    <Compile Include="Converters\StringToFormatedURIConverter.cs" />
-    <Compile Include="Lang\EN_US.cs" />
-    <Compile Include="Lang\Ilang.cs" />
-    <Compile Include="Lang\PT_BR.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings1.Designer.cs">
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings1.settings</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageRender\ImageRender.csproj">
+      <Project>{4F0AAE56-5D21-40ED-AA72-69490BE8DE47}</Project>
+      <Name>ImageRender</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PluginLoader\PluginLoader.csproj">
       <Project>{eaf9534f-74a1-4b07-a61c-0eab13c70fb3}</Project>
       <Name>PluginLoader</Name>
-      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\QrCodeDocker\QrCodeDocker.csproj">
+      <Project>{0bc78d26-dbd1-4802-bee7-796d2a980471}</Project>
+      <Name>QrCodeDocker</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Page Include="BatchFromTextFile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Properties\Settings1.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="CopyFiles" AfterTargets="Build">
     <Message Text="CopyFiles" />

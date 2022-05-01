@@ -111,12 +111,12 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
 
                     int primarySize = 0;
                     string todo = sr.ReadToEnd();
-                    string[] pieces = todo.Split(rowDelimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    string[] pieces = todo.Split(new String[] { rowDelimiter }, StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i < pieces.Length; i++)
                     {
                         try
                         {
-                            object[] temp = pieces[i].Split(columnDelimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                            object[] temp = pieces[i].Split(new String[] { columnDelimiter }, StringSplitOptions.RemoveEmptyEntries);
 
                             if (i == 0)
                                 primarySize = temp.Length;

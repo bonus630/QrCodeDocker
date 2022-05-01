@@ -38,24 +38,33 @@
                     </tabs:WiFiControl>
                 </TabControl>
             </ScrollViewer>
-            <StackPanel Margin="0,8,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
-                <Label Name="lbaDotSize" Content="{Binding Path=Lang.LabelDotSize,FallbackValue=Tamanho do Ponto}" Margin="0,0,0,0" VerticalAlignment="Center"/>
-                <TextBox x:Name="txt_dot" Text="1" IsEnabled="false" Margin="0,4,0,4" HorizontalAlignment="Left" Width="28" Height="28" VerticalContentAlignment="Center" VerticalAlignment="Center" />
-                <Label Name="lbaSize" Content="{Binding Path=Lang.LabelSize,FallbackValue=Tamanho}" Margin="0,0,-0,0" VerticalAlignment="Center"/>
-                <TextBox HorizontalAlignment="Left" Width="33" x:Name="txt_size" Text="221" TextChanged="txt_size_TextChanged" Margin="4,0,-0,0" VerticalAlignment="Center" Height="28" VerticalContentAlignment="Center"/>
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="1" Name="lbaDotSize" Content="{Binding Path=Lang.LabelDotSize,FallbackValue=Tamanho do Ponto}"  VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="2"  x:Name="txt_dot" Text="1" IsEnabled="false" Margin="0,4,0,4" HorizontalAlignment="Left" Width="28"  VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                <Label Grid.Row="0" Grid.Column="4"  Name="lbaSize" Content="{Binding Path=Lang.LabelSize,FallbackValue=Tamanho}"  VerticalAlignment="Center"/>
+                <TextBox  Grid.Row="0" Grid.Column="5"  HorizontalAlignment="Left" Width="28" x:Name="txt_size" Text="221" TextChanged="txt_size_TextChanged"  VerticalAlignment="Center"  VerticalContentAlignment="Center"/>
+                <StackPanel Height="26" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,4,0,4" Visibility="Collapsed">
+                    <Label Name="lbaEncodingType" Content="{Binding Path=Lang.LabelEncodingType}"  VerticalAlignment="Center"/>
 
-            </StackPanel>
+                    <RadioButton Content="Gma" HorizontalAlignment="Left" VerticalAlignment="Center"  Name="radioButton_gma" Checked="radioButton_gma_Checked"  Click="radioButton_zxing_Click" ToolTip="Método que prioriza textos AlphaNumericos https://qrcodenet.codeplex.com" Margin="4,0,0,0" Visibility="Collapsed"/>
+                    <RadioButton Content="Zxing"  HorizontalAlignment="Left"  VerticalAlignment="Center" Name="radioButton_zxing" Checked="radioButton_zxing_Checked" Click="radioButton_zxing_Click" ToolTip="Método com suporte a UTF-8 https://zxingnet.codeplex.com" Margin="4,0,0,0" />
 
-            <StackPanel Height="26" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,4,0,4" Visibility="Collapsed">
-                <Label Name="lbaEncodingType" Content="{Binding Path=Lang.LabelEncodingType}"  VerticalAlignment="Center"/>
-
-                <RadioButton Content="Gma" HorizontalAlignment="Left" VerticalAlignment="Center"  Name="radioButton_gma" Checked="radioButton_gma_Checked"  Click="radioButton_zxing_Click" ToolTip="Método que prioriza textos AlphaNumericos https://qrcodenet.codeplex.com" Margin="4,0,0,0" Visibility="Collapsed"/>
-                <RadioButton Content="Zxing"  HorizontalAlignment="Left"  VerticalAlignment="Center" Name="radioButton_zxing" Checked="radioButton_zxing_Checked" Click="radioButton_zxing_Click" ToolTip="Método com suporte a UTF-8 https://zxingnet.codeplex.com" Margin="4,0,0,0" />
-
-            </StackPanel>
-            <Grid Margin="0,8,0,0" HorizontalAlignment="Left" >
-                <Button Content="{Binding Path=Lang.ButtonDrawVector,FallbackValue=Desenhar Vetor}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Left" Width="100" Height="28" Margin="12,0,0,0"/>
-                <Button Content="{Binding Path=Lang.ButtonDrawBitmap,FallbackValue=Desenha Bitmap}"  Margin="119,0,0,0" x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Left" Width="100" Height="28"/>
+                </StackPanel>
+                <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Path=Lang.ButtonDrawVector,FallbackValue=Desenhar Vetor}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Stretch"  />
+                <Button  Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Content="{Binding Path=Lang.ButtonDrawBitmap,FallbackValue=Desenha Bitmap}"  x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Stretch"  />
                 <!--<Button Content="Extras" Margin="188,0,0,0" Name="btn_extras" Click="btn_extras_Click" Visibility="Hidden"/>-->
             </Grid>
             <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader,FallbackValue=Extras}" Name="groupBoxPluginContainer" Margin="0,10" 
@@ -69,15 +78,30 @@
                 </Border>
             </Grid>
             <Separator Margin="0,10"/>
-            <Grid Height="80">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition Width="68"/>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition Width="68"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="17" />
+                    <RowDefinition Height="17" />
+                    <RowDefinition Height="17" />
+                    <RowDefinition Height="17" />
+                    <RowDefinition Height="17" />
+                </Grid.RowDefinitions>
 
-
-                <Image Height="68" Style="{StaticResource bonus630Image}" MouseUp="Image_MouseUp" Name="img_bonus" ToolTip="{Binding Path=Lang.ToolTipBonus630}" Cursor="Hand" Margin="255,6,0,6" HorizontalAlignment="Left" Width="68"/>
-                <Image Height="68" Style="{StaticResource CorelNaVeia2015Image}" x:Name="img_corelNaVeia" ToolTip="{Binding Path=Lang.ToolTipCorelNaVeia}" Cursor="Hand" Margin="180,6,0,6" HorizontalAlignment="Left" Width="68" MouseUp="img_corelNaVeia_MouseUp"/>
-                <Label x:Name="lba_zxing" Content="https://zxingnet.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0" MouseUp="lba_zxing_MouseUp" Cursor="Hand" ToolTip="third party .net libraries"/>
-                <!--<WebBrowser  Width="160" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="52" Margin="4,0,0,4" Source="https://bonus630.com.br/ad.html" />-->
+                <Image Grid.Row="0" Grid.Column="4" Grid.RowSpan="4" Height="68" Style="{StaticResource bonus630Image}" MouseUp="Image_MouseUp" Name="img_bonus" ToolTip="{Binding Path=Lang.ToolTipBonus630}" Cursor="Hand" HorizontalAlignment="Left" Width="68"/>
+                <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"  Height="68" Style="{StaticResource CorelNaVeia2015Image}" x:Name="img_corelNaVeia" ToolTip="{Binding Path=Lang.ToolTipCorelNaVeia}" Cursor="Hand"  HorizontalAlignment="Left" Width="68" MouseUp="img_corelNaVeia_MouseUp"/>
+                <Label Grid.Row="0" Grid.Column="0"   x:Name="lba_zxing" Content="https://zxingnet.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" FontSize="10" Margin="0" MouseUp="lba_zxing_MouseUp" Cursor="Hand" ToolTip="third party .net libraries"/>
                 <!--<Label x:Name="lba_gma" Content="https://qrcodenet.codeplex.com" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0,22,0,0" MouseUp="lba_gma_MouseUp" Cursor="Hand" ToolTip="third party .net libraries"/>-->
-                <Label Content="{Binding Lang.LBA_APPVersion,FallbackValue=Version}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" FontSize="10" Margin="0,22,0,0"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="{Binding Lang.LBA_APPVersion,FallbackValue=Version}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" FontSize="10" />
+                <!--<WebBrowser Grid.Row="2" Grid.Column="0" Grid.RowSpan="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Source="https://bonus630.com.br/ad.html" />-->
+
             </Grid>
 
         </StackPanel>

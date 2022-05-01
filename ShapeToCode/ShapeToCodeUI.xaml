@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.ShapeToCode"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="284">
+             d:DesignHeight="450" d:DesignWidth="280">
     <StackPanel>
         <Button Height="28" Content="{Binding Lang.BTN_ProcessDoc}" x:Name="btn_Doc" Margin="10,10,10,0" />
         <Button Height="28" Content="{Binding Lang.BTN_ProcessPage}" x:Name="btn_Page" Margin="10,10,10,0" />

@@ -12,6 +12,7 @@
         <ResourceDictionary>
 
             <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
+            <converters:ResourceToMediaImageConverter x:Key="ResourceToMediaImageConverter" />
             <system:Double x:Key="OpacityValue">0.5</system:Double>
             <system:String x:Key="GroupName">RadioGroupSchemas</system:String>
             <Style x:Key="ImageRadioButton" TargetType="{x:Type RadioButton}">
@@ -66,7 +67,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource Button.MouseOver.Background}"/>-->
                                     <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource Button.MouseOver.Border}"/>
-                                    
+
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="False">
                                     <!--<Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource Button.MouseOver.Background}"/>-->
@@ -77,7 +78,7 @@
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource Button.Pressed.Background}"/>
                                     <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource Button.Pressed.Border}"/>
-                                   
+
                                 </Trigger>
                                 <Trigger Property="IsChecked" Value="True">
                                     <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource TabItem.Selected.Background}"/>
@@ -98,11 +99,13 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
+
     <StackPanel Width="290">
         <!--<RadioButton Style="{DynamicResource ImageRadioButton}">
             <Image Source="whatsapp.png" Cursor="Hand" />
         </RadioButton>-->
         <ItemsControl ItemsSource="{Binding SchemesDataSource}" Padding="2">
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <RadioButton Style="{DynamicResource ImageRadioButton}" Click="RadioButton_Click" IsChecked="{Binding IsSelected,Mode=TwoWay}" Tag="{Binding Tag}"
@@ -124,7 +127,22 @@
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel/>
+                    <WrapPanel  Background="Transparent">
+                        <WrapPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem  Header="{Binding Lang.MenuItem_OpenXML}" CommandParameter="1" Command="{Binding OpenXmlCommand}" >
+                                    <MenuItem.Icon>
+                                        <Image Source="{Binding OpenXmlIcon}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="{Binding Lang.MenuItem_OpenIconFolder}" CommandParameter="2" Command="{Binding OpenIconFolderCommand}" >
+                                    <MenuItem.Icon>
+                                        <Image Source="{Binding OpenFolderIcon}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ContextMenu>
+                        </WrapPanel.ContextMenu>
+                    </WrapPanel>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
@@ -132,6 +150,7 @@
                     <Setter Property="FrameworkElement.Margin" Value="2"/>
                 </Style>
             </ItemsControl.ItemContainerStyle>
+
         </ItemsControl>
         <!--<WrapPanel Orientation="Horizontal" Name="content" />-->
         <StackPanel Name="schemes" />

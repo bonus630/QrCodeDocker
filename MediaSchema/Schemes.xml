@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--< (less-than)                   -   &lt;
+<!--https://www.tutorialspoint.com/pg/xml/xml_character_entities.htm
+
+	< (less-than)                   -   &lt;
 
 	> (greater-than)                -   &gt;
 
@@ -7,25 +9,26 @@
 
 	' (apostrophe or single quote)  -   &apos;
 
-	" (double-quote)                -   &quot;-->
-<Schemas>
-	<Schema>
+	" (double-quote)                -   &quot;
+	-->
+<Schemes>
+	<Scheme>
 		<InvariablePart>instagram://user?username={0}</InvariablePart>
 		<Image>instagran.png</Image>
 		<Name>Instagran</Name>
 		<Attributes>
 			<Attribute type="string">User</Attribute>
 		</Attributes>
-	</Schema>
-	<Schema>
+	</Scheme>
+	<Scheme>
 		<InvariablePart>twitter://user?id={0}</InvariablePart>
 		<Image>twitter.png</Image>
 		<Name>Twitter</Name>
 		<Attributes>
 			<Attribute type="string">User</Attribute>
 		</Attributes>
-	</Schema>
-	<Schema>
+	</Scheme>
+	<Scheme>
 		<InvariablePart>https://api.whatsapp.com/send?phone={0}{1}{2}&amp;text={3}</InvariablePart>
 		<Image>whatsapp.png</Image>
 		<Name>Whatsapp</Name>
@@ -35,8 +38,8 @@
 			<Attribute type="string">TEL</Attribute>
 			<Attribute type="string">MSG</Attribute>
 		</Attributes>
-	</Schema>
-	<Schema>
+	</Scheme>
+	<Scheme>
 		<InvariablePart>tel://{0}{1}{2}</InvariablePart>
 		<Image>tel.png</Image>
 		<Name>Phone</Name>
@@ -45,29 +48,22 @@
 			<Attribute type="string">DDD</Attribute>
 			<Attribute type="string">Phone</Attribute>
 		</Attributes>
-	</Schema>
-	<Schema>
+	</Scheme>
+	<Scheme>
 		<InvariablePart>https://www.snapchat.com/add/{0}</InvariablePart>
 		<Image>snapchat.png</Image>
 		<Name>Snapchat</Name>
 		<Attributes>
 			<Attribute type="string">User</Attribute>
 		</Attributes>
-	</Schema>
-	<Schema>
+	</Scheme>
+	<Scheme>
 		<InvariablePart>https://t.me/{0}</InvariablePart>
 		<Image>telegran.png</Image>
 		<Name>Telegran</Name>
 		<Attributes>
 			<Attribute type="string">User</Attribute>
 		</Attributes>
-	</Schema>
-	<Schema>
-		<InvariablePart>https://bonus630.com.br/a/{0}</InvariablePart>
-		<Image>logo-circle-m.png</Image>
-		<Name>Artigos Bonus630</Name>
-		<Attributes>
-			<Attribute type="string">ID</Attribute>
-		</Attributes>
-	</Schema>
-</Schemas>
+	</Scheme>
+	
+</Schemes>

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
+using System.Windows.Input;
 using System.Xml;
 using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
@@ -31,12 +32,30 @@ namespace br.corp.bonus630.plugin.MediaSchema
         public List<Schemes> SchemesDataSource { get { return this.schemesDataSource; } set { this.schemesDataSource = value; } }
 
         public string GroupName { get { return "RadioGroupSchemasIcons"; } }
+        public RoutedCommand<string> OpenXmlCommand { get; set; }
+        public RoutedCommand<string> OpenIconFolderCommand { get; set; }
+        //public CommandBinding OpenXmlCommand { get; set; }
+        private string xmlPath,iconPath;
+
+        public System.Windows.Media.Imaging.BitmapSource OpenXmlIcon { get { return BitmapResources.generateBitmapSource(Properties.Resource.xml); } }
+        public System.Windows.Media.Imaging.BitmapSource OpenFolderIcon { get { return BitmapResources.generateBitmapSource(Properties.Resource.folder); } }
+
         public override string GetPluginDisplayName { get { return MediaSchemaCore.PluginDisplayName; } }
 
         public MediaSchemaCore()
         {
-            FillSourceXml();
+            try
+            {
+                FillSourceXml();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            OpenXmlCommand = new RoutedCommand<string>(openXmlCommand);
+            OpenIconFolderCommand = new RoutedCommand<string>(openIconFolderCommand);
             // FillSource();
+            
         }
         public void Draw()
         {
@@ -59,9 +78,10 @@ namespace br.corp.bonus630.plugin.MediaSchema
             {
                 string spath = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 spath = spath.Substring(0, spath.LastIndexOf('\\'));
-                string path = string.Format("{0}\\Schemas.xml", spath);
+                iconPath = string.Format("{0}\\icons", spath);
+                xmlPath = string.Format("{0}\\Schemes.xml", spath);
                 XmlDocument doc = new XmlDocument();
-                doc.Load(path);
+                doc.Load(xmlPath);
                 XmlNode mainNode = doc.LastChild;
 
                 for (int i = 0; i < mainNode.ChildNodes.Count; i++)
@@ -81,7 +101,9 @@ namespace br.corp.bonus630.plugin.MediaSchema
                                 invariablePart = SecurityElement.Escape(itemNode.InnerText);
                                 break;
                             case "Image":
-                                image = string.Format("{0}\\icons\\{1}", spath, itemNode.InnerText);
+                                image = string.Format("{0}\\{1}", iconPath, itemNode.InnerText);
+                                if (!File.Exists(image))
+                                    throw new Exception("Image not found in icons folder, please check, and reopen the Extra");
                                 break;
                             case "Name":
                                 name = itemNode.InnerText;
@@ -124,54 +146,15 @@ namespace br.corp.bonus630.plugin.MediaSchema
 
 
         }
-        public void FillSource()
+        private  void openXmlCommand(string i)
         {
-            schemesDataSource.Add(
-                new Schemes(0, "instagram://user?username={0}", Properties.Resource.instagran, "Instagran",
-                new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
-                { IsSelected = true }
-                );
-            schemesDataSource.Add(
-               new Schemes(1, "twitter://user?id={0}", Properties.Resource.twitter, "Twitter",
-                new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
-               );
-            schemesDataSource.Add(
-             new Schemes(2, "https://api.whatsapp.com/send?phone={0}{1}{2}&text={3}", Properties.Resource.whatsapp, "Whatsapp",
-              new SchemesAttribute[] {
-              new SchemesAttribute("DDI", typeof(string)),
-              new SchemesAttribute("DDD", typeof(string)) ,
-              new SchemesAttribute("TEL", typeof(string)),
-              new SchemesAttribute("MSG", typeof(string)) })
-             );
-            schemesDataSource.Add(
-              new Schemes(3, "tel://{0}{1}{2}", Properties.Resource.tel, "Phone",
-                new SchemesAttribute[] {
-                    new SchemesAttribute("DDI", typeof(string)),
-                    new SchemesAttribute("DDD", typeof(string)) ,
-                    new SchemesAttribute("Phone", typeof(string)) })
-              );
-            schemesDataSource.Add(
-              new Schemes(4, "https://www.snapchat.com/add/{0}", Properties.Resource.snapchat, "Snapchat",
-               new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
-              );
-
-            schemesDataSource.Add(
-              new Schemes(5, "https://t.me/{0}", Properties.Resource.telegran, "Telegran",
-               new SchemesAttribute[] { new SchemesAttribute("User", typeof(string)) })
-              );
-            schemesDataSource.Add(
-             new Schemes(6, "https://bonus630.com.br/a/{0}", Properties.Resource.logo_circle_m, "Artigos bonus630",
-              new SchemesAttribute[] { new SchemesAttribute("ID", typeof(string)) })
-             );
-            //schemesDataSource.Add(
-            //  new Schemes(4, "WIFI:S:{0};T:{1};P:{2};H:{3};", Properties.Resource.wifi, "Wifi",
-            //    new SchemesAttribute[] { new SchemesAttribute("SSID", typeof(string)),
-            //    new SchemesAttribute("Encryption type", typeof(string)),
-            //    new SchemesAttribute("Password", typeof(string)),
-            //    new SchemesAttribute("SSID Hidden", typeof(bool))})
-            //  );
-            OnNotifyPropertyChanged("SchemesDataSource");
+            System.Diagnostics.Process.Start(xmlPath);
         }
+        private void openIconFolderCommand(string i)
+        {
+            System.Diagnostics.Process.Start(iconPath);
+        }
+       
         public override void SaveConfig()
         {
             if (currentScheme != null)

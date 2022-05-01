@@ -103,7 +103,7 @@ namespace br.corp.bonus630.plugin.MediaSchema.Converters
         }
         private System.Drawing.Bitmap GetBitmap(string ResourceName)
         {
-            ResourceManager rm = new ResourceManager("br.corp.bonus630.plugin.MediaScheme.Properties.Resources",
+            ResourceManager rm = new ResourceManager("br.corp.bonus630.plugin.MediaSchema.Properties.Resources",
             Assembly.GetExecutingAssembly());
             try
             {

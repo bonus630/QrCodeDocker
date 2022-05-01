@@ -239,7 +239,15 @@ namespace br.corp.bonus630.QrCodeDocker
                 //IPluginCore objCore  = LoadedPluginList.Single<IPluginCore>(r => r.GetPluginDisplayName.Equals(pluginMap.DisplayName));
                 //if (objCore != null)
                 //    return;
-                IPluginCore objCore = loader.GetCore(pluginMap);
+                IPluginCore objCore = null;
+                try
+                {
+                    objCore = loader.GetCore(pluginMap);
+                }
+                catch (Exception e)
+                {
+                    app.MsgShow(string.Format("{0} - {1}",  pluginMap.DisplayName,e.Message));
+                }
                 if (objCore == null)
                     return;
                 Type type = loader.GetMainUIType(pluginMap);

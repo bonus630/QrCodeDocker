@@ -40,6 +40,10 @@
         <Setter Property="Foreground" Value="{DynamicResource Default.Static.Foreground}"/>
 
     </Style>
+    <Style TargetType="ContextMenu">
+        <Setter Property="Background" Value="{DynamicResource Default.Static.Backgroung}" />
+        <Setter Property="Foreground" Value="{DynamicResource Default.Static.Foreground}"/>
+    </Style>
     <Style TargetType="Ellipse">
         <Setter Property="Stroke" Value="{DynamicResource Default.Static.Foreground}"/>
     </Style>

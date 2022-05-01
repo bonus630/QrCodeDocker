@@ -102,7 +102,15 @@ namespace br.corp.bonus630.PluginLoader
         //}
         public IPluginCore GetCore(PluginMap plugin)
         {
-            return getInstance<IPluginCore>(plugin) as IPluginCore;
+            try
+            {
+                return getInstance<IPluginCore>(plugin) as IPluginCore;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            return null;
         }
         private object getInstance<T>(PluginMap plugin)
         {
@@ -122,6 +130,10 @@ namespace br.corp.bonus630.PluginLoader
                     catch(TargetInvocationException e)
                     {
                         throw e;
+                    }
+                    catch(Exception ex)
+                    {
+                        throw ex;
                     }
                 }
 

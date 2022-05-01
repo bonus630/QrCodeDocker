@@ -147,5 +147,6 @@ namespace br.corp.bonus630.plugin.MediaSchema
             InflateUISchema(tag);
         }
 
+       
     }
 }

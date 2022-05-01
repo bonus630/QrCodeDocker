@@ -208,6 +208,9 @@
     <Compile Include="Converters\BoolToOpacityConverter.cs" />
     <Compile Include="Converters\ResourceToMediaImageConverter.cs" />
     <Compile Include="Converters\SchemaToBoolConverter.cs" />
+    <Compile Include="Lang\ILang.cs" />
+    <Compile Include="Lang\EN_EU.cs" />
+    <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="MediaSchemaUI.xaml.cs">
       <DependentUpon>MediaSchemaUI.xaml</DependentUpon>
     </Compile>
@@ -250,7 +253,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Schemas.xml">
+    <None Include="Resources\xml.png" />
+    <None Include="Resources\2344.png" />
+    <Content Include="Schemes.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="app.config" />
@@ -276,20 +281,27 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="icons\tel.png" />
+    <Content Include="icons\tel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="icons\telegran.png" />
+    <Content Include="icons\telegran.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="icons\twitter.png" />
+    <Content Include="icons\twitter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\youtube.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\logo-circle-m.png" />
-    <None Include="icons\whatsapp.png" />
+    <Content Include="icons\whatsapp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="icons\wifi.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -297,6 +309,9 @@
     <Message Text="CopyFiles" />
     <Message Text="$(CurrentCorelPath)" />
     <MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras" />
-    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy  &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy  &quot;$(OutDir)Schemes.xml&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
+    <MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras\icon" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras\icons')" Command="xcopy  &quot;$(OutDir)\icons\*.*&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\icons&quot; /y /d /e /c" />
   </Target>
 </Project>

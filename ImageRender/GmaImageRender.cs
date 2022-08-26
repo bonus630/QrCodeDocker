@@ -14,6 +14,8 @@ namespace br.corp.bonus630.ImageRender
         public BitMatrix BitMatrixProp { get; private set; }
         public ErrorCorrectionLevelEnum ErrorCorrection { get; set; }
 
+        public ResultC GetResult { get; set; }
+
         public GmaImageRender():base()
         {
          

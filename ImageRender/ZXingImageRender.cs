@@ -87,6 +87,8 @@ namespace br.corp.bonus630.ImageRender
                 }
             }
         }
+        private ResultC resultC;
+        public ResultC GetResult { get { return this.resultC; } }
 
         BarcodeWriter writer = new BarcodeWriter();
 
@@ -304,6 +306,13 @@ namespace br.corp.bonus630.ImageRender
         {
             BarcodeReader reader = new BarcodeReader();
             Result result = reader.Decode(bitmap);
+            if(result != null)
+            {
+                resultC = new ResultC();
+                resultC.NumBits = result.NumBits;
+                resultC.Text = result.Text;
+                //resultC.ResultMetadata = result.ResultMetadata;
+            }
             try
             {
                 string res = result.Text;

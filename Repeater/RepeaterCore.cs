@@ -108,7 +108,11 @@ namespace br.corp.bonus630.plugin.Repeater
             drawThread.IsBackground = true;
             drawThread.Start(new ThreadParam(qrcodeContentIndex, vector));
         }
-        public void Draw() { }
+        public void Draw() {
+            drawThread = new Thread(new ParameterizedThreadStart(ProcessVector));
+            drawThread.IsBackground = true;
+            drawThread.Start(new ThreadParam(-1, true));
+        }
 
         protected override void OnProgressChange(int progress)
         {
@@ -199,18 +203,23 @@ namespace br.corp.bonus630.plugin.Repeater
                         }
                         tuple = null;
                         tuple = this.ShapeContainerImageFile.FirstOrDefault(r => r.Item.Name == item.Name && r.Item.SizeHeight == item.SizeHeight && r.Item.SizeWidth == item.SizeWidth);
-                        if (tuple != null)
-                        {
+                        //for (int k = 0; k < this.ShapeContainerImageFile.Count; k++)
+                        //{
+                           // tuple = this.ShapeContainerImageFile[k];
 
-                            Shape image = ImportImageFile(page.ActiveLayer, this.dataSource[i][tuple.Index].ToString(), (int)item.SizeWidth, (int)item.SizeHeight);
-                            if (image == null)
+                            if (tuple != null)
+                            {
+
+                                Shape image = ImportImageFile(page.ActiveLayer, this.dataSource[i][tuple.Index].ToString(), (int)item.SizeWidth, (int)item.SizeHeight);
+                                if (image == null)
+                                    continue;
+                                image.PositionX = item.PositionX;
+                                image.PositionY = item.PositionY;
+                                item.Delete();
+                                duplicate.Add(image);
                                 continue;
-                            image.PositionX = item.PositionX;
-                            image.PositionY = item.PositionY;
-                            item.Delete();
-                            duplicate.Add(image);
-                            continue;
-                        }
+                            }
+                       //}
                     }
 
                     if (fitToPage)
@@ -292,6 +301,9 @@ namespace br.corp.bonus630.plugin.Repeater
 
         private Shape ImportImageFile(Layer layer, string imagePath, int width, int height)
         {
+            Char[] chars =  Path.GetInvalidPathChars();
+            imagePath = String.Join(string.Empty, imagePath.Split(chars));
+            imagePath = Path.GetFullPath(imagePath);
             if (!File.Exists(imagePath))
                 return null;
             try

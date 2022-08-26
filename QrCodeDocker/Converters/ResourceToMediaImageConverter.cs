@@ -28,7 +28,7 @@ namespace br.corp.bonus630.QrCodeDocker.Converters
             if (image == null)
                 return null;
             var bitmap = new System.Drawing.Bitmap(image);
-            switch(StyleController.ThemeShortName)
+            switch (StyleController.ThemeShortName)
             {
                 case "Black":
                     bitmap = Transform(bitmap);
@@ -61,14 +61,13 @@ namespace br.corp.bonus630.QrCodeDocker.Converters
             // create the negative color matrix
             ColorMatrix colorMatrix = new ColorMatrix(new float[][]
             {
-        new float[] {-1, 0, 0, 0, 0},
-        new float[] {0, -1, 0, 0, 0},
-        new float[] {0, 0, -1, 0, 0},
-        new float[] {0, 0, 0, 1, 0},
-        new float[] {1, 1, 1, 0, 1}
+        new float[] {-1, 0, 0, 0, 0},// red scaling factor of 2
+        new float[] {0, -1, 0, 0, 0},// green scaling factor of 1
+        new float[] {0, 0, -1, 0, 0},// blue scaling factor of 1
+        new float[] {0, 0, 0, 1, 0},// alpha scaling factor of 1
+        new float[] {1, 1, 1, 0, 1} // three translations of 0.2
             });
 
-            // create some image attributes
             ImageAttributes attributes = new ImageAttributes();
 
             attributes.SetColorMatrix(colorMatrix);

@@ -41,8 +41,8 @@
 
     </Style>
     <Style TargetType="ContextMenu">
-        <Setter Property="Background" Value="{DynamicResource Default.Static.Backgroung}" />
-        <Setter Property="Foreground" Value="{DynamicResource Default.Static.Foreground}"/>
+        <Setter Property="Background" Value="{DynamicResource Container.Static.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Container.Text.Static.Foreground}"/>
     </Style>
     <Style TargetType="Ellipse">
         <Setter Property="Stroke" Value="{DynamicResource Default.Static.Foreground}"/>
@@ -235,6 +235,12 @@
         </Setter>
     </Style>
     <!-- Tab Item Style Black End-->
+    <!-- Menu item Style-->
+    <Style TargetType="{x:Type MenuItem}">
+        <Setter Property="Background" Value="{DynamicResource Button.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Button.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Default.Static.Foreground}"/>
+    </Style>
     <Style  TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{DynamicResource Button.Static.Background}"/>

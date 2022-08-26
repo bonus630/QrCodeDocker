@@ -10,9 +10,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0" Content="teste" Click="Button_Click" />
+        <Button Grid.Row="0" Grid.Column="0" Name="btn_draw" Content="{Binding Lang.BTN_Draw}" Click="btn_draw_Click" VerticalAlignment="Center"/>
+        <Button Grid.Row="1" Grid.Column="0" Name="btn_browser"  Content="{Binding Lang.BTN_Browser}" Click="btn_browser_Click" VerticalAlignment="Center"/>
+        <Button Grid.Row="2" Grid.Column="0" Name="btn_useSelection"  Content="{Binding Lang.BTN_UseSelection}" Click="btn_useSelection_Click" VerticalAlignment="Center"/>
+        <Button Grid.Row="3" Grid.Column="0" Name="btn_reset"  Content="{Binding Lang.BTN_Reset}" Click="btn_reset_Click" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

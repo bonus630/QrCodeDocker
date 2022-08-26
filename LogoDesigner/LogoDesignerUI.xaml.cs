@@ -34,9 +34,23 @@ namespace br.corp.bonus630.plugin.LogoDesigner
 
         public IPluginCore Core { get ; set; }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btn_draw_Click(object sender, RoutedEventArgs e)
         {
             ldCore.Draw();
+        }
+
+        private void btn_browser_Click(object sender, RoutedEventArgs e)
+        {
+            ldCore.Browser();
+        }
+
+        private void btn_useSelection_Click(object sender, RoutedEventArgs e)
+        {
+            ldCore.UseSelection();
+        }
+        private void btn_reset_Click(object sender, RoutedEventArgs e)
+        {
+            ldCore.Reset();
         }
     }
 }

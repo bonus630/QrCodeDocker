@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+
 
 namespace br.corp.bonus630.PluginLoader
 {
@@ -15,6 +17,7 @@ namespace br.corp.bonus630.PluginLoader
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
         public event Action<string> AnyTextChanged;
+        public event Action<System.Drawing.Bitmap> OverridePreview;
         public event Action UpdatePreview;
         public event Action LoadConfigEvent;
         public event Action SaveConfigEvent;
@@ -50,6 +53,11 @@ namespace br.corp.bonus630.PluginLoader
         {
             if (AnyTextChanged != null)
                 AnyTextChanged(text);
+        }
+        protected virtual void OnOverridePreview(Bitmap bitmap)
+        {
+            if (OverridePreview != null)
+                OverridePreview(bitmap);
         }
         public virtual void OnNotifyPropertyChanged(string propertyName = "")
         {

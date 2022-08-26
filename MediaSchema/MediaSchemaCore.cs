@@ -76,8 +76,8 @@ namespace br.corp.bonus630.plugin.MediaSchema
         {
             try
             {
-                string spath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                spath = spath.Substring(0, spath.LastIndexOf('\\'));
+                string spath = Path.Combine(System.Environment.GetEnvironmentVariable("localappdata"),"bonus630\\QrCodeDocker\\MediaScheme");
+                //spath = spath.Substring(0, spath.LastIndexOf('\\'));
                 iconPath = string.Format("{0}\\icons", spath);
                 xmlPath = string.Format("{0}\\Schemes.xml", spath);
                 XmlDocument doc = new XmlDocument();

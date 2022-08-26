@@ -48,7 +48,7 @@ namespace br.corp.bonus630.plugin.MediaSchema
 
             //get a graphics object from the new image
             Graphics g = Graphics.FromImage(newBitmap);
-
+            
             // create the negative color matrix
             ColorMatrix colorMatrix = new ColorMatrix(new float[][]
             {

@@ -10,6 +10,7 @@ using System.Linq;
 using Microsoft.Win32;
 using br.corp.bonus630.QrCodeDocker.Lang;
 using System.Collections.ObjectModel;
+using System.Drawing;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -30,6 +31,7 @@ namespace br.corp.bonus630.QrCodeDocker
         private int index = 0;
         public event Action<string> AnyTextChanged;
         public event Action UpdatePreview;
+        public event Action<System.Drawing.Bitmap> OverridePreview;
         public ObservableCollection<IPluginCore> LoadedPluginList { get; set; }
 
         public PluginSelect(double size, Corel.Interop.VGCore.Application app, Ilang lang, ImageRender.IImageRender imageRender, ICodeGenerator codeGenerator)
@@ -266,7 +268,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 objCore.FinishJob += PluginSelect_FinishJob;
                 objCore.AnyTextChanged += PluginSelect_AnyTextChanged;
                 objCore.UpdatePreview += PluginSelect_UpdatePreview;
-               
+                objCore.OverridePreview += ObjCore_OverridePreview;
                 try
                 {
                     objCore.ChangeLang(app.UILanguage.cdrLangToSys(), loader.GetAssembly(pluginMap));
@@ -288,7 +290,11 @@ namespace br.corp.bonus630.QrCodeDocker
             }
         }
 
-   
+        private void ObjCore_OverridePreview(Bitmap bitmap)
+        {
+            if (OverridePreview != null)
+                OverridePreview(bitmap);
+        }
 
         private void PluginSelect_UpdatePreview()
         {

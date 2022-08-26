@@ -42,7 +42,7 @@ namespace br.corp.bonus630.QrCodeDocker.MainTabControls
       
         private void txt_content_TextChanged(object sender, TextChangedEventArgs e)
         {
-            lba_count.Content =  (300 - txt_content.Text.Length).ToString();
+           // lba_count.Content =  (300 - txt_content.Text.Length).ToString();
 
 
             if (txt_content.IsFocused)
@@ -55,8 +55,8 @@ namespace br.corp.bonus630.QrCodeDocker.MainTabControls
         }
         private void txt_content_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (txt_content.Text.Length >= 300)
-                e.Handled = true;
+            //if (txt_content.Text.Length >= 300)
+            //    e.Handled = true;
         }
     }
 }

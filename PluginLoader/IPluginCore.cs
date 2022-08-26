@@ -13,7 +13,7 @@ namespace br.corp.bonus630.PluginLoader
         event Action LoadConfigEvent;
         event Action SaveConfigEvent;
         event Action UpdatePreview;
-
+        event Action<System.Drawing.Bitmap> OverridePreview;
         LangController Lang { get; set; }
         int Index { get; set; }
         string GetPluginDisplayName { get; }

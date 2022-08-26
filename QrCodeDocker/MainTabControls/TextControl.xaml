@@ -12,7 +12,7 @@
         <TextBox TextWrapping="Wrap" x:Name="txt_content" TextChanged="txt_content_TextChanged" Margin="2,23,2,26" PreviewTextInput="txt_content_PreviewTextInput"/>
         <StackPanel Margin="2,0,0,0" VerticalAlignment="Bottom" Orientation="Horizontal">
             <Label Content="{Binding Path=Lang.LabelLeftChars}"    Height="26" />
-            <Label Name="lba_count"   Height="26" />
+            <!--<Label Name="lba_count"   Height="26" />-->
         </StackPanel>
     </Grid>
 </TabItem>

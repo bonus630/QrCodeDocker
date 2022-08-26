@@ -23,6 +23,20 @@
     <SolidColorBrush x:Key="Container.Static.Background" Color="#fff4f4f4" />
     <SolidColorBrush x:Key="Default.Static.Inverted.Foreground" Color="#ffffffff" />
     <SolidColorBrush x:Key="ComboBox.Border.Popup.Item.MouseOver" Color="#ffb2b2b2"/>
+    <SolidColorBrush x:Key="ScrollBar.Static.Background" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="ScrollBar.Static.Border" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="ScrollBar.Static.Glyph" Color="#606060"/>
+    <SolidColorBrush x:Key="ScrollBar.Static.Thumb" Color="#CDCDCD"/>
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Background" Color="#DADADA"/>
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Border" Color="#DADADA"/>
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Glyph" Color="#000000"/>
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Thumb" Color="#A6A6A6"/>
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Background" Color="#606060"/>
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Border" Color="#606060"/>
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Thumb" Color="#606060"/>
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Glyph" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="ScrollBar.Disabled.Background" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="ScrollBar.Disabled.Border" Color="#F0F0F0"/>
 
     <SolidColorBrush x:Key="LightestGrey.TabControl.Static.Border" Color="#ff00adfe" />
     <SolidColorBrush x:Key="LightestGrey.TabItem.Static.Border" Color="#ffeaeaea"/>
@@ -45,6 +59,21 @@
     <SolidColorBrush x:Key="LightestGrey.Container.Static.Background" Color="#fff4f4f4" />
     <SolidColorBrush x:Key="LightestGrey.Default.Static.Inverted.Foreground" Color="#ffffffff" />
     <SolidColorBrush x:Key="LightestGrey.ComboBox.Border.Popup.Item.MouseOver" Color="#ffb2b2b2"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Static.Background" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Static.Border" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Static.Glyph" Color="#606060"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Static.Thumb" Color="#CDCDCD"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.MouseOver.Background" Color="#DADADA"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.MouseOver.Border" Color="#DADADA"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.MouseOver.Glyph" Color="#000000"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.MouseOver.Thumb" Color="#A6A6A6"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Pressed.Background" Color="#606060"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Pressed.Border" Color="#606060"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Pressed.Thumb" Color="#606060"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Pressed.Glyph" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Disabled.Background" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Disabled.Border" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="LightestGrey.ScrollBar.Disabled.Glyph" Color="#BFBFBF"/>
 
     <SolidColorBrush x:Key="MediumGrey.TabControl.Static.Border" Color="#ff00adfe" />
     <SolidColorBrush x:Key="MediumGrey.TabItem.Static.Border" Color="#ffe2e2e2"/>
@@ -67,6 +96,21 @@
     <SolidColorBrush x:Key="MediumGrey.Container.Static.Background" Color="#fff4f4f4" />
     <SolidColorBrush x:Key="MediumGrey.Default.Static.Inverted.Foreground" Color="#ffffffff" />
     <SolidColorBrush x:Key="MediumGrey.ComboBox.Border.Popup.Item.MouseOver" Color="#ffb2b2b2"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Static.Background" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Static.Border" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Static.Glyph" Color="#606060"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Static.Thumb" Color="#A6A6A6"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.MouseOver.Background" Color="#DADADA"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.MouseOver.Border" Color="#DADADA"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.MouseOver.Glyph" Color="#000000"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.MouseOver.Thumb" Color="#A0A0A0"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Pressed.Background" Color="#606060"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Pressed.Border" Color="#606060"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Pressed.Thumb" Color="#515151"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Pressed.Glyph" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Disabled.Background" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Disabled.Border" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="MediumGrey.ScrollBar.Disabled.Glyph" Color="#BFBFBF"/>
 
     <SolidColorBrush x:Key="DarkGrey.TabControl.Static.Border" Color="#ff3399ff" />
     <SolidColorBrush x:Key="DarkGrey.TabItem.Static.Border" Color="#ff2d2d2d"/>
@@ -89,6 +133,21 @@
     <SolidColorBrush x:Key="DarkGrey.Container.Static.Background" Color="#ff383838" />
     <SolidColorBrush x:Key="DarkGrey.Default.Static.Inverted.Foreground" Color="#ff2d2d2d" />
     <SolidColorBrush x:Key="DarkGrey.ComboBox.Border.Popup.Item.MouseOver" Color="#ff0078d7"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Static.Background" Color="#5A5A5A"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Static.Border" Color="#5A5A5A"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Static.Glyph" Color="#CDCDCD"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Static.Thumb" Color="#CDCDCD"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.MouseOver.Background" Color="#5A5A5A"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.MouseOver.Border" Color="#DADADA"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.MouseOver.Glyph" Color="#FEFEFE"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.MouseOver.Thumb" Color="#a6a6a6"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Pressed.Background" Color="#606060"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Pressed.Border" Color="#606060"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Pressed.Thumb" Color="#4B4B4B"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Pressed.Glyph" Color="#000000"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Disabled.Background" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Disabled.Border" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="DarkGrey.ScrollBar.Disabled.Glyph" Color="#BFBFBF"/>
 
     <SolidColorBrush x:Key="Black.TabControl.Static.Border" Color="#ff3399ff" />
     <SolidColorBrush x:Key="Black.TabItem.Static.Border" Color="#ff323232"/>
@@ -111,6 +170,21 @@
     <SolidColorBrush x:Key="Black.Container.Static.Background" Color="#ff232323" />
     <SolidColorBrush x:Key="Black.Default.Static.Inverted.Foreground" Color="#ff0f0f0f" />
     <SolidColorBrush x:Key="Black.ComboBox.Border.Popup.Item.MouseOver" Color="#ff0078d7"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Static.Background" Color="#464646"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Static.Border" Color="#464646"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Static.Glyph" Color="#FEFEFE"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Static.Thumb" Color="#282828"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.MouseOver.Background" Color="#DADADA"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.MouseOver.Border" Color="Red"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.MouseOver.Glyph" Color="#373435"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.MouseOver.Thumb" Color="#6E6E6E"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Pressed.Background" Color="#606060"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Pressed.Border" Color="#606060"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Pressed.Thumb" Color="#8C8C8C"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Pressed.Glyph" Color="#373435"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Disabled.Background" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Disabled.Border" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="Black.ScrollBar.Disabled.Glyph" Color="#BFBFBF"/>
 
     <!--#endregion colors styles resource-->
 

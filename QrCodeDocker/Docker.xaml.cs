@@ -101,6 +101,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 pluginSelect = new PluginSelect(strSize, this.app, this.dataContextObj.Lang, this.imageRender, this.codeGenerator);
                 pluginSelect.AnyTextChanged += PluginSelect_AnyTextChanged;
                 pluginSelect.UpdatePreview += renderImage;
+                pluginSelect.OverridePreview += PluginSelect_OverridePreview;
                 groupBoxPluginContainer.Content = pluginSelect;
             }
             else
@@ -108,7 +109,17 @@ namespace br.corp.bonus630.QrCodeDocker
             
         }
 
-     
+        private void PluginSelect_OverridePreview(System.Drawing.Bitmap obj)
+        {
+            try
+            {
+                System.Windows.Media.Imaging.BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                 obj.GetHbitmap(),
+                 IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                img_render.Source = bitmapSource;
+            }
+            catch { }
+        }
 
         private void PluginSelect_AnyTextChanged(string obj)
         {

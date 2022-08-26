@@ -24,7 +24,7 @@
 					  userCaption="CorelNaVeia Dockers"
 					  enable="true"
 					  flyoutBarRef="8baeb154-f910-46cd-b05c-3cf2808d1391"
-					icon="guid://bffeb385-4c48-4fa9-b285-3d32e81030a9"
+					  icon="guid://bffeb385-4c48-4fa9-b285-3d32e81030a9"
 			/>
 
 			<!-- Define the button which shows the docker -->

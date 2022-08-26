@@ -22,5 +22,6 @@ namespace br.corp.bonus630.ImageRender
         ErrorCorrectionLevelEnum ErrorCorrection { get; set; }
 
         void EncodeNewBitMatrix(string content,int strSize = 0, bool useSQRSize = false);
+        ResultC GetResult { get; }
     }   
 }

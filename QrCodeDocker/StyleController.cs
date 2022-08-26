@@ -48,7 +48,22 @@ namespace br.corp.bonus630.QrCodeDocker
          "Container.Static.Background" ,
          "Default.Static.Inverted.Foreground" ,
          "ComboBox.Border.Popup.Item.MouseOver",
-         "InvertBlacksParam"
+         "InvertBlacksParam",
+         "ScrollBar.Static.Background" ,
+         "ScrollBar.Static.Border",
+         "ScrollBar.Static.Glyph",
+         "ScrollBar.Static.Thumb" ,
+         "ScrollBar.MouseOver.Background",
+         "ScrollBar.MouseOver.Border" ,
+         "ScrollBar.MouseOver.Glyph" ,
+         "ScrollBar.MouseOver.Thumb" ,
+         "ScrollBar.Pressed.Background",
+         "ScrollBar.Pressed.Border" ,
+         "ScrollBar.Pressed.Thumb" ,
+         "ScrollBar.Pressed.Glyph" ,
+         "ScrollBar.Disabled.Background",
+         "ScrollBar.Disabled.Border",
+         "ScrollBar.Disabled.Glyph"
         };
 
         public void LoadStyle(string name)

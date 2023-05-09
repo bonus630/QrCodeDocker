@@ -51,13 +51,13 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public System.Windows.Visibility IsVisibility
         {
             get { return this.isVisibility; }
-            set { this.isVisibility = value;NotifyPropertyChanged(); }
+            set { this.isVisibility = value; NotifyPropertyChanged(); }
         }
         private string colorName = "";
 
         public string ColorName
         {
-            get { return colorName ; }
+            get { return colorName; }
             set { colorName = value; NotifyPropertyChanged(); }
         }
         private string colorType;
@@ -70,7 +70,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 
         public EyedropperDataContext(Corel.Interop.VGCore.Application app)
         {
-            this.app = app;  
+            this.app = app;
             th = new Thread(new ThreadStart(Update));
             th.IsBackground = true;
             th.Start();
@@ -96,13 +96,24 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                     app.ActiveWindow.DocumentToScreen(x, y, out xs, out ys);
                     if (NewPositionEvent != null)
                         NewPositionEvent(new System.Windows.Point(xs, ys));
-                    shape = this.app.ActivePage.FindShapeAtPoint(x, y, false);
-                    
+#if X7
+
+                    Shape shapes = app.ActiveDocument.ActivePage.SelectShapesAtPoint(x, y, false);
+                    shape = shapes.Shapes[1];
+                    for (int i = 1; i <= shapes.Shapes.Count; i++)
+                    {
+                        if (shape.ZOrder > shapes.Shapes[i].ZOrder)
+                            shape = shapes.Shapes[i];
+                    }
+
+#else
+                    Shape shape = app.ActiveDocument.ActivePage.FindShapeAtPoint(x, y);
+#endif
                     if (shape != null)
                     {
                         this.IsVisibility = System.Windows.Visibility.Visible;
                         Color color = shape.Fill.UniformColor;
-                        if(color!=null)
+                        if (color != null)
                         {
                             Hex = color.HexValue;
                             ColorName = color.Name;
@@ -110,13 +121,13 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                             //R = color.RGBRed.ToString();
                             //G = color.RGBGreen.ToString();
                             //B = color.RGBBlue.ToString();
-                            
+
                         }
                     }
                     else
                         this.IsVisibility = System.Windows.Visibility.Collapsed;
 
-                    Debug.WriteLine("{0}-{1}",x,y);
+                    Debug.WriteLine("{0}-{1}", x, y);
                     Thread.Sleep(100);
                 }
                 catch (Exception e) { Debug.WriteLine(e.Message); }

@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using Microsoft.Win32;
 using br.corp.bonus630.plugin.LogoDesigner.Lang;
+using br.corp.bonus630.QrCodeDocker;
 
 namespace br.corp.bonus630.plugin.LogoDesigner
 {
@@ -152,6 +153,7 @@ namespace br.corp.bonus630.plugin.LogoDesigner
 
                 //imageRender.SaveTempQrCodeFile(content, this.app.ActivePage.Resolution, 221);
                 Shape code = CodeGenerator.CreateVetorLocal(tempLayer, this.DataSource[0][0].ToString(), Size);
+                //(CodeGenerator as QrCodeGenerator).BorderColor
                 //logoProp = (float)(8 * m);
 
          
@@ -179,6 +181,7 @@ namespace br.corp.bonus630.plugin.LogoDesigner
 
                 sr[1].SetSize(w, h);
 
+               // Shape bg = tempLayer.createre
 
                 sr.Add(code);
                 sr.AlignAndDistribute(cdrAlignDistributeH.cdrAlignDistributeHAlignCenter, cdrAlignDistributeV.cdrAlignDistributeVAlignCenter);
@@ -217,6 +220,8 @@ namespace br.corp.bonus630.plugin.LogoDesigner
         {
             userChangeImage = true;
             useSelection = true;
+            if (App.ActiveSelection == null)
+                return;
             logoShape = App.ActiveSelection;
             logoShape.Group();
         }

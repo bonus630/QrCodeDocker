@@ -30,6 +30,7 @@ namespace br.corp.bonus630.plugin.LogoDesigner
         private void LogoDesignerUI_Loaded(object sender, RoutedEventArgs e)
         {
             ldCore = Core as LogoDesignerCore;
+            
         }
 
         public IPluginCore Core { get ; set; }

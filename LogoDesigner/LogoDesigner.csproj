@@ -2,7 +2,7 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <CdrTargetPath>$(ProjectDir)bonus630.CDRCommon.targets</CdrTargetPath>
+    <CdrTargetPath>$(SolutionDir)bonus630.CDRCommon.targets</CdrTargetPath>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A79662DB-86DD-4F11-A413-F2D426C3167C}</ProjectGuid>
@@ -194,7 +194,7 @@
     </Reference>
     <Reference Include="QrCodeDocker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-		<HintPath>$(CurrentCorelPath)Addons\QrCodeDocker\QrCodeDocker.dll</HintPath>
+      <HintPath>$(CurrentCorelPath)Addons\QrCodeDocker\QrCodeDocker.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -222,7 +222,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Lang\EN_EU.cs" />
+    <Compile Include="Lang\EN_US.cs" />
     <Compile Include="Lang\ILang.cs" />
     <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="LogoDesignerCore.cs" />

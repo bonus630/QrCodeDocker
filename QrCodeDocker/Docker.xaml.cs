@@ -7,7 +7,6 @@ using Corel.Interop.VGCore;
 using br.corp.bonus630.ImageRender;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker.MainTabControls;
-using System.Diagnostics;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -23,21 +22,28 @@ namespace br.corp.bonus630.QrCodeDocker
         VisualDataContext dataContextObj;
         StyleController styleController;
 
-        public Docker(Corel.Interop.VGCore.Application app)
+        public Docker(object app)
         {
             InitializeComponent();
-            this.app = app;
-            styleController = new StyleController(this.Resources, this.app);
-            codeGenerator = new QrCodeGenerator(app);
-        
-            //img_bonus.Source = BitmapResources.Bonus630;
-            //img_corelNaVeia.Source = BitmapResources.CorelNaVeia2015;
-            app.DocumentNew += app_DocumentNew;
-            app.DocumentOpen += app_DocumentOpen;
-            app.WindowActivate += app_WindowActivate;
-            this.Loaded += Docker_Loaded;
-            dataContextObj = new VisualDataContext(this.app);
-            this.DataContext = dataContextObj;
+            try
+            {
+                this.app = app as Corel.Interop.VGCore.Application;
+                styleController = new StyleController(this.Resources, this.app);
+                codeGenerator = new QrCodeGenerator(this.app);
+
+                //img_bonus.Source = BitmapResources.Bonus630;
+                //img_corelNaVeia.Source = BitmapResources.CorelNaVeia2015;
+                this.app.DocumentNew += app_DocumentNew;
+                this.app.DocumentOpen += app_DocumentOpen;
+                this.app.WindowActivate += app_WindowActivate;
+                this.Loaded += Docker_Loaded;
+                dataContextObj = new VisualDataContext(this.app);
+                this.DataContext = dataContextObj;
+            }
+            catch(Exception error)
+            {
+                System.Windows.Forms.MessageBox.Show("Error01 "+error.Message);
+            }
             //this.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
           
           

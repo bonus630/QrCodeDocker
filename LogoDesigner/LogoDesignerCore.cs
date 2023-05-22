@@ -137,7 +137,7 @@ namespace br.corp.bonus630.plugin.LogoDesigner
                 
                 CodeGenerator.ImageRender.ErrorCorrection = ImageRender.ErrorCorrectionLevelEnum.H;
                 double m = CodeGenerator.ImageRender.InMeasure(Size);
-                ShapeRange sr = new ShapeRange();
+                ShapeRange sr = this.App.CreateShapeRange();
                 if (!useSelection)
                 {
                     string tempPath = Path.Combine(Path.GetTempPath(), string.Format("{0}.png", Guid.NewGuid().ToString()));

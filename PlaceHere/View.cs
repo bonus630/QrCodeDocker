@@ -53,9 +53,11 @@ namespace br.corp.bonus630.plugin.PlaceHere
            
             InitializeComponent();
             escRect = new Rectangle(this.Left + 20, this.Bottom - 40, 80, 20);
+            qrBitmap = new Bitmap(10, 10);
             mainDrawThread = new Thread(update);
             mainDrawThread.IsBackground = true;
             mainDrawThread.Start();
+
         }
         public void SetSizes(int w, int h)
         {
@@ -232,6 +234,12 @@ namespace br.corp.bonus630.plugin.PlaceHere
             catch { }
             base.OnClosed(e);
         }
+        Bitmap qrBitmap;
+        public void GenerateQrBitmap()
+        {
+            if(!string.IsNullOrEmpty(this.QrCodeText))
+                qrBitmap = Render.RenderWireframeToMemory(QrCodeText);
+        }
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
@@ -239,14 +247,14 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
             // graphics.DrawRectangle(redPen, ScreenRect);
          
-            Bitmap qrBitmap = Render.RenderWireframeToMemory(QrCodeText);
+           // Bitmap qrBitmap = Render.RenderWireframeToMemory(QrCodeText);
             
             graphics.DrawImage(qrBitmap, ScreenRect);
 
             graphics.FillEllipse(Brushes.Green, MousePosition.X - 5 - this.Left, MousePosition.Y - 5 - this.Top, 10, 10);
             graphics.DrawLine(greenPen, MousePosition.X - this.Left, this.Height, MousePosition.X - this.Left, 0);
             graphics.DrawLine(greenPen, 0, MousePosition.Y - this.Top, this.Width, MousePosition.Y - this.Top);
-            graphics.DrawString(Lang.OC_MSG_Exit, SystemFonts.DefaultFont, Brushes.Red, this.Left + 2, this.Top + 2);
+            graphics.DrawString(Lang.OC_MSG_Exit, SystemFonts.DefaultFont, Brushes.Red, ScreenRect.Left + 4, ScreenRect.Top - 20);
             //graphics.DrawLine(redPen, ScreenRect.X, ScreenRect.Y, ScreenRect.Right, ScreenRect.Bottom);
             //graphics.DrawLine(redPen, ScreenRect.X, ScreenRect.Bottom, ScreenRect.Right, ScreenRect.Y);
         }

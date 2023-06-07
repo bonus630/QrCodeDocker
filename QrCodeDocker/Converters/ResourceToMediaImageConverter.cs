@@ -28,15 +28,15 @@ namespace br.corp.bonus630.QrCodeDocker.Converters
             if (image == null)
                 return null;
             var bitmap = new System.Drawing.Bitmap(image);
-            switch (StyleController.ThemeShortName)
-            {
-                case "Black":
-                    bitmap = Transform(bitmap);
-                    break;
-                case "DarkGrey":
-                    bitmap = Transform(bitmap);
-                    break;
-            }
+            //switch (StyleController.ThemeShortName)
+            //{
+            //    case "Black":
+            //        bitmap = Transform(bitmap);
+            //        break;
+            //    case "DarkGrey":
+            //        bitmap = Transform(bitmap);
+            //        break;
+            //}
 
 
             var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(),
@@ -59,13 +59,23 @@ namespace br.corp.bonus630.QrCodeDocker.Converters
             Graphics g = Graphics.FromImage(newBitmap);
 
             // create the negative color matrix
+          //  ColorMatrix colorMatrix = new ColorMatrix(new float[][]
+        //    {
+      //  new float[] {-1, 0, 0, 0, 0},// red scaling factor of 2
+     //   new float[] {0, -1, 0, 0, 0},// green scaling factor of 1
+     //   new float[] {0, 0, -1, 0, 0},// blue scaling factor of 1
+     //   new float[] {0, 0, 0, 1, 0},// alpha scaling factor of 1
+     //   new float[] {1, 1, 1, 0, 1} // three translations of 0.2
+     //       });
+
+            // create the negative color matrix
             ColorMatrix colorMatrix = new ColorMatrix(new float[][]
             {
-        new float[] {-1, 0, 0, 0, 0},// red scaling factor of 2
-        new float[] {0, -1, 0, 0, 0},// green scaling factor of 1
-        new float[] {0, 0, -1, 0, 0},// blue scaling factor of 1
-        new float[] {0, 0, 0, 1, 0},// alpha scaling factor of 1
-        new float[] {1, 1, 1, 0, 1} // three translations of 0.2
+       new float[] {-1, 0, 0, 0, 0}, // Transforma preto em branco
+        new float[] {0, -1, 0, 0, 0}, // Transforma branco em preto
+        new float[] {0, 0, 1, 0, 0},  // Mantém as outras cores intactas
+        new float[] {0, 0, 0, 1, 0},
+        new float[] {0, 0, 0, 0, 1}
             });
 
             ImageAttributes attributes = new ImageAttributes();

@@ -6,6 +6,7 @@ namespace br.corp.bonus630.plugin.PlaceHere.Lang
     public class PT_BR : LangController, Ilang
     {
         public string LBA_ObjOrigin { get { return "Origem:"; } }
+        public string LBA_data0 { get { return "Próximo Dado:"; } }
 
         public string BTN_Start { get { return "Iniciar"; } }
 

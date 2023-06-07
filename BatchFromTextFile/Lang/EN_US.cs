@@ -17,5 +17,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile.Lang
         public string Rows { get { return "Rows"; } }
 
         public string Columns { get { return "Columns"; } }
+        public string CB_ScapeChars { get { return "Use Special Chars"; } }
+        
     }
 }

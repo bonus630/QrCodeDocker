@@ -7,8 +7,8 @@ using System.Diagnostics;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
- 
-    public class QrCodeGenerator : ICodeGenerator,ICodeConfig
+
+    public class QrCodeGenerator : ICodeGenerator, ICodeConfig
     {
 
         private Application app;
@@ -78,10 +78,15 @@ namespace br.corp.bonus630.QrCodeDocker
             }
         }
         private DotShape dotShapeType = DotShape.Square;
-        public DotShape DotShapeType { get { return dotShapeType; } 
-            set { dotShapeType = value;
+        public DotShape DotShapeType
+        {
+            get { return dotShapeType; }
+            set
+            {
+                dotShapeType = value;
                 (imageRender as IImageRenderConfig).DotShapeType = (int)value;
-            } }
+            }
+        }
 
         public IImageRender ImageRender { get { return this.imageRender; } }
 
@@ -111,56 +116,155 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             lastAppUnit = this.app.ActiveDocument.Unit;
             this.app.ActiveDocument.Unit = this.app.ActiveDocument.Rulers.HUnits;
-            Layer layerTemp = app.ActiveDocument.ActivePage.CreateLayer("temp_layer");
-            layerTemp.Activate();
-
+            // Layer layerTemp = app.ActiveDocument.ActivePage.CreateLayer("temp_layer");
+            // layerTemp.Activate();
+            Layer layerTemp = app.ActiveVirtualLayer;
             double m_Padding = 0.0;
             imageRender.EncodeNewBitMatrix(content, (int)strSize);
             double dotSize = imageRender.InMeasure((int)strSize);
 
             ShapeRange shapeRange = app.CreateShapeRange();
             incrementQRCounter();
+            Shape dot;
+            switch (dotShapeType)
+            {
+                case DotShape.Square:
+                    dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotSize);
+                    break;
+                case DotShape.Ellipse:
+                    dot = layerTemp.CreateEllipse2(0, 0, dotSize / 2, dotSize / 2);
+                    break;
+                case DotShape.Triangle:
+                    dot = layerTemp.CreatePolygon2(0, 0, dotSize / 2, 6);
+
+                    break;
+                case DotShape.Star:
+                    dot = layerTemp.CreatePolygon(0, 0, dotSize ,dotSize, 5, Star:true);
+
+                    break;
+                default:
+                    dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotSize);
+                    break;
+
+            }
+            dot.Fill.ApplyUniformFill(this.dotFillColor);
+            if (dotOutlineColor == null || dotOutlineWidth == 0)
+                dot.Outline.SetNoOutline();
+            else
+            {
+                dot.Outline.Color = this.dotOutlineColor;
+                dot.Outline.Width = this.dotOutlineWidth;
+            }
+            Shape firstShape = dot.TreeNode.GetCopy().VirtualShape;
+            //for (int j = 0; j < imageRender.BitMatrixProp.Width; j++)
+            //{
+            //    for (int i = 0; i < imageRender.BitMatrixProp.Width; i++)
+            //    {
+            //        if (imageRender.BitMatrixProp[i, j])
+            //        {
+            //            Shape dot;
+            //            switch (dotShapeType)
+            //            {
+            //                case DotShape.Square:
+            //                    dot = this.app.ActiveDocument.ActiveLayer.CreateRectangle2(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+            //                    break;
+            //                case DotShape.Ellipse:
+            //                    dot = this.app.ActiveDocument.ActiveLayer.CreateEllipse(i * dotSize + m_Padding, j * dotSize + m_Padding, (i * dotSize + m_Padding) + dotSize, (j * dotSize + m_Padding) + dotSize);
+            //                    break;
+            //                case DotShape.Triangle:
+            //                    dot = this.app.ActiveDocument.ActiveLayer.CreatePolygon(i * dotSize + m_Padding, j * dotSize + m_Padding, (i * dotSize + m_Padding) + dotSize, (j * dotSize + m_Padding) + dotSize, 6);
+
+            //                    break;
+            //                case DotShape.Star:
+            //                    dot = this.app.ActiveDocument.ActiveLayer.CreatePolygon(i * dotSize + m_Padding, j * dotSize + m_Padding, (i * dotSize + m_Padding) + dotSize, (j * dotSize + m_Padding) + dotSize, 5, 1, 1, true, 8);
+
+            //                    break;
+            //                default:
+            //                    dot = this.app.ActiveDocument.ActiveLayer.CreateRectangle2(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+            //                    break;
+
+            //            }
+            //            dot.Fill.ApplyUniformFill(this.dotFillColor);
+            //            if (dotOutlineColor == null || dotOutlineWidth == 0)
+            //                dot.Outline.SetNoOutline();
+            //            else
+            //            {
+            //                dot.Outline.Color = this.dotOutlineColor;
+            //                dot.Outline.Width = this.dotOutlineWidth;
+            //            }
+            //            shapeRange.Add(dot);
+            //        }
+            //    }
+            //}
+            try
+            {
+
+
+                int cols = ImageRender.BitMatrixProp.Width;
+                int rows = ImageRender.BitMatrixProp.Width;
+                int mShapes = cols * rows;
+
+                shapeRange.Add(firstShape);
+                ShapeRange tempShape = app.CreateShapeRange();
+                while (shapeRange.Count < cols)
+                {
+                    if (shapeRange.Count * 2 > cols / 2 && shapeRange.Count + tempShape.Count < cols)
+                    {
+                        shapeRange.AddRange(tempShape.Duplicate(shapeRange.SizeWidth, 0));
+                    }
+                    else if (shapeRange.Count * 2 < cols)
+                    {
+                        shapeRange.AddRange(shapeRange.Duplicate(shapeRange.SizeWidth, 0));
+                        tempShape.AddRange(shapeRange);
+                    }
+                    else
+                    {
+                        shapeRange.Add(firstShape.Duplicate(shapeRange.SizeWidth));
+                    }
+
+                }
+                ShapeRange line = app.CreateShapeRange();
+                line.AddRange(shapeRange);
+                while (shapeRange.Count < mShapes)
+                {
+
+
+                    if (shapeRange.Count * 2 > mShapes / 2 && shapeRange.Count + tempShape.Count < mShapes)
+                    {
+                        shapeRange.AddRange(tempShape.Duplicate(0, -shapeRange.SizeHeight));
+                    }
+                    else if (shapeRange.Count * 2 < mShapes)
+                    {
+                        shapeRange.AddRange(shapeRange.Duplicate(0, -shapeRange.SizeHeight));
+                        tempShape.AddRange(shapeRange);
+
+                    }
+                    else
+                    {
+                        shapeRange.AddRange(line.Duplicate(0, -shapeRange.SizeHeight));
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            ShapeRange toDelete = app.CreateShapeRange();
+            int c = 1;
             for (int j = 0; j < imageRender.BitMatrixProp.Width; j++)
             {
                 for (int i = 0; i < imageRender.BitMatrixProp.Width; i++)
                 {
-                    if (imageRender.BitMatrixProp[i, j])
+                    if (!imageRender.BitMatrixProp[i, j])
                     {
-                        Shape dot;
-                        switch (dotShapeType)
-                        {
-                            case DotShape.Square:
-                                dot = this.app.ActiveDocument.ActiveLayer.CreateRectangle2(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
-                                break;
-                            case DotShape.Ellipse:
-                                dot = this.app.ActiveDocument.ActiveLayer.CreateEllipse(i * dotSize + m_Padding, j * dotSize + m_Padding, (i * dotSize + m_Padding) + dotSize, (j * dotSize + m_Padding) + dotSize);
-                                break;
-                            case DotShape.Triangle:
-                                dot = this.app.ActiveDocument.ActiveLayer.CreatePolygon(i * dotSize + m_Padding, j * dotSize + m_Padding, (i * dotSize + m_Padding) + dotSize, (j * dotSize + m_Padding) + dotSize, 6);
-
-                                break;
-                            case DotShape.Star:
-                                dot = this.app.ActiveDocument.ActiveLayer.CreatePolygon(i * dotSize + m_Padding, j * dotSize + m_Padding, (i * dotSize + m_Padding) + dotSize, (j * dotSize + m_Padding) + dotSize, 5, 1, 1, true, 8);
-
-                                break;
-                            default:
-                                dot = this.app.ActiveDocument.ActiveLayer.CreateRectangle2(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
-                                break;
-
-                        }
-                        dot.Fill.ApplyUniformFill(this.dotFillColor);
-                        if (dotOutlineColor == null || dotOutlineWidth == 0)
-                            dot.Outline.SetNoOutline();
-                        else
-                        {
-                            dot.Outline.Color = this.dotOutlineColor;
-                            dot.Outline.Width = this.dotOutlineWidth;
-                        }
-                        shapeRange.Add(dot);
+                        toDelete.Add(shapeRange[c]);
                     }
+                    c++;
                 }
             }
-
+            toDelete.Delete();
+            shapeRange.MoveToLayer(layer);
             shapeRange.CreateSelection();
             Shape qr = this.app.ActiveSelection;
             Shape qrCodeShape;
@@ -171,12 +275,12 @@ namespace br.corp.bonus630.QrCodeDocker
             }
             else
                 qrCodeShape = this.app.ActiveSelection.Group();
-           
-            qrCodeShape.Flip(cdrFlipAxes.cdrFlipVertical);
+
+           // qrCodeShape.Flip(cdrFlipAxes.cdrFlipVertical);
             Shape g = null;
             if (!noBorder)
             {
-                Shape border = layerTemp.CreateRectangle2(0, 0, strSize, strSize);
+                Shape border = layer.CreateRectangle2(0, 0, strSize, strSize);
                 border.Fill.ApplyUniformFill(borderColor);
                 border.Outline.SetNoOutline();
 
@@ -191,21 +295,24 @@ namespace br.corp.bonus630.QrCodeDocker
                 g = qrCodeShape;
 
 
-            g.MoveToLayer(layer);
-            layerTemp.Delete();
+            //g.MoveToLayer(layer);
+
+            dot.Delete();
+            //  firstShape.Delete();
+            //layerTemp.Delete();
             g.SetSize(strSize, strSize);
-           // this.app.ActiveDocument.Unit = lastAppUnit;
+            // this.app.ActiveDocument.Unit = lastAppUnit;
             return g;
         }/// <summary>
-        /// This method uses trace tatics
-        /// </summary>
-        /// <param name="layer"></param>
-        /// <param name="content"></param>
-        /// <param name="strSize"></param>
-        /// <param name="positionX"></param>
-        /// <param name="positionY"></param>
-        /// <param name="vectorName"></param>
-        /// <returns></returns>
+         /// This method uses trace tatics
+         /// </summary>
+         /// <param name="layer"></param>
+         /// <param name="content"></param>
+         /// <param name="strSize"></param>
+         /// <param name="positionX"></param>
+         /// <param name="positionY"></param>
+         /// <param name="vectorName"></param>
+         /// <returns></returns>
         public Shape CreateVetorLocal2(Layer layer, string content, double strSize, double positionX = 0, double positionY = 0, string vectorName = "QrCode Vetor")
         {
             lastAppUnit = this.app.ActiveDocument.Unit;
@@ -288,7 +395,7 @@ namespace br.corp.bonus630.QrCodeDocker
             }
             finally
             {
-               // this.app.ActiveDocument.Unit = lastAppUnit;
+                // this.app.ActiveDocument.Unit = lastAppUnit;
             }
             return null;
         }

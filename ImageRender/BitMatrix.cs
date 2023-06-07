@@ -19,5 +19,6 @@ namespace br.corp.bonus630.ImageRender
         public int Height { get; protected set; }
 
         public int Width { get; protected set; }
+
     }
 }

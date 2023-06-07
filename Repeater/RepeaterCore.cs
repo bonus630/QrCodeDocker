@@ -157,13 +157,14 @@ namespace br.corp.bonus630.plugin.Repeater
                 int i = 0;
                 if (IgnoreFirstLine)
                     i = 1;
+                app.Optimization = true;
+                app.EventsEnabled = false;
+                app.ActiveDocument.BeginCommandGroup("Duplicate");
                 for (; i < dataSource.Count; i++)
                 //for (int i = 0; i < 100; i++)
                 {
 
-                    app.Optimization = true;
-                    app.EventsEnabled = false;
-                    app.ActiveDocument.BeginCommandGroup("Duplicate");
+                   
                     //ShapeRange duplicate = modelShape.Duplicate();
                     Page page = this.app.ActiveDocument.ActivePage;
                     ShapeRange duplicate = modelShape.CopyToLayer(page.ActiveLayer);
@@ -274,14 +275,12 @@ namespace br.corp.bonus630.plugin.Repeater
                         duplicate.PositionX = (duplicate.SizeWidth + leftMargin) * (i + 1);
                         duplicate.PositionY = duplicate.PositionY;
                     }
-
+                    Shape d = duplicate.Group();
+                    d.Name = i.ToString();
 
                     OnProgressChange(i);
                 }
-                app.Optimization = false;
-                app.EventsEnabled = true;
-                app.ActiveDocument.EndCommandGroup();
-                app.Refresh();
+            
             }
             catch (Exception e)
             {

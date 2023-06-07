@@ -45,10 +45,8 @@
                 </Button.ToolTip>
             </Button>
         </Grid>
-        <ProgressBar Name="pb_progress" Height="2" Visibility="Collapsed" VerticalAlignment="Top">
-            <ProgressBar.Effect>
-                <BlurEffect/>
-            </ProgressBar.Effect>
+        <ProgressBar Name="pb_progress" Height="2" Visibility="Collapsed" VerticalAlignment="Top" Foreground="#FFEC06A4">
+         
         </ProgressBar>
         <ListView x:Name="mainUIList" Padding="0" ItemsSource="{Binding LoadedPluginList}" Margin="0,6,0,0"
                   Visibility="{Binding Path=LoadedPluginList.Count,Converter={StaticResource IntVisibilityConverter}}"

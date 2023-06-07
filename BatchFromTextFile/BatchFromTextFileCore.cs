@@ -13,7 +13,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         public const string PluginDisplayName = "Data From Text File";
 
         public List<string> content;
-        private string rowDelimiter = "\n\r";
+        private string rowDelimiter = "\n";
         public string RowDelimiter
         {
             get
@@ -22,7 +22,8 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             }
             set
             {
-                rowDelimiter = value;
+               rowDelimiter = value;
+                
                 OnNotifyPropertyChanged("RowDelimiter");
                 
             }
@@ -63,9 +64,17 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         private string filePath;
         public string FilePath { get { return filePath; } set { filePath = value; OnNotifyPropertyChanged("FilePath"); } }
 
+        public  SpecialCharsTable[] SpecialCharsList { get; internal set; }
+
         public BatchFromTextFileCore()
         {
-
+            SpecialCharsList = new SpecialCharsTable[] {
+                new SpecialCharsTable("\'","\'"),
+                new SpecialCharsTable("\"", "\""),
+                new SpecialCharsTable("\\", "\\"),
+                new SpecialCharsTable("\n","NewLine"),
+                new SpecialCharsTable("\t","Tab"),
+                new SpecialCharsTable("\b","Backspace") };
         }
 
         public void Process()
@@ -166,6 +175,21 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         public override void DeleteConfig()
         {
             Properties.Settings1.Default.Reset();
+        }
+    }
+    public class SpecialCharsTable
+    {
+        public string Text { get; set; }
+        public string Value { get; set; }
+
+        public SpecialCharsTable(string value,string text)
+        {
+            Text = text;
+            Value = value;
+        }
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }

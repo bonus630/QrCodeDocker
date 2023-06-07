@@ -66,6 +66,8 @@ namespace br.corp.bonus630.plugin.LogoDesigner
                 return;
             if (this.dataSource[0].Length <= 1)
                 return;
+            if(!this.dataSource[0][1].GetType().Equals(typeof(System.Drawing.Bitmap)))
+                return;
 
             CodeGenerator.ImageRender.ErrorCorrection = ImageRender.ErrorCorrectionLevelEnum.H;
 

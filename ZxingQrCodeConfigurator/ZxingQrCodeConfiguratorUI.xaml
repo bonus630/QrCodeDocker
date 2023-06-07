@@ -185,5 +185,6 @@
         <TextBox Grid.Row="6" Grid.Column="2"  x:Name="txt_dotBorderSize" PreviewKeyUp="txt_dotBorderSize_PreviewKeyUp" PreviewTextInput="checkTextFormat" LostFocus="txt_content_LostFocus" GotFocus="txt_content_GotFocus" Text="0" TextAlignment="Right" VerticalContentAlignment="Center"  VerticalAlignment="Center" />
 
         <Button Grid.Row="7" Grid.Column="1" Content="{Binding Lang.BTN_Verify,FallbackValue=Verify}" x:Name="btn_validate" Click="btn_validate_Click"    />
+        <Button Grid.Row="7" Grid.Column="2" Content="|-o-|" x:Name="btn_validateAndDraw" Click="btn_validateAndDraw_Click"    />
     </Grid>
 </UserControl>

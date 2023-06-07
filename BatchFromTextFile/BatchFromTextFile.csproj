@@ -201,6 +201,7 @@
       <DependentUpon>BatchFromTextFile.xaml</DependentUpon>
     </Compile>
     <Compile Include="BatchFromTextFileCore.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\StringToFormatedURIConverter.cs" />
     <Compile Include="Lang\EN_US.cs" />
     <Compile Include="Lang\Ilang.cs" />

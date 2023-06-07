@@ -26,12 +26,12 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         ZxingConfiguratorCore zcCore;
         Corel.Interop.VGCore.Application app;
         Ilang Lang;
-    
+
 
         public ZxingQrCodeConfiguratorUI()
         {
             InitializeComponent();
-            this.Loaded += ZxingQrCodeConfiguratorUI_Loaded; 
+            this.Loaded += ZxingQrCodeConfiguratorUI_Loaded;
 
         }
 
@@ -54,10 +54,26 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         private void ck_weld_Click(object sender, RoutedEventArgs e)
         {
             zcCore.Weld = (bool)ck_weld.IsChecked;
-            
+
         }
         private void btn_validate_Click(object sender, RoutedEventArgs e)
         {
+
+            string text = "";
+            
+            TryGetValidText(out text);
+            if (text == Lang.MBOX_ERRO_QRInvalid)
+                app.MsgShow(Lang.MBOX_ERRO_QRInvalid);
+            else if (text == Lang.MBOX_QrCodingWarning)
+                app.MsgShow(Lang.MBOX_QrCodingWarning, Lang.Warning, QrCodeDocker.MessageBox.DialogButtons.Ok);
+            else
+                app.MsgShow(text, Lang.MBOX_QrMessage);
+            
+        }
+        private bool TryGetValidText(out string result)
+        {
+            bool sucess = false;
+            result = "";
             if ((this.app.ActiveSelection != null && this.app.ActiveSelection.Shapes.Count > 0) || this.app.ActiveShape != null)
             {
                 string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "qrcode");
@@ -71,18 +87,16 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                 ex.Finish();
                 try
                 {
-                    string text = zcCore.CodeGenerator.DecodeImage(filePath);
-                   
-                    app.MsgShow(text, Lang.MBOX_QrMessage);
-                   
+                    result = zcCore.CodeGenerator.DecodeImage(filePath);
+                    sucess = true;
                 }
                 catch (NotImplementedException ex1)
                 {
-                    app.MsgShow(Lang.MBOX_QrCodingWarning, Lang.Warning, QrCodeDocker.MessageBox.DialogButtons.Ok);
+                    result = Lang.MBOX_QrCodingWarning;
                 }
                 catch (Exception ex2)
                 {
-                    app.MsgShow(Lang.MBOX_ERRO_QRInvalid);
+                    result = Lang.MBOX_ERRO_QRInvalid;
                 }
                 finally
                 {
@@ -90,6 +104,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                         System.IO.File.Delete(filePath);
                 }
             }
+            return sucess;
         }
 
         private void txt_dotBorderSize_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -106,7 +121,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             if (cb_dotShape.SelectedIndex != -1)
             {
                 zcCore.DotShapeType = (DotShape)cb_dotShape.SelectedIndex;
-                
+
             }
 
         }
@@ -170,13 +185,13 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             if ((bool)c.ShowDialog())
             {
                 zcCore.SelectedBorderColor = c.SelectedColor;
-              
+
             }
         }
 
         private void btn_DotColor_Click(object sender, EventArgs e)
         {
-            ColorPicker c =  GetColorPicker(sender);
+            ColorPicker c = GetColorPicker(sender);
             if ((bool)c.ShowDialog())
             {
                 zcCore.SelectedDotColor = c.SelectedColor;
@@ -185,11 +200,11 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 
         private void btn_DotBorderColor_Click(object sender, EventArgs e)
         {
-            ColorPicker c =  GetColorPicker(sender);
+            ColorPicker c = GetColorPicker(sender);
             if ((bool)c.ShowDialog())
             {
                 zcCore.SelectedDotBorderColor = c.SelectedColor;
-               
+
             }
         }
         private ColorPicker GetColorPicker(object sender)
@@ -201,8 +216,8 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             x = (int)(x - (colorPicker.Width + 16));
             if (x < 0)
                 x = 0;
-                colorPicker.Left = x;
-            
+            colorPicker.Left = x;
+
             colorPicker.Top = y + 32;
             return colorPicker;
         }
@@ -211,7 +226,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             zcCore.NoBorder = (bool)ck_noBorder.IsChecked;
             btn_BorderColor.IsEnabled = !(bool)ck_noBorder.IsChecked;
         }
-     
+
         public void LoadConfig()
         {
             ck_noBorder.IsChecked = Properties.Settings.Default.NoBorder;
@@ -219,13 +234,21 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             txt_dotBorderSize.Text = Properties.Settings.Default.DotBordeSize.ToString();
             cb_dotShape.SelectedIndex = Properties.Settings.Default.DotShape;
         }
-     
+
 
         public void DeleteConfig()
         {
             Properties.Settings.Default.Reset();
         }
 
+        private void btn_validateAndDraw_Click(object sender, RoutedEventArgs e)
+        {
+            string text = "";
+            if(TryGetValidText(out text))
+            {
+                System.Windows.Clipboard.SetText(text);
+            }
+        }
     }
-   
+
 }

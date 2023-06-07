@@ -126,7 +126,7 @@ namespace br.corp.bonus630.plugin.DataFromClipboard
                     }
                     catch { }
                 }
-                Thread.Sleep(100);
+               Thread.Sleep(40);
             }
         }
 

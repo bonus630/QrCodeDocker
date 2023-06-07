@@ -82,5 +82,22 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         {
             Process.Start(lba_file.Content.ToString());
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = (sender as ComboBox).SelectedIndex;
+
+            bCore.RowDelimiter = bCore.SpecialCharsList[index].Value;
+
+            bCore.ChangeData();
+        }
+        private void ComboBoxCol_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = (sender as ComboBox).SelectedIndex;
+
+            bCore.RowDelimiter = bCore.SpecialCharsList[index].Value;
+
+            bCore.ChangeData();
+        }
     }
 }

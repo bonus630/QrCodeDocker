@@ -29,7 +29,13 @@ namespace br.corp.bonus630.plugin.PlaceHere
         {
             phCore = Core as PlaceHereCore;
             phCore.LoadConfigEvent += PhCore_LoadConfigEvent;
+            phCore.ActualDataEvent += PhCore_ActualDataEvent;
             Lang = phCore.Lang as Ilang;
+        }
+
+        private void PhCore_ActualDataEvent(string obj)
+        {
+            lba_data0.Content = obj;
         }
 
         private void PhCore_LoadConfigEvent()

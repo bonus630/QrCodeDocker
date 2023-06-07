@@ -13,7 +13,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public Application corelApp;
         ICodeGenerator codeGenerator;
         Preview preview;
-   
+        public event Action<string> ActualDataEvent;
         int dsCursor = 0;
         public double FactorX
         {
@@ -44,7 +44,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public ICodeGenerator CodeGenerator { set { this.codeGenerator = value; } }
 
         public event Action<bool> ViewFinishJob;
- 
+
 
         public Action DrawAction;
         private View view;
@@ -62,7 +62,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
         public PlaceHereCore()
         {
-           
+
         }
 
 
@@ -71,11 +71,10 @@ namespace br.corp.bonus630.plugin.PlaceHere
         {
             try
             {
-                if (view == null || restart)
-                {
+                if (restart)
                     dsCursor = 0;
-                    StartJob();
-                }
+                StartJob();
+
                 if (dsCursor >= dataSource.Count)
                 {
                     view.Close();
@@ -84,10 +83,17 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 }
                 else
                 {
-
-                    view.QrCodeText = this.dataSource[dsCursor][0].ToString();
-                    Debug.WriteLine(view.QrCodeText, "Core");
-                    dsCursor++;
+                    string text = this.dataSource[dsCursor][0].ToString();
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        view.Visible = true;
+                        view.QrCodeText = text;
+                        if (ActualDataEvent != null)
+                            ActualDataEvent(text);
+                        view.GenerateQrBitmap();
+                        Debug.WriteLine(view.QrCodeText, "Core");
+                        
+                    }
                 }
 
 
@@ -211,7 +217,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
             return shape;
 
         }
-     
+
         private void OnViewFinishJob(bool sucess)
         {
             if (ViewFinishJob != null)
@@ -231,7 +237,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
                 corelApp.FrameWork.Automation.GetItemScreenRect("ab303a90-464d-5191-423f-613c4d1dcb2c", "1cd5b342-3211-24af-486d-55bb329594f8", out x, out y, out w, out h);
 
-                view = new View(this.corelApp,this);
+                view = new View(this.corelApp, this);
                 view.Render = codeGenerator.ImageRender;
                 view.Left = (int)x;
                 view.Width = (int)w;
@@ -359,6 +365,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
                 code.SetPosition(x, y);
                 code.SetSize(Size, Size);
+                dsCursor++;
                 Draw(false);
                 OnFinishJob(true);
             }

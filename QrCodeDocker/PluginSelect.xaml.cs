@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using br.corp.bonus630.QrCodeDocker.Lang;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Reflection;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -36,7 +37,9 @@ namespace br.corp.bonus630.QrCodeDocker
 
         public PluginSelect(double size, Corel.Interop.VGCore.Application app, Ilang lang, ImageRender.IImageRender imageRender, ICodeGenerator codeGenerator)
         {
+   
             InitializeComponent();
+
             try
             {
                 loader = new Loader(app.AddonPath);
@@ -163,6 +166,7 @@ namespace br.corp.bonus630.QrCodeDocker
             try
             {
                 IPluginCore core = LoadedPluginList.Single<IPluginCore>(r => r.Index == index);
+                
                 cb_plugins.Items.Add(PluginNames.Find(r => r.DisplayName == core.GetPluginDisplayName));
                 //this.loadedCorelist.Remove(core);
                 LoadedPluginList.Remove(core);

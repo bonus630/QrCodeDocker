@@ -40,13 +40,13 @@ namespace br.corp.bonus630.QrCodeDocker
                 dataContextObj = new VisualDataContext(this.app);
                 this.DataContext = dataContextObj;
             }
-            catch(Exception error)
+            catch (Exception error)
             {
-                System.Windows.Forms.MessageBox.Show("Error01 "+error.Message);
+                System.Windows.Forms.MessageBox.Show("Error01 " + error.Message);
             }
             //this.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-          
-          
+
+
         }
 
         //private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -73,7 +73,7 @@ namespace br.corp.bonus630.QrCodeDocker
             setContent(obj);
         }
 
-     
+
 
         public void SetValuesPlugin()
         {
@@ -95,8 +95,8 @@ namespace br.corp.bonus630.QrCodeDocker
             imageRender.ErrorCorrection = ErrorCorrectionLevelEnum.Q;
             codeGenerator.SetRender(imageRender);
 
-           // string pluginLoader = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\PluginLoader.dll");
-           string pluginLoader = System.IO.Path.Combine(this.app.AddonPath, "QrCodeDocker\\PluginLoader.dll");
+            // string pluginLoader = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\PluginLoader.dll");
+            string pluginLoader = System.IO.Path.Combine(this.app.AddonPath, "QrCodeDocker\\PluginLoader.dll");
 
 
             if (System.IO.File.Exists(pluginLoader))
@@ -112,7 +112,7 @@ namespace br.corp.bonus630.QrCodeDocker
             }
             else
                 dataContextObj.CanLoadPlugin = false;
-            
+
         }
 
         private void PluginSelect_OverridePreview(System.Drawing.Bitmap obj)
@@ -134,7 +134,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         /// /////////////////////////////////////
         #region Métodos
-      
+
         private void renderImage()
         {
             try
@@ -153,7 +153,7 @@ namespace br.corp.bonus630.QrCodeDocker
             temp = temp.Replace(" ", ";");
             return temp;
         }
-        
+
 
         /// <summary>
         /// Seta o contéudo para a criação do QRCode, além de controla-lo pelas abas e habilitar e desabilitar os botões de criação quando necessário.
@@ -161,31 +161,36 @@ namespace br.corp.bonus630.QrCodeDocker
         private void setContent(string content)
         {
             this.textContent = content;
-          
+
             if (imageRender != null)
             {
-                if (!String.IsNullOrEmpty(this.textContent))
-                {
-                    img_render.Visibility = System.Windows.Visibility.Visible;
-                    renderImage();
-                    if (!txt_size.IsFocused)
-                         txt_size.Text = imageRender.Measure().ToString();
-                    double size;
-                    Double.TryParse(txt_size.Text, out size);
-                    txt_dot.Text = imageRender.InMeasure(size).ToString();
+                Dispatcher.Invoke(new Action(() =>
+                    {
+                        if (!String.IsNullOrEmpty(this.textContent))
+                        {
 
-                }
-                else
-                    img_render.Visibility = System.Windows.Visibility.Hidden;
+                            img_render.Visibility = System.Windows.Visibility.Visible;
+                            renderImage();
+                            if (!txt_size.IsFocused)
+                                txt_size.Text = imageRender.Measure().ToString();
+                            double size;
+                            Double.TryParse(txt_size.Text, out size);
+                            txt_dot.Text = imageRender.InMeasure(size).ToString();
+
+
+                        }
+                        else
+                            img_render.Visibility = System.Windows.Visibility.Hidden;
+                    }));
             }
-            if(pluginSelect != null)
+            if (pluginSelect != null)
             {
-                pluginSelect.SetDataSource(new System.Collections.Generic.List<object[]>() { new object[] {this.textContent } });
+                pluginSelect.SetDataSource(new System.Collections.Generic.List<object[]>() { new object[] { this.textContent } });
             }
-           
+
 
         }
-      
+
         #endregion
         /// /////////////////////////////////////
 
@@ -200,7 +205,7 @@ namespace br.corp.bonus630.QrCodeDocker
         void app_DocumentOpen(Document Doc, string FileName)
         {
             this.Doc = Doc;
-           // Start();
+            // Start();
         }
 
         void app_DocumentNew(Document Doc, bool FromTemplate, string Template, bool IncludeGraphics)
@@ -218,7 +223,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 app.MsgShow(dataContextObj.Lang.MBoxOpenDoc);
                 return;
             }
-            if(string.IsNullOrEmpty(textContent))
+            if (string.IsNullOrEmpty(textContent))
             {
                 app.MsgShow(dataContextObj.Lang.MBoxContentErroMessage);
                 return;
@@ -231,13 +236,13 @@ namespace br.corp.bonus630.QrCodeDocker
             }
             app.Optimization = true;
             app.ActiveDocument.BeginCommandGroup("qrcode");
-           
+
             try
             {
                 //generator.CreateVetorLocal2(this.app.ActiveLayer, textContent, strSize);
                 codeGenerator.CreateVetorLocal(this.app.ActiveLayer, textContent, strSize);
             }
-            catch(Exception erro)
+            catch (Exception erro)
             {
                 app.MsgShow(erro.Message);
             }
@@ -246,7 +251,7 @@ namespace br.corp.bonus630.QrCodeDocker
             app.Refresh();
 
         }
-        
+
         private void btn_gerarBitmap_Click(object sender, RoutedEventArgs e)
         {
             if (this.app.ActiveDocument == null)
@@ -272,7 +277,7 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 Corel.Interop.VGCore.Shape q = codeGenerator.CreateBitmapLocal(this.app.ActiveLayer, textContent, strSize);
             }
-            catch(Exception erro)
+            catch (Exception erro)
             {
                 app.MsgShow(erro.Message);
             }
@@ -286,7 +291,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 setContent(this.textContent);
             SetValuesPlugin();
         }
-     
+
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             System.Diagnostics.Process.Start("https://bonus630.com.br");
@@ -307,7 +312,7 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             setContent(textContent);
         }
-       
+
         private void img_corelNaVeia_MouseUp(object sender, MouseButtonEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.corelnaveia.com/");
@@ -323,10 +328,10 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             System.Diagnostics.Process.Start("https://zxingnet.codeplex.com/");
         }
-   #endregion  
+        #endregion
         private void GenNewCodeGenerator()
         {
-            this.codeGenerator =new  QrCodeGenerator(app);
+            this.codeGenerator = new QrCodeGenerator(app);
             if ((bool)radioButton_zxing.IsChecked)
                 imageRender = new ZXingImageRender();
             else
@@ -334,11 +339,11 @@ namespace br.corp.bonus630.QrCodeDocker
             codeGenerator.SetRender(imageRender);
             SetValuesPlugin();
         }
-     
+
         private void TabControls_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             setContent((tabControls.SelectedItem as IMainTabControl).FormatedText);
-          
+
         }
     }
 }

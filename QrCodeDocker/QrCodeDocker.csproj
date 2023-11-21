@@ -195,11 +195,9 @@
       <Name>Corel.Interop.VGCore</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="zxing, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Lithology">
-      <HintPath>..\..\..\Lithology\Lithology.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -352,6 +350,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="resources.rct" />
+    <None Include="Resources\StatusHelp.png" />
     <Content Include="zxing.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

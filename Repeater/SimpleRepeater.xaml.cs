@@ -279,7 +279,7 @@ namespace br.corp.bonus630.plugin.Repeater
                 rCore.Draw();
                 return;
             }
-            rCore.Draw(this.shapeContainer.Index, vector);
+            rCore.Draw((bool)ck_useThread.IsChecked,this.shapeContainer.Index, vector);
 
 
         }

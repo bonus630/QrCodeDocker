@@ -204,7 +204,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         {
             Shape shape = null;
 #if X7
-            Shape shapes = app.ActiveDocument.ActivePage.SelectShapesAtPoint(x, y, false);
+            Shape shapes = corelApp.ActiveDocument.ActivePage.SelectShapesAtPoint(x, y, false);
             shape = shapes.Shapes[1];
             for (int i = 1; i <= shapes.Shapes.Count; i++)
             {

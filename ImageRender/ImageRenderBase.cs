@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Drawing;
+using ZXing;
 
 namespace br.corp.bonus630.ImageRender
 {
-    public class ImageRenderBase:IImageRenderConfig
+    public class ImageRenderBase
     {
 
         protected Graphics graphics;
@@ -22,18 +23,21 @@ namespace br.corp.bonus630.ImageRender
         public string QrCodeFilePath { get { return this.qrCodeFilePath; } }
 
         private Color borderColor;
-        public Color BorderColor { get { return borderColor; } set {borderColor = value; bBorder = new SolidBrush(value); } }  
+        public Color BorderColor { get { return borderColor; } set { borderColor = value; bBorder = new SolidBrush(value); } }
         private Color dotBorderColor;
-        public Color DotBorderColor { get { return DotBorderColor; } set { dotBorderColor = value; bDotBorder = new SolidBrush(value); } }       
+        public Color DotBorderColor { get { return DotBorderColor; } set { dotBorderColor = value; bDotBorder = new SolidBrush(value); } }
         private Color dotFillColor;
         public Color DotFillColor { get { return dotFillColor; } set { dotFillColor = value; bDotFill = new SolidBrush(value); } }
-        
-       
-        public double DotSize { get ; set ; }
+
+
+        public double DotSize { get; set; }
         public double DotBorderWidth { get { return dotBorderWidth; } set { dotBorderWidth = value; } }
-        public int DotShapeType { get ; set ; }
-        public bool Weld { get ; set ; }
-        public bool NoBorder { get ; set ; }
+        public int DotShapeType { get; set; }
+        public bool Weld { get; set; }
+        public bool NoBorder { get; set; }
+
+
+        public BarcodeFormat CodeType = BarcodeFormat.QR_CODE;
 
         // public BitMatrix BitMatrix { get; protected set; }
 
@@ -58,10 +62,10 @@ namespace br.corp.bonus630.ImageRender
                 m_Padding = quietZoneDot * dotSize;
             double padding = m_Padding;
             double totalWidth = areaWidth + 2 * padding;
-          
-                return new Size((int)totalWidth, (int)totalWidth);
+
+            return new Size((int)totalWidth, (int)totalWidth);
         }
-      
+
         public double InMeasure(int matrixWidth, double size)
         {
             double totalWidth = size - 1;
@@ -69,6 +73,7 @@ namespace br.corp.bonus630.ImageRender
             return _dotSize;
         }
     }
+ 
 }
 
 

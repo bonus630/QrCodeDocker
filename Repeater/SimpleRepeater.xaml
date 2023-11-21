@@ -579,7 +579,10 @@
 
         </Grid>
         <Grid  Grid.Row="3"  >
-            <Button x:Name="btn_process" Content="{Binding Lang.BTN_Process,FallbackValue=Multiplos desenhos}" Click="btn_process_Click" Width="130" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,7,0,0"/>
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Content="{Binding Lang.CK_UseThread,FallbackValue=Usar plano de fundo}" Visibility="Collapsed" IsChecked="True"  HorizontalAlignment="Left" VerticalAlignment="Center" Name="ck_useThread"/>
+                <Button x:Name="btn_process" Content="{Binding Lang.BTN_Process,FallbackValue=Multiplos desenhos}" Click="btn_process_Click" Width="130" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

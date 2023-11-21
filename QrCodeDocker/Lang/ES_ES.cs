@@ -55,7 +55,7 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
         public string LabelDotSize { get { return "Tamaño de punto:"; } }
 
         public string LabelSize { get { return "Tamaño:"; } }
-        public string LBA_APPVersion { get { return "Versión: Amora"; } }
+        public string LBA_APPVersion { get { return "Versión: beta2"; } }
 
         public string ButtonDrawVector { get { return "Dibujar Vetor"; } }
 
@@ -65,6 +65,7 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
         public string ButtonExtras { get { return "Extras"; } }
 
         public string LabelPreview { get { return "El preestreno:"; } }
+        public string LabelCodeType { get { return " Tipo do Código"; } }
 
         public string LabelEncodingType { get { return "Tipo de codificación:"; } }
 

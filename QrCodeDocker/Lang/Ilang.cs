@@ -20,7 +20,7 @@
         string LabelEmailField { get; }
         string LabelPhoneField { get; }
         string LabelSmsField { get; }
-
+         string LabelCodeType { get; }
         string vCardLabelHeaderHeader { get; }
         string vCardLabelHeaderName { get; }
         string vCardLabelHeaderEmail { get; }

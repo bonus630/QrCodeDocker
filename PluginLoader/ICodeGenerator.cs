@@ -5,9 +5,9 @@ namespace br.corp.bonus630.PluginLoader
 {
     public interface ICodeGenerator
     {
-        void SetRender(ImageRender.IImageRender imageRender);
-        IImageRender ImageRender { get; }
-        Shape CreateVetorLocal(Layer layer, string content, double strSize, double positionX = 0, double positionY = 0, string vectorName = "QrCode Vetor");
+        void SetRender(ZXingImageRender imageRender);
+        ZXingImageRender ImageRender { get; }
+        Shape CreateVetorLocal(Layer layer, string content, double strSize, double positionX = 0, double positionY = 0, string vectorName = "QrCode Vetor",double dotHeight = 10);
         /// This method uses trace tatics
         /// </summary>
         /// <param name="layer"></param>

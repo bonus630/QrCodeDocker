@@ -204,14 +204,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitMatrix.cs" />
-    <Compile Include="ErrorCorrectionLevelEnum.cs" />
-    <Compile Include="GmaImageRender.cs" />
-    <Compile Include="IImageRender.cs" />
-    <Compile Include="IImageRenderConfig.cs" />
     <Compile Include="ImageRenderBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultC.cs" />
     <Compile Include="ZXingImageRender.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -31,5 +31,6 @@ namespace br.corp.bonus630.plugin.Repeater.Lang
         string MBOX_ERROR_NoShapes { get; }
         string Warning { get; }
         string CK_IgnoreFirstLine { get; }
+        string CK_UseThread { get; }
     }
 }

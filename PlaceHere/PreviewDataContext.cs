@@ -10,7 +10,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 {
     public class PreviewDataContext : NotifyPropertyBase
     {
-        Corel.Interop.VGCore.Application app;
+        Corel.Interop.VGCore.Application corelApp;
         Thread th;
         Corel.Interop.VGCore.DataSourceProxy dc;
         public event Action<System.Drawing.Rectangle> NewPositionEvent;
@@ -38,7 +38,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
 
         public PreviewDataContext(Corel.Interop.VGCore.Application app)
         {
-            this.app = app;  
+            this.corelApp = app;  
             //th = new Thread(new ThreadStart(Update));
             //th.IsBackground = true;
             
@@ -54,9 +54,9 @@ namespace br.corp.bonus630.plugin.PlaceHere
         //}
         public void Update()
         {
-            dc = this.app.FrameWork.Application.DataContext.GetDataSource("WStatusBarDS");
+            dc = this.corelApp.FrameWork.Application.DataContext.GetDataSource("WStatusBarDS");
            
-            app.Unit = app.ActiveDocument.Unit;
+            corelApp.Unit = corelApp.ActiveDocument.Unit;
             while (running)
             {
                 
@@ -73,10 +73,29 @@ namespace br.corp.bonus630.plugin.PlaceHere
                  
                     double x = inBarX;
                     double y = inBarY;
-                     size = app.ActiveWindow.ScreenDistanceToDocumentDistance(size);
+#if !X7
+                    size = corelApp.ActiveWindow.ScreenDistanceToDocumentDistance(size);
+
+
+#endif
+
                     if (GetContainer)
                     {
-                        shape = this.app.ActivePage.FindShapeAtPoint(inBarX, inBarY, false);
+#if X7
+
+            Shape shapes = corelApp.ActiveDocument.ActivePage.SelectShapesAtPoint(inBarX, inBarY, false);
+            Shape shape = shapes.Shapes[1];
+            for (int i = 1; i <= shapes.Shapes.Count; i++)
+            {
+                if (shape.ZOrder > shapes.Shapes[i].ZOrder)
+                    shape = shapes.Shapes[i];
+            }
+            
+
+#else
+                        Shape shape = this.corelApp.ActiveDocument.ActivePage.FindShapeAtPoint(inBarX, inBarY, false);
+#endif
+                       
                         if(shape != null)
                         {
 
@@ -94,7 +113,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
                     int xs = 0;
                     int ys = 0;
 
-                    app.ActiveWindow.DocumentToScreen(x, y, out xs, out ys);
+                    corelApp.ActiveWindow.DocumentToScreen(x, y, out xs, out ys);
                     int ws = (int)((inBarX + size) - inBarX);
                     int hs = (int)((inBarY + size) - inBarY);
                     //app.ActiveWindow.DocumentToScreen((double)x+Size,(double)y-Size,out xs,out ys);

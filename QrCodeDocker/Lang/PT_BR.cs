@@ -64,9 +64,10 @@ namespace br.corp.bonus630.QrCodeDocker.Lang
         public string ButtonToolTipRemovePlugin{ get { return "Remover"; } }
 
         public string LabelPreview { get { return "Visualização:"; } }
+        public string LabelCodeType { get { return "Tipo do Código"; } }
 
         public string LabelEncodingType { get { return "Método de Codificação:"; } }
-        public string LBA_APPVersion { get { return "versão: Amora"; } }
+        public string LBA_APPVersion { get { return "versão: beta2"; } }
 
         public string MBoxOpenDoc { get { return "Abra um novo documento para gerar"; } }
 

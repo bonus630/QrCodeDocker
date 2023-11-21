@@ -7,90 +7,75 @@ using ZXing;
 using System;
 using System.IO;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace br.corp.bonus630.ImageRender
 {
     //References
     //https://zxingnet.codeplex.com/discussions/453067
     //https://skrymerdev.wordpress.com/2012/09/22/qr-code-generation-with-zxing/
-    public class ZXingImageRender : ImageRenderBase, IImageRender
+    public class ZXingImageRender : ImageRenderBase
     {
-        //protected Graphics graphics;
-        //protected Brush bWhite;
-        //protected Brush bBlack;
-        //protected int dotSize = 2;
-        //protected double _dotSize = 1;
-        //protected int quietZoneDot = 2;
-        //protected int m_Padding;
-        //protected string qrCodeFilePath;
-        //protected string qrCodeDirPath;
-        //public string QrCodeFilePath { get { return this.qrCodeFilePath; } }
-
-        // public BitMatrix BitMatrix { get; protected set; }
-
-        //public void  ImageRenderBase()
-        //{
-        //    bWhite = Brushes.White;
-        //    bBlack = Brushes.Black;
-        //    qrCodeDirPath = String.Format("{0}\\qrcode\\", System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
-        //    DirectoryInfo dirInfo = new DirectoryInfo(qrCodeDirPath);
-        //    if (!dirInfo.Exists)
-        //        dirInfo.Create();
-        //    qrCodeFilePath = String.Format("{0}temp_qrcode.jpg", qrCodeDirPath);
-        //}
-
-        //protected Size Measure(int matrixWidth)
-        //{
-        //    double areaWidth = dotSize * matrixWidth;
-        //    m_Padding = quietZoneDot * dotSize;
-        //    double padding = m_Padding;
-        //    double totalWidth = areaWidth + 2 * padding;
-        //    return new Size((int)totalWidth, (int)totalWidth);
-        //}
-
-        //public double InMeasure(int matrixWidth, double size)
-        //{
-        //    double totalWidth = size - 1;
-        //    double _dotSize = (size) / (matrixWidth + 4);
-        //    return _dotSize;
-        // }
-
-
 
 
         private ZXing.Common.BitMatrix bitMatrix;
         public BitMatrix BitMatrixProp { get; private set; }
         private ZXing.QrCode.Internal.ErrorCorrectionLevel ErrorCorrectionLevel { get; set; }
 
-        public ErrorCorrectionLevelEnum ErrorCorrection
+
+        public ZXing.QrCode.Internal.ErrorCorrectionLevel ErrorCorrection
         {
             get
             {
-                return ErrorCorrectionLevelEnum.H;
+                return ZXing.QrCode.Internal.ErrorCorrectionLevel.H;
             }
             set
             {
-                switch (value)
-                {
-                    case ErrorCorrectionLevelEnum.L:
-                        this.ErrorCorrectionLevel = ZXing.QrCode.Internal.ErrorCorrectionLevel.L;
-                        break;
-                    case ErrorCorrectionLevelEnum.M:
-                        this.ErrorCorrectionLevel = ZXing.QrCode.Internal.ErrorCorrectionLevel.M;
-                        break;
-                    case ErrorCorrectionLevelEnum.Q:
-                        this.ErrorCorrectionLevel = ZXing.QrCode.Internal.ErrorCorrectionLevel.Q;
-                        break;
-                    case ErrorCorrectionLevelEnum.H:
-                        this.ErrorCorrectionLevel = ZXing.QrCode.Internal.ErrorCorrectionLevel.H;
-                        break;
-                }
+                this.ErrorCorrectionLevel = value;
             }
         }
-        private ResultC resultC;
-        public ResultC GetResult { get { return this.resultC; } }
+        private Result resultC;
+        public Result GetResult { get { return this.resultC; } }
 
         BarcodeWriter writer = new BarcodeWriter();
+        private readonly Dictionary<int, string> enumMapping = new Dictionary<int, string>
+        {
+            { 1, "https://en.wikipedia.org/wiki/Aztec_Code" },
+            { 2, "https://en.wikipedia.org/wiki/Codabar" },
+            { 4, "CODE_39" },
+            { 8, "CODE_93" },
+            { 0x10, "CODE_128" },
+            { 0x20, "DATA_MATRIX" },
+            { 0x40, "EAN_8" },
+            { 0x80, "EAN_13" },
+            { 0x100, "ITF" },
+            { 0x200, "MAXICODE" },
+            { 0x400, "PDF_417" },
+            { 0x800, "https://www.qrcode.com/en/about/standards.html" },
+            { 0x1000, "RSS_14" },
+            { 0x2000, "RSS_EXPANDED" },
+            { 0x4000, "UPC_A" },
+            { 0x8000, "UPC_E" },
+            { 0x10000, "UPC_EAN_EXTENSION" },
+            { 0x20000, "MSI" },
+            { 0x40000, "PLESSEY" },
+            { 0x80000, "IMB" },
+            { 0x100000, "PHARMA_CODE" },
+            { 0xF1DE, "All_1D" }
+        };
+
+        public string GetCodeTypeHelpURL()
+        {
+            int value = (int)CodeType;
+            return enumMapping.ContainsKey(value) ? enumMapping[value] : "https://www.corelnaveia.com";
+        }
+
+        public bool IsMatrixCode()
+        {
+            if (CodeType == BarcodeFormat.QR_CODE || CodeType == BarcodeFormat.AZTEC || CodeType == BarcodeFormat.DATA_MATRIX || CodeType == BarcodeFormat.PDF_417)
+                return true;
+            return false;
+        }
 
         public ZXingImageRender() : base()
         {
@@ -99,12 +84,30 @@ namespace br.corp.bonus630.ImageRender
         }
         public void EncodeNewBitMatrix(string content, int sqrSize = 0, bool useSQRSize = false)
         {
+            //formatos tipo codigo de barra
+            //CODABAR, CODE 39, CODE 93,CODE 128,EAN 8,EAN 13,ITF,MSI,PLESSEY,
 
-            this.writer.Format = BarcodeFormat.QR_CODE;
+            //FORMATOS RETANGULARES
+            //QRCODE,AZTEC,DATAMATRIX,PDF417
+
+            //FORMATOS INVALIDOS
+            //RSS 14,RSS EXPANDED,MAXICODE,UPC EAN EXPANDED,IMB,PHARMA CODE, ALL 1D
+
+            //FORMATOS NÃO DEFENIDOS
+            //UPC A,UPC B
+
+            this.writer.Format = CodeType;
 
             //this.writer.Options = new QrCodeEncodingOptions { Width = sqrSize , Height = sqrSize , CharacterSet = "UTF-8" };
 
-            QrCodeEncodingOptions options = new QrCodeEncodingOptions { CharacterSet = "UTF-8", ErrorCorrection = ErrorCorrectionLevel };
+            QrCodeEncodingOptions options = new QrCodeEncodingOptions
+            {
+                CharacterSet = "UTF-8",
+
+            };
+            if (CodeType != BarcodeFormat.AZTEC)
+                options.ErrorCorrection = ErrorCorrectionLevel;
+
 
             if (NoBorder)
                 options.Margin = 0;
@@ -119,24 +122,25 @@ namespace br.corp.bonus630.ImageRender
             if (!String.IsNullOrEmpty(content))
             {
                 this.bitMatrix = this.writer.Encode(content);
-                bool[,] m = new bool[this.bitMatrix.Width, this.bitMatrix.Width];
-                for (int j = 0; j < bitMatrix.Width; j++)
-                {
-                    for (int i = 0; i < bitMatrix.Width; i++)
-                    {
-                        m[i, j] = this.bitMatrix[i, j];
-                    }
-                }
-                BitMatrixProp = new BitMatrix(m, this.bitMatrix.Width, this.bitMatrix.Height);
+                //bool[,] m = new bool[this.bitMatrix.Width, this.bitMatrix.Width];
+                //for (int j = 0; j < bitMatrix.Width; j++)
+                //{
+                //    for (int i = 0; i < bitMatrix.Width; i++)
+                //    {
+                //        m[i, j] = this.bitMatrix[i, j];
+                //    }
+                //}
+                //BitMatrixProp = new BitMatrix(m, this.bitMatrix.Width, this.bitMatrix.Height);
+                BitMatrixProp = this.bitMatrix;
             }
 
         }
 
 
-        public void SaveTempQrCodeFile(string content, int resolution, int sqrSize)
+        public void SaveTempQrCodeFile(string content, int resolution, int sqrSize,int dotHeight)
         {
 
-            Bitmap bitmap = this.RenderBitmapToMemory(content, resolution, sqrSize);
+            Bitmap bitmap = this.RenderBitmapToMemory2(content, resolution, sqrSize,dotHeight);
             try
             {
                 bitmap.Save(qrCodeFilePath);
@@ -187,7 +191,7 @@ namespace br.corp.bonus630.ImageRender
             return _dotSize;
         }
 
-        public Bitmap RenderBitmapToMemory(string content, int resolution = 72, int sqrSize = 221)
+        public Bitmap RenderBitmapToMemory(string content, int resolution = 72, int sqrSize = 221,int dotHeight = 10)
         {
 
             EncodeNewBitMatrix(content, sqrSize, true);
@@ -198,13 +202,14 @@ namespace br.corp.bonus630.ImageRender
 
             Bitmap bitmap = new Bitmap(sqrSize, sqrSize);
             bitmap.SetResolution(resolution, resolution);
+
             using (graphics = Graphics.FromImage(bitmap))
             {
                 graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
 
                 for (int j = 0; j < bitMatrix.Width; j++)
                 {
-                    for (int i = 0; i < bitMatrix.Width; i++)
+                    for (int i = 0; i < bitMatrix.Height; i++)
                     {
 
 
@@ -231,7 +236,7 @@ namespace br.corp.bonus630.ImageRender
         /// <param name="resolution"></param>
         /// <param name="sqrSize"></param>
         /// <returns></returns>
-        public Bitmap RenderBitmapToMemory2(string content, int resolution = 72, int sqrSize = 221)
+        public Bitmap RenderBitmapToMemory2(string content, int resolution = 72, int sqrSize = 221, int dotHeight = 10)
         {
 
             EncodeNewBitMatrix(content, sqrSize, false);
@@ -241,19 +246,28 @@ namespace br.corp.bonus630.ImageRender
             Pen pDotBorder = new Pen(bDotBorder, (float)DotBorderWidth * 10);
             Rectangle rDot;
             int bmpWidth = dotSize * bitMatrix.Width;
-            Bitmap bitmap = new Bitmap(bmpWidth, bmpWidth);
+            int bmpHeight = dotSize * bitMatrix.Height;
+            if (bitMatrix.Height == 1)
+                bmpHeight = dotHeight;
+            Bitmap bitmap = new Bitmap(bmpWidth, bmpHeight);
+
             bitmap.SetResolution(resolution, resolution);
+            //bitmap = this.writer.Write(content);
+            //return bitmap;
             using (graphics = Graphics.FromImage(bitmap))
             {
                 if (!NoBorder)
                     graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
 
-                for (int j = 0; j < bitMatrix.Width; j++)
+                for (int j = 0; j < bitMatrix.Height; j++)
                 {
                     for (int i = 0; i < bitMatrix.Width; i++)
                     {
-
-                        rDot = new Rectangle(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                        if (IsMatrixCode())
+                            rDot = new Rectangle(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotSize);
+                        else
+                            rDot = new Rectangle(i * dotSize + m_Padding, j * dotSize + m_Padding, dotSize, dotHeight);
+                        Debug.WriteLine(string.Format("i:{0} j:{1}", i, j));
                         if (bitMatrix[i, j])
                         {
                             if (DotShapeType.Equals(1))
@@ -276,7 +290,7 @@ namespace br.corp.bonus630.ImageRender
                                         graphics.DrawLine(pDotBorder, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
 
                                     //Dot bottom line
-                                    if ((j + 1) < bitMatrix.Width && !bitMatrix[i, j + 1])
+                                    if ((j + 1) < bitMatrix.Height && !bitMatrix[i, j + 1])
                                         graphics.DrawLine(pDotBorder, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize);
 
 
@@ -290,10 +304,11 @@ namespace br.corp.bonus630.ImageRender
                                 }
                             }
                         }
-                        //else
-                        //{
-                        //    graphics.FillRectangle(bBorder, rDot);
-                        //}
+
+                        else
+                        {
+                            graphics.FillRectangle(bBorder, rDot);
+                        }
                     }
                 }
 
@@ -302,17 +317,13 @@ namespace br.corp.bonus630.ImageRender
             return bitmap;
         }
 
+
+
         public string DecodeQrCode(Bitmap bitmap)
         {
             BarcodeReader reader = new BarcodeReader();
             Result result = reader.Decode(bitmap);
-            if(result != null)
-            {
-                resultC = new ResultC();
-                resultC.NumBits = result.NumBits;
-                resultC.Text = result.Text;
-                //resultC.ResultMetadata = result.ResultMetadata;
-            }
+
             try
             {
                 string res = result.Text;
@@ -349,7 +360,7 @@ namespace br.corp.bonus630.ImageRender
                 if (!NoBorder)
                     graphics.DrawRectangle(pWireframe, 0, 0, sqrSize, sqrSize);
                 //graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
-                for (int j = 0; j < bitMatrix.Width; j++)
+                for (int j = 0; j < bitMatrix.Height; j++)
                 {
                     for (int i = 0; i < bitMatrix.Width; i++)
                     {
@@ -368,7 +379,7 @@ namespace br.corp.bonus630.ImageRender
                                 graphics.DrawLine(pWireframe, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding);
 
                             //Dot bottom line
-                            if ((j + 1) < bitMatrix.Width && !bitMatrix[i, j + 1])
+                            if ((j + 1) < bitMatrix.Height && !bitMatrix[i, j + 1])
                                 graphics.DrawLine(pWireframe, i * dotSize + m_Padding, j * dotSize + m_Padding + dotSize, i * dotSize + m_Padding + dotSize, j * dotSize + m_Padding + dotSize);
 
 

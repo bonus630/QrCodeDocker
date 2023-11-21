@@ -43,6 +43,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
@@ -60,12 +61,43 @@
                 <StackPanel Height="26" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,4,0,4" Visibility="Collapsed">
                     <Label Name="lbaEncodingType" Content="{Binding Path=Lang.LabelEncodingType}"  VerticalAlignment="Center"/>
 
-                    <RadioButton Content="Gma" HorizontalAlignment="Left" VerticalAlignment="Center"  Name="radioButton_gma" Checked="radioButton_gma_Checked"  Click="radioButton_zxing_Click" ToolTip="Método que prioriza textos AlphaNumericos https://qrcodenet.codeplex.com" Margin="4,0,0,0" Visibility="Collapsed"/>
+                    <!--<RadioButton Content="Gma" HorizontalAlignment="Left" VerticalAlignment="Center"  Name="radioButton_gma" Checked="radioButton_gma_Checked"  Click="radioButton_zxing_Click" ToolTip="Método que prioriza textos AlphaNumericos https://qrcodenet.codeplex.com" Margin="4,0,0,0" Visibility="Collapsed"/>-->
                     <RadioButton Content="Zxing"  HorizontalAlignment="Left"  VerticalAlignment="Center" Name="radioButton_zxing" Checked="radioButton_zxing_Checked" Click="radioButton_zxing_Click" ToolTip="Método com suporte a UTF-8 https://zxingnet.codeplex.com" Margin="4,0,0,0" />
 
                 </StackPanel>
-                <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Path=Lang.ButtonDrawVector,FallbackValue=Desenhar Vetor}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Stretch"  />
-                <Button  Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Content="{Binding Path=Lang.ButtonDrawBitmap,FallbackValue=Desenha Bitmap}"  x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Stretch"  />
+               <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,4,0,4">
+                    <Label Content="{Binding Lang.LabelCodeType,FallbackValue=Code Type}" VerticalAlignment="Center"></Label>
+                   <ComboBox Margin="10,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="200" Name="ComboBox_CodeType" DropDownClosed="ComboBox_CodeType_Selected">
+                        <ComboBoxItem Content="AZTEC" Tag="1"/>
+                        <ComboBoxItem Content="CODABAR" Tag="2"/>
+                        <ComboBoxItem Content="CODE 39" Tag="4"/>
+                        <ComboBoxItem Content="CODE 93" Tag="8"/>
+                        <ComboBoxItem Content="CODE 128" Tag="16"/>
+                        <ComboBoxItem Content="DATA MATRIX" Tag="32"/>
+                        <ComboBoxItem Content="EAN 8" Tag="64"/>
+                        <ComboBoxItem Content="EAN 13" Tag="128"/>
+                        <ComboBoxItem Content="ITF" Tag="256"/>
+                        <ComboBoxItem Content="MAXICODE" Tag="512" IsEnabled="False"/>
+                        <ComboBoxItem Content="PDF 417" Tag="1024"/>
+                        <ComboBoxItem Content="QR CODE" Tag="2048" IsSelected="True"/>
+                        <ComboBoxItem Content="RSS 14" Tag="4096" IsEnabled="False"/>
+                        <ComboBoxItem Content="RSS EXPANDED" Tag="8192" IsEnabled="False"/>
+                        <ComboBoxItem Content="UPC A" Tag="16384"/>
+                        <ComboBoxItem Content="UPC E" Tag="32768"/>
+                        <ComboBoxItem Content="UPC EAN EXTENSION" Tag="65536" IsEnabled="False"/>
+                        <ComboBoxItem Content="MSI" Tag="131072"/>
+                        <ComboBoxItem Content="PLESSEY" Tag="262144"/>
+                        <ComboBoxItem Content="IMB" Tag="524288" IsEnabled="False"/>
+                        <ComboBoxItem Content="PHARMA CODE" Tag="1048576" IsEnabled="False"/>
+                        <ComboBoxItem Content="All 1D" Tag="98734" IsEnabled="False"/>
+                        <!--RSS 14,RSS EXPANDED,MAXICODE,UPC EAN EXPANDED,IMB,PHARMA CODE, ALL 1D-->
+                    </ComboBox>
+                    <Button Width="28" Height="28" Margin="4,0,0,0" Name="Button_CodeTypeHelp" Click="Button_CodeTypeHelp_Click" BorderBrush="{x:Null}" BorderThickness="0">
+                        <Image Width="28" Height="28" Style="{StaticResource HelpImage}" />
+                    </Button>
+                </StackPanel>
+                <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding Path=Lang.ButtonDrawVector,FallbackValue=Desenhar Vetor}"  x:Name="btn_gerar" Click="btn_gerar_Click"  HorizontalAlignment="Stretch"  />
+                <Button  Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Content="{Binding Path=Lang.ButtonDrawBitmap,FallbackValue=Desenha Bitmap}"  x:Name="btn_gerarBitmap" Click="btn_gerarBitmap_Click" HorizontalAlignment="Stretch"  />
                 <!--<Button Content="Extras" Margin="188,0,0,0" Name="btn_extras" Click="btn_extras_Click" Visibility="Hidden"/>-->
             </Grid>
             <GroupBox Header="{Binding Path=Lang.GroupBoxExtrasHeader,FallbackValue=Extras}" Name="groupBoxPluginContainer" Margin="0,10" 
@@ -75,7 +107,7 @@
             <Label Name="lbaPreview" Content="{Binding Path=Lang.LabelPreview,FallbackValue=Preview}" Margin="0,8,0,0" HorizontalAlignment="Left" Width="225"/>
             <Grid Width="294" Height="294" Margin="0,0,0,0" VerticalAlignment="Top">
                 <Border BorderThickness="1">
-                    <Image Height="294" Width="294" Name="img_render" Stretch="UniformToFill" Margin="1,1,1,1"  OpacityMask="#FFD10B0B" HorizontalAlignment="Left"/>
+                    <Image Height="294" Width="294" Name="img_render" Stretch="Uniform" Margin="1,1,1,1"  OpacityMask="#FFD10B0B" HorizontalAlignment="Left"/>
                 </Border>
             </Grid>
             <Separator Margin="0,10"/>

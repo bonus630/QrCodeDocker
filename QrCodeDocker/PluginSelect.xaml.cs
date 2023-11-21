@@ -12,6 +12,7 @@ using br.corp.bonus630.QrCodeDocker.Lang;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Reflection;
+using br.corp.bonus630.ImageRender;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -35,7 +36,7 @@ namespace br.corp.bonus630.QrCodeDocker
         public event Action<System.Drawing.Bitmap> OverridePreview;
         public ObservableCollection<IPluginCore> LoadedPluginList { get; set; }
 
-        public PluginSelect(double size, Corel.Interop.VGCore.Application app, Ilang lang, ImageRender.IImageRender imageRender, ICodeGenerator codeGenerator)
+        public PluginSelect(double size, Corel.Interop.VGCore.Application app, Ilang lang, ZXingImageRender imageRender, ICodeGenerator codeGenerator)
         {
    
             InitializeComponent();

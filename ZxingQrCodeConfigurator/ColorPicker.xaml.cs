@@ -38,7 +38,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             InitializeComponent();
             this.DataContext = colorManager;
             btn_ok.Click += (s, e) => { this.DialogResult = true; };
-            app = colorManager.App;
+            app = colorManager.CorelApp;
             this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
         }
         //private void ColorManager_ExitEyedropper()

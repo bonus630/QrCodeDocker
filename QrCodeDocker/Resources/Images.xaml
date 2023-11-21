@@ -31,6 +31,10 @@
     <System:String x:Key="CorelNaVeia2015">CorelNaVeia2022</System:String>
     <Style x:Key="CorelNaVeia2015Image" TargetType="Image">
         <Setter Property="Source" Value="{Binding Source={StaticResource CorelNaVeia2015},Converter={StaticResource ResourceToMediaImageConverter}}"/>
+    </Style>   
+    <System:String x:Key="Help">Help</System:String>
+    <Style x:Key="HelpImage" TargetType="Image">
+        <Setter Property="Source" Value="{Binding Source={StaticResource Help},Converter={StaticResource ResourceToMediaImageConverter}}"/>
     </Style>
     <!--<System:String x:Key="DotBorderColor">DotBorderColor</System:String>
     <Style x:Key="DotBorderColorImage" TargetType="Image">

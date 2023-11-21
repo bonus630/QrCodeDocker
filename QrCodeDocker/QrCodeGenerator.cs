@@ -4,6 +4,9 @@ using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 using System;
 using System.Diagnostics;
+using System.Reflection.Emit;
+using ZXing;
+using ZXing.QrCode.Internal;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -13,7 +16,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         private Application app;
         private cdrUnit lastAppUnit;
-        IImageRender imageRender;
+        ZXingImageRender imageRender;
 
         private bool weld = true;
         public bool Weld
@@ -22,7 +25,7 @@ namespace br.corp.bonus630.QrCodeDocker
             set
             {
                 this.weld = value;
-                (imageRender as IImageRenderConfig).Weld = value;
+                imageRender.Weld = value;
             }
         }
         private bool noBorder;
@@ -33,7 +36,7 @@ namespace br.corp.bonus630.QrCodeDocker
             set
             {
                 noBorder = value;
-                (imageRender as IImageRenderConfig).NoBorder = value;
+                imageRender.NoBorder = value;
             }
         }
 
@@ -44,7 +47,7 @@ namespace br.corp.bonus630.QrCodeDocker
             set
             {
                 borderColor = value;
-                (imageRender as IImageRenderConfig).BorderColor = value.ToSystemColor();
+                imageRender.BorderColor = value.ToSystemColor();
             }
         }
         private Color dotFillColor;
@@ -54,7 +57,7 @@ namespace br.corp.bonus630.QrCodeDocker
             set
             {
                 dotFillColor = value;
-                (imageRender as IImageRenderConfig).DotFillColor = value.ToSystemColor();
+                imageRender.DotFillColor = value.ToSystemColor();
             }
         }
         private Color dotOutlineColor;
@@ -64,7 +67,7 @@ namespace br.corp.bonus630.QrCodeDocker
             set
             {
                 dotOutlineColor = value;
-                (imageRender as IImageRenderConfig).DotBorderColor = value.ToSystemColor();
+                imageRender.DotBorderColor = value.ToSystemColor();
             }
         }
         private double dotOutlineWidth = 0;
@@ -74,7 +77,7 @@ namespace br.corp.bonus630.QrCodeDocker
             set
             {
                 dotOutlineWidth = value;
-                (imageRender as IImageRenderConfig).DotBorderWidth = value;
+                imageRender.DotBorderWidth = value;
             }
         }
         private DotShape dotShapeType = DotShape.Square;
@@ -84,11 +87,11 @@ namespace br.corp.bonus630.QrCodeDocker
             set
             {
                 dotShapeType = value;
-                (imageRender as IImageRenderConfig).DotShapeType = (int)value;
+                imageRender.DotShapeType = (int)value;
             }
         }
 
-        public IImageRender ImageRender { get { return this.imageRender; } }
+        public ZXingImageRender ImageRender { get { return this.imageRender; } }
 
         public QrCodeGenerator(Application app)
         {
@@ -105,14 +108,14 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             Properties.Settings.Default.QRCounter++;
             Properties.Settings.Default.Save();
-            if (Properties.Settings.Default.QRCounter % 25 == 0)
+            if (Properties.Settings.Default.QRCounter % 1000 == 0)
                 Process.Start("https://bonus630.com.br/downloads/coreldraw-addons");
         }
-        public void SetRender(IImageRender render)
+        public void SetRender(ZXingImageRender render)
         {
             imageRender = render;
         }
-        public Shape CreateVetorLocal(Layer layer, string content, double strSize, double positionX = 0, double positionY = 0, string vectorName = "QrCode Vetor")
+        public Shape CreateVetorLocal(Layer layer, string content, double strSize, double positionX = 0, double positionY = 0, string vectorName = "QrCode Vetor",double dotHeight = 10)
         {
             lastAppUnit = this.app.ActiveDocument.Unit;
             this.app.ActiveDocument.Unit = this.app.ActiveDocument.Rulers.HUnits;
@@ -126,26 +129,35 @@ namespace br.corp.bonus630.QrCodeDocker
             ShapeRange shapeRange = app.CreateShapeRange();
             incrementQRCounter();
             Shape dot;
-            switch (dotShapeType)
+           // QRCODE,AZTEC,DATAMATRIX,PDF417
+            if (imageRender.IsMatrixCode())
             {
-                case DotShape.Square:
-                    dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotSize);
-                    break;
-                case DotShape.Ellipse:
-                    dot = layerTemp.CreateEllipse2(0, 0, dotSize / 2, dotSize / 2);
-                    break;
-                case DotShape.Triangle:
-                    dot = layerTemp.CreatePolygon2(0, 0, dotSize / 2, 6);
+                switch (dotShapeType)
+                {
+                    case DotShape.Square:
+                        dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotSize);
+                        break;
+                    case DotShape.Ellipse:
+                        dot = layerTemp.CreateEllipse2(0, 0, dotSize / 2, dotSize / 2);
+                        break;
+                    case DotShape.Triangle:
+                        dot = layerTemp.CreatePolygon2(0, 0, dotSize / 2, 6);
 
-                    break;
-                case DotShape.Star:
-                    dot = layerTemp.CreatePolygon(0, 0, dotSize ,dotSize, 5, Star:true);
+                        break;
+                    case DotShape.Star:
+                        dot = layerTemp.CreatePolygon(0, 0, dotSize, dotSize, 5, Star: true);
 
-                    break;
-                default:
-                    dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotSize);
-                    break;
+                        break;
+                    default:
+                        dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotSize);
+                        break;
 
+                }
+            }
+
+            else
+            { 
+                dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotHeight);
             }
             dot.Fill.ApplyUniformFill(this.dotFillColor);
             if (dotOutlineColor == null || dotOutlineWidth == 0)
@@ -201,7 +213,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
 
                 int cols = ImageRender.BitMatrixProp.Width;
-                int rows = ImageRender.BitMatrixProp.Width;
+                int rows = ImageRender.BitMatrixProp.Height;
                 int mShapes = cols * rows;
 
                 shapeRange.Add(firstShape);
@@ -252,7 +264,7 @@ namespace br.corp.bonus630.QrCodeDocker
             }
             ShapeRange toDelete = app.CreateShapeRange();
             int c = 1;
-            for (int j = 0; j < imageRender.BitMatrixProp.Width; j++)
+            for (int j = 0; j < imageRender.BitMatrixProp.Height; j++)
             {
                 for (int i = 0; i < imageRender.BitMatrixProp.Width; i++)
                 {
@@ -409,7 +421,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 //incrementQRCounter();
                 Layer tempLayer = this.app.ActiveDocument.ActivePage.CreateLayer("temp_qrcode");
                 tempLayer.Activate();
-                imageRender.SaveTempQrCodeFile(content, this.app.ActivePage.Resolution, 221);
+                imageRender.SaveTempQrCodeFile(content, this.app.ActivePage.Resolution, 221,10);
 
                 StructImportOptions sio = new StructImportOptions();
                 sio.MaintainLayers = true;

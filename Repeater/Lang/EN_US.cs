@@ -50,5 +50,6 @@ namespace br.corp.bonus630.plugin.Repeater.Lang
 
         public string Warning { get { return "Warning"; } }
         public string CK_IgnoreFirstLine { get { return "Ignore first line"; } }
+        public string CK_UseThread { get { return "In Background"; } }
     }
 }

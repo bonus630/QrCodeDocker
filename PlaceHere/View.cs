@@ -38,7 +38,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         private Rectangle ScreenRect;
         public Rectangle ResultRect { get; protected set; }
         private Rectangle escRect;
-        public IImageRender Render { get; set; }
+        public ZXingImageRender Render { get; set; }
         public bool GetContainer { get; set; }
         public bool IsClicked { get { return isClicked; } }
         public double FactorX { get; set; }

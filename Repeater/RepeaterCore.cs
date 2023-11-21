@@ -102,11 +102,19 @@ namespace br.corp.bonus630.plugin.Repeater
 
         public override string GetPluginDisplayName { get { return RepeaterCore.PluginDisplayName; } }
 
-        public void Draw(int qrcodeContentIndex = -1, bool vector = true)
+       
+        public void Draw(bool thread,int qrcodeContentIndex = -1, bool vector = true)
         {
-            drawThread = new Thread(new ParameterizedThreadStart(ProcessVector));
-            drawThread.IsBackground = true;
-            drawThread.Start(new ThreadParam(qrcodeContentIndex, vector));
+            //if (thread) {
+            //    drawThread = new Thread(new ParameterizedThreadStart(ProcessVector));
+            //    drawThread.IsBackground = true;
+            //    drawThread.Start(new ThreadParam(qrcodeContentIndex, vector));
+            //}
+            //else
+            //{
+                ProcessVector(qrcodeContentIndex, vector);
+              
+            //}
         }
         public void Draw() {
             drawThread = new Thread(new ParameterizedThreadStart(ProcessVector));
@@ -137,6 +145,7 @@ namespace br.corp.bonus630.plugin.Repeater
         }
         public void ProcessVector(int qrcodeContentIndex = -1, bool vector = true)
         {
+            Document document = this.app.ActiveDocument;
             try
             {
 
@@ -148,6 +157,9 @@ namespace br.corp.bonus630.plugin.Repeater
                 double pageHeight = this.app.ActiveDocument.ActivePage.SizeHeight;
 
                 bool newPage = false;
+              
+                cdrUnit docUnit = document.Unit;
+
 
                 colMax = Convert.ToInt32(((pageWidth - startX) - ((pageWidth - startX) % (modelShape.SizeWidth + gap))) / (modelShape.SizeWidth + gap));
                 linMax = Convert.ToInt32(((pageHeight - startY) - ((pageHeight - startY) % (modelShape.SizeHeight + gap))) / (modelShape.SizeHeight + gap));
@@ -159,24 +171,31 @@ namespace br.corp.bonus630.plugin.Repeater
                     i = 1;
                 app.Optimization = true;
                 app.EventsEnabled = false;
-                app.ActiveDocument.BeginCommandGroup("Duplicate");
+                document.BeginCommandGroup("Duplicate");
+                Page page = document.ActivePage;
+                Layer layer = page.ActiveLayer;
                 for (; i < dataSource.Count; i++)
                 //for (int i = 0; i < 100; i++)
                 {
 
                    
                     //ShapeRange duplicate = modelShape.Duplicate();
-                    Page page = this.app.ActiveDocument.ActivePage;
-                    ShapeRange duplicate = modelShape.CopyToLayer(page.ActiveLayer);
+                   
+                    System.Diagnostics.Debug.WriteLine("Document id:"+document.Title);
+                    //for (int t = 1; t <= page.Layers.Count; t++)
+                    //{
+                    //    System.Windows.MessageBox.Show("layertype:" + page.Layers[i].Name);
+                    //}
+                    ShapeRange duplicate = modelShape.CopyToLayer(layer);
                     Shape code = null;
                     if (shapeContainer != null)
                     {
                         if (vector)
                         {
-                            code = codeGenerator.CreateVetorLocal(page.ActiveLayer, dataSource[i][qrcodeContentIndex].ToString(), this.size, i * (this.size + 2), 20, dataSource[i][qrcodeContentIndex].ToString());
+                            code = codeGenerator.CreateVetorLocal(layer, dataSource[i][qrcodeContentIndex].ToString(), this.size, i * (this.size + 2), 20, dataSource[i][qrcodeContentIndex].ToString());
                         }
                         else
-                            code = codeGenerator.CreateBitmapLocal(page.ActiveLayer, dataSource[i][qrcodeContentIndex].ToString(), (int)app.ConvertUnits(this.size, app.ActiveDocument.Unit, cdrUnit.cdrPixel), i * (this.size + 2), 20, dataSource[i][qrcodeContentIndex].ToString());
+                            code = codeGenerator.CreateBitmapLocal(layer, dataSource[i][qrcodeContentIndex].ToString(), (int)app.ConvertUnits(this.size, docUnit, cdrUnit.cdrPixel), i * (this.size + 2), 20, dataSource[i][qrcodeContentIndex].ToString());
                     }
                     foreach (Shape item in duplicate.Shapes)
                     {
@@ -200,7 +219,7 @@ namespace br.corp.bonus630.plugin.Repeater
                         if (tuple != null)
                         {
                             item.Text.Story.Replace(this.enumerator.ToString(mask));
-                            this.enumerator += this.enumeratorIncrement;
+                            this.Enumerator += this.enumeratorIncrement;
                         }
                         tuple = null;
                         tuple = this.ShapeContainerImageFile.FirstOrDefault(r => r.Item.Name == item.Name && r.Item.SizeHeight == item.SizeHeight && r.Item.SizeWidth == item.SizeWidth);
@@ -211,7 +230,7 @@ namespace br.corp.bonus630.plugin.Repeater
                             if (tuple != null)
                             {
 
-                                Shape image = ImportImageFile(page.ActiveLayer, this.dataSource[i][tuple.Index].ToString(), (int)item.SizeWidth, (int)item.SizeHeight);
+                                Shape image = ImportImageFile(layer, this.dataSource[i][tuple.Index].ToString(), (int)item.SizeWidth, (int)item.SizeHeight);
                                 if (image == null)
                                     continue;
                                 image.PositionX = item.PositionX;
@@ -264,8 +283,16 @@ namespace br.corp.bonus630.plugin.Repeater
                         //new page, start zero again
                         if (newPage)
                         {
-                            page = this.app.ActiveDocument.InsertPages(1, false, this.app.ActivePage.Index);
-                            page.Activate();
+                            page = document.InsertPages(1, false, page.Index);
+                            for (int t = 1; t <= page.Layers.Count; t++)
+                            {
+                                if (!page.Layers[t].IsSpecialLayer)
+                                {
+                                    layer = page.Layers[t];
+                                    break;
+                                }
+                            }
+                           // page.Activate();
 
                         }
 
@@ -291,7 +318,7 @@ namespace br.corp.bonus630.plugin.Repeater
             {
                 app.Optimization = false;
                 app.EventsEnabled = true;
-                app.ActiveDocument.EndCommandGroup();
+                document.EndCommandGroup();
                 app.Refresh();
 
             }

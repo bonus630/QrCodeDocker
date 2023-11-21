@@ -25,7 +25,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         PreviewDataContext eye;
         Corel.Interop.VGCore.Application app;
         private string currentTheme;
-        public IImageRender Render { get; set; }
+        public ZXingImageRender Render { get; set; }
         public Preview(Corel.Interop.VGCore.Application app)
         {
             InitializeComponent();

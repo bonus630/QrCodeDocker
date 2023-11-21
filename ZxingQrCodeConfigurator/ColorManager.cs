@@ -22,8 +22,8 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         public RoutedCommand<object> OpenEyeDropper { get { return new RoutedCommand<object>(OpenEyedropper); } }
         public bool InEyedropper { get; set; }
         private ColorSystem selectedColor;
-        private Corel.Interop.VGCore.Application application;
-        public Corel.Interop.VGCore.Application App { get { return application; } }
+        private Corel.Interop.VGCore.Application corelApp;
+        public Corel.Interop.VGCore.Application CorelApp { get { return corelApp; } }
         
         private Eyedropper eyedropper;
         public event Action ExitEyedropper;
@@ -77,10 +77,23 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             double x = 0;
             double y = 0;
             int a = 0;
-            eyedropper = new Eyedropper(application);
+            eyedropper = new Eyedropper(corelApp);
             eyedropper.Show();
-            this.application.ActiveDocument.GetUserClick(out x, out y, out a, 0, false, cdrCursorShape.cdrCursorEyeDrop);
-            Shape s = this.application.ActivePage.FindShapeAtPoint(x, y, false);
+            this.corelApp.ActiveDocument.GetUserClick(out x, out y, out a, 0, false, cdrCursorShape.cdrCursorEyeDrop);
+#if X7
+
+            Shape shapes = this.corelApp.ActiveDocument.ActivePage.SelectShapesAtPoint(x, y, false);
+            Shape s = shapes.Shapes[1];
+            for (int i = 1; i <= shapes.Shapes.Count; i++)
+            {
+                if (s.ZOrder > shapes.Shapes[i].ZOrder)
+                    s = shapes.Shapes[i];
+            }
+            
+
+#else
+            Shape s = this.corelApp.ActiveDocument.ActivePage.FindShapeAtPoint(x, y);
+#endif
             if (s != null)
             {
                 Color color = s.Fill.UniformColor;
@@ -100,7 +113,7 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             this.colorPicker = colorPicker;
             if (palette == null)
                 return;
-            this.application = palette.Application as Corel.Interop.VGCore.Application;
+            this.corelApp = palette.Application as Corel.Interop.VGCore.Application;
             PaletteName = palette.Name;
             colorArray = new ColorSystem[palette.ColorCount];
             for (int i = 1; i < palette.ColorCount; i++)

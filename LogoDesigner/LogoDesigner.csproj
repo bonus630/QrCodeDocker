@@ -210,6 +210,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="zxing">
+      <HintPath>..\QrCodeDocker\zxing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup Label="VGCoreReferences">
     <Reference Include="$(CurrentCorelPath)$(VGCoreDLL)">

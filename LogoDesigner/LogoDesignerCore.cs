@@ -9,6 +9,7 @@ using System.IO;
 using Microsoft.Win32;
 using br.corp.bonus630.plugin.LogoDesigner.Lang;
 using br.corp.bonus630.QrCodeDocker;
+using ZXing.QrCode.Internal;
 
 namespace br.corp.bonus630.plugin.LogoDesigner
 {
@@ -69,11 +70,11 @@ namespace br.corp.bonus630.plugin.LogoDesigner
             if(!this.dataSource[0][1].GetType().Equals(typeof(System.Drawing.Bitmap)))
                 return;
 
-            CodeGenerator.ImageRender.ErrorCorrection = ImageRender.ErrorCorrectionLevelEnum.H;
+            CodeGenerator.ImageRender.ErrorCorrection =  ZXing.QrCode.Internal.ErrorCorrectionLevel.H;
 
             System.Drawing.Bitmap code = CodeGenerator.ImageRender.RenderBitmapToMemory2(this.DataSource[0][0].ToString());
             double m = CodeGenerator.ImageRender.InMeasure(Size);
-            CodeGenerator.ImageRender.ErrorCorrection = ImageRender.ErrorCorrectionLevelEnum.Q;
+            CodeGenerator.ImageRender.ErrorCorrection = ZXing.QrCode.Internal.ErrorCorrectionLevel.Q;
             Graphics g = Graphics.FromImage(code);
             int logoWidth = 0;
             int logoHeight = 0;
@@ -137,7 +138,7 @@ namespace br.corp.bonus630.plugin.LogoDesigner
                  App.Optimization = true;
                 App.ActiveDocument.BeginCommandGroup();
                 
-                CodeGenerator.ImageRender.ErrorCorrection = ImageRender.ErrorCorrectionLevelEnum.H;
+                CodeGenerator.ImageRender.ErrorCorrection = ErrorCorrectionLevel.H;
                 double m = CodeGenerator.ImageRender.InMeasure(Size);
                 ShapeRange sr = this.App.CreateShapeRange();
                 if (!useSelection)
@@ -197,7 +198,7 @@ namespace br.corp.bonus630.plugin.LogoDesigner
             {
                 App.Optimization = false;
                 App.Refresh();
-                CodeGenerator.ImageRender.ErrorCorrection = ImageRender.ErrorCorrectionLevelEnum.Q;
+                CodeGenerator.ImageRender.ErrorCorrection = ErrorCorrectionLevel.Q;
             }
 
         }

@@ -7,6 +7,8 @@ using Corel.Interop.VGCore;
 using br.corp.bonus630.ImageRender;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker.MainTabControls;
+using ZXing;
+using System.Windows.Interop;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -15,7 +17,7 @@ namespace br.corp.bonus630.QrCodeDocker
     {
         Corel.Interop.VGCore.Application app;
         ICodeGenerator codeGenerator;
-        IImageRender imageRender;
+        ZXingImageRender imageRender;
         Document Doc;
         string textContent;
         PluginSelect pluginSelect;
@@ -92,7 +94,7 @@ namespace br.corp.bonus630.QrCodeDocker
             styleController.LoadThemeFromPreference();
             radioButton_zxing.IsChecked = true;
             imageRender = new ZXingImageRender();
-            imageRender.ErrorCorrection = ErrorCorrectionLevelEnum.Q;
+            imageRender.ErrorCorrection = ZXing.QrCode.Internal.ErrorCorrectionLevel.Q;
             codeGenerator.SetRender(imageRender);
 
             // string pluginLoader = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Addons\\QrCodeDocker\\PluginLoader.dll");
@@ -296,12 +298,12 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             System.Diagnostics.Process.Start("https://bonus630.com.br");
         }
-        private void radioButton_gma_Checked(object sender, RoutedEventArgs e)
-        {
-            imageRender = new GmaImageRender();
-            codeGenerator.SetRender(imageRender);
-            SetValuesPlugin();
-        }
+        //private void radioButton_gma_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    imageRender = new GmaImageRender();
+        //    codeGenerator.SetRender(imageRender);
+        //    SetValuesPlugin();
+        //}
         private void radioButton_zxing_Checked(object sender, RoutedEventArgs e)
         {
             imageRender = new ZXingImageRender();
@@ -334,8 +336,7 @@ namespace br.corp.bonus630.QrCodeDocker
             this.codeGenerator = new QrCodeGenerator(app);
             if ((bool)radioButton_zxing.IsChecked)
                 imageRender = new ZXingImageRender();
-            else
-                imageRender = new GmaImageRender();
+        
             codeGenerator.SetRender(imageRender);
             SetValuesPlugin();
         }
@@ -344,6 +345,30 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             setContent((tabControls.SelectedItem as IMainTabControl).FormatedText);
 
+        }
+        private void ComboBox_CodeType_Selected(object sender, EventArgs e)
+        {
+            try
+            {
+                string tagValue = ((ComboBoxItem)ComboBox_CodeType.SelectedItem).Tag.ToString();
+
+                if (Enum.TryParse(tagValue, out BarcodeFormat selectedFormat) && imageRender != null)
+                {
+                    imageRender.CodeType = selectedFormat;
+                    ChangeUIByCodeType();
+                    setContent(textContent);
+                }
+            }
+            catch { }
+        }
+        private void ChangeUIByCodeType()
+        {
+
+        }
+     
+        private void Button_CodeTypeHelp_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(imageRender.GetCodeTypeHelpURL());
         }
     }
 }

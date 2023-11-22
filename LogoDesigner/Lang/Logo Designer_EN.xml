@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+	<BTN_Draw>Draw QrCode</BTN_Draw>
+	<BTN_Browser>Browser Logo</BTN_Browser>
+	<BTN_UseSelection>Use Selection like Logo</BTN_UseSelection>
+	<OF_BrowserFile>Select a Image File</OF_BrowserFile>
+	<BTN_Reset>Reset</BTN_Reset>
+</root>

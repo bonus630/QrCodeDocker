@@ -11,13 +11,13 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <c:IntVisibilityConverter x:Key="IntVisibilityConverter" />
-
+                <XmlDataProvider x:Key="Lang" XPath="/root" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal" Margin="6">
-            <CheckBox Content="{Binding Lang.CB_Monitor,FallbackValue=Monitorar Area de Transferencia}" Name="cb_monitorClipboard" Click="cb_monitorClipboard_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <Button Content="{Binding Lang.BTN_Clear,FallbackValue=Limpar}" HorizontalAlignment="Right" Margin="6,0,0,0"  Width="72" Command="{Binding ClearAllCommand}" Visibility="{Binding ClipboardDatas.Count,Converter={StaticResource IntVisibilityConverter}}">
+            <CheckBox Content="{Binding Source={StaticResource Lang},XPath=CB_Monitor,FallbackValue=Monitorar Area de Transferencia}" Name="cb_monitorClipboard" Click="cb_monitorClipboard_Click" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Button Content="{Binding Source={StaticResource Lang},XPath=BTN_Clear,FallbackValue=Limpar}" HorizontalAlignment="Right" Margin="6,0,0,0"  Width="72" Command="{Binding ClearAllCommand}" Visibility="{Binding ClipboardDatas.Count,Converter={StaticResource IntVisibilityConverter}}">
                
             </Button>
         </StackPanel>

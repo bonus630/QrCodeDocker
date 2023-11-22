@@ -6,8 +6,10 @@
              xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
              mc:Ignorable="d" 
              >
-    
-        <Grid>
+    <TabItem.Resources>
+        <XmlDataProvider x:Key="Lang" XPath="/root" />
+    </TabItem.Resources>
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="78"/>
             <ColumnDefinition />
@@ -31,14 +33,14 @@
             <TextBox VerticalAlignment="Center"  Grid.Column="1" Grid.Row="6" Name="txt_vcardAdd" TextChanged="txt_vcard" />
             <TextBox VerticalAlignment="Center"  Grid.Column="1" Grid.Row="7" Name="txt_vcardNote" TextChanged="txt_vcard" />
 
-        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0" Name="lbaVCardHeader" Content="{Binding Path=Lang.vCardLabelHeaderHeader}" HorizontalAlignment="Left" />
-        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1" Name="lbaVCardName" Content="{Binding Path=Lang.vCardLabelHeaderName}" HorizontalAlignment="Left" />
-        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2" Name="lbaVCardEmail" Content="{Binding Path=Lang.vCardLabelHeaderEmail}" HorizontalAlignment="Left" />
-        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="3" Name="lbaVCardPhone" Content="{Binding Path=Lang.vCardLabelHeaderPhone}" HorizontalAlignment="Left" />
-        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="4" Name="lbaVCardSite" Content="{Binding Path=Lang.vCardLabelHeaderSite}" HorizontalAlignment="Left"/>
-        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="5" Name="lbaVCardOrg" Content="{Binding Path=Lang.vCardLabelHeaderOrg}" HorizontalAlignment="Left" />
-        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="6" Name="lbaVCardAdress" Content="{Binding Path=Lang.vCardLabelHeaderAdress}" HorizontalAlignment="Left" />
-        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="7" Name="lbaVCardNote" Content="{Binding Path=Lang.vCardLabelHeaderNotes}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0" Name="lbaVCardHeader" Content="{Binding Source={StaticResource Lang},XPath=vCardLabelHeaderHeader}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1" Name="lbaVCardName" Content="{Binding Source={StaticResource Lang},XPath=vCardLabelHeaderName}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2" Name="lbaVCardEmail" Content="{Binding Source={StaticResource Lang},XPath=vCardLabelHeaderEmail}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="3" Name="lbaVCardPhone" Content="{Binding Source={StaticResource Lang},XPath=vCardLabelHeaderPhone}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="4" Name="lbaVCardSite" Content="{Binding Source={StaticResource Lang},XPath=vCardLabelHeaderSite}" HorizontalAlignment="Left"/>
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="5" Name="lbaVCardOrg" Content="{Binding Source={StaticResource Lang},XPath=vCardLabelHeaderOrg}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="6" Name="lbaVCardAdress" Content="{Binding Source={StaticResource Lang},XPath=vCardLabelHeaderAdress}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="7" Name="lbaVCardNote" Content="{Binding Source={StaticResource Lang},XPath=vCardLabelHeaderNotes}" HorizontalAlignment="Left" />
 
         </Grid>
    

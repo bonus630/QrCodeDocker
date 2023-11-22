@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+
 using System.Text;
 
 namespace br.corp.bonus630.QrCodeDocker
@@ -24,8 +25,13 @@ namespace br.corp.bonus630.QrCodeDocker
 
             return color;
         }
-
-
+        //X7 dont supports UILanguageCode
+        public static string LangCode (this Corel.Interop.VGCore.Application app)
+        {
+           
+            string[] s = app.LanguagePath.Split('\\');
+            return (s[s.Length - 1]);
+        }
 
     }
 }

@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using br.corp.bonus630.PluginLoader;
 using System.Collections.Generic;
 using System.Reflection;
-using br.corp.bonus630.plugin.BatchFromTextFile.Lang;
 using System.Diagnostics;
 
 namespace br.corp.bonus630.plugin.BatchFromTextFile
@@ -16,7 +15,6 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
      
         public IPluginCore Core { get; set ; }
         BatchFromTextFileCore bCore;
-        Ilang Lang;
   
         public BatchFromTextFile()
         {
@@ -27,7 +25,6 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         private void BatchFromTextFile_Loaded(object sender, RoutedEventArgs e)
         {
             bCore = Core as BatchFromTextFileCore;
-            Lang = Core.Lang as Ilang;
             txt_delimiter.TextChanged += Txt_delimiter_TextChanged;
             txt_colDelimiter.TextChanged += Txt_colDelimiter_TextChanged;
         }
@@ -37,7 +34,7 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
         {
             
             Microsoft.Win32.OpenFileDialog of = new Microsoft.Win32.OpenFileDialog();
-            of.Filter = Lang.OF_File;
+            of.Filter = Core.GetLocalizedString("OF_File");
             of.Multiselect = false;
             if((bool)of.ShowDialog())
             {

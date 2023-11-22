@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Xml;
 
 
 namespace br.corp.bonus630.PluginLoader
@@ -12,7 +14,7 @@ namespace br.corp.bonus630.PluginLoader
     public abstract class PluginCoreBase<T> : IPluginCore, INotifyPropertyChanged where T : class, new()
     {
         protected IPluginMainUI mainUI;
-        private LangController lang;
+        //private LangController lang;
 
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
@@ -24,13 +26,15 @@ namespace br.corp.bonus630.PluginLoader
         public event Action LangChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LangController Lang { get { return this.lang; } set { lang = value; if (LangChanged != null) LangChanged(); } }
+        //public LangController Lang { get { return this.lang; } set { lang = value; if (LangChanged != null) LangChanged(); } }
         public UserControl UIControl { get { return (UserControl)this.mainUI; } }
         public abstract string GetPluginDisplayName { get; }
         public T GetCore { get { return this as T; } }
         public IPluginCore GetICore { get { return GetCore as IPluginCore; } }
         public new Type GetType { get { return typeof(T); } }
         public int Index { get; set; }
+
+        protected string langFile;
 
         protected virtual void OnFinishJob(object obj)
         {
@@ -64,17 +68,27 @@ namespace br.corp.bonus630.PluginLoader
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void ChangeLang(LangTagsEnum langTag, System.Reflection.Assembly assembly)
+        public void ChangeLang(string langFile)
         {
-            try
-            {
-                this.Lang = LangController.CreateInstance(assembly, langTag);
-                if(this.Lang != null)
-                    this.Lang.AutoUpdateProperties();
-            }
-            catch { }
-        }
+            this.langFile = langFile;
+            if (UIControl == null)
+                return;
 
+            var xmlDataProvider = UIControl.FindResource("Lang") as XmlDataProvider;
+
+            if (xmlDataProvider != null)
+            {
+                xmlDataProvider.Source = new Uri(langFile, UriKind.RelativeOrAbsolute);
+                
+            }
+        }
+        public string GetLocalizedString(string key)
+        {
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(langFile);
+            XmlNode node = xmlDocument.SelectSingleNode(string.Concat("/root/", key));
+            return node.InnerText;
+        }
         public IPluginMainUI CreateOrGetMainUIIntance(Type type)
         {
             if (mainUI == null)

@@ -6,17 +6,20 @@
         >
     <UserControl.Resources>
         <ResourceDictionary>
+
+            <XmlDataProvider x:Key="Lang" XPath="/root" />
+
             <converters:WidthSubConverter x:Key="WidthSubConverter" />
             <extConverters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Images.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
         </ResourceDictionary>
-     
+
     </UserControl.Resources>
     <StackPanel>
-     
+
         <Grid Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -29,24 +32,24 @@
             <Button Width="28" Height="28" Grid.Column="1" Name="btn_loadPlugin" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="2"  Click="btn_loadPlugin_Click" Background="Transparent">
                 <Image Style="{StaticResource BrowserImage}"  />
                 <Button.ToolTip>
-                    <Label Content="{Binding Lang.BTN_BrowserPluginToolTip}"/>
-                </Button.ToolTip> 
+                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_BrowserPluginToolTip}"/>
+                </Button.ToolTip>
             </Button>
             <Button Width="28" Height="28"  Grid.Column="2" Name="btn_saveConfig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"  Click="btn_saveConfig_Click" Background="Transparent">
                 <Image Style="{StaticResource SaveImage}" />
                 <Button.ToolTip>
-                    <Label Content="{Binding Lang.BTN_SavePluginToolTip}"/>
+                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_SavePluginToolTip}"/>
                 </Button.ToolTip>
             </Button>
             <Button Width="28" Height="28" Grid.Column="3" Name="btn_deleteConfig" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="2" Click="btn_deleteConfig_Click" Background="Transparent">
                 <Image Style="{StaticResource DeleteImage}"/>
                 <Button.ToolTip>
-                    <Label Content="{Binding Lang.BTN_DeletePluginToolTip}"/>
+                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_DeletePluginToolTip}"/>
                 </Button.ToolTip>
             </Button>
         </Grid>
         <ProgressBar Name="pb_progress" Height="2" Visibility="Collapsed" VerticalAlignment="Top" Foreground="#FFEC06A4">
-         
+
         </ProgressBar>
         <ListView x:Name="mainUIList" Padding="0" ItemsSource="{Binding LoadedPluginList}" Margin="0,6,0,0"
                   Visibility="{Binding Path=LoadedPluginList.Count,Converter={StaticResource IntVisibilityConverter}}"
@@ -54,37 +57,37 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Expander Expanded="expanderExpander" Padding="0" HorizontalAlignment="Stretch" Margin="0" IsExpanded="True"  Tag="{Binding Index}" >
-                 
-                    <Expander.Header>
 
-                        <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Path=ActualWidth,Converter={StaticResource WidthSubConverter}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                        <Expander.Header>
 
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="1"  Content="-" Width="28" Tag="{Binding Index}" Click="expanderRemoveClick">
-                                <Button.ToolTip>
-                                        <Label Content="{Binding ElementName=mainUIList, Path=DataContext.Lang.ButtonToolTipRemovePlugin,FallbackValue=Remove}" />
-                                </Button.ToolTip>
-                            </Button>
+                            <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem},Path=ActualWidth,Converter={StaticResource WidthSubConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="1"  Content="-" Width="28" Tag="{Binding Index}" Click="expanderRemoveClick">
+                                    <Button.ToolTip>
+                                        <Label Content="{Binding Source={StaticResource Lang},XPath=ButtonToolTipRemovePlugin,FallbackValue=Remove}" />
+                                    </Button.ToolTip>
+                                </Button>
                                 <Label Grid.Column="0" Content="{Binding GetPluginDisplayName,FallbackValue=Testamdp}" />
+                            </Grid>
+                        </Expander.Header>
+                        <Grid>
+                            <ContentControl Content="{Binding UIControl}" />
                         </Grid>
-                    </Expander.Header>
-                    <Grid>
-                        <ContentControl Content="{Binding UIControl}" />
-                    </Grid>
-                </Expander>
+                    </Expander>
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Focusable" Value="false"/>
-                    
+
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-     
+
 
 
     </StackPanel>

@@ -118,7 +118,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
                     int hs = (int)((inBarY + size) - inBarY);
                     //app.ActiveWindow.DocumentToScreen((double)x+Size,(double)y-Size,out xs,out ys);
 
-                    System.Drawing.Rectangle rect = new System.Drawing.Rectangle(xs, ys, ws , hs);
+                    System.Drawing.Rectangle rect = new System.Drawing.Rectangle(xs, ys, ws, hs);
                     Debug.WriteLine("Rect:{0}", rect.ToString());
                     if (NewPositionEvent != null)
 

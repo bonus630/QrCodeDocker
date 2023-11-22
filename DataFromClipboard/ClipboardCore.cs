@@ -8,8 +8,6 @@ using System.Threading;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
-using br.corp.bonus630.plugin.DataFromClipboard.Lang;
-
 namespace br.corp.bonus630.plugin.DataFromClipboard
 {
     public class ClipboardCore : PluginCoreBase<ClipboardCore>, IPluginDataSource

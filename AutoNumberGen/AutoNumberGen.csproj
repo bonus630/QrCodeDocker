@@ -201,9 +201,6 @@
       <DependentUpon>AutoNumberGen.xaml</DependentUpon>
     </Compile>
     <Compile Include="AutoNumberGenCore.cs" />
-    <Compile Include="Lang\EN_US.cs" />
-    <Compile Include="Lang\ILang.cs" />
-    <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -231,6 +228,14 @@
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lang\Auto Number Generator_BR.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\Auto Number Generator_EN.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--<PropertyGroup>
     <PostBuildEvent>
@@ -247,6 +252,6 @@ copy "$(TargetDir)$(TargetFileName)" "$(SolutionDir)$(SolutionName)\$(OutDir)" /
     <Message Text="CopyFiles" />
     <Message Text="$(CurrentCorelPath)" />
     <MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras" />
-    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(ProjectDir)$(OutDir)*.*&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
   </Target>
 </Project>

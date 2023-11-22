@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+    <CB_Weld>Weld</CB_Weld>
+    <CB_NoBorder>No Border</CB_NoBorder>
+    <LBA_DotShape>Dot Shape:</LBA_DotShape>
+    <LBA_BorderColor>Border Color:</LBA_BorderColor>
+    <LBA_DotBorderColor>Dot Border Color:</LBA_DotBorderColor>
+    <LBA_DotBorderSize>Dot Border Size:</LBA_DotBorderSize>
+    <BTN_Verify>Verify</BTN_Verify>
+    <LBA_DotFillColor>Dot Fill Color:</LBA_DotFillColor>
+    <MBOX_QrMessage>Your Qrcode contains the following message:</MBOX_QrMessage>
+    <MBOX_QrCodingWarning>Change your encoding to Zxing to validate!</MBOX_QrCodingWarning>
+    <MBOX_ERRO_QRInvalid>Invalid qrcode</MBOX_ERRO_QRInvalid>
+    <Warning>Warning</Warning>
+    <BTN_BrowserPluginToolTip>Browser extra</BTN_BrowserPluginToolTip>
+    <BTN_SavePluginToolTip>Save extras states</BTN_SavePluginToolTip>
+    <BTN_DeletePluginToolTip>Delete saved state</BTN_DeletePluginToolTip>
+</root>

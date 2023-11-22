@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
              mc:Ignorable="d" 
              >
+    <TabItem.Resources>
+        <XmlDataProvider x:Key="Lang" XPath="/root" />
+    </TabItem.Resources>
     <Grid>
-        <Label Name="lbaPhoneField" Content="{Binding Path=Lang.LabelPhoneField}"/>
+        <Label Name="lbaPhoneField" Content="{Binding Source={StaticResource Lang},XPath=LabelPhoneField}"/>
         <TextBox TextWrapping="Wrap" x:Name="txt_tel"  Margin="2,25,0,0" TextChanged="txt_tel_TextChanged" PreviewTextInput="txt_tel_PreviewTextInput"  VerticalAlignment="Top"/>
     </Grid>
 </TabItem>

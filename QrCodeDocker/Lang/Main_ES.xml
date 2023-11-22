@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+	<MainTitle></MainTitle>
+	<TabTitleText>Texto</TabTitleText>
+	<TabTitleURL>Url</TabTitleURL>
+	<TabTitleEmail>Email</TabTitleEmail>
+	<TabTitlePhone>Teléfono</TabTitlePhone>
+	<TabTitleVCard>vCard</TabTitleVCard>
+	<TabTextLabel>Texto: (Máx 300 Caracteres)</TabTextLabel>
+	<TabTitleSms>Sms</TabTitleSms>
+	<LabelMaxChars>Texto: (Máx 300 Caracteres)</LabelMaxChars>
+	<LabelLeftChars>Izquierdo:</LabelLeftChars>
+	<LabelUrlField>Escriba cualquier URL en el campo de arriba.</LabelUrlField>
+	<ButtonPaste>Pegar</ButtonPaste>
+	<LabelEmailField>Escriba cualquier Email en el campo de arriba.</LabelEmailField>
+	<LabelPhoneField>Escriba cualquier Teléfono en el campo de arriba.</LabelPhoneField>
+	<LabelSmsField>Escriba cualquier SMS en el campo de arriba.</LabelSmsField>
+	<vCardLabelHeaderHeader>Título</vCardLabelHeaderHeader>
+	<vCardLabelHeaderName>Nombre:</vCardLabelHeaderName>
+	<vCardLabelHeaderEmail>Email:</vCardLabelHeaderEmail>
+	<vCardLabelHeaderPhone>Teléfono:</vCardLabelHeaderPhone>
+	<vCardLabelHeaderSite>Web Site:</vCardLabelHeaderSite>
+	<vCardLabelHeaderOrg>Organización:</vCardLabelHeaderOrg>
+	<vCardLabelHeaderAdress>Dirección:</vCardLabelHeaderAdress>
+	<vCardLabelHeaderNotes>Notas:</vCardLabelHeaderNotes>
+	<LabelMessage>Mensaje: </LabelMessage>
+	<LabelDotSize>Tamaño de punto:</LabelDotSize>
+	<LabelSize>Tamaño:</LabelSize>
+	<ButtonDrawVector>Dibujar Vector</ButtonDrawVector>
+	<ButtonDrawBitmap>Dibujar Bitmap</ButtonDrawBitmap>
+	<ButtonExtras>Extras</ButtonExtras>
+	<ButtonToolTipRemovePlugin>Eliminar</ButtonToolTipRemovePlugin>
+	<LabelPreview>El preestreno:</LabelPreview>
+	<LabelCodeType>Tipo do Código</LabelCodeType>
+	<LabelEncodingType>Tipo de codificación:</LabelEncodingType>
+	<LBA_APPVersion>Versión: beta2</LBA_APPVersion>
+	<MBoxOpenDoc>Primero, abra un nuevo documento.</MBoxOpenDoc>
+	<MBoxFormatErroTitle>¡Advertencia!</MBoxFormatErroTitle>
+	<MBoxFormatErroMessage>Tamaño de formato no válido</MBoxFormatErroMessage>
+	<MBoxContentErroMessage>El contenido está vacío</MBoxContentErroMessage>
+	<MBOX_ERROR_LangException>No se pudo cargar el idioma</MBOX_ERROR_LangException>
+	<WifiLabelSecurity>Seguridad:</WifiLabelSecurity>
+	<TabTitleWifi>WiFi</TabTitleWifi>
+	<WifiLabelSSID>SSID:</WifiLabelSSID>
+	<WifiLabelPassword>La contraseña:</WifiLabelPassword>
+	<WifiLabelSSIDHidden>SSID encubierto</WifiLabelSSIDHidden>
+	<GroupBoxExtrasHeader>Extras</GroupBoxExtrasHeader>
+	<ToolTipBonus630>Desarrollado por Bonus630</ToolTipBonus630>
+	<ToolTipCorelNaVeia>Traducida por @corelnaveia</ToolTipCorelNaVeia>
+	<BTN_BrowserPluginToolTip>Buscar extra</BTN_BrowserPluginToolTip>
+	<BTN_SavePluginToolTip>Guardar estados extras</BTN_SavePluginToolTip>
+	<BTN_DeletePluginToolTip>Eliminar estados extras</BTN_DeletePluginToolTip>
+	<MBOX_ERROR_SettingsCountNoMatch>No será posible restablecer todos los estados de los extras.</MBOX_ERROR_SettingsCountNoMatch>
+</root>
+

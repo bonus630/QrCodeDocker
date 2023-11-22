@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+	<CB_Weld>Soldar</CB_Weld>
+	<CB_NoBorder>Sem Borda</CB_NoBorder>
+	<LBA_DotShape>Forma do ponto:</LBA_DotShape>
+	<LBA_BorderColor>Cor da borda:</LBA_BorderColor>
+	<LBA_DotBorderColor>Cor da borda do ponto:</LBA_DotBorderColor>
+	<LBA_DotBorderSize>Tamanho da borda do ponto:</LBA_DotBorderSize>
+	<BTN_Verify>Verificar</BTN_Verify>
+	<LBA_DotFillColor>Cor do preenchimento do ponto:</LBA_DotFillColor>
+	<MBOX_QrMessage>Seu QRCode contém a seguinte mensagem:</MBOX_QrMessage>
+	<MBOX_QrCodingWarning>Altere o sistema de codificação para Zxing para validar!</MBOX_QrCodingWarning>
+	<MBOX_ERRO_QRInvalid>QRCode inválido!</MBOX_ERRO_QRInvalid>
+	<Warning>Aviso</Warning>
+</root>

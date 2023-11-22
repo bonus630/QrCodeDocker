@@ -248,9 +248,12 @@
       <DependentUpon>Eyedropper.xaml</DependentUpon>
     </Compile>
     <Compile Include="EyedropperDataContext.cs" />
-    <Compile Include="Lang\EN_US.cs" />
-    <Compile Include="Lang\Ilang.cs" />
-    <Compile Include="Lang\PT_BR.cs" />
+    <Content Include="Lang\Qrcode Configuration_EN.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\Qrcode Configuration_BR.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="MessageBoxVerify.xaml.cs">
       <DependentUpon>MessageBoxVerify.xaml</DependentUpon>
     </Compile>
@@ -320,6 +323,6 @@
     <Message Text="CopyFiles" />
     <Message Text="$(CurrentCorelPath)" />
     <MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)\extras" />
-    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)\extras')" Command="xcopy &quot;$(ProjectDir)$(OutDir)*.*&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
   </Target>
 </Project>

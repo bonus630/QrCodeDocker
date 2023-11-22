@@ -11,7 +11,6 @@ using System.Threading;
 using c = Corel.Interop.VGCore;
 using A = br.corp.bonus630.plugin.PlaceHere.Anchor;
 using br.corp.bonus630.ImageRender;
-using br.corp.bonus630.plugin.PlaceHere.Lang;
 
 namespace br.corp.bonus630.plugin.PlaceHere
 {
@@ -44,7 +43,6 @@ namespace br.corp.bonus630.plugin.PlaceHere
         public double FactorX { get; set; }
         public double FactorY { get; set; }
         public Anchor ReferencePoint { get; set; }
-        public Ilang Lang { get; set; }
 
         public View(c.Application app,PlaceHereCore vc)
         {
@@ -254,7 +252,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
             graphics.FillEllipse(Brushes.Green, MousePosition.X - 5 - this.Left, MousePosition.Y - 5 - this.Top, 10, 10);
             graphics.DrawLine(greenPen, MousePosition.X - this.Left, this.Height, MousePosition.X - this.Left, 0);
             graphics.DrawLine(greenPen, 0, MousePosition.Y - this.Top, this.Width, MousePosition.Y - this.Top);
-            graphics.DrawString(Lang.OC_MSG_Exit, SystemFonts.DefaultFont, Brushes.Red, ScreenRect.Left + 4, ScreenRect.Top - 20);
+            graphics.DrawString(core.GetLocalizedString("OC_MSG_Exit"), SystemFonts.DefaultFont, Brushes.Red, ScreenRect.Left + 4, ScreenRect.Top - 20);
             //graphics.DrawLine(redPen, ScreenRect.X, ScreenRect.Y, ScreenRect.Right, ScreenRect.Bottom);
             //graphics.DrawLine(redPen, ScreenRect.X, ScreenRect.Bottom, ScreenRect.Right, ScreenRect.Y);
         }

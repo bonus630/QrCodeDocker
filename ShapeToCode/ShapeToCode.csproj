@@ -241,9 +241,12 @@
     <Compile Include="ConfirmTextWindow.xaml.cs">
       <DependentUpon>ConfirmTextWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Lang\EN_US.cs" />
-    <Compile Include="Lang\Ilang.cs" />
-    <Compile Include="Lang\PT_BR.cs" />
+    <Content Include="Lang\Shape To Code_EN.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\Shape To Code_BR.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="ShapeToCodeCore.cs" />
     <Compile Include="ShapeToCodeUI.xaml.cs">
       <DependentUpon>ShapeToCodeUI.xaml</DependentUpon>

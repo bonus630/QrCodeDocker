@@ -1,5 +1,4 @@
-﻿using br.corp.bonus630.plugin.ShapeToCode.Lang;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -20,12 +19,10 @@ namespace br.corp.bonus630.plugin.ShapeToCode
     /// </summary>
     public partial class ConfirmTextWindow : Window, INotifyPropertyChanged
     {
-        public Ilang Lang { get; set; }
         private Corel.Interop.VGCore.Application app;
-        public ConfirmTextWindow(Ilang lang, Corel.Interop.VGCore.Application app)
+        public ConfirmTextWindow(Corel.Interop.VGCore.Application app)
         {
             InitializeComponent();
-            Lang = lang;
             this.DataContext = this;
             this.Loaded += ConfirmTextWindow_Loaded;
             this.app = app;

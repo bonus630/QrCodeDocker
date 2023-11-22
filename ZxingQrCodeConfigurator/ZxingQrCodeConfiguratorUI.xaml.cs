@@ -14,7 +14,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Input;
 using System.ComponentModel;
-using br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Lang;
 
 namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
 {
@@ -25,7 +24,6 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
     {
         ZxingConfiguratorCore zcCore;
         Corel.Interop.VGCore.Application app;
-        Ilang Lang;
 
 
         public ZxingQrCodeConfiguratorUI()
@@ -40,7 +38,6 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             zcCore = Core as ZxingConfiguratorCore;
             zcCore.LoadConfigEvent += ZcCore_LoadConfigEvent;
             app = zcCore.App;
-            Lang = zcCore.Lang as Ilang;
         }
 
         private void ZcCore_LoadConfigEvent()
@@ -62,12 +59,12 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
             string text = "";
             
             TryGetValidText(out text);
-            if (text == Lang.MBOX_ERRO_QRInvalid)
-                app.MsgShow(Lang.MBOX_ERRO_QRInvalid);
-            else if (text == Lang.MBOX_QrCodingWarning)
-                app.MsgShow(Lang.MBOX_QrCodingWarning, Lang.Warning, QrCodeDocker.MessageBox.DialogButtons.Ok);
+            if (text == zcCore.GetLocalizedString("MBOX_ERRO_QRInvalid"))
+                app.MsgShow(zcCore.GetLocalizedString("MBOX_ERRO_QRInvalid"));
+            else if (text == zcCore.GetLocalizedString("MBOX_QrCodingWarning"))
+                app.MsgShow(zcCore.GetLocalizedString("MBOX_QrCodingWarning"), zcCore.GetLocalizedString("Warning"), QrCodeDocker.MessageBox.DialogButtons.Ok);
             else
-                app.MsgShow(text, Lang.MBOX_QrMessage);
+                app.MsgShow(text, zcCore.GetLocalizedString("MBOX_QrMessage"));
             
         }
         private bool TryGetValidText(out string result)
@@ -92,11 +89,11 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                 }
                 catch (NotImplementedException ex1)
                 {
-                    result = Lang.MBOX_QrCodingWarning;
+                    result = zcCore.GetLocalizedString("MBOX_QrCodingWarning");
                 }
                 catch (Exception ex2)
                 {
-                    result = Lang.MBOX_ERRO_QRInvalid;
+                    result = zcCore.GetLocalizedString("MBOX_ERRO_QRInvalid");
                 }
                 finally
                 {

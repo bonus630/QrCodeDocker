@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
             >
+    <TabItem.Resources>
+        <XmlDataProvider x:Key="Lang" XPath="/root" />
+    </TabItem.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="78"/>
@@ -16,10 +19,10 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
-        <Label Content="{Binding Path=Lang.WifiLabelSSID}" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-        <Label  Content="{Binding Path=Lang.WifiLabelSecurity}" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"/>
-        <Label Content="{Binding Path=Lang.WifiLabelPassword}" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"/>
-        <Label Content="{Binding Path=Lang.WifiLabelSSIDHidden}" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="3"/>
+        <Label Content="{Binding Source={StaticResource Lang},XPath=WifiLabelSSID}" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+        <Label  Content="{Binding Source={StaticResource Lang},XPath=WifiLabelSecurity}" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"/>
+        <Label Content="{Binding Source={StaticResource Lang},XPath=WifiLabelPassword}" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"/>
+        <Label Content="{Binding Source={StaticResource Lang},XPath=WifiLabelSSIDHidden}" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="3"/>
         <TextBox Text="" x:Name="TextBoxSSID" Grid.Column="1" VerticalAlignment="Center" TextChanged="TextBoxSSID_TextChanged" Grid.Row="0"/>
         <ComboBox Grid.Column="1" x:Name="ComboBoxSecurity" VerticalAlignment="Center" SelectionChanged="ComboBoxSecurity_SelectionChanged" Grid.Row="1">
             <ComboBoxItem Content="WPA2"/>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+    <CB_Monitor>Monitor Clipboard</CB_Monitor>
+    <BTN_Clear>Clear</BTN_Clear>
+    <ToolTip_Remove>Remove</ToolTip_Remove>
+</root>

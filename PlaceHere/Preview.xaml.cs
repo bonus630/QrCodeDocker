@@ -80,8 +80,8 @@ namespace br.corp.bonus630.plugin.PlaceHere
              IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             img_preview.Source = bitmapSource;
             
-            this.Width = img_preview.Source.Width;
-            this.Height = img_preview.Source.Height;
+            this.Width = img_preview.Source.Width+2;
+            this.Height = img_preview.Source.Height+2;
 
         }
         public void SetSize(double size)

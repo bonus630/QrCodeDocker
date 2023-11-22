@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+    <BTN_ProcessDoc>Processar Documento</BTN_ProcessDoc>
+    <BTN_ProcessPage>Processar Página</BTN_ProcessPage>
+    <BTN_ProcessSelection>Processar Seleção</BTN_ProcessSelection>
+    <CB_DeleteOri>Deletar Original</CB_DeleteOri>
+    <CB_UseWidthToSize>Usar largura como tamanho</CB_UseWidthToSize>
+    <CB_UseBestFitToSize>Melhor Encaixe</CB_UseBestFitToSize>
+    <CB_UseSizeFieldToSize>Usar Campo Tamanho</CB_UseSizeFieldToSize>
+    <GB_DefineSizeType>Escolha um método para o tamanho</GB_DefineSizeType>
+    <MBOX_title>Faça correções</MBOX_title>
+</root>

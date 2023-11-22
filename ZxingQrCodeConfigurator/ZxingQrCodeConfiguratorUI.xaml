@@ -8,6 +8,9 @@
               MinWidth="280">
     <UserControl.Resources>
         <ResourceDictionary>
+
+            <XmlDataProvider x:Key="Lang" XPath="/root" />
+
             <DataTemplate x:Key="cb_color_template">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Fill="{Binding ColorHexValue}" Width="20" Height="20" />
@@ -93,10 +96,10 @@
         </Grid.ColumnDefinitions>
         <Image Grid.Row="0" Grid.Column="0" Style="{StaticResource WeldImage}" HorizontalAlignment="Left" Margin="4" />
 
-        <CheckBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ck_weld" Content="{Binding Lang.CB_Weld,FallbackValue=Weld}" IsChecked="{Binding Weld}"
+        <CheckBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ck_weld" Content="{Binding Source={StaticResource Lang},XPath=CB_Weld,FallbackValue=Weld}" IsChecked="{Binding Weld}"
                   Click="ck_weld_Click" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="190"  />
         <Image Grid.Row="1" Grid.Column="0" Style="{StaticResource DotShapeImage}"  HorizontalAlignment="Left" Margin="4"  />
-        <Label Grid.Row="1" Grid.Column="1"  Content="{Binding Lang.LBA_DotShape,FallbackValue=Dot Shape}"    />
+        <Label Grid.Row="1" Grid.Column="1"  Content="{Binding Source={StaticResource Lang},XPath=LBA_DotShape,FallbackValue=Dot Shape}"    />
         <ComboBox Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Left" Width="60" x:Name="cb_dotShape" DropDownClosed="cb_dotShape_DropDownClosed"  SelectedIndex="0">
             <ComboBoxItem >
                 <Rectangle Width="20" Height="20" />
@@ -134,11 +137,11 @@
             </ComboBoxItem>
         </ComboBox>
 
-        <CheckBox Grid.Row="2" Grid.Column="1" Content="{Binding Lang.CB_NoBorder,FallbackValue=No Border}" IsChecked="{Binding NoBorder}"
+        <CheckBox Grid.Row="2" Grid.Column="1" Content="{Binding Source={StaticResource Lang},XPath=CB_NoBorder,FallbackValue=No Border}" IsChecked="{Binding NoBorder}"
                   x:Name="ck_noBorder" Click="ck_noBorder_Checked" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="14" />
 
         <Image Grid.Row="3" Grid.Column="0" Style="{StaticResource BorderColorImage}"  HorizontalAlignment="Left" Margin="4" />
-        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Lang.LBA_BorderColor,FallbackValue=Border Color}"   HorizontalAlignment="Left" VerticalAlignment="Center"  Width="167" />
+        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Source={StaticResource Lang},XPath=LBA_BorderColor,FallbackValue=Border Color}"   HorizontalAlignment="Left" VerticalAlignment="Center"  Width="167" />
         <ComboBox Grid.Row="3" Grid.Column="2" x:Name="btn_BorderColor"  HorizontalAlignment="Left" SelectedIndex="0"  DropDownOpened="btn_BorderColor_Click" Width="60" 
                   IsEnabled="{Binding ElementName=ck_noBorder, Path=IsChecked,Converter={StaticResource InvertBoolConverter}}"  >
             <ComboBoxItem HorizontalContentAlignment="Center">
@@ -153,7 +156,7 @@
         <!--<Grid Height="34" Margin="0,0,0,2">-->
         <Image Grid.Row="4" Grid.Column="0" Style="{StaticResource DotFillColorImage}"  HorizontalAlignment="Left"  Margin="4"  />
 
-        <Label Grid.Row="4" Grid.Column="1" Content="{Binding Lang.LBA_DotFillColor,FallbackValue=Dot Fill Color}" />
+        <Label Grid.Row="4" Grid.Column="1" Content="{Binding Source={StaticResource Lang},XPath=LBA_DotFillColor,FallbackValue=Dot Fill Color}" />
         <ComboBox Grid.Row="4" Grid.Column="2" x:Name="btn_DotColor" DropDownOpened="btn_DotColor_Click" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60">
             <ComboBoxItem HorizontalContentAlignment="Center">
                 <Rectangle Fill="{Binding SelectedDotColor.ColorHexValue,FallbackValue=#000000}"  Width="38" Height="26"/>
@@ -167,7 +170,7 @@
         <!--<Grid Height="34" Margin="0,0,0,2">-->
         <Image Grid.Row="5" Grid.Column="0" Style="{StaticResource DotBorderColorImage}" HorizontalAlignment="Left" Margin="4"  />
 
-        <Label Grid.Row="5" Grid.Column="1" Content="{Binding Lang.LBA_DotBorderColor,FallbackValue=Dot Border Color}" />
+        <Label Grid.Row="5" Grid.Column="1" Content="{Binding Source={StaticResource Lang},XPath=LBA_DotBorderColor,FallbackValue=Dot Border Color}" />
         <ComboBox Grid.Row="5" Grid.Column="2" x:Name="btn_DotBorderColor" DropDownOpened="btn_DotBorderColor_Click" SelectedIndex="0" VerticalAlignment="Center" Width="60">
             <ComboBoxItem HorizontalContentAlignment="Center">
                 <Rectangle Fill="{Binding SelectedDotBorderColor.ColorHexValue,FallbackValue=#000000}"  Width="38" Height="26"/>
@@ -181,10 +184,10 @@
 
 
 
-        <Label Grid.Row="6" Grid.Column="1"  Content="{Binding Lang.LBA_DotBorderSize,FallbackValue=Dot Border Size}"  />
+        <Label Grid.Row="6" Grid.Column="1"  Content="{Binding Source={StaticResource Lang},XPath=LBA_DotBorderSize,FallbackValue=Dot Border Size}"  />
         <TextBox Grid.Row="6" Grid.Column="2"  x:Name="txt_dotBorderSize" PreviewKeyUp="txt_dotBorderSize_PreviewKeyUp" PreviewTextInput="checkTextFormat" LostFocus="txt_content_LostFocus" GotFocus="txt_content_GotFocus" Text="0" TextAlignment="Right" VerticalContentAlignment="Center"  VerticalAlignment="Center" />
 
-        <Button Grid.Row="7" Grid.Column="1" Content="{Binding Lang.BTN_Verify,FallbackValue=Verify}" x:Name="btn_validate" Click="btn_validate_Click"    />
+        <Button Grid.Row="7" Grid.Column="1" Content="{Binding Source={StaticResource Lang},XPath=BTN_Verify,FallbackValue=Verify}" x:Name="btn_validate" Click="btn_validate_Click"    />
         <Button Grid.Row="7" Grid.Column="2" Content="|-o-|" x:Name="btn_validateAndDraw" Click="btn_validateAndDraw_Click"    />
     </Grid>
 </UserControl>

@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" Width="280" d:Background="White">
     <UserControl.Resources>
+        <XmlDataProvider x:Key="Lang" XPath="/root" />
         <ControlTemplate x:Key="ScrollViewerControlTemplateTiny" TargetType="{x:Type ScrollViewer}">
             <Grid x:Name="Grid" Background="{TemplateBinding Background}">
                 <Grid.ColumnDefinitions>
@@ -492,15 +493,15 @@
                 <ColumnDefinition  Width="60"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
-            <RadioButton Grid.Column="2" x:Name="cb_vector" Content="{Binding Lang.CB_Vector,FallbackValue=vector}" IsChecked="True" VerticalAlignment="Center" />
-            <RadioButton Grid.Column="1" x:Name="cb_bitmap" Content="{Binding Lang.CB_Bitmap,FallbackValue=bitmap}" VerticalAlignment="Center"/>
-            <Label Grid.Column="0" Content="{Binding Lang.LBA_QR_Format,FallbackValue=qrFormat}"   VerticalAlignment="Center"/>
+            <RadioButton Grid.Column="2" x:Name="cb_vector" Content="{Binding Source={StaticResource Lang},XPath=CB_Vector,FallbackValue=vector}" IsChecked="True" VerticalAlignment="Center" />
+            <RadioButton Grid.Column="1" x:Name="cb_bitmap" Content="{Binding Source={StaticResource Lang},XPath=CB_Bitmap,FallbackValue=bitmap}" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Content="{Binding Source={StaticResource Lang},XPath=LBA_QR_Format,FallbackValue=qrFormat}"   VerticalAlignment="Center"/>
         </Grid>
 
         <Grid Grid.Row="1"  MinWidth="280" Visibility="{Binding ElementName=scrollViewer_buttons,Path=Visibility}">
-            <GroupBox Header="{Binding Lang.GBH_FirstLineTpl,FallbackValue=ModeloDaPrimeiraLinha}">
+            <GroupBox Header="{Binding Source={StaticResource Lang},XPath=GBH_FirstLineTpl,FallbackValue=ModeloDaPrimeiraLinha}">
                 <GroupBox.ToolTip>
-                    <Label Content="{Binding Lang.ToolTip_GBH_FirstLineTpl}"/>
+                    <Label Content="{Binding Source={StaticResource Lang},XPath=ToolTip_GBH_FirstLineTpl}"/>
                 </GroupBox.ToolTip>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -510,7 +511,7 @@
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" CanContentScroll="True" VerticalScrollBarVisibility="Disabled" Visibility="Collapsed" Name="scrollViewer_buttons" HorizontalAlignment="Left"  Template="{DynamicResource ScrollViewerControlTemplateTiny}">
                         <StackPanel Grid.Row="0" Orientation="Horizontal" Name="stackPanel_buttons"  Margin="2,2,2,2" VerticalAlignment="Top" HorizontalAlignment="Left" />
                     </ScrollViewer>
-                    <CheckBox Grid.Row="1" x:Name="ck_ignoreFirstLine" Content="{Binding Lang.CK_IgnoreFirstLine}" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" IsChecked="{Binding IgnoreFirstLine}"/>
+                    <CheckBox Grid.Row="1" x:Name="ck_ignoreFirstLine" Content="{Binding Source={StaticResource Lang},XPath=CK_IgnoreFirstLine}" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" IsChecked="{Binding IgnoreFirstLine}"/>
                 </Grid>
             </GroupBox>
 
@@ -522,7 +523,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <GroupBox Header="{Binding Lang.GBH_Enumaration}" Grid.Column="0" Margin="2,10,0,0" HorizontalAlignment="Left"  Height="150" VerticalAlignment="Top" >
+            <GroupBox Header="{Binding Source={StaticResource Lang},XPath=GBH_Enumaration}" Grid.Column="0" Margin="2,10,0,0" HorizontalAlignment="Left"  Height="150" VerticalAlignment="Top" >
                 <Grid Margin="2,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
@@ -530,7 +531,7 @@
 
 
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Name="btn_enumerator" Content="{Binding Lang.BTN_Enumerator,FallbackValue=Enumarator}" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="120" Click="Button_Click"/>
+                    <Button Grid.Row="0" Name="btn_enumerator" Content="{Binding Source={StaticResource Lang},XPath=BTN_Enumerator,FallbackValue=Enumarator}" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="120" Click="Button_Click"/>
                     <Grid Grid.Row="1" Name="grid_enumerator"  HorizontalAlignment="Left" Width="120"  VerticalAlignment="Top" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -542,17 +543,17 @@
                             <RowDefinition Height="30"/>
 
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0"  Content="{Binding Lang.LBA_InitialValue}"  VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                        <Label Grid.Row="0" Grid.Column="0"  Content="{Binding Source={StaticResource Lang},XPath=LBA_InitialValue}"  VerticalAlignment="Center" HorizontalAlignment="Left"  />
                         <TextBox Grid.Row="0" Grid.Column="1"  Name="txt_initialValue" Text="{Binding Enumerator}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="32" />
-                        <Label Grid.Row="1" Grid.Column="0"  Content="{Binding Lang.LBA_Increment}"  VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                        <Label Grid.Row="1" Grid.Column="0"  Content="{Binding Source={StaticResource Lang},XPath=LBA_Increment}"  VerticalAlignment="Center" HorizontalAlignment="Left"  />
                         <TextBox  Grid.Row="1" Grid.Column="1" Name="txt_increment" Text="{Binding EnumeratorIncrement}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="32" />
-                        <Label Grid.Row="2" Grid.Column="0"  Content="{Binding Lang.LBA_Mask}" HorizontalAlignment="Left"  VerticalAlignment="Center"  />
+                        <Label Grid.Row="2" Grid.Column="0"  Content="{Binding Source={StaticResource Lang},XPath=LBA_Mask}" HorizontalAlignment="Left"  VerticalAlignment="Center"  />
                         <TextBox Grid.Row="2" Grid.Column="1"  Name="txt_mask" Text="{Binding Mask}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="32"  />
                     </Grid>
 
                 </Grid>
             </GroupBox>
-            <GroupBox Header="{Binding Lang.GBH_Position}" Grid.Column="1" HorizontalAlignment="Left"  Height="146" VerticalAlignment="Top" Margin="2,10,0,0">
+            <GroupBox Header="{Binding Source={StaticResource Lang},XPath=GBH_Position}" Grid.Column="1" HorizontalAlignment="Left"  Height="146" VerticalAlignment="Top" Margin="2,10,0,0">
                 <Grid Margin="2,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -565,10 +566,10 @@
                         <RowDefinition Height="30"/>
 
                     </Grid.RowDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="cb_fitToPage" Content="{Binding Lang.CB_FitToPage,FallbackValue=Ajustar na pagina}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Click="cb_fitToPage_Click" IsChecked="{Binding FitToPage}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Content="{Binding Lang.LBA_Left}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                    <Label Grid.Row="2" Grid.Column="0" Content="{Binding Lang.LBA_Top}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                    <Label Grid.Row="3" Grid.Column="0" Content="{Binding Lang.LBA_Gap}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="cb_fitToPage" Content="{Binding Source={StaticResource Lang},XPath=CB_FitToPage,FallbackValue=Ajustar na pagina}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Click="cb_fitToPage_Click" IsChecked="{Binding FitToPage}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="{Binding Source={StaticResource Lang},XPath=LBA_Left}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source={StaticResource Lang},XPath=LBA_Top}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="{Binding Source={StaticResource Lang},XPath=LBA_Gap}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                     <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding StartX}" VerticalAlignment="Center" Width="26" Name="txt_startX"/>
                     <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding StartY}" VerticalAlignment="Center" Width="26" Name="txt_startY"/>
                     <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Gap}" VerticalAlignment="Center" Width="26" Name="txt_gap"/>
@@ -580,8 +581,8 @@
         </Grid>
         <Grid  Grid.Row="3"  >
             <StackPanel Orientation="Horizontal">
-                <CheckBox Content="{Binding Lang.CK_UseThread,FallbackValue=Usar plano de fundo}" Visibility="Collapsed" IsChecked="True"  HorizontalAlignment="Left" VerticalAlignment="Center" Name="ck_useThread"/>
-                <Button x:Name="btn_process" Content="{Binding Lang.BTN_Process,FallbackValue=Multiplos desenhos}" Click="btn_process_Click" Width="130" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Content="{Binding Source={StaticResource Lang},XPath=CK_UseThread,FallbackValue=Usar plano de fundo}" Visibility="Collapsed" IsChecked="True"  HorizontalAlignment="Left" VerticalAlignment="Center" Name="ck_useThread"/>
+                <Button x:Name="btn_process" Content="{Binding Source={StaticResource Lang},XPath=BTN_Process,FallbackValue=Multiplos desenhos}" Click="btn_process_Click" Width="130" Height="34"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </Grid>

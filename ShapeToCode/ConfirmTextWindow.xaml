@@ -6,10 +6,13 @@
         xmlns:local="clr-namespace:br.corp.bonus630.plugin.ShapeToCode"
         xmlns:Resources="clr-namespace:br.corp.bonus630.QrCodeDocker;assembly=QrCodeDocker"
         mc:Ignorable="d"            
-        Height="200" Width="166" ResizeMode="CanResizeWithGrip" Title="{Binding Lang.MBOX_title}" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Height="200" Width="166" ResizeMode="CanResizeWithGrip" Title="{Binding Source={StaticResource Lang},XPath=MBOX_title}" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
+            <XmlDataProvider x:Key="Lang" XPath="/root" />
             <ResourceDictionary.MergedDictionaries>
+
+
                 <ResourceDictionary Source="Resources/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
                 <ResourceDictionary>
@@ -28,7 +31,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="36"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="{Binding Lang.MBOX_title}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Label Grid.Row="0" Content="{Binding Source={StaticResource Lang},XPath=MBOX_title}" VerticalAlignment="Center" HorizontalAlignment="Center" />
             <TextBox Grid.Row="1" x:Name="txt_text" Text="{Binding Text,Mode=TwoWay}" />
             <Button Grid.Row="2" Content="Ok" Name="btn_ok" Click="btn_ok_Click" Width="60" Height="34"/>
         </Grid>

@@ -7,13 +7,12 @@ using br.corp.bonus630.PluginLoader;
 using System.Drawing;
 using System.IO;
 using Microsoft.Win32;
-using br.corp.bonus630.plugin.LogoDesigner.Lang;
 using br.corp.bonus630.QrCodeDocker;
 using ZXing.QrCode.Internal;
 
 namespace br.corp.bonus630.plugin.LogoDesigner
 {
-    public class LogoDesignerCore : PluginCoreBase<LogoDesignerCore>, IPluginDrawer
+    public class LogoDesignerCore : PluginCoreBase<LogoDesignerCore>, IPluginDrawer,IPluginCore
     {
         public List<object[]> DataSource
         {
@@ -205,7 +204,7 @@ namespace br.corp.bonus630.plugin.LogoDesigner
         public void Browser()
         {
             OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Title = (Lang as ILang).OF_BrowserFile;
+            openFile.Title = base.GetLocalizedString("OF_BrowserFile");
             openFile.Multiselect = false;
             openFile.Filter = "Image Files|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
             if ((bool)openFile.ShowDialog())

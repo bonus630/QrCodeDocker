@@ -4,9 +4,6 @@ using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 using System;
 using System.Diagnostics;
-using System.Reflection.Emit;
-using ZXing;
-using ZXing.QrCode.Internal;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -292,7 +289,10 @@ namespace br.corp.bonus630.QrCodeDocker
             Shape g = null;
             if (!noBorder)
             {
-                Shape border = layer.CreateRectangle2(0, 0, strSize, strSize);
+                double strHeight = strSize;
+                if (!imageRender.IsMatrixCode())
+                    strHeight = dotHeight;
+                Shape border = layer.CreateRectangle2(0, 0, strSize, strHeight);
                 border.Fill.ApplyUniformFill(borderColor);
                 border.Outline.SetNoOutline();
 

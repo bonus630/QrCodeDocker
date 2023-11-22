@@ -16,7 +16,6 @@ using br.corp.bonus630.PluginLoader;
 using System.Diagnostics;
 using System.Windows.Threading;
 using System.Reflection;
-using br.corp.bonus630.plugin.DataFromClipboard.Lang;
 
 namespace br.corp.bonus630.plugin.DataFromClipboard
 {

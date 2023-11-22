@@ -195,7 +195,10 @@
       <Name>Corel.Interop.VGCore</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="zxing, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60" />
+    <Reference Include="zxing, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ImageRender\zxing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -222,10 +225,6 @@
     <Compile Include="Converters\WidthSubConverter.cs" />
     <Compile Include="Enums\DotShapeEnum.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Lang\ES_ES.cs" />
-    <Compile Include="Lang\Ilang.cs" />
-    <Compile Include="Lang\EN_US.cs" />
-    <Compile Include="Lang\PT_BR.cs" />
     <Compile Include="MainTabControls\EmailControl.xaml.cs">
       <DependentUpon>EmailControl.xaml</DependentUpon>
     </Compile>
@@ -349,11 +348,17 @@
     <Content Include="config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources.rct" />
-    <None Include="Resources\StatusHelp.png" />
-    <Content Include="zxing.dll">
+    <Content Include="Lang\Main_EN.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Lang\Main_ES.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\Main_BR.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources.rct" />
+    <None Include="Resources\StatusHelp.png" />
     <Resource Include="UserUI2019.xslt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

@@ -225,8 +225,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="InvertBoolToVisibilityConverter.cs" />
-    <Compile Include="Lang\ILang.cs" />
-    <Compile Include="Lang\PT_BR.cs" />
+    <Content Include="Lang\Qr Timer_EN.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\Qr Timer_BR.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="QrItem.cs" />
     <Compile Include="QrItemList.cs" />
     <Compile Include="QrTimerCore.cs" />
@@ -269,6 +273,6 @@
     <Message Text="CopyFiles" />
     <Message Text="$(CurrentCorelPath)" />
     <MakeDir Directories="$(CurrentCorelPath)Addons\QrCodeDocker\extras" />
-    <Exec Condition="Exists('$(CurrentCorelPath)Addons\QrCodeDocker\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\QrCodeDocker\extras\&quot; /y /d /e /c" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\QrCodeDocker\extras')" Command="xcopy &quot;$(ProjectDir)$(OutDir)*.*&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
   </Target>
 </Project>

@@ -15,7 +15,6 @@ using Corel.Interop.VGCore;
 using br.corp.bonus630.QrCodeDocker;
 using br.corp.bonus630.PluginLoader;
 using System.Reflection;
-using br.corp.bonus630.plugin.Repeater.Lang;
 
 namespace br.corp.bonus630.plugin.Repeater
 {
@@ -28,7 +27,6 @@ namespace br.corp.bonus630.plugin.Repeater
 
         Corel.Interop.VGCore.Application app;
 
-        Ilang Lang;
         RepeaterCore rCore;
         private ItemTuple<Shape> shapeContainer;
         private List<ItemTuple<Shape>> shapeContainerText = new List<ItemTuple<Shape>>();
@@ -49,7 +47,6 @@ namespace br.corp.bonus630.plugin.Repeater
         {
             rCore = Core as RepeaterCore;
             this.app = rCore.App;
-            Lang = rCore.Lang as Ilang;
             rCore.LoadConfigEvent += RCore_LoadConfigEvent;
             FillButtons();
         }
@@ -163,12 +160,12 @@ namespace br.corp.bonus630.plugin.Repeater
 
             if (shape.SizeWidth != shape.SizeHeight && type == ItemType.Code)
             {
-                app.MsgShow(Lang.MBOX_ERROR_PerfectSquare);
+                app.MsgShow(rCore.GetLocalizedString("MBOX_ERROR_PerfectSquare"));
                 return false;
             }
             if (shape.Type != cdrShapeType.cdrTextShape && type == ItemType.Text)
             {
-                app.MsgShow(Lang.MBOX_ERROR_TextShape);
+                app.MsgShow(rCore.GetLocalizedString("MBOX_ERROR_TextShape"));
                 return false;
             }
 
@@ -217,7 +214,8 @@ namespace br.corp.bonus630.plugin.Repeater
             }
             //  core.ShapeContainer = shapeContainer;
             // core.Size = shapeContainer.SizeWidth;
-            if (app.MsgShow(Lang.MBOX_ERROR_CorrectShape, Lang.Warning, QrCodeDocker.MessageBox.DialogButtons.YesNo) != QrCodeDocker.MessageBox.DialogResult.Yes)
+            if (app.MsgShow(rCore.GetLocalizedString("MBOX_ERROR_CorrectShape"), 
+                rCore.GetLocalizedString("Warning"), QrCodeDocker.MessageBox.DialogButtons.YesNo) != QrCodeDocker.MessageBox.DialogResult.Yes)
             {
                 this.app.ActiveDocument.Undo();
                 if (type == ItemType.Code)
@@ -238,22 +236,22 @@ namespace br.corp.bonus630.plugin.Repeater
         {
             if (rCore.DataSource == null)
             {
-                app.MsgShow(Lang.MBOX_ERROR_ValidDataSource);
+                app.MsgShow(rCore.GetLocalizedString("MBOX_ERROR_ValidDataSource"));
                 return;
             }
             if (rCore.DataSource.Count == 0)
             {
-                app.MsgShow(Lang.MBOX_ERROR_DataSourceEmpty);
+                app.MsgShow(rCore.GetLocalizedString("MBOX_ERROR_DataSourceEmpty"));
                 return;
             }
             if (app.ActiveSelectionRange == null)
             {
-                app.MsgShow(Lang.MBOX_ERROR_NoShapes);
+                app.MsgShow(rCore.GetLocalizedString("MBOX_ERROR_NoShapes"));
                 return;
             }
             if (app.ActiveSelection.Shapes.Count == 0)
             {
-                app.MsgShow(Lang.MBOX_ERROR_NoShapes);
+                app.MsgShow(rCore.GetLocalizedString("MBOX_ERROR_NoShapes"));
                 return;
             }
 

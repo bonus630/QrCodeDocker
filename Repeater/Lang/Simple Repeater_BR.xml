@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+    <CB_Vector>Vetor</CB_Vector>
+    <CB_Bitmap>Bitmap</CB_Bitmap>
+    <CB_FitToPage>Ajustar a página</CB_FitToPage>
+    <LBA_QR_Format>Formato do QrCode:</LBA_QR_Format>
+    <LBA_Left>Esquerda X:</LBA_Left>
+    <LBA_Top>Cima Y:</LBA_Top>
+    <LBA_Gap>Espaço:</LBA_Gap>
+    <LBA_InitialValue>Valor inicial</LBA_InitialValue>
+    <LBA_Increment>Incremento</LBA_Increment>
+    <LBA_Mask>Máscara</LBA_Mask>
+    <GBH_FirstLineTpl>Modelo da primeira linha</GBH_FirstLineTpl>
+    <GBH_Position>Posição</GBH_Position>
+    <GBH_Enumaration>Enumeração</GBH_Enumaration>
+    <ToolTip_GBH_FirstLineTpl>Escolha um tipo e uma forma para cada coluna</ToolTip_GBH_FirstLineTpl>
+    <BTN_Process>MultiDraw</BTN_Process>
+    <BTN_Enumerator>Enumerador</BTN_Enumerator>
+    <MBOX_ERROR_PerfectSquare>Você precisa selecionar um quadrado perfeito</MBOX_ERROR_PerfectSquare>
+    <MBOX_ERROR_TextShape>Você precisa de uma forma de texto</MBOX_ERROR_TextShape>
+    <MBOX_ERROR_CorrectShape>É a forma correta?</MBOX_ERROR_CorrectShape>
+    <MBOX_ERROR_ValidDataSource>Você precisa carregar um banco de dados válido</MBOX_ERROR_ValidDataSource>
+    <MBOX_ERROR_DataSourceEmpty>Seu banco de dados está vazio!</MBOX_ERROR_DataSourceEmpty>
+    <MBOX_ERROR_NoShapes>Nenhuma forma selecionada</MBOX_ERROR_NoShapes>
+    <Warning>Aviso</Warning>
+    <CK_IgnoreFirstLine>Ignorar primeira linha</CK_IgnoreFirstLine>
+    <CK_UseThread>Em plano de fundo</CK_UseThread>
+</root>

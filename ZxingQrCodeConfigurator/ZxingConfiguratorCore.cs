@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using br.corp.bonus630.plugin.ZxingQrCodeConfigurator.Lang;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker;
 using br.corp.bonus630.QrCodeDocker.Enums;

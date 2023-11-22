@@ -67,7 +67,7 @@ namespace br.corp.bonus630.PluginLoader
             }
             catch (Exception e)
             {
-                throw e;
+                return null;
             }
             return null;
         }

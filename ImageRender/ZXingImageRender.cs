@@ -257,8 +257,9 @@ namespace br.corp.bonus630.ImageRender
             using (graphics = Graphics.FromImage(bitmap))
             {
                 if (!NoBorder)
+                {
                     graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
-
+                }
                 for (int j = 0; j < bitMatrix.Height; j++)
                 {
                     for (int i = 0; i < bitMatrix.Width; i++)
@@ -344,21 +345,26 @@ namespace br.corp.bonus630.ImageRender
         Pen blackPen = new Pen(Brushes.Black);
         Pen greenPen = new Pen(Brushes.Green);
 
-        public Bitmap RenderWireframeToMemory(string content, int resolution = 72, int sqrSize = 221)
+        public Bitmap RenderWireframeToMemory(string content, int resolution = 72, int sqrSize = 221,int dotHeight = 10)
         {
             EncodeNewBitMatrix(content, sqrSize, true);
 
 
             dotSize = sqrSize / bitMatrix.Width;
+            int sqrHeight = sqrSize;
+            if (!IsMatrixCode())
+                sqrHeight = dotHeight;
 
-
-            Bitmap bitmap = new Bitmap(sqrSize, sqrSize);
+            Bitmap bitmap = new Bitmap(sqrSize, sqrHeight);
             bitmap.SetResolution(resolution, resolution);
             //bitmap.MakeTransparent(Color.White);
             using (graphics = Graphics.FromImage(bitmap))
             {
                 if (!NoBorder)
-                    graphics.DrawRectangle(pWireframe, 0, 0, sqrSize, sqrSize);
+                {
+                   
+                    graphics.DrawRectangle(pWireframe, 0, 0, sqrSize, sqrHeight);
+                }
                 //graphics.FillRectangle(bBorder, 0, 0, sqrSize, sqrSize);
                 for (int j = 0; j < bitMatrix.Height; j++)
                 {

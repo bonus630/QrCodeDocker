@@ -210,8 +210,6 @@
     <Compile Include="IPluginDataSource.cs" />
     <Compile Include="IPluginDrawer.cs" />
     <Compile Include="IPluginMainUI.cs" />
-    <Compile Include="LangController.cs" />
-    <Compile Include="LangTagsEnum.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="ModelViewBase.cs" />
     <Compile Include="PluginCoreBase.cs" />

@@ -8,6 +8,7 @@
              mc:Ignorable="d" Width="280" >
     <UserControl.Resources>
         <ResourceDictionary>
+            <XmlDataProvider x:Key="Lang" XPath="/root" />
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -26,26 +27,26 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Lang.LBA_LineDelimiter}"   VerticalAlignment="Center" 
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source={StaticResource Lang},XPath=LBA_LineDelimiter}"   VerticalAlignment="Center" 
                />
         <TextBox Grid.Row="0" Grid.Column="1"  x:Name="txt_delimiter" MaxLines="1" TextWrapping="Wrap" Text="{Binding RowDelimiter,Mode=OneWay}" VerticalAlignment="Center" Width="32"  
                  Visibility="{Binding ElementName=cb_specialCharLine, Path=IsChecked,ConverterParameter=1, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
         <ComboBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding SpecialCharsList}" SelectionChanged="ComboBox_SelectionChanged"
                   Visibility="{Binding ElementName=cb_specialCharLine, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}"/>
-       
-        
-        <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="cb_specialCharLine" VerticalContentAlignment="Center" Content="{Binding Lang.CB_ScapeChars,FallbackValue=Use Special Characters}" />
 
-        <Label Grid.Row="2" Grid.Column="0"  Content="{Binding Lang.LBA_ColumnDelimiter}"  VerticalAlignment="Center" 
+
+        <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="cb_specialCharLine" VerticalContentAlignment="Center" Content="{Binding Source={StaticResource Lang},XPath=CB_ScapeChars,FallbackValue=Use Special Characters}" />
+
+        <Label Grid.Row="2" Grid.Column="0"  Content="{Binding Source={StaticResource Lang},XPath=LBA_ColumnDelimiter}"  VerticalAlignment="Center" 
                 />
         <TextBox Grid.Row="2" Grid.Column="1"  x:Name="txt_colDelimiter" MaxLines="1" TextWrapping="Wrap" Text="{Binding ColumnDelimiter,Mode=OneWay}" VerticalAlignment="Center" Width="32" 
                   Visibility="{Binding ElementName=cb_specialCharCol, Path=IsChecked,ConverterParameter=1, Converter={StaticResource BoolToVisibilityConverter}}"/>
         <ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding SpecialCharsList}" SelectionChanged="ComboBoxCol_SelectionChanged" 
                   Visibility="{Binding ElementName=cb_specialCharCol, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
-        <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  x:Name="cb_specialCharCol"  VerticalContentAlignment="Center" Content="{Binding Lang.CB_ScapeChars,FallbackValue=Use Special Characters}" IsChecked="False" />
-        
+        <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  x:Name="cb_specialCharCol"  VerticalContentAlignment="Center" Content="{Binding Source={StaticResource Lang},XPath=CB_ScapeChars,FallbackValue=Use Special Characters}" IsChecked="False" />
+
         <Label Foreground="#FF0F9BDC" Grid.Column="0" Cursor="Hand" MouseUp="lba_file_MouseUp" Grid.Row="4" Grid.ColumnSpan="2" Content="{Binding FilePath}" Width="276"  x:Name="lba_file" Height="24" VerticalAlignment="Center" >
             <Label.ToolTip>
                 <Label Content="{Binding FilePath}" />
@@ -55,7 +56,7 @@
             <Label Content="{Binding RowCountText}" x:Name="lba_number" Height="24" MinWidth="60"  VerticalAlignment="Top" />
             <Label Content="{Binding ColumnCountText}" x:Name="lba_numberColumn" Height="24" MinWidth="60"  VerticalAlignment="Top" />
         </StackPanel>
-        <Button  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Name="btn_file" Content="{Binding Lang.BTN_Browser,FallbackValue=teste}" Click="btn_file_Click"   VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+        <Button  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Name="btn_file" Content="{Binding Source={StaticResource Lang},XPath=BTN_Browser,FallbackValue=teste}" Click="btn_file_Click"   VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
     </Grid>
 
 </UserControl>

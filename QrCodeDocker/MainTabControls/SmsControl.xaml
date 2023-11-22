@@ -6,12 +6,15 @@
              xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
              mc:Ignorable="d" 
           >
+    <TabItem.Resources>
+        <XmlDataProvider x:Key="Lang" XPath="/root" />
+    </TabItem.Resources>
     <Grid>
 
-        <Label Name="lbaSmsField" Content="{Binding Path=Lang.LabelSmsField}"/>
+        <Label Name="lbaSmsField" Content="{Binding Source={StaticResource Lang},XPath=LabelSmsField}"/>
         <TextBox TextWrapping="Wrap" x:Name="txt_smsTel"  Margin="2,25,0,0" Text="" TextChanged="txt_smsTel_TextChanged" PreviewTextInput="txt_smsTel_PreviewTextInput"  VerticalAlignment="Top"/>
 
         <TextBox TextWrapping="Wrap" Text="" x:Name="txt_smsMen" TextChanged="txt_smsMen_TextChanged" Margin="2,82,2,2" />
-        <Label Name="lbaMessage" Content="{Binding Path=Lang.LabelMessage}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,51,0,0"/>
+        <Label Name="lbaMessage" Content="{Binding Source={StaticResource Lang},XPath=LabelMessage}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,51,0,0"/>
     </Grid>
 </TabItem>

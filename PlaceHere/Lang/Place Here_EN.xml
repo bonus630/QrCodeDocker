@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+	<LBA_ObjOrigin>Origin:</LBA_ObjOrigin>
+	<LBA_data0>Next Data:</LBA_data0>
+	<BTN_Start>Start</BTN_Start>
+	<CB_GetContainer>Put in Container</CB_GetContainer>
+	<BTN_Restart>Restart</BTN_Restart>
+	<BTN_Continue>Continue</BTN_Continue>
+	<OC_MSG_Exit>Press "ESC" to Cancel</OC_MSG_Exit>
+</root>

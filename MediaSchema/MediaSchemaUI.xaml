@@ -10,7 +10,7 @@
              Width="280">
     <UserControl.Resources>
         <ResourceDictionary>
-
+            <XmlDataProvider x:Key="Lang" XPath="/root" />
             <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
             <converters:ResourceToMediaImageConverter x:Key="ResourceToMediaImageConverter" />
             <system:Double x:Key="OpacityValue">0.5</system:Double>
@@ -130,12 +130,12 @@
                     <WrapPanel  Background="Transparent">
                         <WrapPanel.ContextMenu>
                             <ContextMenu>
-                                <MenuItem  Header="{Binding Lang.MenuItem_OpenXML}" CommandParameter="1" Command="{Binding OpenXmlCommand}" >
+                                <MenuItem  Header="{Binding Source={StaticResource Lang},XPath=MenuItem_OpenXML}" CommandParameter="1" Command="{Binding OpenXmlCommand}" >
                                     <MenuItem.Icon>
                                         <Image Source="{Binding OpenXmlIcon}"/>
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="{Binding Lang.MenuItem_OpenIconFolder}" CommandParameter="2" Command="{Binding OpenIconFolderCommand}" >
+                                <MenuItem Header="{Binding Source={StaticResource Lang},XPath=MenuItem_OpenIconFolder}" CommandParameter="2" Command="{Binding OpenIconFolderCommand}" >
                                     <MenuItem.Icon>
                                         <Image Source="{Binding OpenFolderIcon}"/>
                                     </MenuItem.Icon>

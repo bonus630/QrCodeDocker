@@ -6,10 +6,13 @@
              xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
              mc:Ignorable="d" 
              >
+    <TabItem.Resources>
+        <XmlDataProvider x:Key="Lang" XPath="/root" />
+    </TabItem.Resources>
 
     <Grid>
-        <Label Name="lbaEmailField" Content="{Binding Path=Lang.LabelEmailField}"/>
+        <Label Name="lbaEmailField" Content="{Binding Source={StaticResource Lang},XPath=LabelEmailField}"/>
         <TextBox TextWrapping="Wrap" x:Name="txt_email"  Margin="2,25,0,0" Text="" TextChanged="txt_email_TextChanged"  VerticalAlignment="Top"/>
-        <Button Content="{Binding Path=Lang.ButtonPaste}"  Margin="2,60,0,0" Name="btn_colar2" Click="btn_colar2_Click" Height="38" VerticalAlignment="Top"/>
+        <Button Content="{Binding Source={StaticResource Lang},XPath=ButtonPaste}"  Margin="2,60,0,0" Name="btn_colar2" Click="btn_colar2_Click" Height="38" VerticalAlignment="Top"/>
     </Grid>
 </TabItem>

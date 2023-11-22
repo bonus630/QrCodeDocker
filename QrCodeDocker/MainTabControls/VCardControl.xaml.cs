@@ -23,6 +23,15 @@ namespace br.corp.bonus630.QrCodeDocker.MainTabControls
         {
             InitializeComponent();
         }
+        public void LoadLang(string xmlFile)
+        {
+            var xmlDataProvider = FindResource("Lang") as XmlDataProvider;
+
+            if (xmlDataProvider != null)
+            {
+                xmlDataProvider.Source = new Uri(xmlFile, UriKind.RelativeOrAbsolute);
+            }
+        }
         public string FormatedText { get; private set; }
 
         public event Action<string> AnyTextChanged;

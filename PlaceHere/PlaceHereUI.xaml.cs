@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using c = Corel.Interop.VGCore;
 using br.corp.bonus630.PluginLoader;
 using System.Reflection;
-using br.corp.bonus630.plugin.PlaceHere.Lang;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 
@@ -18,7 +17,6 @@ namespace br.corp.bonus630.plugin.PlaceHere
     {
         PlaceHereCore phCore;
         public IPluginCore Core { get ; set; }
-        Ilang Lang;
         public PlaceHereUI()
         {
             InitializeComponent();
@@ -30,7 +28,6 @@ namespace br.corp.bonus630.plugin.PlaceHere
             phCore = Core as PlaceHereCore;
             phCore.LoadConfigEvent += PhCore_LoadConfigEvent;
             phCore.ActualDataEvent += PhCore_ActualDataEvent;
-            Lang = phCore.Lang as Ilang;
         }
 
         private void PhCore_ActualDataEvent(string obj)
@@ -47,7 +44,7 @@ namespace br.corp.bonus630.plugin.PlaceHere
         {
             if (phCore.DataSource == null || phCore.DataSource.Count == 0)
                 return;
-            btn_start.Content = Lang.BTN_Restart;
+            btn_start.Content = phCore.GetLocalizedString("BTN_Restart");
            
             phCore.Draw(true);
         }

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root version="0.0.5.1" author="bonus630" website="https://bonus630.com.br">
+    <CB_Vector>Vector</CB_Vector>
+    <CB_Bitmap>Bitmap</CB_Bitmap>
+    <CB_FitToPage>Fit To Page</CB_FitToPage>
+    <LBA_QR_Format>QrCode Format:</LBA_QR_Format>
+    <LBA_Left>Left X:</LBA_Left>
+    <LBA_Top>Top Y:</LBA_Top>
+    <LBA_Gap>Gap:</LBA_Gap>
+    <LBA_InitialValue>Initial Value</LBA_InitialValue>
+    <LBA_Increment>Increment</LBA_Increment>
+    <LBA_Mask>Mask</LBA_Mask>
+    <GBH_FirstLineTpl>First Line Model</GBH_FirstLineTpl>
+    <GBH_Position>Position</GBH_Position>
+    <GBH_Enumaration>Enumeration</GBH_Enumaration>
+    <ToolTip_GBH_FirstLineTpl>Choose a type and a shape model for each column</ToolTip_GBH_FirstLineTpl>
+    <BTN_Process>MultiDraw</BTN_Process>
+    <BTN_Enumerator>Enumerator</BTN_Enumerator>
+    <MBOX_ERROR_PerfectSquare>You need get a perfect square</MBOX_ERROR_PerfectSquare>
+    <MBOX_ERROR_TextShape>You need a text shape</MBOX_ERROR_TextShape>
+    <MBOX_ERROR_CorrectShape>Is correct shape?</MBOX_ERROR_CorrectShape>
+    <MBOX_ERROR_ValidDataSource>You need load a valid Data Source</MBOX_ERROR_ValidDataSource>
+    <MBOX_ERROR_DataSourceEmpty>Your Data Source is empty!</MBOX_ERROR_DataSourceEmpty>
+    <MBOX_ERROR_NoShapes>No shapes selected</MBOX_ERROR_NoShapes>
+    <Warning>Warning</Warning>
+    <CK_IgnoreFirstLine>Ignore first line</CK_IgnoreFirstLine>
+    <CK_UseThread>In Background</CK_UseThread>
+</root>

@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using br.corp.bonus630.plugin.ShapeToCode.Lang;
 using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 

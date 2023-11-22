@@ -4,7 +4,6 @@ using System.Linq;
 using br.corp.bonus630.PluginLoader;
 using System.IO;
 using System.Text;
-using br.corp.bonus630.plugin.BatchFromTextFile.Lang;
 
 namespace br.corp.bonus630.plugin.BatchFromTextFile
 {
@@ -98,9 +97,10 @@ namespace br.corp.bonus630.plugin.BatchFromTextFile
             {
                 if (this.DataSource == null)
                     return;
-                RowCountText = string.Format("{0} {1}", this.DataSource.Count, (Lang as Ilang).Rows);
-                if (this.DataSource.Count > 0)
-                    ColumnCountText = string.Format("{0} {1}", this.DataSource[0].Length, (Lang as Ilang).Columns);
+                //Ref.:
+                //RowCountText = string.Format("{0} {1}", this.DataSource.Count, (Lang as Ilang).Rows);
+                //if (this.DataSource.Count > 0)
+                //    ColumnCountText = string.Format("{0} {1}", this.DataSource[0].Length, (Lang as Ilang).Columns);
             }
             catch (Exception e)
             {

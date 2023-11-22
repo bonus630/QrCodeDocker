@@ -7,8 +7,9 @@ using Corel.Interop.VGCore;
 using br.corp.bonus630.ImageRender;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker.MainTabControls;
+using System.Windows.Data;
+using System.Xml;
 using ZXing;
-using System.Windows.Interop;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -23,7 +24,7 @@ namespace br.corp.bonus630.QrCodeDocker
         PluginSelect pluginSelect;
         VisualDataContext dataContextObj;
         StyleController styleController;
-
+        private string langFile;
         public Docker(object app)
         {
             InitializeComponent();
@@ -32,9 +33,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 this.app = app as Corel.Interop.VGCore.Application;
                 styleController = new StyleController(this.Resources, this.app);
                 codeGenerator = new QrCodeGenerator(this.app);
-
-                //img_bonus.Source = BitmapResources.Bonus630;
-                //img_corelNaVeia.Source = BitmapResources.CorelNaVeia2015;
+                LoadLang(this.app.LangCode());
                 this.app.DocumentNew += app_DocumentNew;
                 this.app.DocumentOpen += app_DocumentOpen;
                 this.app.WindowActivate += app_WindowActivate;
@@ -64,11 +63,38 @@ namespace br.corp.bonus630.QrCodeDocker
         public Docker()
         {
             InitializeComponent();
-            //img_bonus.Source = BitmapResources.Bonus630;
-            //img_corelNaVeia.Source = BitmapResources.CorelNaVeia2015;
             codeGenerator = new QrCodeGenerator();
             dataContextObj = new VisualDataContext(this.app);
             this.DataContext = dataContextObj;
+            LoadLang(this.app.LangCode());
+        }
+        private void LoadLang(string LanguageCode)
+        {
+            langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_", LanguageCode,".xml");
+            if(!System.IO.File.Exists(langFile))
+                langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_EN.xml");
+            try
+            {
+                for (int i = 0; i < tabControls.Items.Count; i++)
+                {
+                    (tabControls.Items[i] as IMainTabControl).LoadLang(langFile);
+                }
+               
+            }
+            catch { }
+            var xmlDataProvider = FindResource("Lang") as XmlDataProvider;
+
+            if (xmlDataProvider != null)
+            {
+                xmlDataProvider.Source = new Uri(langFile, UriKind.RelativeOrAbsolute);
+            }
+        }
+        public string GetLocalizedString( string key)
+        {
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(langFile);
+            XmlNode node = xmlDocument.SelectSingleNode(string.Concat("/root/", key));
+            return node.InnerText;
         }
         private void Tabs_AnyTextChanged(string obj)
         {
@@ -105,8 +131,8 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 int strSize = 221;
                 if (!Int32.TryParse(txt_size.Text, out strSize))
-                    app.MsgShow(dataContextObj.Lang.MBoxFormatErroTitle, dataContextObj.Lang.MBoxFormatErroMessage);
-                pluginSelect = new PluginSelect(strSize, this.app, this.dataContextObj.Lang, this.imageRender, this.codeGenerator);
+                    app.MsgShow(GetLocalizedString("MBoxFormatErroTitle"), GetLocalizedString("MBoxFormatErroMessage"));
+                pluginSelect = new PluginSelect(strSize, this.app,  this.imageRender, this.codeGenerator);
                 pluginSelect.AnyTextChanged += PluginSelect_AnyTextChanged;
                 pluginSelect.UpdatePreview += renderImage;
                 pluginSelect.OverridePreview += PluginSelect_OverridePreview;
@@ -222,18 +248,18 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             if (this.app.ActiveDocument == null)
             {
-                app.MsgShow(dataContextObj.Lang.MBoxOpenDoc);
+                app.MsgShow(GetLocalizedString("MBoxOpenDoc"));
                 return;
             }
             if (string.IsNullOrEmpty(textContent))
             {
-                app.MsgShow(dataContextObj.Lang.MBoxContentErroMessage);
+                app.MsgShow(GetLocalizedString("MBoxContentErroMessage"));
                 return;
             }
             double strSize = 221;
             if (!Double.TryParse(txt_size.Text, out strSize))
             {
-                app.MsgShow(dataContextObj.Lang.MBoxFormatErroTitle, dataContextObj.Lang.MBoxFormatErroMessage);
+                app.MsgShow(GetLocalizedString("MBoxFormatErroTitle"), GetLocalizedString("MBoxFormatErroMessage"));
                 return;
             }
             app.Optimization = true;
@@ -258,18 +284,18 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             if (this.app.ActiveDocument == null)
             {
-                app.MsgShow(dataContextObj.Lang.MBoxOpenDoc);
+                app.MsgShow(GetLocalizedString("MBoxOpenDoc"));
                 return;
             }
             if (string.IsNullOrEmpty(textContent))
             {
-                app.MsgShow(dataContextObj.Lang.MBoxContentErroMessage);
+                app.MsgShow(GetLocalizedString("MBoxContentErroMessage"));
                 return;
             }
             double strSize = 221;
             if (!Double.TryParse(txt_size.Text, out strSize))
             {
-                app.MsgShow(dataContextObj.Lang.MBoxFormatErroTitle, dataContextObj.Lang.MBoxFormatErroMessage);
+                app.MsgShow(GetLocalizedString("MBoxFormatErroTitle"), GetLocalizedString("MBoxFormatErroMessage"));
                 return;
             }
             app.Optimization = true;
@@ -298,12 +324,7 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             System.Diagnostics.Process.Start("https://bonus630.com.br");
         }
-        //private void radioButton_gma_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    imageRender = new GmaImageRender();
-        //    codeGenerator.SetRender(imageRender);
-        //    SetValuesPlugin();
-        //}
+
         private void radioButton_zxing_Checked(object sender, RoutedEventArgs e)
         {
             imageRender = new ZXingImageRender();
@@ -343,6 +364,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         private void TabControls_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+         
             setContent((tabControls.SelectedItem as IMainTabControl).FormatedText);
 
         }
@@ -350,10 +372,10 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             try
             {
-                string tagValue = ((ComboBoxItem)ComboBox_CodeType.SelectedItem).Tag.ToString();
-
-                if (Enum.TryParse(tagValue, out BarcodeFormat selectedFormat) && imageRender != null)
+                if (imageRender != null)
                 {
+                    string tagValue = ((ComboBoxItem)ComboBox_CodeType.SelectedItem).Tag.ToString();
+                    BarcodeFormat selectedFormat  = (BarcodeFormat)Enum.Parse(typeof(BarcodeFormat), tagValue);
                     imageRender.CodeType = selectedFormat;
                     ChangeUIByCodeType();
                     setContent(textContent);

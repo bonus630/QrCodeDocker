@@ -1,5 +1,4 @@
-﻿using br.corp.bonus630.plugin.PlaceHere.Lang;
-using br.corp.bonus630.PluginLoader;
+﻿using br.corp.bonus630.PluginLoader;
 using Corel.Interop.VGCore;
 using System;
 using System.Collections.Generic;
@@ -243,7 +242,6 @@ namespace br.corp.bonus630.plugin.PlaceHere
                 view.Width = (int)w;
                 view.Top = (int)y;
                 view.Height = (int)h;
-                view.Lang = Lang as Ilang;
                 setViewConfig();
                 view.QRSize = Size;
 

@@ -188,10 +188,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(CurrentCorelPath)Addons\QrCodeDocker\ImageRender.dll</HintPath>
     </Reference>
-    <Reference Include="PluginLoader, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(CurrentCorelPath)Addons\QrCodeDocker\PluginLoader.dll</HintPath>
-    </Reference>
     <Reference Include="QrCodeDocker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(CurrentCorelPath)Addons\QrCodeDocker\QrCodeDocker.dll</HintPath>
@@ -210,8 +206,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="zxing">
-      <HintPath>..\QrCodeDocker\zxing.dll</HintPath>
+    <Reference Include="zxing, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ImageRender\zxing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Label="VGCoreReferences">
@@ -225,9 +222,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Lang\EN_US.cs" />
-    <Compile Include="Lang\ILang.cs" />
-    <Compile Include="Lang\PT_BR.cs" />
+    <Content Include="Lang\Logo Designer_EN.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\Logo Designer_BR.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="LogoDesignerCore.cs" />
     <Compile Include="LogoDesignerUI.xaml.cs">
       <DependentUpon>LogoDesignerUI.xaml</DependentUpon>
@@ -257,11 +257,17 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PluginLoader\PluginLoader.csproj">
+      <Project>{eaf9534f-74a1-4b07-a61c-0eab13c70fb3}</Project>
+      <Name>PluginLoader</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="CopyFiles" AfterTargets="Build">
     <Message Text="CopyFiles" />
     <Message Text="$(CurrentCorelPath)" />
     <MakeDir Directories="$(CurrentCorelPath)Addons\QrCodeDocker\extras" />
-    <Exec Condition="Exists('$(CurrentCorelPath)Addons\QrCodeDocker\extras')" Command="xcopy &quot;$(TargetPath)&quot; &quot;$(CurrentCorelPath)Addons\QrCodeDocker\extras\&quot; /y /d /e /c" />
+    <Exec Condition="Exists('$(CurrentCorelPath)Addons\QrCodeDocker\extras')" Command="xcopy &quot;$(ProjectDir)$(OutDir)*.*&quot; &quot;$(CurrentCorelPath)Addons\$(SolutionName)\extras\&quot; /y /d /e /c" />
   </Target>
 </Project>

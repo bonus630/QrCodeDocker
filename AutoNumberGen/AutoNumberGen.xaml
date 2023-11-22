@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:br.corp.bonus630.plugin.AutoNumberGen"
              mc:Ignorable="d" Width="280">
+    <UserControl.Resources>
+        <XmlDataProvider x:Key="Lang" XPath="/root" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -15,8 +18,8 @@
             <RowDefinition Height="32" />
             <RowDefinition Height="32" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Lang.LBA_Start}" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <Label Grid.Row="1" Grid.Column="0"  Content="{Binding Lang.LBA_End}" HorizontalAlignment="Left" VerticalAlignment="Center"  />
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Source={StaticResource Lang},XPath=LBA_Start}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Label Grid.Row="1" Grid.Column="0"  Content="{Binding Source={StaticResource Lang},XPath=LBA_End}" HorizontalAlignment="Left" VerticalAlignment="Center"  />
         <TextBox Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="32"  TextChanged="ChangeText" Name="TextBoxStart" />
         <TextBox Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="32"  TextChanged="ChangeText" Name="TextBoxEnd"/>
         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  Content="" HorizontalAlignment="Left" VerticalAlignment="Center"  Name="LabelResult"/>

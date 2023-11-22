@@ -74,12 +74,12 @@
 		<Message Text="$(CurrentCorelPath)" />
 		<Exec Condition="Exists('$(TargetDir)$(TargetName).CorelAddon')" Command='del "$(TargetDir)$(TargetName).CorelAddon"' />
 		<Exec Command='rename "$(TargetPath)" "$(TargetName).CorelAddon"'/>
-	</Target>
+	</Target>-->
 	<Target Name="CopyFiles" AfterTargets="Build">
 		<Message Text="CopyFiles" />
 		<Message Text="$(CurrentCorelPath)" />
 		<MakeDir Directories="$(CurrentCorelPath)Addons\$(SolutionName)" />
 		<Exec Condition="Exists('$(CurrentCorelPath)Addons\$(SolutionName)')" 
 			  Command='xcopy "$(ProjectDir)$(OutDir)*.*" "$(CurrentCorelPath)Addons\$(SolutionName)" /y /d /e /c' />
-	</Target>-->
+	</Target>
 </Project>

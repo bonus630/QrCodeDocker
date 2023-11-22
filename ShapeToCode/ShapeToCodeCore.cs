@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using br.corp.bonus630.plugin.ShapeToCode.Lang;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker;
 using Corel.Interop.VGCore;
@@ -70,7 +69,7 @@ namespace br.corp.bonus630.plugin.ShapeToCode
                     if (range[i].Type.Equals(cdrShapeType.cdrCurveShape))
                     {
                         string text = processCurve(range[i]);
-                        ConfirmTextWindow ctw = new ConfirmTextWindow(Lang as Ilang, app);
+                        ConfirmTextWindow ctw = new ConfirmTextWindow(app);
                         ctw.Text = text;
                         if ((bool)ctw.ShowDialog())
                         {

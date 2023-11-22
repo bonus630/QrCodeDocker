@@ -8,11 +8,13 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Linq;
 using Microsoft.Win32;
-using br.corp.bonus630.QrCodeDocker.Lang;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Reflection;
 using br.corp.bonus630.ImageRender;
+using br.corp.bonus630.QrCodeDocker.MainTabControls;
+using System.Windows.Data;
+
 
 namespace br.corp.bonus630.QrCodeDocker
 {
@@ -21,7 +23,6 @@ namespace br.corp.bonus630.QrCodeDocker
     {
 
         //private List<IPluginCore> loadedCorelist = null;
-        public Ilang Lang { get; set; }
         public List<PluginMap> PluginNames;
         Loader loader;
         double size;
@@ -36,7 +37,7 @@ namespace br.corp.bonus630.QrCodeDocker
         public event Action<System.Drawing.Bitmap> OverridePreview;
         public ObservableCollection<IPluginCore> LoadedPluginList { get; set; }
 
-        public PluginSelect(double size, Corel.Interop.VGCore.Application app, Ilang lang, ZXingImageRender imageRender, ICodeGenerator codeGenerator)
+        public PluginSelect(double size, Corel.Interop.VGCore.Application app,  ZXingImageRender imageRender, ICodeGenerator codeGenerator)
         {
    
             InitializeComponent();
@@ -44,7 +45,6 @@ namespace br.corp.bonus630.QrCodeDocker
             try
             {
                 loader = new Loader(app.AddonPath);
-                Lang = lang;
                 PluginNames = loader.PluginList();
                 if (PluginNames.Count == 0)
                 {
@@ -82,7 +82,19 @@ namespace br.corp.bonus630.QrCodeDocker
         //        RemovePluginUI(LoadedPluginList[i].Index);
         //    }
         //}
+        private void LoadLang(string LanguageCode)
+        {
+           string langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_", LanguageCode, ".xml");
+            if (!System.IO.File.Exists(langFile))
+                langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_ENU.xml");
+      
+            var xmlDataProvider = FindResource("Lang") as XmlDataProvider;
 
+            if (xmlDataProvider != null)
+            {
+                xmlDataProvider.Source = new Uri(langFile, UriKind.RelativeOrAbsolute);
+            }
+        }
         public void SetValues(double size, Corel.Interop.VGCore.Application app, ICodeGenerator codeGenerator)
         {
             if (LoadedPluginList == null)
@@ -276,11 +288,16 @@ namespace br.corp.bonus630.QrCodeDocker
                 objCore.OverridePreview += ObjCore_OverridePreview;
                 try
                 {
-                    objCore.ChangeLang(app.UILanguage.cdrLangToSys(), loader.GetAssembly(pluginMap));
+                    string langFile = string.Format("{0}QrCodeDocker\\extras\\Lang\\{1}_{2}.xml", app.AddonPath, objCore.GetPluginDisplayName, app.LangCode());
+                       
+                    if (!System.IO.File.Exists(langFile))
+                        langFile = string.Format("{0}QrCodeDocker\\extras\\Lang\\{1}_EN.xml", app.AddonPath, objCore.GetPluginDisplayName);
+
+                    objCore.ChangeLang(langFile);
                 }
                 catch (Exception e)
                 {
-                    app.MsgShow(string.Format("{0} - {1}", Lang.MBOX_ERROR_LangException, pluginMap.DisplayName));
+                   // app.MsgShow(string.Format("{0} - {1}", GetLocalizedString("MBOX_ERROR_LangException, pluginMap.DisplayName));
                 }
                 if (typeof(IPluginConfig).IsAssignableFrom(objCore.GetType()))
                     (objCore as IPluginConfig).GetCodeGenerator += PluginSelect_GetCodeGenerator;
@@ -329,8 +346,8 @@ namespace br.corp.bonus630.QrCodeDocker
         private void btn_deleteConfig_Click(object sender, RoutedEventArgs e)
         {
             IPluginCore plugin;
-            if (LoadedPluginList.Count < Properties.Settings.Default.PluginNameCollection.Count)
-                this.app.MsgShow(Lang.MBOX_ERROR_SettingsCountNoMatch);
+            //if (LoadedPluginList.Count < Properties.Settings.Default.PluginNameCollection.Count)
+            //    this.app.MsgShow(GetLocalizedString("MBOX_ERROR_SettingsCountNoMatch);
             for (int i = 0; i < LoadedPluginList.Count; i++)
             {
                 plugin = LoadedPluginList[i];

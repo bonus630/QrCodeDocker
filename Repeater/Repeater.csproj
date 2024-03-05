@@ -183,6 +183,24 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  	  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;X15</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+    <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+    <DefineConstants>TRACE;X15</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup Label="VGCoreReferences">
     <Reference Include="$(CurrentCorelPath)$(VGCoreDLL)">
       <Name>Corel.Interop.VGCore</Name>
@@ -232,6 +250,7 @@
     <ProjectReference Include="..\ImageRender\ImageRender.csproj">
       <Project>{4F0AAE56-5D21-40ED-AA72-69490BE8DE47}</Project>
       <Name>ImageRender</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\PluginLoader\PluginLoader.csproj">
       <Project>{eaf9534f-74a1-4b07-a61c-0eab13c70fb3}</Project>

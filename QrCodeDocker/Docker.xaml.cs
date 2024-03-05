@@ -16,6 +16,16 @@ namespace br.corp.bonus630.QrCodeDocker
 
     public partial class Docker : UserControl
     {
+        public static readonly DependencyProperty DocumentActiveProp = DependencyProperty.Register("DocumentActive", typeof(string), typeof(Docker), new PropertyMetadata(OnDocumentActiveChanged));
+        public string DocumentActive
+        {
+            get { return (string)GetValue(DocumentActiveProp); }
+            set { SetValue(DocumentActiveProp, value); }
+        }
+        private static void OnDocumentActiveChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            string i = (string)e.NewValue;
+        }
         Corel.Interop.VGCore.Application app;
         ICodeGenerator codeGenerator;
         ZXingImageRender imageRender;
@@ -40,6 +50,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 this.Loaded += Docker_Loaded;
                 dataContextObj = new VisualDataContext(this.app);
                 this.DataContext = dataContextObj;
+                System.Windows.MessageBox.Show(DocumentActive);
             }
             catch (Exception error)
             {
@@ -59,7 +70,7 @@ namespace br.corp.bonus630.QrCodeDocker
         //{
         //    throw new NotImplementedException();
         //}
-
+       
         public Docker()
         {
             InitializeComponent();

@@ -13,6 +13,7 @@
             <extConverters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Images.xaml" />
+                <ResourceDictionary Source="Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

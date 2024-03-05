@@ -44,8 +44,10 @@
 					  type="wpfhost"
 					  hostedType="Addons\QrCodeDocker\QrCodeDocker.dll,br.corp.bonus630.QrCodeDocker.Docker"
 					  enable="true"
-						icon="guid://bffeb385-4c48-4fa9-b285-3d32e81030a9"
-					  width="326"/>
+					  icon="guid://bffeb385-4c48-4fa9-b285-3d32e81030a9"
+					  width="326"
+			  DocumentActive="Teste"
+					  />
 
 
 

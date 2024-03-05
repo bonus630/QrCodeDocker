@@ -42,32 +42,32 @@ namespace br.corp.bonus630.ImageRender
         {
             { 1, "https://en.wikipedia.org/wiki/Aztec_Code" },
             { 2, "https://en.wikipedia.org/wiki/Codabar" },
-            { 4, "CODE_39" },
-            { 8, "CODE_93" },
-            { 0x10, "CODE_128" },
-            { 0x20, "DATA_MATRIX" },
-            { 0x40, "EAN_8" },
-            { 0x80, "EAN_13" },
-            { 0x100, "ITF" },
-            { 0x200, "MAXICODE" },
-            { 0x400, "PDF_417" },
+            { 4, "" },
+            { 8, "" },
+            { 0x10, "" },
+            { 0x20, "" },
+            { 0x40, "" },
+            { 0x80, "" },
+            { 0x100, "" },
+            { 0x200, "" },
+            { 0x400, "" },
             { 0x800, "https://www.qrcode.com/en/about/standards.html" },
-            { 0x1000, "RSS_14" },
-            { 0x2000, "RSS_EXPANDED" },
-            { 0x4000, "UPC_A" },
-            { 0x8000, "UPC_E" },
-            { 0x10000, "UPC_EAN_EXTENSION" },
-            { 0x20000, "MSI" },
-            { 0x40000, "PLESSEY" },
-            { 0x80000, "IMB" },
-            { 0x100000, "PHARMA_CODE" },
-            { 0xF1DE, "All_1D" }
+            { 0x1000, "" },
+            { 0x2000, "" },
+            { 0x4000, "" },
+            { 0x8000, "" },
+            { 0x10000, "" },
+            { 0x20000, "" },
+            { 0x40000, "" },
+            { 0x80000, "" },
+            { 0x100000, "" },
+            { 0xF1DE, "" }
         };
 
         public string GetCodeTypeHelpURL()
         {
             int value = (int)CodeType;
-            return enumMapping.ContainsKey(value) ? enumMapping[value] : "https://www.corelnaveia.com";
+            return enumMapping.ContainsKey(value) && !string.IsNullOrEmpty(enumMapping[value])  ? enumMapping[value] : "https://www.corelnaveia.com";
         }
 
         public bool IsMatrixCode()

@@ -148,10 +148,8 @@ namespace br.corp.bonus630.QrCodeDocker
                     default:
                         dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotSize);
                         break;
-
                 }
             }
-
             else
             { 
                 dot = layerTemp.CreateRectangle2(0, 0, dotSize, dotHeight);
@@ -163,6 +161,7 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 dot.Outline.Color = this.dotOutlineColor;
                 dot.Outline.Width = this.dotOutlineWidth;
+                dot.Outline.ScaleWithShape = true;
             }
             Shape firstShape = dot.TreeNode.GetCopy().VirtualShape;
             //for (int j = 0; j < imageRender.BitMatrixProp.Width; j++)

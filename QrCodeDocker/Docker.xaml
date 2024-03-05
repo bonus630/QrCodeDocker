@@ -68,9 +68,9 @@
                     <RadioButton Content="Zxing"  HorizontalAlignment="Left"  VerticalAlignment="Center" Name="radioButton_zxing" Checked="radioButton_zxing_Checked" Click="radioButton_zxing_Click" ToolTip="Método com suporte a UTF-8 https://zxingnet.codeplex.com" Margin="4,0,0,0" />
 
                 </StackPanel>
-               <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="0,4,0,4">
+               <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" Margin="0,4,0,4">
                     <Label Content="{Binding Source={StaticResource Lang},XPath=LabelCodeType,FallbackValue=Code Type}" VerticalAlignment="Center"></Label>
-                   <ComboBox Margin="10,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="200" Name="ComboBox_CodeType" DropDownClosed="ComboBox_CodeType_Selected">
+                   <ComboBox Margin="10,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="160" Name="ComboBox_CodeType" DropDownClosed="ComboBox_CodeType_Selected">
                         <ComboBoxItem Content="AZTEC" Tag="1"/>
                         <ComboBoxItem Content="CODABAR" Tag="2"/>
                         <ComboBoxItem Content="CODE 39" Tag="4"/>

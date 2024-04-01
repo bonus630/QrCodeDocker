@@ -1,6 +1,25 @@
 # QrCodeDocker
 CorelDraw Addon X7 or Higher, provides a creation of qr codes in offline mode, in batch and customization, uses the zxing library to codify and decodify the qrcode. Dont require internet or autentication. Please see link below to features demonstration
 
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <td class="tg-0pky"><img src="Screenshots/QrcodeDocker01.PNG" ></td>
+<td class="tg-0pky"><img src="Screenshots/QrcodeDocker02.PNG" ></td>  
+<td class="tg-0pky"><img src="Screenshots/QrcodeDocker03.PNG" ></td>  </tr>
+</thead>
+</table>
+
+
+
 ## How add a new language
 Go to folder "Lang" in any project, copy a language xml e replace language code in file name for target language.
 In language xml, changes author and translate the tags values, dont change tags names.
@@ -30,9 +49,9 @@ if doesnt know language code value follow to coreldraw installation folder in la
 
 6. In the command prompt, remove the initial `.\` from the command.
 
-## Hello World
+## How to use it in your project - Hello World
 
-Draw a simple Qrcode code conteins "Hello World!"
+Draw a simple Qrcode code contains "Hello World!"
 
 Adds reference
 

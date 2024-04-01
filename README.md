@@ -50,7 +50,7 @@ Adds reference
 - ImageRender
 - QrCodeDocker
 
-```
+```csharp
  var codeGen = new br.corp.bonus630.QrCodeDocker.QrCodeGenerator(CorelApplicationObject);
  var imageRender = new br.corp.bonus630.ImageRender.ZXingImageRender();
  codeGen.SetRender(imageRender);

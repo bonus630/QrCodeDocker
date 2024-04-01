@@ -31,21 +31,21 @@
             <!--<Label Content="Extras:" Margin="0,10,0,-10" />-->
             <ComboBox Grid.Column="0" Name="cb_plugins" DropDownClosed="cb_plugins_DropDownClosed" Margin="2"/>
             <Button Width="28" Height="28" Grid.Column="1" Name="btn_loadPlugin" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="2"  Click="btn_loadPlugin_Click" Background="Transparent">
-                <Image Style="{StaticResource BrowserImage}"  />
+                <Image Style="{StaticResource FolderOpenedImage}"  />
                 <Button.ToolTip>
-                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_BrowserPluginToolTip}"/>
+                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_BrowserPluginToolTip,FallbackValue=Browser extra}"/>
                 </Button.ToolTip>
             </Button>
             <Button Width="28" Height="28"  Grid.Column="2" Name="btn_saveConfig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"  Click="btn_saveConfig_Click" Background="Transparent">
                 <Image Style="{StaticResource SaveImage}" />
                 <Button.ToolTip>
-                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_SavePluginToolTip}"/>
+                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_SavePluginToolTip,FallbackValue=Save extras states}"/>
                 </Button.ToolTip>
             </Button>
             <Button Width="28" Height="28" Grid.Column="3" Name="btn_deleteConfig" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="2" Click="btn_deleteConfig_Click" Background="Transparent">
                 <Image Style="{StaticResource DeleteImage}"/>
                 <Button.ToolTip>
-                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_DeletePluginToolTip}"/>
+                    <Label Content="{Binding Source={StaticResource Lang},XPath=BTN_DeletePluginToolTip,FallbackValue=Delete extras states}"/>
                 </Button.ToolTip>
             </Button>
         </Grid>

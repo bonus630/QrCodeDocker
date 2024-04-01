@@ -187,7 +187,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  	  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -380,6 +380,10 @@
     <Resource Include="UserUI2019.xslt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <None Include="Resources\Save.png" />
+    <None Include="Resources\OpenFolder.png" />
+    <None Include="Resources\FolderOpened.png" />
+    <None Include="Resources\Delete.png" />
     <Content Include="UserUI.xslt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

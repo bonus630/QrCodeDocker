@@ -73,16 +73,6 @@ namespace br.corp.bonus630.QrCodeDocker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Browser {
-            get {
-                object obj = ResourceManager.GetObject("Browser", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap CorelNaVeia2022 {
             get {
                 object obj = ResourceManager.GetObject("CorelNaVeia2022", resourceCulture);
@@ -96,6 +86,16 @@ namespace br.corp.bonus630.QrCodeDocker.Properties {
         public static System.Drawing.Bitmap Delete {
             get {
                 object obj = ResourceManager.GetObject("Delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap FolderOpened {
+            get {
+                object obj = ResourceManager.GetObject("FolderOpened", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

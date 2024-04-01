@@ -20,9 +20,9 @@
     <Style x:Key="DeleteImage" TargetType="Image" BasedOn="{StaticResource ImageButtonBase}">
         <Setter Property="Source" Value="{Binding Source={StaticResource Delete},Converter={StaticResource ResourceToMediaImageConverter}}"/>
     </Style>
-    <System:String x:Key="Browser">Browser</System:String>
-    <Style x:Key="BrowserImage" TargetType="Image" BasedOn="{StaticResource ImageButtonBase}">
-        <Setter Property="Source" Value="{Binding Source={StaticResource Browser},Converter={StaticResource ResourceToMediaImageConverter}}"/>
+    <System:String x:Key="FolderOpened">FolderOpened</System:String>
+    <Style x:Key="FolderOpenedImage" TargetType="Image" BasedOn="{StaticResource ImageButtonBase}">
+        <Setter Property="Source" Value="{Binding Source={StaticResource FolderOpened},Converter={StaticResource ResourceToMediaImageConverter}}"/>
     </Style>
     <System:String x:Key="bonus630">Bonus630</System:String>
     <Style x:Key="bonus630Image" TargetType="Image">

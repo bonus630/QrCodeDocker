@@ -50,7 +50,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 this.Loaded += Docker_Loaded;
                 dataContextObj = new VisualDataContext(this.app);
                 this.DataContext = dataContextObj;
-                System.Windows.MessageBox.Show(DocumentActive);
+                //System.Windows.MessageBox.Show(DocumentActive);
             }
             catch (Exception error)
             {

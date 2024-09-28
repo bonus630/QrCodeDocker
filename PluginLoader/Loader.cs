@@ -7,10 +7,10 @@ namespace br.corp.bonus630.PluginLoader
 {
     public class Loader
     {
-        private string pluginFolder; 
+        private string pluginFolder;
         public Loader(string addonsPath)
         {
-       
+
             pluginFolder = Path.Combine(addonsPath, "QrCodeDocker\\extras");
             if (!Directory.Exists(pluginFolder))
                 Directory.CreateDirectory(pluginFolder);
@@ -26,7 +26,7 @@ namespace br.corp.bonus630.PluginLoader
             {
                 throw e;
             }
-            
+
 
         }
         public Type GetMainUIType(PluginMap pluginMap)
@@ -56,14 +56,23 @@ namespace br.corp.bonus630.PluginLoader
             {
                 Assembly asm = Assembly.LoadFrom(file);
                 Type[] types = asm.GetTypes();
+
                 for (int j = 0; j < types.Length; j++)
                 {
-                    if (typeof(IPluginCore).IsAssignableFrom(types[j]) && !types[j].IsInterface)
+                    if (typeof(IPluginCore).IsAssignableFrom(types[j]))
                     {
-                        return new PluginMap(j,file, types[j].GetField("PluginDisplayName").GetValue(new object()).ToString());
+                        if (!types[j].IsInterface)
+                        {
+                            string displayName = string.Empty;
+                            FieldInfo field = types[j].GetField("PluginDisplayName");
+                            if (field == null)
+                                throw new Exception(string.Format("Plugin Name not found in {0}", types[j].FullName));
+                            displayName = field.GetValue(new object()).ToString();
+                            return new PluginMap(j, file,displayName);
+                        }
                     }
-
                 }
+                throw new Exception("IPluginCore not founded in this file");
             }
             catch (Exception e)
             {
@@ -83,11 +92,11 @@ namespace br.corp.bonus630.PluginLoader
                 try
                 {
                     PluginMap p = GetPluginMap(files[i]);
-                    if(p!= null)
+                    if (p != null)
                         result.Add(p);
-                    
+
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     throw e;
                 }
@@ -106,7 +115,7 @@ namespace br.corp.bonus630.PluginLoader
             {
                 return getInstance<IPluginCore>(plugin) as IPluginCore;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -127,11 +136,11 @@ namespace br.corp.bonus630.PluginLoader
                     {
                         return Activator.CreateInstance(types[j]);
                     }
-                    catch(TargetInvocationException e)
+                    catch (TargetInvocationException e)
                     {
                         throw e;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         throw ex;
                     }

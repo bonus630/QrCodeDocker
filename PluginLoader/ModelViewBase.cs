@@ -10,7 +10,8 @@ namespace br.corp.bonus630.PluginLoader
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged(string propertyName)
+        
+        public void NotifyPropertyChanged(string propertyName="")
         {
             if (PropertyChanged != null)
             {

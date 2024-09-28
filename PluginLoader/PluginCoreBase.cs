@@ -19,6 +19,7 @@ namespace br.corp.bonus630.PluginLoader
         public event Action<object> FinishJob;
         public event Action<int> ProgressChange;
         public event Action<string> AnyTextChanged;
+        public event Action<string> CorelThemeChanged;
         public event Action<System.Drawing.Bitmap> OverridePreview;
         public event Action UpdatePreview;
         public event Action LoadConfigEvent;
@@ -35,6 +36,17 @@ namespace br.corp.bonus630.PluginLoader
         public int Index { get; set; }
 
         protected string langFile;
+
+        private string theme;
+
+        public string Theme
+        {
+            get { return theme; }
+            set { theme = value;
+                OnCorelThemeChanged(value);
+                OnNotifyPropertyChanged("Theme"); 
+            }
+        }
 
         protected virtual void OnFinishJob(object obj)
         {
@@ -57,6 +69,11 @@ namespace br.corp.bonus630.PluginLoader
         {
             if (AnyTextChanged != null)
                 AnyTextChanged(text);
+        }
+        protected virtual void OnCorelThemeChanged(string theme)
+        {
+            if (CorelThemeChanged != null)
+                CorelThemeChanged(theme);
         }
         protected virtual void OnOverridePreview(Bitmap bitmap)
         {

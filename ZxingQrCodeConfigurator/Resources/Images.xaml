@@ -25,6 +25,9 @@
     <Style x:Key="WeldImage" TargetType="Image">
         <Setter Property="Source" Value="{Binding Source={StaticResource Weld},Converter={StaticResource ResourceToMediaImageConverter}}"/>
     </Style>
-    
-    
+    <System:String x:Key="Copy">copy</System:String>
+    <Style x:Key="CopyImage" TargetType="Image">
+        <Setter Property="Source" Value="{Binding Source={StaticResource Copy},Converter={StaticResource ResourceToMediaImageConverter}}"/>
+    </Style>
+
 </ResourceDictionary>

@@ -181,7 +181,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  	  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -241,6 +241,8 @@
       <Name>ImageRender</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
 </Project>

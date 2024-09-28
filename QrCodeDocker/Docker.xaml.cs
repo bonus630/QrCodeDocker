@@ -1,13 +1,16 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using Corel.Interop.VGCore;
-using br.corp.bonus630.ImageRender;
+﻿using br.corp.bonus630.ImageRender;
 using br.corp.bonus630.PluginLoader;
 using br.corp.bonus630.QrCodeDocker.MainTabControls;
+using Corel.Interop.VGCore;
+using System;
+
+using System.Diagnostics;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using ZXing;
 
@@ -50,6 +53,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 this.Loaded += Docker_Loaded;
                 dataContextObj = new VisualDataContext(this.app);
                 this.DataContext = dataContextObj;
+                this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
                 //System.Windows.MessageBox.Show(DocumentActive);
             }
             catch (Exception error)
@@ -70,7 +74,7 @@ namespace br.corp.bonus630.QrCodeDocker
         //{
         //    throw new NotImplementedException();
         //}
-       
+
         public Docker()
         {
             InitializeComponent();
@@ -81,8 +85,8 @@ namespace br.corp.bonus630.QrCodeDocker
         }
         private void LoadLang(string LanguageCode)
         {
-            langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_", LanguageCode,".xml");
-            if(!System.IO.File.Exists(langFile))
+            langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_", LanguageCode, ".xml");
+            if (!System.IO.File.Exists(langFile))
                 langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_EN.xml");
             try
             {
@@ -90,7 +94,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 {
                     (tabControls.Items[i] as IMainTabControl).LoadLang(langFile);
                 }
-               
+
             }
             catch { }
             var xmlDataProvider = FindResource("Lang") as XmlDataProvider;
@@ -100,12 +104,31 @@ namespace br.corp.bonus630.QrCodeDocker
                 xmlDataProvider.Source = new Uri(langFile, UriKind.RelativeOrAbsolute);
             }
         }
-        public string GetLocalizedString( string key)
+        public string GetLocalizedString(string key)
         {
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(langFile);
             XmlNode node = xmlDocument.SelectSingleNode(string.Concat("/root/", key));
             return node.InnerText;
+        }
+        private void CorelApp_OnApplicationEvent(string EventName, ref object[] Parameters)
+        {
+            //#if DEBUG
+            //            string debug = "Event:" + EventName;
+            //            if(Parameters!= null)
+            //            {
+            //                for (int i = 0; i < Parameters.Length; i++)
+            //                {
+            //                    if(Parameters[i]!= null)
+            //                        debug += " | Param:" + i + " "+Parameters[i].ToString();
+            //                }
+            //            }
+            //            Debug.WriteLine(debug);
+            //#endif
+            if (EventName.Equals("WorkspaceChanged") || EventName.Equals("OnColorSchemeChanged"))
+            {
+                setTheme();
+            }
         }
         private void Tabs_AnyTextChanged(string obj)
         {
@@ -124,7 +147,14 @@ namespace br.corp.bonus630.QrCodeDocker
                 pluginSelect.SetValues(strSize, this.app, this.codeGenerator);
             }
         }
-
+        private void setTheme()
+        {
+            styleController.LoadThemeFromPreference();
+            if (pluginSelect != null)
+            {
+                pluginSelect.SetCorelTheme(StyleController.ThemeShortName);
+            }
+        }
 
         void Docker_Loaded(object sender, RoutedEventArgs e)
         {
@@ -143,11 +173,12 @@ namespace br.corp.bonus630.QrCodeDocker
                 int strSize = 221;
                 if (!Int32.TryParse(txt_size.Text, out strSize))
                     app.MsgShow(GetLocalizedString("MBoxFormatErroTitle"), GetLocalizedString("MBoxFormatErroMessage"));
-                pluginSelect = new PluginSelect(strSize, this.app,  this.imageRender, this.codeGenerator);
+                pluginSelect = new PluginSelect(strSize, this.app, this.imageRender, this.codeGenerator);
                 pluginSelect.AnyTextChanged += PluginSelect_AnyTextChanged;
                 pluginSelect.UpdatePreview += renderImage;
                 pluginSelect.OverridePreview += PluginSelect_OverridePreview;
                 groupBoxPluginContainer.Content = pluginSelect;
+                setTheme();
             }
             else
                 dataContextObj.CanLoadPlugin = false;
@@ -181,6 +212,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 System.Windows.Media.Imaging.BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                  imageRender.RenderBitmapToMemory2(textContent).GetHbitmap(),
                  IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                Debug.WriteLine(textContent, "TextContent");
                 img_render.Source = bitmapSource;
             }
             catch { }
@@ -333,7 +365,10 @@ namespace br.corp.bonus630.QrCodeDocker
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://bonus630.com.br");
+            if (e.ChangedButton == MouseButton.Right)
+                CreateDonatePix(0);
+            else
+                System.Diagnostics.Process.Start("https://bonus630.com.br");
         }
 
         private void radioButton_zxing_Checked(object sender, RoutedEventArgs e)
@@ -349,7 +384,10 @@ namespace br.corp.bonus630.QrCodeDocker
 
         private void img_corelNaVeia_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.corelnaveia.com/");
+            if (e.ChangedButton == MouseButton.Right)
+                CreateDonatePix(1);
+            else
+                System.Diagnostics.Process.Start("http://www.corelnaveia.com/");
         }
 
 
@@ -368,14 +406,14 @@ namespace br.corp.bonus630.QrCodeDocker
             this.codeGenerator = new QrCodeGenerator(app);
             if ((bool)radioButton_zxing.IsChecked)
                 imageRender = new ZXingImageRender();
-        
+
             codeGenerator.SetRender(imageRender);
             SetValuesPlugin();
         }
 
         private void TabControls_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-         
+
             setContent((tabControls.SelectedItem as IMainTabControl).FormatedText);
 
         }
@@ -386,7 +424,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 if (imageRender != null)
                 {
                     string tagValue = ((ComboBoxItem)ComboBox_CodeType.SelectedItem).Tag.ToString();
-                    BarcodeFormat selectedFormat  = (BarcodeFormat)Enum.Parse(typeof(BarcodeFormat), tagValue);
+                    BarcodeFormat selectedFormat = (BarcodeFormat)Enum.Parse(typeof(BarcodeFormat), tagValue);
                     imageRender.CodeType = selectedFormat;
                     ChangeUIByCodeType();
                     setContent(textContent);
@@ -398,10 +436,80 @@ namespace br.corp.bonus630.QrCodeDocker
         {
 
         }
-     
+
         private void Button_CodeTypeHelp_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start(imageRender.GetCodeTypeHelpURL());
         }
+
+        private void CreateDonatePix(int var)
+        {
+            BarcodeFormat bf = codeGenerator.ImageRender.CodeType;
+            try
+            {
+
+                codeGenerator.ImageRender.CodeType = BarcodeFormat.QR_CODE;
+                codeGenerator.ImageRender.ErrorCorrection = ZXing.QrCode.Internal.ErrorCorrectionLevel.H;
+                System.Drawing.Bitmap logo;
+                string codeString;
+                if (var == 0)
+                {
+                    logo = Properties.Resources.Bonus630;
+                    codeString = "00020126400014BR.GOV.BCB.PIX0118bonus630@gmail.com52040000530398654040.005802BR5909Reginaldo6007goiania62100506doacao63042461";                }
+                else
+                {
+                    logo = Properties.Resources.CorelNaVeia2022;
+                    codeString = "00020126430014BR.GOV.BCB.PIX0121corelnaveia@gmail.com5204000053039865802BR5919ELIESER DA SILVEIRA6013Nova Friburgo62100506doacao6304DD5B";
+                }
+
+                System.Drawing.Bitmap code = codeGenerator.ImageRender.RenderBitmapToMemory2(codeString);
+                double m = codeGenerator.ImageRender.InMeasure(256);
+                codeGenerator.ImageRender.ErrorCorrection = ZXing.QrCode.Internal.ErrorCorrectionLevel.Q;
+                System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(code);
+                int logoWidth = 0;
+                int logoHeight = 0;
+
+                logoWidth = logo.Width;
+                logoHeight = logo.Height;
+
+                float logoProp = 0.25f;
+                int w = 0, h = 0;
+                if (logoWidth > logoHeight)
+                {
+                    w = (int)(code.Width * logoProp);
+                    h = w * logoHeight / logoWidth;
+                    //    w = (int)logoProp;
+                    //    h = (int)(w * logoProp / logoWidth);
+                }
+                else if (logoHeight > logoWidth)
+                {
+                    h = (int)(code.Width * logoProp);
+                    w = h * logoWidth / logoHeight;
+                    //h = (int)logoProp;
+                    //w = (int)(h * logoWidth / logoHeight);
+                }
+                else
+                {
+                    w = (int)(code.Width * logoProp);
+                    h = (int)(code.Width * logoProp);
+                    //w = (int)logoProp;
+                    //h = (int)logoProp;
+                }
+
+                int deltaX = code.Width / 2 - w / 2;
+                int deltaY = code.Height / 2 - h / 2;
+                System.Drawing.Rectangle rect = new System.Drawing.Rectangle(deltaX, deltaY, w, h);
+
+                g.DrawImage(logo, rect);
+                System.Windows.Media.Imaging.BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                 code.GetHbitmap(),
+                 IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                img_render.Source = bitmapSource;
+            }
+            catch { }
+            codeGenerator.ImageRender.CodeType = bf;
+        }
+       
+     
     }
 }

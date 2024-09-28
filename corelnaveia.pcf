@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Author>CorelNaVeia</Author>
+  <Email>corelnaveia@gmail.com</Email>
+  <OpenSite>true</OpenSite>
+  <URL>https://corelnaveia.com</URL>
+  <SetupFolder>D:\CorelDraw Addons Setups</SetupFolder>
+  <LogoPath>C:\Users\bonus\OneDrive\Imagens\Corel-na-Veia-Logo-2022-160-160-avatar.png</LogoPath>
+  <ReadmePath>D:\C# Ed26-08-22\QrCodeDocker\QrCodeDocker\readme.rtf</ReadmePath>
+  <IconPath>C:\Users\bonus\OneDrive\Imagens\ICOS\favicon (5).ico</IconPath>
+</Settings>

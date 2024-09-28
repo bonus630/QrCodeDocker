@@ -12,7 +12,6 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Reflection;
 using br.corp.bonus630.ImageRender;
-using br.corp.bonus630.QrCodeDocker.MainTabControls;
 using System.Windows.Data;
 
 
@@ -37,9 +36,9 @@ namespace br.corp.bonus630.QrCodeDocker
         public event Action<System.Drawing.Bitmap> OverridePreview;
         public ObservableCollection<IPluginCore> LoadedPluginList { get; set; }
 
-        public PluginSelect(double size, Corel.Interop.VGCore.Application app,  ZXingImageRender imageRender, ICodeGenerator codeGenerator)
+        public PluginSelect(double size, Corel.Interop.VGCore.Application app, ZXingImageRender imageRender, ICodeGenerator codeGenerator)
         {
-   
+
             InitializeComponent();
 
             try
@@ -84,10 +83,10 @@ namespace br.corp.bonus630.QrCodeDocker
         //}
         private void LoadLang(string LanguageCode)
         {
-           string langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_", LanguageCode, ".xml");
+            string langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_", LanguageCode, ".xml");
             if (!System.IO.File.Exists(langFile))
                 langFile = string.Concat(this.app.AddonPath, "QrCodeDocker\\Lang\\Main_ENU.xml");
-      
+
             var xmlDataProvider = FindResource("Lang") as XmlDataProvider;
 
             if (xmlDataProvider != null)
@@ -157,13 +156,20 @@ namespace br.corp.bonus630.QrCodeDocker
             {
                 for (int i = 0; i < of.FileNames.Length; i++)
                 {
-                    PluginMap pluginMap = loader.GetPluginMap(of.FileNames[i]);
-                    if (pluginMap == null)
+                    try
                     {
-                        app.MsgShow(of.FileNames[i], "File invalid!", QrCodeDocker.MessageBox.DialogButtons.Ok);
+                        PluginMap pluginMap = loader.GetPluginMap(of.FileNames[i]);
+                        if (pluginMap == null)
+                        {
+                            app.MsgShow(of.FileNames[i], "File invalid!", QrCodeDocker.MessageBox.DialogButtons.Ok);
 
+                        }
+                        InflateUI(pluginMap);
                     }
-                    InflateUI(pluginMap);
+                    catch (Exception ex)
+                    {
+                        app.MsgShow(of.FileNames[i], ex.Message, QrCodeDocker.MessageBox.DialogButtons.Ok);
+                    }
                 }
 
             }
@@ -179,7 +185,7 @@ namespace br.corp.bonus630.QrCodeDocker
             try
             {
                 IPluginCore core = LoadedPluginList.Single<IPluginCore>(r => r.Index == index);
-                
+
                 cb_plugins.Items.Add(PluginNames.Find(r => r.DisplayName == core.GetPluginDisplayName));
                 //this.loadedCorelist.Remove(core);
                 LoadedPluginList.Remove(core);
@@ -243,6 +249,20 @@ namespace br.corp.bonus630.QrCodeDocker
 
             }
         }
+        public void SetCorelTheme(string theme)
+        {
+            for (int i = 0; i < LoadedPluginList.Count; i++)
+            {
+                Type type = LoadedPluginList[i].GetType();
+                if (typeof(IPluginCore).IsAssignableFrom(type))
+                {
+                    IPluginCore core = (LoadedPluginList[i] as IPluginCore);
+                    core.Theme = theme;
+
+                }
+
+            }
+        }
         void PluginSelect_ProgressChange(int obj)
         {
             pb_progress.Dispatcher.Invoke(new Action(() =>
@@ -265,14 +285,17 @@ namespace br.corp.bonus630.QrCodeDocker
                 }
                 catch (Exception e)
                 {
-                    app.MsgShow(string.Format("{0} - {1}",  pluginMap.DisplayName,e.Message));
+                    app.MsgShow(string.Format("{0} - {1}", pluginMap.DisplayName, e.Message));
                 }
                 if (objCore == null)
                     return;
                 Type type = loader.GetMainUIType(pluginMap);
                 IPluginMainUI mainUI = objCore.CreateOrGetMainUIIntance(type);
                 if (mainUI == null)
+                {
+                    app.MsgShow("UI not loaded!");
                     return;
+                }
                 objCore.Index = index;
 
 
@@ -289,7 +312,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 try
                 {
                     string langFile = string.Format("{0}QrCodeDocker\\extras\\Lang\\{1}_{2}.xml", app.AddonPath, objCore.GetPluginDisplayName, app.LangCode());
-                       
+
                     if (!System.IO.File.Exists(langFile))
                         langFile = string.Format("{0}QrCodeDocker\\extras\\Lang\\{1}_EN.xml", app.AddonPath, objCore.GetPluginDisplayName);
 
@@ -297,8 +320,9 @@ namespace br.corp.bonus630.QrCodeDocker
                 }
                 catch (Exception e)
                 {
-                   // app.MsgShow(string.Format("{0} - {1}", GetLocalizedString("MBOX_ERROR_LangException, pluginMap.DisplayName));
+                    // app.MsgShow(string.Format("{0} - {1}", GetLocalizedString("MBOX_ERROR_LangException, pluginMap.DisplayName));
                 }
+                objCore.Theme = StyleController.ThemeShortName;
                 if (typeof(IPluginConfig).IsAssignableFrom(objCore.GetType()))
                     (objCore as IPluginConfig).GetCodeGenerator += PluginSelect_GetCodeGenerator;
                 SetDataSource(this.dataSource);

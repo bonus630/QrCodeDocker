@@ -36,6 +36,8 @@
                     </tabs:TelControl>
                     <tabs:VCardControl  AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Source={StaticResource Lang},XPath=TabTitleVCard}" x:Name="tabItemVCard" Style="{DynamicResource TabItemStyle}">
                     </tabs:VCardControl>
+                    <tabs:EventControl AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Source={StaticResource Lang},XPath=TabTitleEvent}" x:Name="tabItemEvent" Style="{DynamicResource TabItemStyle}">
+                    </tabs:EventControl>
                     <tabs:SmsControl  AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Source={StaticResource Lang},XPath=TabTitleSms}" x:Name="tabItemSms" Style="{DynamicResource TabItemStyle}">
                     </tabs:SmsControl>
                     <tabs:WiFiControl  AnyTextChanged="Tabs_AnyTextChanged" Header="{Binding Source={StaticResource Lang},XPath=TabTitleWifi}" x:Name="tabItemWifi" Style="{DynamicResource TabItemStyle}">

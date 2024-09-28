@@ -213,6 +213,14 @@
       <Name>Corel.Interop.VGCore</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="WPFThemesCustomControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\WPFThemesCustomControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.6.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="zxing, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ImageRender\zxing.dll</HintPath>
@@ -259,6 +267,9 @@
     <Compile Include="MainTabControls\URLControl.xaml.cs">
       <DependentUpon>URLControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainTabControls\EventControl.xaml.cs">
+      <DependentUpon>EventControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainTabControls\VCardControl.xaml.cs">
       <DependentUpon>VCardControl.xaml</DependentUpon>
     </Compile>
@@ -299,6 +310,10 @@
     <Page Include="MainTabControls\URLControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainTabControls\EventControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainTabControls\VCardControl.xaml">
       <SubType>Designer</SubType>
@@ -358,6 +373,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="WPFThemesCustomControls.dll" />
+    <Content Include="WPFThemesCustomControls.pdb" />
     <None Include="Resources\434.png" />
     <None Include="Resources\84.png" />
     <None Include="Resources\2344.png" />

@@ -11,5 +11,7 @@
 	<MBOX_QrMessage>Seu QRCode contém a seguinte mensagem:</MBOX_QrMessage>
 	<MBOX_QrCodingWarning>Altere o sistema de codificação para Zxing para validar!</MBOX_QrCodingWarning>
 	<MBOX_ERRO_QRInvalid>QRCode inválido!</MBOX_ERRO_QRInvalid>
+	<MBOX_NothingToCheck>Nada selecionado! Tente selecionar 1 objeto</MBOX_NothingToCheck>
 	<Warning>Aviso</Warning>
+	<BTN_Copy_Tooltip>Copie o conteúdo do código</BTN_Copy_Tooltip>
 </root>

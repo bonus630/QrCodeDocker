@@ -6,6 +6,7 @@
 	<TabTitleEmail>Email</TabTitleEmail>
 	<TabTitlePhone>Teléfono</TabTitlePhone>
 	<TabTitleVCard>vCard</TabTitleVCard>
+	<TabTitleEvent>Evento</TabTitleEvent>
 	<TabTextLabel>Texto: (Máx 300 Caracteres)</TabTextLabel>
 	<TabTitleSms>Sms</TabTitleSms>
 	<LabelMaxChars>Texto: (Máx 300 Caracteres)</LabelMaxChars>
@@ -23,6 +24,11 @@
 	<vCardLabelHeaderOrg>Organización:</vCardLabelHeaderOrg>
 	<vCardLabelHeaderAdress>Dirección:</vCardLabelHeaderAdress>
 	<vCardLabelHeaderNotes>Notas:</vCardLabelHeaderNotes>
+	<EventLabelHeaderName>Nombre:</EventLabelHeaderName>
+	<EventLabelHeaderLocation>Dirección:</EventLabelHeaderLocation>
+	<EventLabelHeaderStartDate>Comenzar:</EventLabelHeaderStartDate>
+	<EventLabelHeaderEndDate>Fin:</EventLabelHeaderEndDate>
+	<EventLabelHeaderDescription>Descripción:</EventLabelHeaderDescription>
 	<LabelMessage>Mensaje: </LabelMessage>
 	<LabelDotSize>Tamaño de punto:</LabelDotSize>
 	<LabelSize>Tamaño:</LabelSize>

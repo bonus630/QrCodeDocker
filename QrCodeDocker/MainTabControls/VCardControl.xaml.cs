@@ -17,8 +17,29 @@ namespace br.corp.bonus630.QrCodeDocker.MainTabControls
     /// <summary>
     /// Interaction logic for VCardControl.xaml
     /// </summary>
-    public partial class VCardControl : TabItem,IMainTabControl
+    public partial class VCardControl : TabItem, IMainTabControl
     {
+        /* VCARD
+         * *************************
+         * BEGIN:VCARD
+            VERSION:3.0
+            ADR:;;Conde Matarazzo;goiania;goias;74463360;brasil
+            EMAIL:bonus630@gmail.com
+            FN:Reginaldo Santos
+            MSG:
+            N:Santos;Reginaldo
+            NOTE:este é um teste
+            TEL:
+            TEL;TYPE=CELL,VOICE:55629912365
+            TEL;TYPE=HOME,VOICE:556239281361
+            TEL;TYPE=WORK,FAX:55965874556
+            TEL;TYPE=WORK,VOICE:556299878963
+            URL:https://bonus630.com.br
+            END:VCARD
+        ***********************
+        meCard
+        MECARD:ADR:,,Conde Matarazzo,goiania,goias,74463360,brasil;EMAIL:bonus630@gmail.com;MSG:;N:Santos,Reginaldo;NOTE:este é um teste;TEL:;TEL;TYPE=CELL,VOICE:55629912365;TEL;TYPE=HOME,VOICE:556239281361;TEL;TYPE=WORK,FAX:55965874556;TEL;TYPE=WORK,VOICE:556299878963;URL:https://bonus630.com.br;;
+         */
         public VCardControl()
         {
             InitializeComponent();
@@ -91,14 +112,14 @@ namespace br.corp.bonus630.QrCodeDocker.MainTabControls
             temp = txt_vcardJob.Text;
             if (!String.IsNullOrEmpty(temp))
             {
-               // temp = removeSpaces(temp);
+                // temp = removeSpaces(temp);
                 sb.AppendLine("ORG:" + temp);
 
             }
             temp = txt_vcardAdd.Text;
             if (!String.IsNullOrEmpty(temp))
             {
-             //   temp = removeSpaces(temp);
+                //   temp = removeSpaces(temp);
                 sb.AppendLine("ADR:" + temp);
 
             }

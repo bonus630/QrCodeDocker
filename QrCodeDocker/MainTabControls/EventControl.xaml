@@ -1,0 +1,49 @@
+﻿<TabItem x:Class="br.corp.bonus630.QrCodeDocker.MainTabControls.EventControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:br.corp.bonus630.QrCodeDocker.MainTabControls"
+            xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             mc:Ignorable="d" 
+            
+             >
+    <TabItem.Resources>
+        <XmlDataProvider x:Key="Lang" XPath="/root" />
+    </TabItem.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!--<ColumnDefinition Width="78"/>-->
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="30" />
+           
+
+        </Grid.RowDefinitions>
+        <TextBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1" Name="txt_eventName" TextChanged="txt_event" />
+        <TextBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="3" Name="txt_eventLocation" TextChanged="txt_event"/>
+        <xctk:DateTimePicker VerticalAlignment="Center"  Grid.Column="0" Grid.Row="5" Name="dateTimePicker_start" ValueChanged="dateTimePicker_start_ValueChanged" />
+        <xctk:DateTimePicker VerticalAlignment="Center"  Grid.Column="0" Grid.Row="7" Name="dateTimePicker_end" ValueChanged="dateTimePicker_end_ValueChanged" />
+        <TextBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="9" Name="txt_eventDescription" TextChanged="txt_event"/>
+      
+
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0" Name="lbaEventName" Content="{Binding Source={StaticResource Lang},    XPath=EventLabelHeaderName}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2" Name="lbaEventLocation" Content="{Binding Source={StaticResource Lang},XPath=EventLabelHeaderLocation}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="4" Name="lbaEventStartDate" Content="{Binding Source={StaticResource Lang},XPath=EventLabelHeaderStartDate}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="6" Name="lbaEventEndDate" Content="{Binding Source={StaticResource Lang},XPath=EventLabelHeaderEndDate}" HorizontalAlignment="Left" />
+        <Label VerticalAlignment="Center"  Grid.Column="0" Grid.Row="8" Name="lbaEventDescription" Content="{Binding Source={StaticResource Lang},XPath=EventLabelHeaderDescription}" HorizontalAlignment="Left" />
+
+
+    </Grid>
+
+</TabItem>

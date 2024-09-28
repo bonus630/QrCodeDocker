@@ -11,8 +11,10 @@
     <MBOX_QrMessage>Your Qrcode contains the following message:</MBOX_QrMessage>
     <MBOX_QrCodingWarning>Change your encoding to Zxing to validate!</MBOX_QrCodingWarning>
     <MBOX_ERRO_QRInvalid>Invalid qrcode</MBOX_ERRO_QRInvalid>
+	<MBOX_NothingToCheck>Nothing selected! Try selecting 1 object</MBOX_NothingToCheck>
     <Warning>Warning</Warning>
     <BTN_BrowserPluginToolTip>Browser extra</BTN_BrowserPluginToolTip>
     <BTN_SavePluginToolTip>Save extras states</BTN_SavePluginToolTip>
     <BTN_DeletePluginToolTip>Delete saved state</BTN_DeletePluginToolTip>
+	<BTN_Copy_Tooltip>Copy the code content</BTN_Copy_Tooltip>
 </root>

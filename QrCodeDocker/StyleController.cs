@@ -1,14 +1,15 @@
-﻿using Corel.Interop.VGCore;
+﻿using br.corp.bonus630.PluginLoader;
+using Corel.Interop.VGCore;
 using System.Diagnostics;
 using System.Windows;
 
 namespace br.corp.bonus630.QrCodeDocker
 {
-    public class StyleController
+    public class StyleController 
 
     {
         private Corel.Interop.VGCore.Application app;
-        private string currentTheme;
+        public string CurrentTheme{get; private set;}
         public static string ThemeShortName = "LightestGrey";
         private ResourceDictionary Resources;
         //public static int StyleID = 0;
@@ -16,8 +17,9 @@ namespace br.corp.bonus630.QrCodeDocker
         {
             this.app = app;
             Resources = resources;
-            this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
-        }
+           // this.app.OnApplicationEvent += CorelApp_OnApplicationEvent;
+        }  
+   
         #region theme select
         //Keys resources name follow the resource order to add a new value, order to works you need add 5 resources colors and Resources/Colors.xaml
         //1º is default, is the same name of StyleKeys string array
@@ -76,25 +78,7 @@ namespace br.corp.bonus630.QrCodeDocker
                 this.Resources[StyleKeys[i]] = this.Resources[string.Format("{0}.{1}", style, StyleKeys[i])];
             }
         }
-        private void CorelApp_OnApplicationEvent(string EventName, ref object[] Parameters)
-        {
-//#if DEBUG
-//            string debug = "Event:" + EventName;
-//            if(Parameters!= null)
-//            {
-//                for (int i = 0; i < Parameters.Length; i++)
-//                {
-//                    if(Parameters[i]!= null)
-//                        debug += " | Param:" + i + " "+Parameters[i].ToString();
-//                }
-//            }
-//            Debug.WriteLine(debug);
-//#endif
-            if (EventName.Equals("WorkspaceChanged") || EventName.Equals("OnColorSchemeChanged"))
-            {
-                LoadThemeFromPreference();
-            }
-        }
+
         public void LoadThemeFromPreference()
         {
             try
@@ -104,12 +88,12 @@ namespace br.corp.bonus630.QrCodeDocker
                 result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
 #endif
 
-                if (!result.Equals(currentTheme))
+                if (!result.Equals(CurrentTheme))
                 {
                     if (!result.Equals(string.Empty))
                     {
-                        currentTheme = result;
-                        LoadStyle(currentTheme);
+                        CurrentTheme = result;
+                        LoadStyle(CurrentTheme);
                     }
                 }
             }

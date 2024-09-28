@@ -2,8 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:converters="clr-namespace:br.corp.bonus630.QrCodeDocker.Converters"
-        xmlns:extConverters="clr-namespace:br.corp.bonus630.PluginLoader.Converters;assembly=PluginLoader" 
+        xmlns:extConverters="clr-namespace:br.corp.bonus630.PluginLoader.Converters;assembly=PluginLoader"
         >
+        <!--xmlns:extConverters="clr-namespace:br.com.bonus630.wpf.custom.Converters;assembly=WPFThemesCustomControls"-->
     <UserControl.Resources>
         <ResourceDictionary>
 

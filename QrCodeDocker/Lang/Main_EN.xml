@@ -6,6 +6,7 @@
 	<TabTitleEmail>Email</TabTitleEmail>
 	<TabTitlePhone>Phone</TabTitlePhone>
 	<TabTitleVCard>vCard</TabTitleVCard>
+	<TabTitleEvent>Event</TabTitleEvent>
 	<TabTextLabel>Text: (Max 300 Characters)</TabTextLabel>
 	<TabTitleSms>Sms</TabTitleSms>
 	<LabelMaxChars>Text: (Max 300 Characters)</LabelMaxChars>
@@ -23,6 +24,11 @@
 	<vCardLabelHeaderOrg>Organization:</vCardLabelHeaderOrg>
 	<vCardLabelHeaderAdress>Address:</vCardLabelHeaderAdress>
 	<vCardLabelHeaderNotes>Notes:</vCardLabelHeaderNotes>
+	<EventLabelHeaderName>Name:</EventLabelHeaderName>
+	<EventLabelHeaderLocation>Location:</EventLabelHeaderLocation>
+	<EventLabelHeaderStartDate>Start:</EventLabelHeaderStartDate>
+	<EventLabelHeaderEndDate>End:</EventLabelHeaderEndDate>
+	<EventLabelHeaderDescription>Description:</EventLabelHeaderDescription>
 	<LabelMessage>Message: </LabelMessage>
 	<LabelDotSize>Dot size:</LabelDotSize>
 	<LabelSize>Size:</LabelSize>
@@ -51,4 +57,5 @@
 	<BTN_SavePluginToolTip>Save extras states</BTN_SavePluginToolTip>
 	<BTN_DeletePluginToolTip>Delete extras states</BTN_DeletePluginToolTip>
 	<MBOX_ERROR_SettingsCountNoMatch>Don't will possible reset all states of the extras</MBOX_ERROR_SettingsCountNoMatch>
+
 </root>

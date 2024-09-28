@@ -1,9 +1,9 @@
-﻿<? xml version = "1.0" encoding = "UTF-8" ?>
-< root version = "0.0.5.1" author = "bonus630" website = "https://bonus630.com.br" >
-    < LBA_LineDelimiter > Delimitador de linha:</ LBA_LineDelimiter >
-    < LBA_ColumnDelimiter > Delimitador de coluna:</ LBA_ColumnDelimiter >
-    < BTN_Browser > Procurar </ BTN_Browser >
-    < OF_File > Arquivos de Texto| *.txt|Arquivos CSV| *.csv</OF_File>
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<root version = "0.0.5.1" author = "bonus630" website = "https://bonus630.com.br" >
+    <LBA_LineDelimiter> Delimitador de linha:</LBA_LineDelimiter>
+    <LBA_ColumnDelimiter> Delimitador de coluna:</LBA_ColumnDelimiter>
+    <BTN_Browser> Procurar </BTN_Browser >
+    <OF_File > Arquivos de Texto| *.txt|Arquivos CSV| *.csv</OF_File>
     <Rows>Linhas</Rows>
     <Columns>Colunas</Columns>
     <CB_ScapeChars>Usar Caracteres Especiais</CB_ScapeChars>

@@ -101,6 +101,10 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
                         System.IO.File.Delete(filePath);
                 }
             }
+            else
+            {
+                result = zcCore.GetLocalizedString("MBOX_NothingToCheck");
+            }
             return sucess;
         }
 
@@ -241,10 +245,12 @@ namespace br.corp.bonus630.plugin.ZxingQrCodeConfigurator
         private void btn_validateAndDraw_Click(object sender, RoutedEventArgs e)
         {
             string text = "";
-            if(TryGetValidText(out text))
+            if (TryGetValidText(out text))
             {
                 System.Windows.Clipboard.SetText(text);
             }
+            else
+                app.MsgShow(text);
         }
     }
 

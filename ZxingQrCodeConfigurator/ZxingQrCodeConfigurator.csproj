@@ -184,7 +184,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  	  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -226,6 +226,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\copy.png" />
     <Page Include="ColorPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,6 +261,11 @@
     </Compile>
     <Compile Include="Converters\InvertBoolConverter.cs" />
     <Compile Include="Converters\ResourceToMediaImageConverter.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ZxingConfiguratorCore.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Eyedropper.xaml.cs">
@@ -285,11 +291,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

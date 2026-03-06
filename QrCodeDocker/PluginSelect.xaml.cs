@@ -218,8 +218,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         void PluginSelect_FinishJob(object obj)
         {
-            pb_progress.Dispatcher.Invoke
-                (new Action(() =>
+            pb_progress.Dispatcher.Invoke(new Action(() =>
             {
                 pb_progress.Visibility = Visibility.Collapsed;
 

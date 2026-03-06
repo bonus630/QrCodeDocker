@@ -70,7 +70,7 @@ namespace br.corp.bonus630.QrCodeDocker
 
         public void LoadStyle(string name)
         {
-
+            
             string style = name.Substring(name.LastIndexOf("_") + 1);
             ThemeShortName = style;
             for (int i = 0; i < StyleKeys.Length; i++)
@@ -87,7 +87,13 @@ namespace br.corp.bonus630.QrCodeDocker
 #if !X7
                 result = app.GetApplicationPreferenceValue("WindowScheme", "Colors").ToString();
 #endif
-
+#if X17
+                if (result.Equals("Scheme_12_ModernUIDark"))
+                    result = "DarkGrey";
+                if (result.Equals("Scheme_11_ModernUI"))
+                    result = "LightestGrey";        
+#endif
+              
                 if (!result.Equals(CurrentTheme))
                 {
                     if (!result.Equals(string.Empty))
@@ -100,6 +106,6 @@ namespace br.corp.bonus630.QrCodeDocker
             catch { }
 
         }
-        #endregion
+#endregion
     }
 }

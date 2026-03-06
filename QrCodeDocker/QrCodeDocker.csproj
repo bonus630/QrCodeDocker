@@ -10,42 +10,43 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>br.corp.bonus630.QrCodeDocker</RootNamespace>
     <AssemblyName>QrCodeDocker</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="$(CdrTargetPath)" Condition="Exists('$(CdrTargetPath)')" />
+	<PropertyGroup>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+		<Prefer32Bit>false</Prefer32Bit>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE;$(CurrentCorelDebugConst)</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('Release'))">
+		<DebugType>none</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+		<DefineConstants></DefineConstants>
+	</PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X7 Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;X7</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+  <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X7 Debug|AnyCPU' ">
+    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X7 Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\X7\</OutputPath>
-    <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
-    <DefineConstants>X7</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+   
+   
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X8 Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,9 +54,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;X8</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+  
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'X8 Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -63,9 +62,7 @@
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
     <DefineConstants>X8</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2017 Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,9 +70,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;X9</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+ 
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2017 Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -83,9 +78,7 @@
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
     <DefineConstants>X9</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+ 
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2018 Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -93,9 +86,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;X10</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+ 
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2018 Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -103,9 +94,7 @@
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
     <DefineConstants>X10</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+   
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2019 Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,9 +102,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;X11</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2019 Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -123,9 +110,7 @@
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
     <DefineConstants>X11</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2020 Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -133,9 +118,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;X12</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+ 
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2020 Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -143,9 +126,7 @@
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
     <DefineConstants>X12</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+  
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2021 Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -153,9 +134,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;X13</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2021 Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -163,9 +142,7 @@
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
     <DefineConstants>X13</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+  
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -173,9 +150,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;X14</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+   
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2022 Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -183,9 +158,7 @@
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
     <DefineConstants>X14</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -193,8 +166,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;X15</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2024 Release|AnyCPU'">
     <DebugType>none</DebugType>
@@ -202,9 +174,41 @@
     <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
     <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
     <DefineConstants>TRACE;X15</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+   
   </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2025 Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;X16</DefineConstants>
+  
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2025 Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+    <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+    <DefineConstants>TRACE;X16</DefineConstants>
+   
+  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2026 Debug|AnyCPU'">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE;X17</DefineConstants>
+	
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2026 Release|AnyCPU'">
+		<DebugType>none</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+		<DefineConstants>TRACE;X17</DefineConstants>
+		
+	</PropertyGroup>-->
+	
   <PropertyGroup>
     <Win32Resource>$(ProjectDir)resources.rct</Win32Resource>
   </PropertyGroup>

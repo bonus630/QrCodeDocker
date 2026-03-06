@@ -4,7 +4,7 @@
 		<When Condition="'$(Configuration)' == 'X7 Release' or '$(Configuration)' == 'X7 Debug'">
 			<PropertyGroup>
 
-				<CurrentCorelPath>C:\Program Files\Corel\CorelDRAW Graphics Suite X7\Programs64\</CurrentCorelPath>
+				<CurrentCorelPath>D:\Program Files\Corel\CorelDRAW Graphics Suite X7\Programs64\</CurrentCorelPath>
 				<CurrentCorelAbr>X7</CurrentCorelAbr>
 				<CurrentCorelDebugConst>X7</CurrentCorelDebugConst>
 			</PropertyGroup>
@@ -71,6 +71,14 @@
 				<CurrentCorelPath>C:\Program Files\Corel\CorelDRAW Graphics Suite\25\Programs64\</CurrentCorelPath>
 				<CurrentCorelAbr>25</CurrentCorelAbr>
 				<CurrentCorelDebugConst>X15</CurrentCorelDebugConst>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(Configuration)' == '2026 Release' or '$(Configuration)' == '2026 Debug'">
+			<PropertyGroup>
+
+				<CurrentCorelPath>C:\Program Files\Corel\CorelDRAW Graphics Suite\26\Programs64\</CurrentCorelPath>
+				<CurrentCorelAbr>26</CurrentCorelAbr>
+				<CurrentCorelDebugConst>X16</CurrentCorelDebugConst>
 			</PropertyGroup>
 		</When>
 	</Choose>

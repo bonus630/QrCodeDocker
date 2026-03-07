@@ -22,24 +22,8 @@
 		<WarningLevel>4</WarningLevel>
 		<Prefer32Bit>false</Prefer32Bit>
 	</PropertyGroup>
-	<PropertyGroup Condition="$(Configuration.Contains('Debug'))">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE;$(CurrentCorelDebugConst)</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="$(Configuration.Contains('Release'))">
-		<DebugType>none</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
-		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)\extras</OutDir>
-		<DefineConstants></DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-	</PropertyGroup>
-  <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -250,7 +234,25 @@
     <DefineConstants>TRACE;X16</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>-->
+  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2026 Debug|AnyCPU'">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE;X17</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2026 Release|AnyCPU'">
+		<DebugType>none</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+		<DefineConstants>TRACE;X17</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
   <ItemGroup>
     <Reference Include="ImageRender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -1,0 +1,12 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+
+<root version = "0.0.5.1" author = "bonus630" website = "https://bonus630.com.br" >
+    <LBA_LineDelimiter>Line Delimiter:</LBA_LineDelimiter>
+    <LBA_ColumnDelimiter>Column Delimiter:</LBA_ColumnDelimiter>
+    <BTN_Browser>Browser</BTN_Browser>
+    <OF_File>text files| *.txt|CSV Files| *.csv</OF_File>
+    <Rows>Rows</Rows>
+    <Columns>Columns</Columns>
+    <CB_ScapeChars>Use Special Chars</CB_ScapeChars> 
+
+</root>

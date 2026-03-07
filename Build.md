@@ -94,6 +94,8 @@ The project includes build configurations for the following CorelDRAW versions:
 * 2021 Release
 * 2022 Release
 * 2024 Release
+* 2025 Release
+* 2026 Release
 
 Each configuration links against the corresponding CorelDRAW SDK defined in bonus630.CDRCommon.targets.
 

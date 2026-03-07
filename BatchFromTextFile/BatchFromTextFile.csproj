@@ -15,7 +15,29 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="$(CdrTargetPath)" Condition="Exists('$(CdrTargetPath)')" />
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<PropertyGroup>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+		<Prefer32Bit>false</Prefer32Bit>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE;$(CurrentCorelDebugConst)</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('Release'))">
+		<DebugType>none</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)\extras</OutDir>
+		<DefineConstants></DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+	</PropertyGroup>
+  <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -30,8 +52,8 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <!--<OutputPath>bin\Debug\X7\</OutputPath>
-    <OutDir>bin\Debug\X7\$(SolutionName)</OutDir>-->
+    --><!--<OutputPath>bin\Debug\X7\</OutputPath>
+    <OutDir>bin\Debug\X7\$(SolutionName)</OutDir>--><!--
     <DefineConstants>DEBUG;TRACE;X7</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -52,8 +74,8 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <!--<OutputPath>bin\Debug\X8\</OutputPath>
-    <OutDir>bin\Debug\X8\$(SolutionName)</OutDir>-->
+    --><!--<OutputPath>bin\Debug\X8\</OutputPath>
+    <OutDir>bin\Debug\X8\$(SolutionName)</OutDir>--><!--
     <DefineConstants>DEBUG;TRACE;X8</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -74,8 +96,8 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <!--<OutputPath>bin\Debug\2017\</OutputPath>
-    <OutDir>bin\Debug\2017\$(SolutionName)</OutDir>-->
+    --><!--<OutputPath>bin\Debug\2017\</OutputPath>
+    <OutDir>bin\Debug\2017\$(SolutionName)</OutDir>--><!--
     <DefineConstants>DEBUG;TRACE;X9</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -232,7 +254,7 @@
     <DefineConstants>TRACE;X16</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  </PropertyGroup>-->
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

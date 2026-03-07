@@ -73,12 +73,20 @@
 				<CurrentCorelDebugConst>X15</CurrentCorelDebugConst>
 			</PropertyGroup>
 		</When>
+		<When Condition="'$(Configuration)' == '2025 Release' or '$(Configuration)' == '2025 Debug'">
+			<PropertyGroup>
+
+				<CurrentCorelPath>C:\Program Files\Corel\CorelDRAW Graphics Suite\25\Programs64\</CurrentCorelPath>
+				<CurrentCorelAbr>26</CurrentCorelAbr>
+				<CurrentCorelDebugConst>X16</CurrentCorelDebugConst>
+			</PropertyGroup>
+		</When>
 		<When Condition="'$(Configuration)' == '2026 Release' or '$(Configuration)' == '2026 Debug'">
 			<PropertyGroup>
 
 				<CurrentCorelPath>C:\Program Files\Corel\CorelDRAW Graphics Suite\26\Programs64\</CurrentCorelPath>
-				<CurrentCorelAbr>26</CurrentCorelAbr>
-				<CurrentCorelDebugConst>X16</CurrentCorelDebugConst>
+				<CurrentCorelAbr>27</CurrentCorelAbr>
+				<CurrentCorelDebugConst>X17</CurrentCorelDebugConst>
 			</PropertyGroup>
 		</When>
 	</Choose>

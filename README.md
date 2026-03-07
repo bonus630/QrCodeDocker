@@ -32,29 +32,8 @@ Follow the instructions in the Build section below.
 
 ## Build Instructions
 
-[Build](Build.md)
-````
-1. Open the file "bonus630.CDRCommon.targets" and change the installation path of the desired version to your installation path.
+[Build Page](Build.md)
 
-2. Locate the MSBuild.exe, usually located at `C:\Windows\Microsoft.NET\Framework64\v4.0.30319`.
-
-3. Run the command prompt or PowerShell in the folder as an administrator.
-
-4. Copy the path to the "QrCodeDocker.sln" file located in the project folder.
-
-5. In PowerShell, type the command `.\msbuild.exe "<path>" /p:Configuration="<configuration>"`, replacing `<path>` with the copied path and `<configuration>` with the desired installation. The available configurations are:
-   - X7 Release
-   - X8 Release
-   - 2017 Release
-   - 2018 Release
-   - 2019 Release
-   - 2020 Release
-   - 2021 Release
-   - 2022 Release
-   - 2024 Release
-
-6. In the command prompt, remove the initial `.\` from the command.
-````
 ## Distribution Model
 
 QrCodeDocker is open source.
@@ -72,7 +51,7 @@ Options:
 
 Precompiled releases are available here:
 
-[https://www.corelnaveia.com/2017/02/Quer-Ganhar-Dinheiro-Obtenha-guia-de-atalhos-coreldraw-x7-x8-2017.html]
+[Buy precompiled](https://www.corelnaveia.com/2017/02/Quer-Ganhar-Dinheiro-Obtenha-guia-de-atalhos-coreldraw-x7-x8-2017.html)
 
 By purchasing the compiled version you support the development of this project.
 
@@ -91,10 +70,10 @@ This project uses the following libraries:
 
  -ZXing.Net  
     Licensed under the Apache License 2.0
-    [https://github.com/micjahn/ZXing.Net]
+    [ZXing.Net](https://github.com/micjahn/ZXing.Net)
  -Tesseract-ocr
     Licensed under the Apache License 2.0
-    [https://github.com/tesseract-ocr/tesseract]
+    [Tesseract-ocr](https://github.com/tesseract-ocr/tesseract)
 
 ```csharp
  var codeGen = new br.corp.bonus630.QrCodeDocker.QrCodeGenerator(CorelApplicationObject);

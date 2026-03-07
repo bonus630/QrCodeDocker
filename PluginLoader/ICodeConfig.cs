@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Corel.Interop.VGCore;
+﻿using Corel.Interop.VGCore;
 
 namespace br.corp.bonus630.PluginLoader
 {

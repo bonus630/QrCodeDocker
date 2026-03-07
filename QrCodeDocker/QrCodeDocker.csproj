@@ -17,25 +17,26 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="$(CdrTargetPath)" Condition="Exists('$(CdrTargetPath)')" />
-	<PropertyGroup>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
-	<PropertyGroup Condition="$(Configuration.Contains('Debug'))">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE;$(CurrentCorelDebugConst)</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="$(Configuration.Contains('Release'))">
-		<DebugType>none</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
-		<OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
-		<DefineConstants></DefineConstants>
-	</PropertyGroup>
+  <PropertyGroup>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(CurrentCorelDebugConst)</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Release'))">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\$(CurrentCorelAbs)\</OutputPath>
+    <OutDir>bin\Release\$(CurrentCorelAbs)\$(SolutionName)</OutDir>
+    <DefineConstants>
+    </DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
@@ -208,7 +209,6 @@
 		<DefineConstants>TRACE;X17</DefineConstants>
 		
 	</PropertyGroup>-->
-	
   <PropertyGroup>
     <Win32Resource>$(ProjectDir)resources.rct</Win32Resource>
   </PropertyGroup>
